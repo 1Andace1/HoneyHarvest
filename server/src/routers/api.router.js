@@ -3,6 +3,7 @@ const authRouter = require('./auth.api.router');
 const tokensRouter = require('./tokens.api.router');
 const mainRouter = require('./main.api.router');
 const profileRouter = require('./profile.api.router');
+const basketRouter = require('./basket.api.router'); 
 
 router.use('/tokens', tokensRouter);
 router.use('/auth', authRouter);
@@ -11,5 +12,6 @@ router.use('/profile', profileRouter);
 
 
 
+router.use('/basket', basketRouter); 
 
 module.exports = router;

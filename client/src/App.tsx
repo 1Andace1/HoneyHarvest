@@ -7,6 +7,8 @@ import Main from "./components/Main/Main";
 import ProfilePage from "./pages/profile/profile"; 
 import Page404 from "./pages/Page404"; // добавила: импорт компонента 404 страницы
 import { useAppSelector } from "./redux/hooks";
+import Basket from "./pages/basket/basket";
+import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
 
 function App() {
   const { user } = useAppSelector((state) => state.authSlice);
@@ -42,8 +44,18 @@ function App() {
           ),
         },
         {
+
           path: "*", // Ловушка для всех остальных маршрутов
           element: <Page404 />, // Отображаем компонент 404
+        },
+        {
+          path: "/basket",
+          element: <Basket />, 
+        },
+        {
+          path: "/checkout",
+          element: <CheckoutPage />,
+
         },
       ],
     },
