@@ -12,3 +12,4 @@ export const UserState: IUser = {
     createdAt: "",
     updatedAt: ""
 }
+
