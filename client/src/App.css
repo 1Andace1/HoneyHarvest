@@ -4,16 +4,21 @@
   padding: 2rem;
   text-align: center;
   margin-top: 70px;
+  background-color: rgb(255, 255, 255)
 }
+background-color: white;
 
 body {
    height: 100vh;
+   
 }
 
 .card {
   padding: 2em;
+ 
 }
 
 .read-the-docs {
   color: #888;
+ 
 }

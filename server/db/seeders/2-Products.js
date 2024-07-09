@@ -18,6 +18,7 @@ module.exports = {
           availableQuantity: 100,
           picture: './public/productsPhoto/101.jpeg',
           location: 'Башкирия',
+          starsRating: 4,
         },
         {
           title: 'Бортевый липовый мёд',
@@ -31,6 +32,7 @@ module.exports = {
           availableQuantity: 20,
           picture: './public/productsPhoto/102.jpeg',
           location: 'Башкирия',
+          starsRating: 5,
         },
         {
           title: 'Цветочный мёд',
@@ -43,6 +45,7 @@ module.exports = {
           availableQuantity: 100,
           picture: './public/productsPhoto/103.jpeg',
           location: 'Алтай',
+          starsRating: 3,
         },
         {
           title: 'Таволговый мёд',
@@ -55,6 +58,7 @@ module.exports = {
           availableQuantity: 100,
           picture: './public/productsPhoto/104.jpeg',
           location: 'Алтай',
+          starsRating: 4,
         },
         {
           title: 'Акациевый мёд',
@@ -67,6 +71,7 @@ module.exports = {
           availableQuantity: 60,
           picture: './public/productsPhoto/105.jpeg',
           location: 'Кавказ',
+          starsRating: 5,
         },
         {
           title: 'Цветочный мёд',
@@ -79,6 +84,7 @@ module.exports = {
           availableQuantity: 4,
           picture: './public/productsPhoto/106.jpeg',
           location: 'Кавказ',
+          starsRating: 3,
         },
         {
           title: 'Кипрейный мёд',
@@ -91,6 +97,7 @@ module.exports = {
           availableQuantity: 4,
           picture: './public/productsPhoto/107.jpeg',
           location: 'Башкирия',
+          starsRating: 3,
         },
         {
           title: 'Перга',
@@ -103,6 +110,7 @@ module.exports = {
           availableQuantity: 10,
           picture: './public/productsPhoto/401.jpeg',
           location: 'Кавказ',
+          starsRating: 0,
         },
         {
           title: 'Прополис',
@@ -115,6 +123,7 @@ module.exports = {
           availableQuantity: 50,
           picture: './public/productsPhoto/301.jpeg',
           location: 'Алтай',
+          starsRating: 4,
         },
         {
           title: 'Воск',
@@ -127,6 +136,7 @@ module.exports = {
           availableQuantity: 50,
           picture: './public/productsPhoto/001.jpeg',
           location: 'Кавказ',
+          starsRating: 4,
         },
       ],
       {}

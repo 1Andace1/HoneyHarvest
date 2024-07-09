@@ -39,6 +39,10 @@ module.exports = {
       location: {
         type: Sequelize.STRING,
       },
+      starsRating: {
+        defaultValue: 0,
+        type: Sequelize.INTEGER,
+      },
       createdAt: {
         allowNull: false,
         defaultValue: Sequelize.fn("NOW"),
