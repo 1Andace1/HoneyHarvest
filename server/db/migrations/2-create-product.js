@@ -33,7 +33,7 @@ module.exports = {
       availableQuantity: {
         type: Sequelize.INTEGER,
       },
-      pictures: {
+      picture: {
         type: Sequelize.STRING,
       },
       location: {
