@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       description: DataTypes.STRING,
       yearOfHarvest: DataTypes.INTEGER,
       availableQuantity: DataTypes.INTEGER,
-      pictures: DataTypes.STRING,
+      picture: DataTypes.STRING,
       location: DataTypes.STRING,
     },
     {
