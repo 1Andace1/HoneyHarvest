@@ -7,25 +7,48 @@ module.exports = {
       "Users",
       [
         {
-          username: "qwe",
-          email: "qwe@qwe.qwe",
-          password:
-            "$2b$10$Su526nfL/UNhu5lCWInAJ.o0mUUpERYM6YxPxJmk77ZwxRqiRMz.y",
-          score: 567,
-        },
-        {
-          username: "1",
+          username: "Администратор",
           email: "1@1",
+          telephone: 123456789,
+          userCity: "<Барнаул>",
           password:
             "$2b$10$WVs8fPAheiyRUMGp1HXkoe9AwZ9GYqkPNw/ekfxDmVG5k3ekwdowu",
-          score: 123,
+          cashAccount: 0,
+          isAdmin: true,
+          photo: "________________",
+        },
+        {
+          username: "Иван Петров",
+          email: "qwe@qwe.qwe",
+          telephone: 123456789,
+          userCity: "Москва",
+          password:
+            "$2b$10$Su526nfL/UNhu5lCWInAJ.o0mUUpERYM6YxPxJmk77ZwxRqiRMz.y",
+          cashAccount: 700,
+          isAdmin: false,
+          photo: "________________",
+        },
+        {
+          username: "Олег Семенов",
+          email: "1@1",
+          telephone: 123456789,
+          userCity: "Рязань",
+          password:
+            "$2b$10$WVs8fPAheiyRUMGp1HXkoe9AwZ9GYqkPNw/ekfxDmVG5k3ekwdowu",
+          cashAccount: 0,
+          isAdmin: false,
+          photo: "________________",
         },
         {
           username: "spyder",
-          email: "spyder@spyder.spyder",
+          email: "1@1",
+          telephone: 123456789,
+          userCity: "Краснодар",
           password:
             "$2b$10$yrZyQ3ym.FdyNfLD2bTYn./gutBJx48.2zryzBiUipfXjvVG6woea",
-          score: 5800,
+          cashAccount: 0,
+          isAdmin: false,
+          photo: "________________",
         },
       ],
       {}
