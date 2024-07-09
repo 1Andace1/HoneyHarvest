@@ -6,6 +6,8 @@ import SignupPage from "./pages/SignupPage/SignupPage";
 import Main from "./components/Main/Main";
 import Profile from "./pages/profile/profile"; 
 import { useAppSelector } from "./redux/hooks";
+import Basket from "./pages/basket/basket";
+import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
 
 function App() {
   const { user } = useAppSelector((state) => state.authSlice);
@@ -38,6 +40,14 @@ function App() {
           )  : (
             <Navigate to="/signup" />
           ),
+        },
+        {
+          path: "/basket",
+          element: <Basket />, 
+        },
+        {
+          path: "/checkout",
+          element: <CheckoutPage />,
         },
       ],
     },
