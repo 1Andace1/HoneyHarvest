@@ -1,13 +1,12 @@
-import { UserState } from "./../../components/initState";
 import { ActionReducerMapBuilder, Draft, createSlice } from "@reduxjs/toolkit";
 // import { AuthState } from "../types/states"
-import { addUser, logoutUser } from "../thunkActions";
 import { getProducts } from "../thunkActionsCatalog";
-// import { productSlice, RejectedAction, UserAction } from '../types/reducers';
+import {  ProductAction, ProductSlice, RejectedActionProduct } from "../types/reducers";
+import { ProductState } from "../types/states";
 
 const initialState: ProductState = { products: [], loading: true, error: {} };
 
-const authSlice: productSlice = createSlice({
+const productSlice: ProductSlice = createSlice({
   name: "productSlice",
   initialState,
   reducers: {},
@@ -24,7 +23,7 @@ const authSlice: productSlice = createSlice({
     );
     builder.addCase(
       getProducts.rejected,
-      (state: Draft<ProductState>, action: RejectedAction): void => {
+      (state: Draft<ProductState>, action: RejectedActionProduct): void => {
         console.log("Ошибка получения каталога", action.error);
         state.error = action.error;
         state.loading = false;
@@ -38,4 +37,4 @@ const authSlice: productSlice = createSlice({
   },
 });
 
-export default authSlice.reducer;
+export default productSlice.reducer;
