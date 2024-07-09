@@ -2,57 +2,56 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Users", {
+    await queryInterface.createTable("Products", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      username: {
-        allowNull: false,
+      title: {
         type: Sequelize.STRING,
       },
-      email: {
-        allowNull: false,
-        unique: true,
-        type: Sequelize.STRING,
-      },
-      telephone: {
+      price: {
         type: Sequelize.INTEGER,
       },
-      userCity: {
-        type: Sequelize.STRING,
-      },
-      password: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      cashAccount: {
+      discountRatio: {
         type: Sequelize.INTEGER,
-        defaultValue: 0,
       },
-      isAdmin: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
-      },
-      photo: {
+      category: {
         type: Sequelize.STRING,
-        // defaultValue: '_______________',
+      },
+      sort: {
+        type: Sequelize.STRING,
+      },
+      description: {
+        type: Sequelize.STRING,
+      },
+      yearOfHarvest: {
+        type: Sequelize.INTEGER,
+      },
+      availableQuantity: {
+        type: Sequelize.INTEGER,
+      },
+      pictures: {
+        type: Sequelize.STRING,
+      },
+      location: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE,
         defaultValue: Sequelize.fn("NOW"),
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE,
         defaultValue: Sequelize.fn("NOW"),
+        type: Sequelize.DATE,
       },
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Users");
+    await queryInterface.dropTable("Products");
   },
 };
