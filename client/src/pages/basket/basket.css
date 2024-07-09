@@ -80,3 +80,25 @@
     border: 1px solid #ccc;
     border-radius: 5px;
   }
+  .basket-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .basket {
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 20px;
+  }
+  
+  .delivery-form {
+    width: 1000%;
+    max-width: 600px;
+    margin-top: 20px;
+  }
+  
+  .scrollable-list {
+    max-height: 300px;
+    overflow-y: auto;
+  }

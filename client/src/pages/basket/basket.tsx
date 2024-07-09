@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './basket.css'; 
@@ -17,6 +16,7 @@ const Basket: React.FC = () => {
   ]);
 
   const [deliveryAddress, setDeliveryAddress] = useState('');
+  const [Details, setDetails] = useState('');
   const [deliveryType, setDeliveryType] = useState('standard');
   const [deliveryDate, setDeliveryDate] = useState('');
 
@@ -39,12 +39,11 @@ const Basket: React.FC = () => {
   const totalPrice = basket.reduce((total, product) => total + product.price * product.quantity, 0);
 
   const handleOrderAll = () => {
-    navigate(`/checkout?basket=${encodeURIComponent(JSON.stringify(basket))}&address=${encodeURIComponent(deliveryAddress)}&type=${encodeURIComponent(deliveryType)}&date=${encodeURIComponent(deliveryDate)}`);
+    navigate(`/checkout?basket=${encodeURIComponent(JSON.stringify(basket))}&address=${encodeURIComponent(deliveryAddress)}&Details=${encodeURIComponent(Details)}${encodeURIComponent(deliveryAddress)}&type=${encodeURIComponent(deliveryType)}&date=${encodeURIComponent(deliveryDate)}`);
   };
 
-  const handleBuyOne = (id: number) => {
-    handleQuantityChange(id, 1);
-    navigate(`/checkout?basket=${encodeURIComponent(JSON.stringify(basket))}&address=${encodeURIComponent(deliveryAddress)}&type=${encodeURIComponent(deliveryType)}&date=${encodeURIComponent(deliveryDate)}`);
+  const handleBuyOne = (product: Product) => {
+    navigate(`/checkout?product=${encodeURIComponent(JSON.stringify(product))}&address=${encodeURIComponent(deliveryAddress)}&Details=${encodeURIComponent(Details)}&type=${encodeURIComponent(deliveryType)}&date=${encodeURIComponent(deliveryDate)}`);
   };
 
   return (
@@ -66,7 +65,7 @@ const Basket: React.FC = () => {
                 <span>{product.quantity}</span>
                 <button onClick={() => handleQuantityChange(product.id, 1)}>+</button>
                 <button onClick={() => handleRemoveProduct(product.id)}>убрать</button>
-                <button onClick={() => handleBuyOne(product.id)}>Купить</button>
+                <button onClick={() => handleBuyOne(product)}>Купить</button>
               </div>
             </li>
           ))}
@@ -77,6 +76,8 @@ const Basket: React.FC = () => {
         <form>
           <label>Адрес доставки:</label>
           <input type="text" value={deliveryAddress} onChange={(e) => setDeliveryAddress(e.target.value)} />
+          <label>Детали доставки:</label>
+          <input type="text" value={Details} onChange={(e) => setDetails(e.target.value)} />
           <label>Тип доставки:</label>
           <select value={deliveryType} onChange={(e) => setDeliveryType(e.target.value)}>
             <option value="standard">Стандартная</option>
