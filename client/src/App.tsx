@@ -49,6 +49,10 @@ function App() {
           path: "/checkout",
           element: <CheckoutPage />,
         },
+        {
+          path: "/shop",
+          element: <ShopPage />,
+        },
       ],
     },
   ]);
