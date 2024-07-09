@@ -4,7 +4,8 @@ import Root from "./Root";
 import SigninPage from "./pages/SigninPage/SigninPage";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import Main from "./components/Main/Main";
-import Profile from "./pages/profile/profile"; 
+import ProfilePage from "./pages/profile/profile"; 
+import Page404 from "./pages/Page404"; // добавила: импорт компонента 404 страницы
 import { useAppSelector } from "./redux/hooks";
 
 function App() {
@@ -34,10 +35,15 @@ function App() {
         {
           path: "/profile",
           element: user?.id !== 0 ? (
-              <Profile />     
+              <ProfilePage 
+              user={user}/>     
           )  : (
-            <Navigate to="/signup" />
+            <Navigate to="/" />
           ),
+        },
+        {
+          path: "*", // Ловушка для всех остальных маршрутов
+          element: <Page404 />, // Отображаем компонент 404
         },
       ],
     },
