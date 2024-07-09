@@ -1,0 +1,82 @@
+.basket-container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .basket {
+    width: 300px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #fff;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .order-all-button {
+    align-self: flex-start;
+    margin-bottom: 20px;
+  }
+  
+  .total-price {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .scrollable-list {
+    overflow-y: auto;
+    flex-grow: 1;
+  }
+  
+  .scrollable-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+  }
+  
+  .product-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .product-actions {
+    display: flex;
+    align-items: center;
+  }
+  
+  .product-actions button {
+    margin: 0 5px;
+  }
+  
+  .delivery-form {
+    flex-grow: 1;
+    margin-left: 320px;
+    padding: 20px;
+  }
+  
+  .delivery-form h2 {
+    margin-bottom: 20px;
+  }
+  
+  .delivery-form form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .delivery-form label {
+    margin-bottom: 5px;
+  }
+  
+  .delivery-form input, .delivery-form select {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
