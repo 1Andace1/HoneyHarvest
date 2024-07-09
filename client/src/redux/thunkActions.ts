@@ -11,7 +11,7 @@ export const addUser: NewUser = createAsyncThunk(
   'users/create',
   async ({ type, inputs }: IType, { rejectWithValue }) => {
     // добавлено: функция rejectWithValue от Redux Toolkit для возврата ошибок из thunk-действия
-    // добавлено: проверка достаточности введенных данных 
+    // добавлено: проверка достаточности введенных данных
     if (!inputs.email || !inputs.password) {
       return rejectWithValue('Пожалуйста, укажите почту и пароль');
     }
@@ -23,14 +23,23 @@ export const addUser: NewUser = createAsyncThunk(
 
     // добавлено: использование FormData для отправки данных, включая файлы
     const formData = new FormData();
+
+    console.log('inputs', inputs);
+
     Object.keys(inputs).forEach((key) => {
       formData.append(key, inputs[key]);
     });
 
-    // добавлено: добавление фото профиля в FormData
-    if (inputs.profilePhoto) {
-      formData.append('profilePhoto', inputs.profilePhoto);
+    // ^ Вывод содержимого formData
+    console.log('Contents of formData:');
+    for (let entry of formData.entries()) {
+      console.log(entry[0], entry[1]);
     }
+
+    // ! добавлено:  это выше есть'
+    // if (inputs.profilePhoto) {
+    //   formData.append('profilePhoto', inputs.profilePhoto);
+    // }
 
     try {
       const res: AxiosResponse = await axiosInstance.post(
@@ -43,7 +52,6 @@ export const addUser: NewUser = createAsyncThunk(
           },
         }
       );
-
       const data = res.data.user as IUser;
       setAccessToken(res.data.accessToken);
       return data;

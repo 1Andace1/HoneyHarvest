@@ -19,9 +19,13 @@ module.exports = {
         type: Sequelize.STRING,
       },
       telephone: {
-        type: Sequelize.INTEGER,
+        allowNull: false,
+        unique: true,
+        // type: Sequelize.INTEGER, // ! нужна строка, так севалайз и постгресс переводят в строку автоматич. 
+        type: Sequelize.STRING,
       },
       userCity: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
       password: {
@@ -38,7 +42,7 @@ module.exports = {
       },
       photo: {
         type: Sequelize.STRING,
-        // defaultValue: '_______________',
+        defaultValue: 'no-photo.jpg', // заглушка для фото
       },
       createdAt: {
         allowNull: false,

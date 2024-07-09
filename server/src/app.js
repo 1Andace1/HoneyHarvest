@@ -39,9 +39,9 @@ app.use("/api/v1", apiRouter);
 // app.use("*", (req, res) => {
 //   res.redirect("/");
 // });
-app.use((req, res) => {
-  res.status(404).json({ message: "Страница не найдена" });
-});
+// app.use((req, res) => {
+//   res.status(404).json({ message: "Страница не найдена" });
+// });
 
 app.listen(PORT, () => {
   console.log(`Server started at http://localhost:${PORT} port`);

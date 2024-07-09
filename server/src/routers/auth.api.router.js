@@ -1,52 +1,61 @@
+// npm install multer Установка малтера для всех (или из pacakge json)
+
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const { User } = require('../../db/models');
 const generateToken = require('../utils/generateToken');
 const cookiesConfig = require('../configs/cookiesConfig');
 const { where } = require('sequelize');
+const fs = require('fs'); // 
 
 // ^ добавляю малтера для возможности загрузок фото
-const multer = require('multer'); 
-const storage = multer.memoryStorage();
-const upload = multer({ storage });
+const upload = require('../middlewares/uploadPhotos'); // ?
 
 //  ПЕРВЫЙ РУТ для Регистрации нового пользователя (POST запроса /signup)
 router
-  .post('/signup', async (req, res) => {
-    const { username, email, password } = req.body;
+  .post('/signup', upload.single('profilePhoto'), async (req, res) => {
+    const { username, email, password, telephone, userCity } = req.body;
     const profilePhoto = req.file; // доступ к загруженному файлу
 
-    if (!(username && email && password)) {
+    console.log('=============req.body', req.body);
+    console.log('=============username', username);
+    console.log('=============email', email);
+    console.log('=============password', password);
+    console.log('=============profilePhoto', profilePhoto);
+    console.log('=============telephone', telephone);
+    console.log('=============userCity', userCity);
+
+    if (!(username && email && password && telephone && userCity)) {
       return res.status(400).json({ message: 'All fields are required' });
     }
 
     try {
-      // const [user, created] = await User.findOrCreate({
-      //   where: { email },
-      //   defaults: {
-      //     username,
-      //     email,
-      //     password: await bcrypt.hash(password, 10),
-      //     profilePhoto: profilePhoto
-      //       ? profilePhoto.buffer.toString('base64')
-      //       : null, // преобразование фото в base64
-      //   },
-      // });
+      console.log('=============profilePhoto2', profilePhoto);
+      // console.log(
+      //   '=============profilePhoto.buffer.toStringbase64',
+      //   profilePhoto.buffer.toString('base64'),
+      // );
+      let photoPath = 'uploads/no-photo.jpg'
+      // const photoPath = profilePhoto ? profilePhoto.path : null; // ! использовать надо путь от multera (у него он встроен в в объект file )
 
+      if (profilePhoto) {
+        photoPath = profilePhoto.path;
+      }
+  
       const [user, created] = await User.findOrCreate({
         where: { email },
         defaults: {
           username,
           email,
-          password: await bcrypt.hash(password, 10)
-        }
+          password: await bcrypt.hash(password, 10),
+          telephone,
+          userCity,
+          // photo: photoData // ! сохранение содержимого фото в базу данных
+          photoUrl: photoPath, // ! сохранение пути фото в базу данных
+        },
+        // photo: profilePhoto ? profilePhoto.buffer.toString('base64') : null, // преобразование фото в base64
+        // photo: `${profilePhoto.originalname}.jpg`
       });
-
-      // NEW обновление профиля пользователя с фото
-      if (profilePhoto) {
-        user.profilePhoto = profilePhoto.buffer.toString("base64");
-        await user.save();
-      }
 
       if (!created) {
         return res.status(403).json({ message: 'User already exists' });

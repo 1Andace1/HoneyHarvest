@@ -9,9 +9,6 @@ router.use('/tokens', tokensRouter);
 router.use('/auth', authRouter);
 router.use('/main', mainRouter);
 router.use('/profile', profileRouter);
-
-
-
 router.use('/basket', basketRouter); 
 
 module.exports = router;
