@@ -10,10 +10,19 @@ const express = require("express");
 const app = express();
 const { PORT } = process.env;
 
+// const corsConfig = {
+//   origin: ["http://localhost:5173"],
+//   credentials: true,
+// };
+
+// ^ обновленный corsConfig для возможности загружать фото
 const corsConfig = {
   origin: ["http://localhost:5173"],
   credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 };
+
 
 app.use(morgan("dev"));
 app.use(cookieParser());
@@ -22,12 +31,19 @@ app.use(express.json());
 app.use(cors(corsConfig));
 app.use(removeHeader)
 
+app.use(express.static('uploads')); // ! для загрузки фото и малтера, важно подключать через статичную папку
+
 app.use("/api/v1", apiRouter);
 
-app.use("*", (req, res) => {
-  res.redirect("/");
-});
+// ^ меняю на отправку страницы с ошибкой 404 с фронта
+// app.use("*", (req, res) => {
+//   res.redirect("/");
+// });
+// app.use((req, res) => {
+//   res.status(404).json({ message: "Страница не найдена" });
+// });
 
 app.listen(PORT, () => {
-  console.log(`Server started at ${PORT} port`);
+  console.log(`Server started at http://localhost:${PORT} port`);
 });
+

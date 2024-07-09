@@ -1,13 +1,20 @@
-import { Navigate, RouterProvider, createBrowserRouter } from "react-router-dom";
+import {
+  Navigate,
+  RouterProvider,
+  createBrowserRouter,
+} from "react-router-dom";
 import "./App.css";
 import Root from "./Root";
 import SigninPage from "./pages/SigninPage/SigninPage";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import Main from "./components/Main/Main";
-import Profile from "./pages/profile/profile"; 
+import ProfilePage from "./pages/profile/profile";
+import Page404 from "./components/Page404/Page404"; // добавила: импорт компонента 404 страницы
+
 import { useAppSelector } from "./redux/hooks";
 import Basket from "./pages/basket/basket";
 import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
+import CatalogPage from "./pages/Catalog/CatalogPage";
 
 function App() {
   const { user } = useAppSelector((state) => state.authSlice);
@@ -19,11 +26,7 @@ function App() {
       children: [
         {
           path: "/",
-          element: user?.id !== 0 ? (
-              <Main />     
-          )  : (
-            <Navigate to="/signup" />
-          ),
+          element: user?.id !== 0 ? <Main /> : <Navigate to="/signup" />,
         },
         {
           path: "/signin",
@@ -35,23 +38,24 @@ function App() {
         },
         {
           path: "/profile",
-          element: user?.id !== 0 ? (
-              <Profile />     
-          )  : (
-            <Navigate to="/signup" />
-          ),
+          element:
+            user?.id !== 0 ? <ProfilePage user={user} /> : <Navigate to="/" />,
         },
         {
           path: "/basket",
-          element: <Basket />, 
+          element: <Basket />,
         },
         {
           path: "/checkout",
           element: <CheckoutPage />,
         },
         {
-          path: "/shop",
-          element: <ShopPage />,
+          path: "/catalog",
+          element: <CatalogPage />,
+        },
+        {
+          path: "*", // ловушка для всех остальных маршрутов
+          element: <Page404 />,
         },
       ],
     },
@@ -61,11 +65,3 @@ function App() {
 }
 
 export default App;
-
-  
-
-
-
-
-
-
