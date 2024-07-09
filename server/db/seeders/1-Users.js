@@ -30,7 +30,7 @@ module.exports = {
         },
         {
           username: "Олег Семенов",
-          email: "1@1",
+          email: "1@2",
           telephone: 123456789,
           userCity: "Рязань",
           password:
@@ -41,7 +41,7 @@ module.exports = {
         },
         {
           username: "spyder",
-          email: "1@1",
+          email: "1@3",
           telephone: 123456789,
           userCity: "Краснодар",
           password:
