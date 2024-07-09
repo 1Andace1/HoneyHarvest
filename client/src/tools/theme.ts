@@ -19,9 +19,7 @@ const theme = extendTheme({
       h2: {
         color: '#f8f9fb',
       },
-      p: {
-        color: '#f8f9fb',
-      },
+   
     },
   },
 });

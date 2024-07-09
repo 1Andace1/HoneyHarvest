@@ -1,0 +1,151 @@
+.main-container {
+  font-family: Arial, sans-serif;
+  width: 1100px;
+  margin: 0 auto;
+}
+
+.header {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.video-background {
+  
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+}
+
+.header-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: rgb(6, 5, 5);
+  z-index: 1;
+}
+
+.about-us {
+
+  text-align: center;
+   margin-top: 50px;
+  font-size: 60px;
+  border-bottom: 3px black solid;
+}
+
+.arrow-down {
+  display: block;
+  
+  font-size: 60px;
+  color: black;
+  text-decoration: none;
+}
+
+.apiary-selection {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+  
+  
+}
+
+.apiary-details {
+  padding: 20px;
+  text-align: center;
+  background-color: rgb(84, 78, 78);
+  border-radius: 15px;
+}
+
+.apiary-details-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.apiary-details-text {
+  margin-right: 20px;
+  color: rgb(255, 255, 255);
+}
+
+.apiary-details-image {
+  max-width: 500px;
+  height: auto;
+}
+.footer {
+    
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid #e9ecef;
+  }
+  
+  .footer-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: rgb(182, 182, 156);
+    border-radius: 15px;
+  }
+  .navigation {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 150px;
+    margin-top: 20px;
+  }
+  
+  .navigation-box {
+    flex: 1;
+    margin: 0 10px;
+    padding: 20px;
+    background-color: rgba(128, 128, 128, 0.5); 
+    border-radius: 10px;
+    transition: background-color 0.3s ease; 
+  }
+  
+  .navigation-box:hover {
+    background-color: rgba(128, 128, 128, 0.8); 
+  }
+  .theme{
+    width: 100px;
+    height: 30px;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+   border-bottom: 5px solid black;
+  }
+  .theme:hover{
+    background-color: aliceblue;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-color: rgb(180, 139, 139);
+  }
+ .rewiew{
+    margin-top: 65px;
+ }
+ .rewiew {
+    display: flex;
+    align-items: center; 
+    gap: 20px; 
+    margin-top: 20px;
+    background-color: rgb(182, 182, 156);
+    border-radius: 15px;
+
+  }
+  
+  .rewiew-video {
+    flex: 1; 
+  }
+  
+  .rewiew-text {
+    flex: 1; 
+    font-size: 16px;
+    color: #ffffff;
+    background-color: rgb(84, 78, 78);
+    border-radius: 15px;
+    height: 320px;
+    width: 300px;
+  }
