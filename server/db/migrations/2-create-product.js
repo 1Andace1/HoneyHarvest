@@ -16,7 +16,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       discountRatio: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.FLOAT,
       },
       category: {
         type: Sequelize.STRING,

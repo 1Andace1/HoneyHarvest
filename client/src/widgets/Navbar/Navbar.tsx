@@ -17,6 +17,7 @@ export default function Navbar(): JSX.Element {
         <Link to="/">Главная</Link>
       </div>
       <div className={styles.right}>
+        <Link to="/catalog">Каталог</Link>
         <Link to="/basket">корзина</Link>
         {user?.username ? (
           <>

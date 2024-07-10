@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       title: DataTypes.STRING,
       price: DataTypes.INTEGER,
-      discountRatio: DataTypes.INTEGER,
+      discountRatio: DataTypes.FLOAT,
       category: DataTypes.STRING,
       sort: DataTypes.STRING,
       description: DataTypes.STRING,

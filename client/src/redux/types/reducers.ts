@@ -1,24 +1,43 @@
-import { PayloadAction, SerializedError, Slice, SliceCaseReducers, SliceSelectors } from "@reduxjs/toolkit";
-import { AuthState } from "./states";
-import { IUser } from "../../types/stateTypes";
+import {
+  PayloadAction,
+  SerializedError,
+  Slice,
+  SliceCaseReducers,
+  SliceSelectors,
+} from "@reduxjs/toolkit";
+import { AuthState, ProductState } from "./states";
+import { IInputsProducts, IProducts, IUser } from "../../types/stateTypes";
 
-export type UserAction = PayloadAction<IUser, string, {
+export type UserAction = PayloadAction<
+  IUser,
+  string,
+  {
     arg: void;
     requestId: string;
     requestStatus: "fulfilled";
-}, never>
+  },
+  never
+>;
 
-export type RejectedAction = PayloadAction<unknown, string, {
+export type RejectedAction = PayloadAction<
+  unknown,
+  string,
+  {
     arg: void;
     requestId: string;
     requestStatus: "rejected";
     aborted: boolean;
     condition: boolean;
-} & ({
-    rejectedWithValue: true;
-} | ({
-    rejectedWithValue: false;
-} & object)), SerializedError>
+  } & (
+    | {
+        rejectedWithValue: true;
+      }
+    | ({
+        rejectedWithValue: false;
+      } & object)
+  ),
+  SerializedError
+>;
 
 export type AuthSlice = Slice<
   AuthState,
@@ -26,4 +45,36 @@ export type AuthSlice = Slice<
   string,
   string,
   SliceSelectors<AuthState>
+>;
+
+export type ProductAction = PayloadAction<
+  IProducts,
+  string,
+  {
+    arg: void | IInputsProducts;
+    requestId: string;
+    requestStatus: "fulfilled";
+  },
+  never
+>;
+
+export type RejectedActionProduct = PayloadAction<
+  unknown,
+  string,
+  {
+    arg: void | IInputsProducts | number;
+    requestId: string;
+    requestStatus: "rejected";
+    aborted: boolean;
+    condition: boolean;
+  },
+  SerializedError
+>;
+
+export type ProductSlice = Slice<
+  ProductState,
+  SliceCaseReducers<ProductState>,
+  string,
+  string,
+  SliceSelectors<ProductState>
 >;
