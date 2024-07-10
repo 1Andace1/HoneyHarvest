@@ -45,10 +45,16 @@ const CheckoutPage: React.FC = () => {
         )}
         <div className="delivery-details">
           <p>Адрес доставки: {deliveryAddress}</p>
-          <p>Детали доставки: {Details}</p>
+          </div>
+          <div className="delivery-details1">
+          <p>Детали доставки:{Details}</p>
+          </div>
+          <div className="delivery-details2">
           <p>Тип доставки: {deliveryType}</p>
+          </div>
+          <div className="delivery-details2">
           <p>Дата доставки: {deliveryDate}</p>
-        </div>
+          </div>
       </div>
       <form className="checkout-form">
         <label>
@@ -56,7 +62,7 @@ const CheckoutPage: React.FC = () => {
           <input type="text" name="name" className="form-input" />
         </label>
         <label>
-          Адрес доставки:
+          доставка:
           <input type="text" name="address" defaultValue={deliveryAddress} className="form-input" />
         </label>
         <label>
