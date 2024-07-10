@@ -2,55 +2,60 @@ import {
   Navigate,
   RouterProvider,
   createBrowserRouter,
-} from 'react-router-dom';
-import './App.css';
-import Root from './Root';
-import SigninPage from './pages/SigninPage/SigninPage';
-import SignupPage from './pages/SignupPage/SignupPage';
-import Main from './components/Main/Main';
-import ProfilePage from './pages/profile/profile';
-import Page404 from './components/Page404/Page404'; // добавила: импорт компонента 404 страницы
+} from "react-router-dom";
+import "./App.css";
+import Root from "./Root";
+import SigninPage from "./pages/SigninPage/SigninPage";
+import SignupPage from "./pages/SignupPage/SignupPage";
+import Main from "./components/Main/Main";
+import ProfilePage from "./pages/profile/profile";
+import Page404 from "./components/Page404/Page404"; // добавила: импорт компонента 404 страницы
 
-import { useAppSelector } from './redux/hooks';
-import Basket from './pages/basket/basket';
-import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
+import { useAppSelector } from "./redux/hooks";
+import Basket from "./pages/basket/basket";
+import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
+import CatalogPage from "./pages/Catalog/CatalogPage";
 
 function App() {
   const { user } = useAppSelector((state) => state.authSlice);
 
   const router = createBrowserRouter([
     {
-      path: '/',
+      path: "/",
       element: <Root />,
       children: [
         {
-          path: '/',
+          path: "/",
           element: user?.id !== 0 ? <Main /> : <Navigate to="/signup" />,
         },
         {
-          path: '/signin',
+          path: "/signin",
           element: <SigninPage />,
         },
         {
-          path: '/signup',
+          path: "/signup",
           element: <SignupPage />,
         },
         {
-          path: '/profile',
+          path: "/profile",
           element:
             user?.id !== 0 ? <ProfilePage user={user} /> : <Navigate to="/" />,
         },
         {
-          path: '/basket',
+          path: "/basket",
           element: <Basket />,
         },
         {
-          path: '/checkout',
+          path: "/checkout",
           element: <CheckoutPage />,
         },
         {
-          path: '*', // ловушка для всех остальных маршрутов
-          element: <Page404 />, 
+          path: "/catalog",
+          element: <CatalogPage />,
+        },
+        {
+          path: "*", // ловушка для всех остальных маршрутов
+          element: <Page404 />,
         },
       ],
     },

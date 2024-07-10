@@ -38,3 +38,24 @@ export interface IType {
 // export type IBooks = IBook[]
 
 
+export interface IInputsProducts {
+  title: string,
+  price: number,
+  discountRatio: number,
+  category: string,
+  sort: string,
+  description: string,
+  yearOfHarvest: number,
+  availableQuantity: number,
+  picture: string,
+  location: string,
+  starsRating: number,
+}
+
+export interface IProducts extends IInputsProducts {
+  id: string,
+  createdAt: string,
+  updatedAt: string,
+}
+
+
