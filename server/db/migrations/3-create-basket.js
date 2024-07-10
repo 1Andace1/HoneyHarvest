@@ -12,6 +12,12 @@ module.exports = {
       UserId: {
         allowNull: false,
         type: Sequelize.INTEGER,
+        references: {
+          model: 'Users',
+          key: 'id'
+        },
+        onDelete: "CASCADE", // удаление корзины при удалении пользователя
+        onUpdate: "CASCADE",
       },
       totalBasketPrice: {
         type: Sequelize.INTEGER,
@@ -24,6 +30,13 @@ module.exports = {
       },
       comment: {
         type: Sequelize.STRING,
+      },
+      date: { // добавила поле даты заказа
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn("NOW"),
+      },
+      estimatedDate: {// добавила поле даты предполагаемой доставки
+        type: Sequelize.DATE,
       },
       createdAt: {
         allowNull: false,

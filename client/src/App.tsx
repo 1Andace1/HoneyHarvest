@@ -8,7 +8,7 @@ import Root from "./Root";
 import SigninPage from "./pages/SigninPage/SigninPage";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import Main from "./components/Main/Main";
-import ProfilePage from "./pages/profile/profile";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import Page404 from "./components/Page404/Page404"; // добавила: импорт компонента 404 страницы
 import { useAppSelector } from "./redux/hooks";
 import Basket from "./pages/basket/basket";
