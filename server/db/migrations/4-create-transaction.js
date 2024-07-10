@@ -20,6 +20,9 @@ module.exports = {
       titleOfProduct: {
         type: Sequelize.STRING,
       },
+      deliveryAddress: {
+        type: Sequelize.STRING,
+      },
       quantity: {
         type: Sequelize.INTEGER,
       },
