@@ -32,11 +32,13 @@ const productSlice: ProductSlice = createSlice({
     );
     // удаление записи из каталога:
     builder.addCase(delProduct.pending, (state: Draft<ProductState>): void => {
+      console.log('Слайс, ожидание удаления записи----------------++');
       state.loading = true;
     });
     builder.addCase(
       delProduct.fulfilled,
       (state: Draft<ProductState>, action: PayloadAction<number | void>): void => {
+        console.log('Слайс, запись удалена----------------++');
         state.products = state.products.filter((el): boolean => el.id !== action.payload);
         state.loading = false;
       }

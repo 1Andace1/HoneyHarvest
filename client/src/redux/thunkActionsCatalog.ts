@@ -15,6 +15,7 @@ export const getProducts = createAsyncThunk("catalog/all", async () => {
 export const delProduct = createAsyncThunk(
   "catalog/del",
   async (id: number): Promise<number | void> => {
+    console.log('Thunk, delProduct, получили id: ', id);
 // проверить типизацию response (правильно ли указано: <number, number>):
     const response: AxiosResponse<number, number> = await axiosInstance.delete(
       `${VITE_BASE_URL}${VITE_API}/catalog/${id}`
