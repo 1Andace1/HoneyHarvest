@@ -1,4 +1,4 @@
-import { IInputsProducts, IProducts, IUser } from "../../types/stateTypes"
+import { IProducts, IUser } from "../../types/stateTypes"
 
 export type AuthState = {
     user: IUser,
