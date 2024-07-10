@@ -1,50 +1,48 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './basket.css'; 
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { getbasket } from '../../redux/thunkbasketApp';
 
 interface Product {
   id: number;
-  name: string;
-  price: number;
-  quantity: number;
+  userId: number;
+  productId: number;
+  numberBasket: number;
+  status: number;
 }
 
 const Basket: React.FC = () => {
-  const [basket, setBasket] = useState<Product[]>([
-    { id: 1, name: 'мёд 1', price: 10, quantity: 2 },
-    { id: 2, name: 'мёд 2', price: 20, quantity: 1 },
-  ]);
-
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [Details, setDetails] = useState('');
   const [deliveryType, setDeliveryType] = useState('standard');
   const [deliveryDate, setDeliveryDate] = useState('');
 
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const basket = useAppSelector((state) => state.basketSlice.basketApp);
 
-  const handleQuantityChange = (id: number, change: number) => {
-    setBasket(prevBasket =>
-      prevBasket.map(product =>
-        product.id === id
-          ? { ...product, quantity: Math.max(product.quantity + change, 1) }
-          : product
-      )
-    );
-  };
-
-  const handleRemoveProduct = (id: number) => {
-    setBasket(prevBasket => prevBasket.filter(product => product.id !== id));
-  };
-
-  const totalPrice = basket.reduce((total, product) => total + product.price * product.quantity, 0);
+  useEffect(() => {
+    dispatch(getbasket());
+  }, [dispatch]);
 
   const handleOrderAll = () => {
     navigate(`/checkout?basket=${encodeURIComponent(JSON.stringify(basket))}&address=${encodeURIComponent(deliveryAddress)}&Details=${encodeURIComponent(Details)}&type=${encodeURIComponent(deliveryType)}&date=${encodeURIComponent(deliveryDate)}`);
   };
 
+  const handleQuantityChange = (id: number, change: number) => {
+ 
+  };
+
+  const handleRemoveProduct = (id: number) => {
+
+  };
+
   const handleBuyOne = (product: Product) => {
     navigate(`/checkout?product=${encodeURIComponent(JSON.stringify(product))}&address=${encodeURIComponent(deliveryAddress)}&Details=${encodeURIComponent(Details)}&type=${encodeURIComponent(deliveryType)}&date=${encodeURIComponent(deliveryDate)}`);
   };
+
+  const totalPrice = basket.reduce((total, product) => total + product.numberBasket * (product.price || 0), 0);
 
   return (
     <div className="basket-container">
@@ -62,7 +60,7 @@ const Basket: React.FC = () => {
               </div>
               <div className="product-actions">
                 <button onClick={() => handleQuantityChange(product.id, -1)}>-</button>
-                <span>{product.quantity}</span>
+                <span>{product.numberBasket}</span>
                 <button onClick={() => handleQuantityChange(product.id, 1)}>+</button>
                 <button onClick={() => handleRemoveProduct(product.id)}>убрать</button>
                 <button onClick={() => handleBuyOne(product)}>Купить</button>
