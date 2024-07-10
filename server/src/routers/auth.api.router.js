@@ -9,7 +9,7 @@ const { where } = require('sequelize');
 const fs = require('fs'); // 
 
 // ^ добавляю малтера для возможности загрузок фото
-const upload = require('../middlewares/uploadPhotos'); // ?
+const upload = require('../middlewares/uploadPhotos'); 
 
 //  ПЕРВЫЙ РУТ для Регистрации нового пользователя (POST запроса /signup)
 router
@@ -78,7 +78,7 @@ router
     }
   })
   //  ВТОРОЙ РУТ для Авторизации существующего пользователя
-  .post('/signin', async (req, res) => {
+  .post('/signin',upload.single('profilePhoto'), async (req, res) => {
     const { email, password } = req.body;
 
     console.log('=============req.body', req.body);

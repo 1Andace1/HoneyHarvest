@@ -36,6 +36,16 @@ module.exports = {
       status: {
         type: Sequelize.INTEGER,
       },
+      comment: {
+        type: Sequelize.STRING,
+      },
+      date: { // добавила поле даты заказа
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn("NOW"),
+      },
+      estimatedDate: {// добавила поле даты предполагаемой доставки
+        type: Sequelize.DATE,
+      },
       createdAt: {
         allowNull: false,
         defaultValue: Sequelize.fn("NOW"),

@@ -8,6 +8,7 @@ export interface IInputs {
   }
 
 export interface IUser {
+    profilePhoto: string | undefined;
     id: number,
     username: string,
     email: string,

@@ -17,11 +17,12 @@ export default function Navbar(): JSX.Element {
         <Link to="/">Главная</Link>
       </div>
       <div className={styles.right}>
-        <Link to="/catalog">Каталог</Link>
-        <Link to="/basket">корзина</Link>
-        {user?.username ? (
+        <Link to="/catalog"> Каталог</Link>
+        <Link to="/basket"> Корзина</Link>
+        {user?.id !== 0  ? (
           <>
-            <Link to="/profile">{user.username + ' профиль'}</Link>
+            {/* <Link to="/profile">{user.username + ' профиль'}  Профиль2 </Link> */}
+            <Link to="/profile"> Профиль </Link>
             <Link to="/signin" onClick={logoutHandler}>Выйти</Link>
           </>
         ) : (

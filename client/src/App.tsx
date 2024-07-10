@@ -8,13 +8,13 @@ import Root from "./Root";
 import SigninPage from "./pages/SigninPage/SigninPage";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import Main from "./components/Main/Main";
-import ProfilePage from "./pages/profile/profile";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import Page404 from "./components/Page404/Page404"; // добавила: импорт компонента 404 страницы
-
 import { useAppSelector } from "./redux/hooks";
 import Basket from "./pages/basket/basket";
 import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
 import CatalogPage from "./pages/Catalog/CatalogPage";
+
 
 function App() {
   const { user } = useAppSelector((state) => state.authSlice);
@@ -26,7 +26,8 @@ function App() {
       children: [
         {
           path: "/",
-          element: user?.id !== 0 ? <Main /> : <Navigate to="/signup" />,
+          // element: user?.id !== 0 ? <Main /> : <Navigate to="/signup" />,
+          element:  <Main /> 
         },
         {
           path: "/signin",

@@ -3,7 +3,9 @@
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Basket extends Model {
-    static associate({}) {}
+    static associate({User}) {
+      this.belongsTo(User, { foreignKey: "UserId", as: "user" });
+    }
   }
   Basket.init(
     {
@@ -11,6 +13,9 @@ module.exports = (sequelize, DataTypes) => {
       productId:DataTypes.INTEGER,
       numberBasket: DataTypes.INTEGER,
       status: DataTypes.INTEGER,
+      comment: DataTypes.STRING,
+      date: DataTypes.DATE,// добавила
+      estimatedDate: DataTypes.INTEGER,// добавила
     },
     {
       sequelize,

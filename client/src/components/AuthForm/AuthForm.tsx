@@ -9,7 +9,7 @@ import { addUser } from '../../redux/thunkActions';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import ErrorModal from '../ErrorModal';
 
-const { VITE_API } = import.meta.env;
+// const { VITE_API } = import.meta.env;
 
 export default function AuthForm({
   title,
