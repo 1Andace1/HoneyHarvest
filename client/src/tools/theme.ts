@@ -4,7 +4,8 @@ const theme = extendTheme({
   styles: {
     global: {
       body: {
-        bg: '#1e1f23',
+        // bg: '#1e1f23', // !!! ВОт этот серый цвет влиял на все все все
+        bg: '#ffffff',
         color: '#f8f9fb',   
       },
       a: {
@@ -25,3 +26,4 @@ const theme = extendTheme({
 });
 
 export default theme;
+

@@ -21,8 +21,8 @@ function OrderDetailsModal({ isOpen, onClose, order }) {
           <VStack spacing={4} align="start">
             <Text>Адрес доставки: {order.deliveryAddress}</Text>
             <Text>Статус: {order.status}</Text>
-            <Text>Общая стоимость: {order.totalBasketPrice}</Text>
-            
+            <Text>Общая стоимость: {order.totalBasketPrice} руб.</Text>
+
             {/* ДОБАВИТЬ ВЕСЬ СПИСОК ЗАКАЗАННЫХ ТОВАРОВ */}
             {order.items && order.items.map((item, index) => (
               <Box key={index} borderWidth="1px" borderRadius="lg" p={4} w="100%">
