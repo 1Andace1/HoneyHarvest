@@ -109,7 +109,7 @@ className="choise"
           <SliderThumb />
         </Slider>
         <Text mt="2" textAlign="center" fontSize="sm">
-         Цена:  {maxPrice.toString().slice(0, -1)}./ 100 гр
+         Цена:  {maxPrice.toString().slice(0, -1) || 0}р  /100 гр
         </Text>
       </Box>
       <Button colorScheme="yellow"  onClick={handleFilter}>

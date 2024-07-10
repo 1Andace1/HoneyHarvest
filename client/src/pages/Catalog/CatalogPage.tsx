@@ -14,7 +14,9 @@ export default memo(function CatalogPage(): JSX.Element {
   const { products } = useAppSelector(
     (state: { productSlice: ProductState }) => state.productSlice
   );
-
+  const { user } = useAppSelector(
+    (state: { authSlice: AuthState }) => state.authSlice
+  );
   const [filteredProducts, setFilteredProducts] = useState<IProducts[]>([]);
 
   useEffect((): void => {
@@ -53,15 +55,18 @@ export default memo(function CatalogPage(): JSX.Element {
 
       {/* <SimpleGrid columns={[2, null, 3]} spacing={4} > */}
       {/* <Stack direction="row" spacing="24px"> */}
-      <Wrap spacing="30px">
-        {products.length ? (
-          products.map((el: IProducts) => <OneCard el={el} key={el.id} />)
-        ) : (
-          <Heading as="h2" size="2xl">
-            Каталог пуст
-          </Heading>
-        )}
-      </Wrap>
+      <FilterComponent onFilterChange={handleFilterChange} />
+      {filteredProducts.length ? (
+        filteredProducts.map((el: IProducts) => (
+          <Stack direction="row" spacing="24px" key={el.id}>
+            <OneCard el={el} />
+          </Stack>
+        ))
+      ) : (
+        <Heading as="h2" size="2xl">
+          Каталог пуст
+        </Heading>
+      )}
       {/* </Stack> */}
       {/* </SimpleGrid> */}
     </>
