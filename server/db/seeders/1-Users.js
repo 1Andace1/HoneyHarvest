@@ -8,7 +8,7 @@ module.exports = {
       [
         {
           username: "Администратор",
-          email: "1@1",
+          email: "2@2",
           telephone: "123456789", // ! используем тип STRING для telephone, тк конвертация автоматич идет секвалайза и постресс в строки
           userCity: "Барнаул",
           password:

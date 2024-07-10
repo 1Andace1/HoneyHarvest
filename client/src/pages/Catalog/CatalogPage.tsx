@@ -6,7 +6,7 @@ import { getProducts } from "../../redux/thunkActionsCatalog";
 import { ProductState } from "../../redux/types/states";
 import { IProducts } from "../../types/stateTypes";
 import { Stack, HStack, VStack, Box } from "@chakra-ui/react";
-// import { useNavigate } from 'react-router-dom';
+import FilterComponent from "./Filter";
 
 export default memo(function CatalogPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -15,18 +15,39 @@ export default memo(function CatalogPage(): JSX.Element {
     (state: { productSlice: ProductState }) => state.productSlice
   );
 
+  const [filteredProducts, setFilteredProducts] = useState<IProducts[]>([]);
+
   useEffect((): void => {
     dispatch(getProducts());
   }, []);
 
-  // console.log('products-------------++', products);
+  useEffect(() => {
+    setFilteredProducts(products);
+  }, [products]);
+  const handleFilterChange = (filter: { category: string; sort: string; location: string; starsRating: number; maxPrice: number }) => {
+    console.log("++++++++++:", filter); 
+    const { category, sort, location, starsRating, maxPrice } = filter;
+    const filtered = products.filter((product) => {
+      return (
+        (category ? product.category === category : true) &&
+        (sort ? product.sort === sort : true) &&
+        (location ? product.location === location : true) &&
+        (starsRating ? product.starsRating >= starsRating : true) &&
+        (maxPrice ? product.price <= maxPrice : true)
+      );
+    });
+    console.log("-------------:", filtered);
+    setFilteredProducts(filtered);
+  };
+  console.log(products)
 
   return (
     <>
-      {products.length ? (
-        products.map((el: IProducts) => (
-          <Stack direction="row" spacing="24px">
-              <OneCard el={el} key={el.id} />
+      <FilterComponent onFilterChange={handleFilterChange} />
+      {filteredProducts.length ? (
+        filteredProducts.map((el: IProducts) => (
+          <Stack direction="row" spacing="24px" key={el.id}>
+            <OneCard el={el} />
           </Stack>
         ))
       ) : (
