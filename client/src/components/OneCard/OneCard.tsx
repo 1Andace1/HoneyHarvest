@@ -12,8 +12,13 @@ import {
   HStack,
   VStack,
   Box,
+  WrapItem,
 } from "@chakra-ui/react";
 import { IProducts } from "../../types/stateTypes";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { delProduct } from "../../redux/thunkActionsCatalog";
+import { IUser } from '../../types/stateTypes';
+import { basketApp } from "../../redux/thunkbasketApp";
 
 export default function OneCard({ el }: { el: IProducts }): JSX.Element {
   const title = el.title;
@@ -29,13 +34,26 @@ export default function OneCard({ el }: { el: IProducts }): JSX.Element {
   const starsRating = el.starsRating;
   const priceConDiscountRatio = price * discountRatio;
 
+  const dispatch = useAppDispatch();
+  const { user }: { user: IUser } = useAppSelector((state) => state.authSlice);
+  const { basket } = useAppSelector((state) => state.basketSlice);
+
+  function basketHandler(id: number | string): void {
+    console.log(id, user.id, '+++++++++++++++++++++++++++++++++++++----');
+    dispatch(basketApp({ productId: Number(id), userId: Number(user.id) }));
+  }
+
+  function deleteHandler(id: number | string): void {
+    dispatch(delProduct(Number(id)));
+  }
+
   return (
     <div>
+      <WrapItem>
         <Card maxW="sm">
           <CardBody>
             <Image
               src={picture}
-              // src="/productsPhoto/105.jpeg"
               alt="honey"
               borderRadius="lg"
             />
@@ -56,16 +74,28 @@ export default function OneCard({ el }: { el: IProducts }): JSX.Element {
           </CardBody>
           <Divider />
           <CardFooter>
-            <ButtonGroup spacing="2">
-              <Button variant="solid" colorScheme="blue">
-                Купить
-              </Button>
-              <Button variant="ghost" colorScheme="blue">
-                Добавить в корзину
-              </Button>
-            </ButtonGroup>
+            {user?.isAdmin ? (
+              <ButtonGroup spacing="2">
+                <Button onClick={() => deleteHandler(el.id)} variant="solid" colorScheme="red">
+                  Удалить
+                </Button>
+                <Button variant="solid" colorScheme="green">
+                  Редактировать
+                </Button>
+              </ButtonGroup>
+            ) : (
+              <ButtonGroup spacing="2">
+                <Button variant="solid" colorScheme="blue">
+                  Купить
+                </Button>
+                <Button onClick={() => basketHandler(el.id)} variant="ghost" colorScheme="blue">
+                  Добавить в корзину
+                </Button>
+              </ButtonGroup>
+            )}
           </CardFooter>
         </Card>
+      </WrapItem>
     </div>
   );
 }

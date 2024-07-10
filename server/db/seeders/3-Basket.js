@@ -14,6 +14,8 @@ module.exports = {
           comment: "Срочная доставка",
           date: new Date(), // текущая дата
           estimatedDate: new Date(new Date().setDate(new Date().getDate() + 10)), // через 3 дня
+          productId: 1,
+          numberBasket: 2,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -25,6 +27,8 @@ module.exports = {
           comment: "Доставка в офис",
           date: new Date(),
           estimatedDate: new Date(new Date().setDate(new Date().getDate() + 5)), // через 5 дней
+          productId: 2,
+          numberBasket: 1,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -47,6 +51,8 @@ module.exports = {
           comment: "Доставка в пункт выдачи",
           date: new Date(),
           estimatedDate: new Date(new Date().setDate(new Date().getDate() + 4)), // через 4 дня
+          productId: 3,
+          numberBasket: 5,
           createdAt: new Date(),
           updatedAt: new Date(),
         },

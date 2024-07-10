@@ -13,17 +13,25 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'Users',
-          key: 'id'
-        },
-        onDelete: "CASCADE", // удаление корзины при удалении пользователя
-        onUpdate: "CASCADE",
+          model: {
+            tableName: 'Users',
+          },
+          key: 'id',
       },
-      totalBasketPrice: {
+      },
+      productId: {
+        onDelete: 'cascade',
+        references: {
+          model: {
+            tableName: 'Products',
+          },
+          key: 'id',
+        },
+        allowNull: false,
         type: Sequelize.INTEGER,
       },
-      deliveryAddress: {
-        type: Sequelize.STRING,
+      numberBasket: {
+        type: Sequelize.INTEGER,
       },
       status: {
         type: Sequelize.INTEGER,
