@@ -1,9 +1,9 @@
 import React, { memo, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import OneCard from "../../components/OneCard/OneCard";
-import { Heading } from "@chakra-ui/react";
+import { Button, Heading, Wrap } from "@chakra-ui/react";
 import { getProducts } from "../../redux/thunkActionsCatalog";
-import { ProductState } from "../../redux/types/states";
+import { AuthState, ProductState } from "../../redux/types/states";
 import { IProducts } from "../../types/stateTypes";
 import { Stack, HStack, VStack, Box } from "@chakra-ui/react";
 import FilterComponent from "./Filter";
@@ -43,18 +43,27 @@ export default memo(function CatalogPage(): JSX.Element {
 
   return (
     <>
-      <FilterComponent onFilterChange={handleFilterChange} />
-      {filteredProducts.length ? (
-        filteredProducts.map((el: IProducts) => (
-          <Stack direction="row" spacing="24px" key={el.id}>
-            <OneCard el={el} />
-          </Stack>
-        ))
-      ) : (
-        <Heading as="h2" size="2xl">
-          Каталог пуст
-        </Heading>
-      )}
+      {user?.isAdmin ? (
+        <Button variant="solid" colorScheme="green">
+          Добавить новые продукты в каталог
+        </Button>
+       ) : (
+        false
+      )} 
+
+      {/* <SimpleGrid columns={[2, null, 3]} spacing={4} > */}
+      {/* <Stack direction="row" spacing="24px"> */}
+      <Wrap spacing="30px">
+        {products.length ? (
+          products.map((el: IProducts) => <OneCard el={el} key={el.id} />)
+        ) : (
+          <Heading as="h2" size="2xl">
+            Каталог пуст
+          </Heading>
+        )}
+      </Wrap>
+      {/* </Stack> */}
+      {/* </SimpleGrid> */}
     </>
   );
 });
