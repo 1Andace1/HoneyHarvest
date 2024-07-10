@@ -6,6 +6,7 @@ import { getProducts } from "../../redux/thunkActionsCatalog";
 import { ProductState } from "../../redux/types/states";
 import { IProducts } from "../../types/stateTypes";
 import { Stack, HStack, VStack, Box, SimpleGrid } from "@chakra-ui/react";
+import { Stack, HStack, VStack, Box } from "@chakra-ui/react";
 // import { useNavigate } from 'react-router-dom';
 
 export default memo(function CatalogPage(): JSX.Element {
@@ -14,11 +15,15 @@ export default memo(function CatalogPage(): JSX.Element {
   const { products } = useAppSelector(
     (state: { productSlice: ProductState }) => state.productSlice
   );
+  const { products } = useAppSelector(
+    (state: { productSlice: ProductState }) => state.productSlice
+  );
 
   useEffect((): void => {
     dispatch(getProducts());
   }, []);
 
+  // console.log('products-------------++', products);
   // console.log('products-------------++', products);
 
   return (
