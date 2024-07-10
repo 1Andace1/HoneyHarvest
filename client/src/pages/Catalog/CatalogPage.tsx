@@ -5,8 +5,8 @@ import { Button, Heading, Wrap } from "@chakra-ui/react";
 import { getProducts } from "../../redux/thunkActionsCatalog";
 import { AuthState, ProductState } from "../../redux/types/states";
 import { IProducts } from "../../types/stateTypes";
-import { Stack, HStack, VStack, Box, SimpleGrid } from "@chakra-ui/react";
-// import { useNavigate } from 'react-router-dom';я
+import { Stack, HStack, VStack, Box } from "@chakra-ui/react";
+import FilterComponent from "./Filter";
 
 export default memo(function CatalogPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -17,12 +17,31 @@ export default memo(function CatalogPage(): JSX.Element {
   const { user } = useAppSelector(
     (state: { authSlice: AuthState }) => state.authSlice
   );
+  const [filteredProducts, setFilteredProducts] = useState<IProducts[]>([]);
 
   useEffect((): void => {
     dispatch(getProducts());
   }, []);
 
-  // console.log('products-------------++', products);
+  useEffect(() => {
+    setFilteredProducts(products);
+  }, [products]);
+  const handleFilterChange = (filter: { category: string; sort: string; location: string; starsRating: number; maxPrice: number }) => {
+    console.log("++++++++++:", filter); 
+    const { category, sort, location, starsRating, maxPrice } = filter;
+    const filtered = products.filter((product) => {
+      return (
+        (category ? product.category === category : true) &&
+        (sort ? product.sort === sort : true) &&
+        (location ? product.location === location : true) &&
+        (starsRating ? product.starsRating >= starsRating : true) &&
+        (maxPrice ? product.price <= maxPrice : true)
+      );
+    });
+    console.log("-------------:", filtered);
+    setFilteredProducts(filtered);
+  };
+  console.log(products)
 
   return (
     <>
@@ -36,15 +55,18 @@ export default memo(function CatalogPage(): JSX.Element {
 
       {/* <SimpleGrid columns={[2, null, 3]} spacing={4} > */}
       {/* <Stack direction="row" spacing="24px"> */}
-      <Wrap spacing="30px">
-        {products.length ? (
-          products.map((el: IProducts) => <OneCard el={el} key={el.id} />)
-        ) : (
-          <Heading as="h2" size="2xl">
-            Каталог пуст
-          </Heading>
-        )}
-      </Wrap>
+      <FilterComponent onFilterChange={handleFilterChange} />
+      {filteredProducts.length ? (
+        filteredProducts.map((el: IProducts) => (
+          <Stack direction="row" spacing="24px" key={el.id}>
+            <OneCard el={el} />
+          </Stack>
+        ))
+      ) : (
+        <Heading as="h2" size="2xl">
+          Каталог пуст
+        </Heading>
+      )}
       {/* </Stack> */}
       {/* </SimpleGrid> */}
     </>

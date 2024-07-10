@@ -1,0 +1,22 @@
+.filter-component {
+    position: fixed;
+    top: 20px;
+    right: 0px;
+    width: 250px;
+    background-color: rgba(59, 52, 19, 0.5);
+    padding: 20px;
+    border: 1px solid #000000;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(1, 0, 1, 0.1);
+    margin-top: 100px;
+    margin-right: 1440px;
+    
+    color: rgb(255, 255, 255);
+    border-color: black;
+  }
+  .choise{
+    background-color: rgb(141, 111, 70);
+  }
+  .variant{
+    background-color: blue;
+  }
