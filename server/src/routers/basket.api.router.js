@@ -1,7 +1,5 @@
 const express = require('express');
 const router = express.Router();
-
-// Пример данных для корзины и продуктов
 let basket = {
   id: 1,
   UserId: 123,

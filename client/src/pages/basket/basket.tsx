@@ -39,7 +39,7 @@ const Basket: React.FC = () => {
   const totalPrice = basket.reduce((total, product) => total + product.price * product.quantity, 0);
 
   const handleOrderAll = () => {
-    navigate(`/checkout?basket=${encodeURIComponent(JSON.stringify(basket))}&address=${encodeURIComponent(deliveryAddress)}&Details=${encodeURIComponent(Details)}${encodeURIComponent(deliveryAddress)}&type=${encodeURIComponent(deliveryType)}&date=${encodeURIComponent(deliveryDate)}`);
+    navigate(`/checkout?basket=${encodeURIComponent(JSON.stringify(basket))}&address=${encodeURIComponent(deliveryAddress)}&Details=${encodeURIComponent(Details)}&type=${encodeURIComponent(deliveryType)}&date=${encodeURIComponent(deliveryDate)}`);
   };
 
   const handleBuyOne = (product: Product) => {

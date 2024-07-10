@@ -8,10 +8,9 @@ module.exports = (sequelize, DataTypes) => {
   Basket.init(
     {
       UserId: DataTypes.INTEGER,
-      totalBasketPrice: DataTypes.INTEGER,
-      deliveryAddress: DataTypes.STRING,
+      productId:DataTypes.INTEGER,
+      numberBasket: DataTypes.INTEGER,
       status: DataTypes.INTEGER,
-      comment: DataTypes.STRING,
     },
     {
       sequelize,
