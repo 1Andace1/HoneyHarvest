@@ -16,9 +16,9 @@ import {
 } from "@chakra-ui/react";
 import { IProducts } from "../../types/stateTypes";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-// import { addLike, deleteHandler } from "../../redux/thunkActionsCatalog";
 import { delProduct } from "../../redux/thunkActionsCatalog";
-import {IUser} from '../../types/stateTypes';
+import { IUser } from '../../types/stateTypes';
+import { basketApp } from "../../redux/thunkbasketApp";
 
 export default function OneCard({ el }: { el: IProducts }): JSX.Element {
   const title = el.title;
@@ -35,17 +35,16 @@ export default function OneCard({ el }: { el: IProducts }): JSX.Element {
   const priceConDiscountRatio = price * discountRatio;
 
   const dispatch = useAppDispatch();
-const { user }: { user: IUser} = useAppSelector((state) => state.authSlice);
+  const { user }: { user: IUser } = useAppSelector((state) => state.authSlice);
+  const { basket } = useAppSelector((state) => state.basketSlice);
 
-  // console.log("user.isAdmin------------------++", user.isAdmin);
-  // console.log("user------------------++", user);
-
-  // async function addLike(): Promise<void> {
-  //   dispatch(likeIncrement(el.id))
-  // }
+  function basketHandler(id: number | string): void {
+    console.log(id, user.id, '+++++++++++++++++++++++++++++++++++++----');
+    dispatch(basketApp({ productId: Number(id), userId: Number(user.id) }));
+  }
 
   function deleteHandler(id: number | string): void {
-    dispatch(delProduct(Number(id)))
+    dispatch(delProduct(Number(id)));
   }
 
   return (
@@ -55,7 +54,6 @@ const { user }: { user: IUser} = useAppSelector((state) => state.authSlice);
           <CardBody>
             <Image
               src={picture}
-              // src="/productsPhoto/105.jpeg"
               alt="honey"
               borderRadius="lg"
             />
@@ -78,24 +76,23 @@ const { user }: { user: IUser} = useAppSelector((state) => state.authSlice);
           <CardFooter>
             {user?.isAdmin ? (
               <ButtonGroup spacing="2">
-                <Button onClick={() => deleteHandler(el.id)}
-                variant="solid" colorScheme="red">
+                <Button onClick={() => deleteHandler(el.id)} variant="solid" colorScheme="red">
                   Удалить
                 </Button>
                 <Button variant="solid" colorScheme="green">
                   Редактировать
                 </Button>
               </ButtonGroup>
-             ) : ( 
+            ) : (
               <ButtonGroup spacing="2">
                 <Button variant="solid" colorScheme="blue">
                   Купить
                 </Button>
-                <Button variant="ghost" colorScheme="blue">
+                <Button onClick={() => basketHandler(el.id)} variant="ghost" colorScheme="blue">
                   Добавить в корзину
                 </Button>
               </ButtonGroup>
-            )} 
+            )}
           </CardFooter>
         </Card>
       </WrapItem>
