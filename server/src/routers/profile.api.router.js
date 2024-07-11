@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const { User, Basket, Transaction, Product } = require('../../db/models');
+const { Op } = require('sequelize');
 // const { verifyAccessToken } = require("../middlewares/verifyToken");
 // ^ добавляю малтера для возможности загрузок фото
 const upload = require('../middlewares/uploadPhotos');
@@ -21,13 +22,13 @@ router.put('/users/:id', upload.single('profilePhoto'), async (req, res) => {
   const { username, email, password, telephone, userCity } = req.body;
   const profilePhoto = req.file; // доступ к загруженному файлу
 
-  console.log('PROFILE =============req.body', req.body);
-  console.log('PROFILE =============username', username);
-  console.log('PROFILE =============email', email);
-  console.log('PROFILE =============password', password);
-  console.log('PROFILE =============profilePhoto', profilePhoto);
-  console.log('PROFILE =============telephone', telephone);
-  console.log('PROFILE =============userCity', userCity);
+  // console.log('PROFILE =============req.body', req.body);
+  // console.log('PROFILE =============username', username);
+  // console.log('PROFILE =============email', email);
+  // console.log('PROFILE =============password', password);
+  // console.log('PROFILE =============profilePhoto', profilePhoto);
+  // console.log('PROFILE =============telephone', telephone);
+  // console.log('PROFILE =============userCity', userCity);
 
   if (!(username && email)) {
     return res
@@ -119,62 +120,117 @@ router.get('/profile/order-details/:orderId', async (req, res) => {
 // ^ Роут для получения истории покупок пользователя
 router.get('/purchase-history/:userId', async (req, res) => {
   try {
-    const user = await User.findByPk(req.params.userId, {
-      include: {
-        model: Basket,
-        as: 'baskets',
-        include: {
-          model: Transaction,
-          as: 'transactions',
-          where: { status: 2 } // фильтр для успешно оплаченных заказов
-        }
-      }
+    // const user = await User.findByPk(req.params.userId, {
+    //   include: {
+    //     model: Basket,
+    //     as: 'baskets',
+    //     include: {
+    //       model: Transaction,
+    //       as: 'transactions',
+    //       where: { status: 2 }, // фильтр для успешно оплаченных заказов
+    //     },
+    //   },
+    // });
+
+    const userId = req.params.userId;
+
+    const transactions  = await Transaction.findAll({
+      where: { UserId: userId },
     });
+    console.log('✅ FROM /achievements/ =======transactions ', transactions )
 
-    if (!user) {
-      return res.status(404).json({ message: 'Пользователь не найден' });
-    }
+    // if (!user) {
+    //   return res.status(404).json({ message: 'Пользователь не найден' });
+    // }
 
+    const ordersCount = transactions.length;
+    const totalSpent = transactions.reduce((total, transaction) => {
+      return total + transaction.quantity * transaction.currentPrice;
+    }, 0);
+    console.log('✅ FROM /achievements/ =======ordersCount', ordersCount);
+    console.log('✅ FROM /achievements/ =======totalSpent', totalSpent);
 
-    // общая сумма потраченных средств
-    let totalSpent = 0;
-    user.baskets.forEach(basket => {
-      basket.transactions.forEach(transaction => {
-        totalSpent += transaction.currentPrice;
-      });
+    // // общая сумма потраченных средств
+    // let totalSpent = 0;
+    // user.baskets.forEach((basket) => {
+    //   basket.transactions.forEach((transaction) => {
+    //     totalSpent += transaction.currentPrice;
+    //   });
+    // });
+    // console.log('=======totalSpent', totalSpent)
+    // console.log('=======user', user)
+    // res.json({ totalSpent, baskets: user.baskets });
+    res.json({
+      ordersCount,
+      totalSpent, // это общая сумма покупок
+            // reviewsCount,
+      localProductsPurchased: localProductsPurchased > 0,
     });
-console.log('=======totalSpent', totalSpent)
-console.log('=======user', user)
-    res.json({ totalSpent, baskets: user.baskets });
   } catch (error) {
     console.error('Ошибка при получении истории покупок пользователя:', error);
-    res.status(500).json({ message: 'Ошибка сервера при получении истории покупок пользователя' });
+    res.status(500).json({
+      message: 'Ошибка сервера при получении истории покупок пользователя',
+    });
   }
 });
 router.get('/achievements/:userId', async (req, res) => {
   try {
     const userId = req.params.userId;
-    const ordersCount = await Order.count({ where: { userId } });
-    const reviewsCount = await Review.count({ where: { userId } });
-    const localProductsPurchased = await BasketItem.count({
+    // console.log('✅ FROM /achievements/ =======userId', userId);
+
+    const transactions  = await Transaction.findAll({
+      where: { UserId: userId },
+    });
+    
+    // подсчет количество заказов и общую сумму покупок
+    const ordersCount = transactions.length;
+    const totalSpent = transactions.reduce((total, transaction) => {
+      return total + transaction.quantity * transaction.currentPrice;
+    }, 0);
+    console.log('✅ FROM /achievements/ =======ordersCount', ordersCount);
+    console.log('✅ FROM /achievements/ =======totalSpent', totalSpent);
+   
+    const reviewsCount = 0;
+
+    const localProducts = await Product.findAll({
+      // where: { category: 'мёд' }, // ? ПОКА ЧТО такая категория (тк самая распространенная)
       where: {
-        userId,
-        productId: {
-          [Op.in]: [/* IDs of local beekeepers' products */]
-        }
-      }
+        [Op.or]: [
+          { category: 'мёд' },
+          { category: 'перга' },
+          { category: 'прополис' },
+          //можно другие потом добавить
+        ],
+      },
+      attributes: ['id'],
     });
 
+    // const localProductIds = localProducts.map((product) => product.id);
+    // console.log('🟥 FROM /achievements/ =======localProductIds', localProductIds);
+
+    // // тут подсчет количества покупок пользователя
+    // const localProductsPurchasedCount  = await Transaction.count({
+    //   where: {
+    //     UserId: userId,
+    //     productId: {
+    //       [Op.in]: localProductIds,
+    //     },
+    //   },
+    // });
+    // console.log('🟥 FROM /achievements/ =======localProductsPurchasedCount', localProductsPurchasedCount);
+    
     res.json({
       ordersCount,
+      totalSpent, // это общая сумма покупок
       reviewsCount,
-      localProductsPurchased: localProductsPurchased > 0,
+      // localProductsPurchased: localProductsPurchasedCount > 0,
     });
   } catch (error) {
     console.error('Ошибка при получении достижений пользователя:', error);
-    res.status(500).json({ message: 'Ошибка сервера при получении достижений пользователя' });
+    res.status(500).json({
+      message: 'Ошибка сервера при получении достижений пользователя',
+    });
   }
 });
-
 
 module.exports = router;
