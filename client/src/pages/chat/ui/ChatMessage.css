@@ -1,0 +1,33 @@
+.chat-message {
+    display: flex;
+    margin-bottom: 10px;
+  }
+  
+  .current-user {
+    justify-content: flex-end;
+  }
+  
+  .other-user {
+    justify-content: flex-start;
+  }
+  
+  .message-content {
+    max-width: 70%;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #f1f1f1;
+  }
+  
+  .current-user .message-content {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .message-username {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .message-text {
+    word-wrap: break-word;
+  }

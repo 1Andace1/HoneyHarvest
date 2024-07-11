@@ -1,0 +1,8 @@
+.user-item {
+    display: flex;
+    align-items: center;
+  }
+  
+  .username {
+    margin-left: 5px; /* Добавляет небольшой отступ между иконкой и именем */
+  }

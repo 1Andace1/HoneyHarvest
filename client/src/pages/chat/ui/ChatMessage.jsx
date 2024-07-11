@@ -2,7 +2,7 @@ import React from 'react';
 import { Card } from 'react-bootstrap';
 
 export default function ChatMessage({ message, loggedUser }) {
-  const justifyContent = loggedUser.id === message.User?.id ? 'justify-content-end' : 'justify-content-start';
+  const justifyContent = loggedUser.id === message.User?.id ? 'border-1px-sold-black' : 'justify-content-start';
   return (
     <div className={`d-flex ${justifyContent} mt-2 mb-2`}>
       <Card style={{ width: '15rem' }}>

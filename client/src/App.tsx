@@ -55,10 +55,6 @@ function App() {
           element: <CatalogPage />,
         },
         {
-          path: "/chat",
-          element: <ChatPage />,
-        },
-        {
           path: "*", // ловушка для всех остальных маршрутов
           element: <Page404 />,
         },
