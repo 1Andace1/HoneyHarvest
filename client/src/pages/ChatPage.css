@@ -1,0 +1,26 @@
+.chatik {
+    padding: 20px;
+    height: 100px;
+  }
+
+  
+  .chat-card {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .users-list-col {
+    border-right: 1px solid #ccc;
+    padding-right: 20px;
+  }
+  
+  .chat-col {
+    padding-left: 20px;
+  }
+  
+  .typing-indicator {
+    font-style: italic;
+    color: #888;
+    margin-top: 10px;
+  }

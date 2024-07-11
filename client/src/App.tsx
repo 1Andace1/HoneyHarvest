@@ -14,7 +14,7 @@ import { useAppSelector } from "./redux/hooks";
 import Basket from "./pages/basket/basket";
 import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
 import CatalogPage from "./pages/Catalog/CatalogPage";
-
+import ChatPage from "./pages/ChatPage";
 
 function App() {
   const { user } = useAppSelector((state) => state.authSlice);
@@ -53,6 +53,10 @@ function App() {
         {
           path: "/catalog",
           element: <CatalogPage />,
+        },
+        {
+          path: "/chat",
+          element: <ChatPage />,
         },
         {
           path: "*", // ловушка для всех остальных маршрутов

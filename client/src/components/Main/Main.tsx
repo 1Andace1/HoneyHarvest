@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useAppSelector } from "../../redux/hooks";
 import './Main.css'
+import ChatComponent from '../Chat/Chat';
+
 
 function Main(): JSX.Element {
   const { user } = useAppSelector((state) => state.authSlice);
@@ -94,6 +96,7 @@ function Main(): JSX.Element {
           <p>Телефон: +7 (123) 456-78-90</p>
           <p>Email: info@paseka-shop.ru</p>
         </div>
+    
       </footer>
     </div>   
   );

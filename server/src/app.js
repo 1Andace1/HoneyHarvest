@@ -4,9 +4,10 @@ const apiRouter = require("./routers/api.router");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 const { removeHeader } = require('./middlewares/common');
-
+const http = require('http');
 const express = require("express");
-
+const { wss, upgradeCb } = require('./ws/upgradeCb');
+const connectionCb = require('./ws/connectionCb');
 const app = express();
 const { PORT } = process.env;
 
@@ -22,7 +23,9 @@ const corsConfig = {
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
-
+const server = http.createServer(app);
+server.on('upgrade', upgradeCb);
+wss.on('connection', connectionCb);
 
 app.use(morgan("dev"));
 app.use(cookieParser());
@@ -43,7 +46,7 @@ app.use("/api/v1", apiRouter);
 //   res.status(404).json({ message: "Страница не найдена" });
 // });
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server started at http://localhost:${PORT} port`);
 });
 
