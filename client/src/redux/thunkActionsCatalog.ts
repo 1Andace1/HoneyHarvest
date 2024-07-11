@@ -25,14 +25,14 @@ export const delProduct = createAsyncThunk(
   }
 );
 
-export const AddProduct = createAsyncThunk("catalog/new", async (inputs) => {
-  console.log("Thunk, AddProduct, получили id: ", id);
+export const AddProduct = createAsyncThunk("catalog/new", async (inputs: any) => {
   const response: AxiosResponse<number, number> = await axiosInstance.post(
     `${VITE_BASE_URL}${VITE_API}/catalog/new`,
     { inputs }
   );
-  const data = await response.json();
-  return data;
+  // const data = await response.json();
+  // return data;
+  return response
 });
 
 // const res = await axiosInstance.post(`${VITE_API}/update`, {
