@@ -86,13 +86,10 @@ export default memo(function CatalogPage(): JSX.Element {
               <ModalBody>
                 <ModalFormCreate id={user.id} />
               </ModalBody>
-
               <ModalFooter>
-                <Button colorScheme="blue" mr={3} onClick={onClose}>
+                {/* <Button variant="ghost" mr={3} onClick={onClose}>
                   Закрыть
-                </Button>
-
-                <Button variant="ghost">Создать запись</Button>
+                </Button> */}
               </ModalFooter>
             </ModalContent>
           </Modal>
@@ -113,7 +110,7 @@ export default memo(function CatalogPage(): JSX.Element {
           ))
         ) : (
           <Heading as="h2" size="2xl">
-            Каталог пуст
+            Каталог пуст или загружается
           </Heading>
         )}
       </Wrap>

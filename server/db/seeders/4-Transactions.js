@@ -26,7 +26,7 @@ module.exports = {
         currentPrice: 50,
         currentDiscountRatio: 5,
         status: 1,
-        comment: 'No comments',
+        commentAdmin: 'No comments',
         basketId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),

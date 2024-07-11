@@ -34,6 +34,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       picture: {
+        defaultValue: "./productsPhoto/pattern.jpeg",
         type: Sequelize.STRING,
       },
       location: {
