@@ -18,6 +18,8 @@ import { IUser } from '../../types/stateTypes';
 import { basketApp } from "../../redux/thunkbasketApp";
 
 export default function OneCard({ el }: { el: IProducts }): JSX.Element {
+  console.log(el,'');
+  
   const title = el.title;
   const price = el.price / 10;
   const discountRatio = el.discountRatio;
@@ -33,7 +35,7 @@ export default function OneCard({ el }: { el: IProducts }): JSX.Element {
 
   const dispatch = useAppDispatch();
   const { user }: { user: IUser } = useAppSelector((state) => state.authSlice);
-  const { basket } = useAppSelector((state) => state.basketSlice);
+  // const { basket } = useAppSelector((state) => state.basketSlice);
 
   function basketHandler(id: number | string): void {
     console.log(id, user.id, '+++++++++++++++++++++++++++++++++++++----');

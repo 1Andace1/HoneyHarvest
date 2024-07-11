@@ -52,14 +52,17 @@ console.log(inputs);
   const [deliveryDate, setDeliveryDate] = useState('');
 
   const navigate = useNavigate();
-  const basket = useAppSelector((state) => state.basketSlice.basketApp);
+  const baskets = useAppSelector((state) => state.basketSlice.basketApp);
+  console.log(baskets,"ПОКАЗАЛ ТРУСЫ");
+  
 
   useEffect(() => {
-    dispatch(getbasket());
+    dispatch(getbasket({userId: Number(user.id)}));
+    console.log(Number(user.id),"ААААААААААААААААААААААААААААААААА");
   }, [dispatch]);
 
   const handleOrderAll = () => {
-    navigate(`/checkout?basket=${encodeURIComponent(JSON.stringify(basket))}&address=${encodeURIComponent(deliveryAddress)}&Details=${encodeURIComponent(Details)}&type=${encodeURIComponent(deliveryType)}&date=${encodeURIComponent(deliveryDate)}`);
+    navigate(`/checkout?basket=${encodeURIComponent(JSON.stringify(baskets))}&address=${encodeURIComponent(deliveryAddress)}&Details=${encodeURIComponent(Details)}&type=${encodeURIComponent(deliveryType)}&date=${encodeURIComponent(deliveryDate)}`);
   };
 
   const handleQuantityChange = (id: number, change: number) => {
@@ -72,7 +75,7 @@ console.log(inputs);
     navigate(`/checkout?product=${encodeURIComponent(JSON.stringify(product))}&address=${encodeURIComponent(deliveryAddress)}&Details=${encodeURIComponent(Details)}&type=${encodeURIComponent(deliveryType)}&date=${encodeURIComponent(deliveryDate)}`);
   };
 
-  const totalPrice = basket.reduce((total, product) => total + product.numberBasket * (product.price || 0), 0);
+  const totalPrice = baskets.reduce((total, product) => total + product.numberBasket * (product.price || 0), 0);
 
   return (
     <div className="basket-container">
@@ -82,15 +85,15 @@ console.log(inputs);
           Общая сумма: Р{totalPrice}
         </div>
         <ul className="scrollable-list">
-          {basket.map(product => (
-            <li key={product.id}>
-              <OneCard el={product} />
+          {baskets.map(basket => (
+            <li key={basket.id}>
+              <OneCard el={basket.product} />
               <div className="product-actions">
-                <button onClick={() => handleQuantityChange(product.id, -1)}>-</button>
-                <span>{product.numberBasket}</span>
-                <button onClick={() => handleQuantityChange(product.id, 1)}>+</button>
-                <button onClick={() => handleRemoveProduct(product.id)}>убрать</button>
-                <button onClick={() => handleBuyOne(product)}>Купить</button>
+                <button onClick={() => handleQuantityChange(basket.id, -1)}>-</button>
+                <span>{basket.numberBasket}</span>
+                <button onClick={() => handleQuantityChange(basket.id, 1)}>+</button>
+                <button onClick={() => handleRemoveProduct(basket.id)}>убрать</button>
+                <button onClick={() => handleBuyOne(basket)}>Купить</button>
               </div>
             </li>
           ))}

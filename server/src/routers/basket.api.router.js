@@ -51,18 +51,21 @@ router.put('/put', verifyAccessToken, async (req, res) => {
 });
 
 router.get('/get', verifyAccessToken, async (req, res) => {
-  const { userId } = req.body;
-  console.log(req.body, '+++++++++гет------------');
+  const { userId } = req.query;
+  console.log(req.query, '+++++++++гет------------');
   console.log(userId, '+++++++++++гет++++++++++');
   try {
-    const entry = await Basket.findAll({UserId: userId,   
-      include: [
-      {
-        model: Product,
-        as: 'product',
+    const entry = await Basket.findAll({
+      where: {
+        UserId: userId,
       },
-    ],}
-    );
+      include: [
+        {
+          model: Product,
+          as: 'product',
+        },
+      ],
+    });    
     console.log(entry, 'Я ЗАШЕЛ В ТРУСИКИ');
     res.status(201).json(entry);
   } catch (error) {
