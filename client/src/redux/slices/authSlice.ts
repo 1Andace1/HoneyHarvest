@@ -1,16 +1,21 @@
+import { ActionReducerMapBuilder, Draft, createSlice, PayloadAction  } from "@reduxjs/toolkit"
 import { UserState } from './../../components/initState';
-import { ActionReducerMapBuilder, Draft, createSlice } from "@reduxjs/toolkit"
-import { AuthState } from "../types/states"
+import { AuthState, IUser } from '../types/stateTypes';
 import { addUser, logoutUser } from '../thunkActions';
 import { AuthSlice, RejectedAction, UserAction } from '../types/reducers';
-
+import { Draft } from '@reduxjs/toolkit';
 
 const initialState: AuthState = { user: UserState, loading: true, error: {}}
 
 const authSlice: AuthSlice = createSlice({
   name: 'authorizationSlice',
   initialState,
-  reducers: {},
+  // ^ new добавила резюсер для обновления инфо о пользователе и состоянии
+  reducers: {
+    updateUser(state: Draft<AuthState>, action: PayloadAction<IUser>) {
+      state.user = { ...state.user, ...action.payload };
+    },
+  },
   extraReducers: (builder: ActionReducerMapBuilder<AuthState>): void => {
     builder.addCase(addUser.pending, (state: Draft<AuthState>): void => {
       state.loading = true;
@@ -39,4 +44,5 @@ const authSlice: AuthSlice = createSlice({
   }
 })
 
-export default authSlice.reducer
+export const { updateUser } = authSlice.actions;
+export default authSlice.reducer;

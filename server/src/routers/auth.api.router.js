@@ -35,13 +35,15 @@ router
       //   '=============profilePhoto.buffer.toStringbase64',
       //   profilePhoto.buffer.toString('base64'),
       // );
-      let photoPath = 'uploads/no-photo.jpg'
+
+      let photoPath = 'no-photo.jpg'
+
       // const photoPath = profilePhoto ? profilePhoto.path : null; // ! использовать надо путь от multera (у него он встроен в в объект file )
 
       if (profilePhoto) {
-        photoPath = profilePhoto.path;
+        photoPath = profilePhoto.originalname;
       }
-  
+      console.log('=============photoPath',  photoPath);
       const [user, created] = await User.findOrCreate({
         where: { email },
         defaults: {
@@ -51,7 +53,7 @@ router
           telephone,
           userCity,
           // photo: photoData // ! сохранение содержимого фото в базу данных
-          photoUrl: photoPath, // ! сохранение пути фото в базу данных
+          photo: photoPath, // ! сохранение пути фото в базу данных
         },
         // photo: profilePhoto ? profilePhoto.buffer.toString('base64') : null, // преобразование фото в base64
         // photo: `${profilePhoto.originalname}.jpg`
@@ -60,10 +62,11 @@ router
       if (!created) {
         return res.status(403).json({ message: 'User already exists' });
       }
-
+      console.log('=====================user', user);
       const plainUser = user.get();
       delete plainUser.password;
-      console.log('plainUser from auth.api.router', plainUser);
+
+      console.log('==== plainUser from auth.api.router', plainUser);
 
       //! Генерируем access и refresh
       const { accessToken, refreshToken } = generateToken({ user: plainUser });
