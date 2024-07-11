@@ -85,18 +85,18 @@ console.log(inputs);
           Общая сумма: Р{totalPrice}
         </div>
         <ul className="scrollable-list">
-          {baskets.map(basket => (
-            <li key={basket.id}>
-              <OneCard el={basket.product} />
-              <div className="product-actions">
-                <button onClick={() => handleQuantityChange(basket.id, -1)}>-</button>
-                <span>{basket.numberBasket}</span>
-                <button onClick={() => handleQuantityChange(basket.id, 1)}>+</button>
-                <button onClick={() => handleRemoveProduct(basket.id)}>убрать</button>
-                <button onClick={() => handleBuyOne(basket)}>Купить</button>
-              </div>
-            </li>
-          ))}
+        {baskets.slice(0, -1).map(basket => (
+  <li key={basket.id}>
+    <OneCard el={basket.product} />
+    <div className="product-actions">
+      <button onClick={() => handleQuantityChange(basket.id, -1)}>-</button>
+      <span>{basket.numberBasket}</span>
+      <button onClick={() => handleQuantityChange(basket.id, 1)}>+</button>
+      <button onClick={() => handleRemoveProduct(basket.id)}>убрать</button>
+      <button onClick={() => handleBuyOne(basket)}>Купить</button>
+    </div>
+  </li>
+))}
         </ul>
       </div>
       <div className="delivery-form">
