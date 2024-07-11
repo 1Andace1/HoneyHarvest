@@ -12,13 +12,13 @@ module.exports = (sequelize, DataTypes) => {
     {
       UserId: DataTypes.INTEGER,
       productId:DataTypes.INTEGER,
-      numberBasket: DataTypes.INTEGER,
-      status: DataTypes.INTEGER,
+      numberBasket: DataTypes.STRING,
+      status: DataTypes.STRING,
       commentUser: DataTypes.STRING,
-      totalBasketPrice:  DataTypes.INTEGER,
+      totalBasketPrice:  DataTypes.STRING,
       deliveryAddress:  DataTypes.STRING,
       date: DataTypes.DATE,// добавила
-      estimatedDate: DataTypes.INTEGER,// добавила
+      estimatedDate: DataTypes.STRING,// добавила
     },
     {
       sequelize,
