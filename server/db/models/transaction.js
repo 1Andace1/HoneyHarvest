@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       currentPrice: DataTypes.INTEGER,
       currentDiscountRatio: DataTypes.INTEGER,
       status: DataTypes.INTEGER,
-      comment: DataTypes.STRING,
+      commentAdmin: DataTypes.STRING,
       basketId: DataTypes.INTEGER,
     },
     {
