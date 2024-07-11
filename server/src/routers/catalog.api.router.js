@@ -31,7 +31,10 @@ router
       res.sendStatus(400);
     }
   })
-  .post('/', verifyAccessToken, async (req, res) => {
+  .post('/new', verifyAccessToken, async (req, res) => {
+
+console.log('++-------Зашли в ручку catalog.api.router.js,  req.body ===', req.body);
+
     const {
       title,
       price,

@@ -60,6 +60,26 @@ const userPassword = await generateHashedPassword('222');
           isAdmin: false,
           photo: "no-photo.jpg",
         },
+        {
+          username: "Админ из Чемала",
+          email: "admin@admin.admin",
+          telephone: "4848785148",
+          userCity: "Чемал",
+          password: "$2b$10$8twGfMWhatr.wNpizjqfOuEek5w381Wr7kaPEW1PpVDJkGUoMEswy",
+          cashAccount: 0,
+          isAdmin: true,
+          photo: "./usersPhoto/admin.jpeg",
+        },
+        {
+          username: "Иван Кузнецов",
+          email: "qwe@qwe.qwe",
+          telephone: "14818165656",
+          userCity: "Петропавловск-Камчатский",
+          password: "$2b$10$EGdL7CMHrH4ULizl8YJ8me.dDUY5VRDmtYH1edkkZjdq0iK9.iZs.",
+          cashAccount: 1000,
+          isAdmin: false,
+          photo: "./usersPhoto/img-02.jpeg",
+        },
       ],
       // [
       //   {

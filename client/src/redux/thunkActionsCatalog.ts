@@ -15,8 +15,7 @@ export const getProducts = createAsyncThunk("catalog/all", async () => {
 export const delProduct = createAsyncThunk(
   "catalog/del",
   async (id: number): Promise<number | void> => {
-    console.log('Thunk, delProduct, получили id: ', id);
-// проверить типизацию response (правильно ли указано: <number, number>):
+    // проверить типизацию response (правильно ли указано: <number, number>):
     const response: AxiosResponse<number, number> = await axiosInstance.delete(
       `${VITE_BASE_URL}${VITE_API}/catalog/${id}`
     );
@@ -25,3 +24,19 @@ export const delProduct = createAsyncThunk(
     }
   }
 );
+
+export const AddProduct = createAsyncThunk("catalog/new", async (inputs) => {
+  console.log("Thunk, AddProduct, получили id: ", id);
+  const response: AxiosResponse<number, number> = await axiosInstance.post(
+    `${VITE_BASE_URL}${VITE_API}/catalog/new`,
+    { inputs }
+  );
+  const data = await response.json();
+  return data;
+});
+
+// const res = await axiosInstance.post(`${VITE_API}/update`, {
+//   ...inputs,
+//   id,
+//   //   user: user.id,
+// });
