@@ -1,4 +1,4 @@
-import { useAppSelector } from '../../redux/hooks';
+import { useAppSelector, useAppDispatch } from '../../redux/hooks'; // ^ new добавила useAppDispatch
 import React, { useState, useEffect } from 'react';
 import {
   Box,
@@ -22,43 +22,93 @@ import {
 import axiosInstance from '../../axiosInstance';
 // import OrderDetailsModal from '../../components/OrderDetailsModal/OrderDetailsModal';
 // import { Step, Steps, useSteps } from '@chakra-ui/react';
-import dayjs from 'dayjs'; // ^ new = для отрисовки красиво даты
-import 'dayjs/locale/ru'; // ^ new = для отрисовки красиво даты Импорт русской локали для dayjs
-import localizedFormat from 'dayjs/plugin/localizedFormat'; // ^ new=  для отрисовки красиво даты
+import dayjs from 'dayjs'; //  для отрисовки красиво даты
+import 'dayjs/locale/ru'; // для отрисовки красиво даты Импорт русской локали для dayjs
+import localizedFormat from 'dayjs/plugin/localizedFormat'; //   для отрисовки красиво даты
 import OrderDetailsModal from '../../components/OrderDetailsModal/OrderDetailsModal';
-dayjs.extend(localizedFormat); // ^ new = для отрисовки красиво даты
-dayjs.locale('ru'); // ^ new = для отрисовки красиво даты
+dayjs.extend(localizedFormat); //  для отрисовки красиво даты
+dayjs.locale('ru'); //  для отрисовки красиво даты
+import { updateUser } from '../../redux/slices/authSlice'; // ^ new импорт action для обновления пользователя
+import LoyaltyProgram from './LoyaltyProgram';
+import PurchaseHistory from './PurchaseHistory';
+import LoyaltyProgramComponent from './LoyaltyProgramComponent';
+import Achievements from './Achievements';
+
+// interface ProfilePageProps {
+// ПРОПСЫ ПОТОМ СЮДА ПРОКИНУТЬ
+// }
 
 const { VITE_API, VITE_BASE_URL }: ImportMeta['env'] = import.meta.env;
 
 function ProfilePage(): JSX.Element {
+  const dispatch = useAppDispatch(); // ^ new инициализация useAppDispatch
   // получение данных пользователей из глобального состояния сиспользованием useAppSelector
   const { user } = useAppSelector((state) => state.authSlice);
+  console.log('🟪 user============', user);
   // состояние для режима редактирования профиля
   const [isEditing, setIsEditing] = useState(false);
   // состояние для режима редактирования профиля
   const [formData, setFormData] = useState({
     username: user?.username,
     email: user?.email,
+    telephone: user?.telephone,
+    userCity: user?.userCity,
     password: '',
     profilePhoto: null,
   });
   // состояние для хранения ошибок
   const [error, setError] = useState(null);
   // состояние для хранения заказов пользователя
-  const [orders, setOrders] = useState([]); // ^ new состояния для истории заказов
+  const [orders, setOrders] = useState([]); //  состояния для истории заказов
   // useDisclosure для управления состоянием модального окна чакры для редактирования
-  const { isOpen, onOpen, onClose } = useDisclosure(); // ^ new
+  const { isOpen, onOpen, onClose } = useDisclosure();
   // состояние для просмотра деталей конкреттного заказа
-  const [selectedOrder, setSelectedOrder] = useState(null); // ^ new
+  const [selectedOrder, setSelectedOrder] = useState(null);
   // useDisclosure для модельного окна просмотра деталей заказа
   const {
     isOpen: isDetailsOpen,
     onOpen: onDetailsOpen,
     onClose: onDetailsClose,
-  } = useDisclosure(); // ^ new
+  } = useDisclosure();
   // состояние для хранения выбранного заказа
-  const [orderDetails, setOrderDetails] = useState([]); // ^ new
+  const [orderDetails, setOrderDetails] = useState([]);
+
+  // ^ new ИНИЦИАЛИЗАЦИЯ ПРОГРАММЫ ЛОЯЛЬНОСТ (класса LoyaltyProgram )
+  const loyaltyProgram = new LoyaltyProgram();
+  // const [loyaltyProgram] = useState(new LoyaltyProgram()); // инициализация нового класса LoyaltyProgram
+  const [userTotalSpent, setUserTotalSpent] = useState(0); // сумма, потраченная пользователем
+
+  // Допустим, у вас есть способ получения общей суммы, потраченной пользователем, например, через API или из другого источника данных.
+  // Для целей демонстрации, предположим, что у вас есть функция, которая возвращает эту информацию.
+  const fetchUserTotalSpent = async () => {
+    try {
+      // Здесь происходит запрос на сервер или другой способ получения информации
+      // const totalSpent = await getTotalSpentFromAPI(); // Ваш метод для получения суммы потраченной пользователем
+      const response = await axiosInstance.get(
+        `${import.meta.env.VITE_API}/profile/purchase-history/${user.id}`
+      );
+      const { totalSpent, baskets } = response.data;
+      setOrders(baskets); // сохраняем корзины пользователя для отображения истории покупок
+      // setUserTotalSpent(totalSpent); // ? может убрать Устанавливаем сумму потраченную пользователем
+    } catch (error) {
+      console.error(
+        'Ошибка при получении суммы потраченной пользователем:',
+        error
+      );
+    }
+  };
+  useEffect(() => {
+    fetchUserTotalSpent(); //
+  }, [user.id]);
+
+  // ^ new  функция для получения уровня лояльности и вознаграждения пользователя
+  const getUserLoyaltyInfo = () => {
+    const userLevel = loyaltyProgram.getUserLevel(userTotalSpent); // Получаем уровень пользователя
+    const reward = loyaltyProgram.getReward(userTotalSpent); // Получаем вознаграждение пользователя
+    return { userLevel, reward };
+  };
+
+  // ^ Получение всей суммы заказов (PurchaseHistory) за всю историю для программы лояльности:
   // обработчик изменения полей формы
   const handleChange = (e) => {
     if (e.target.name === 'profilePhoto') {
@@ -78,6 +128,8 @@ function ProfilePage(): JSX.Element {
       const formDataObj = new FormData();
       formDataObj.append('username', formData.username);
       formDataObj.append('email', formData.email);
+      formDataObj.append('telephone', formData.telephone);
+      formDataObj.append('userCity', formData.userCity);
       if (formData.password) {
         formDataObj.append('password', formData.password);
       }
@@ -95,6 +147,15 @@ function ProfilePage(): JSX.Element {
           },
         }
       );
+      // console.log('========formDataObj.userCity', formDataObj.userCity )
+      // Object.keys(formDataObj).forEach((key) => {
+      //   formDataObj.append(key, res[key]);
+      // });
+
+      // ^ Обновляем состояние пользователя на клиенте (тк Сервер вмдит изменения, а клиент нет)
+      const updatedUser = res.data.user;
+      dispatch(updateUser(updatedUser)); // Замените на ваш метод обновления пользователя в redux или в другом state management
+
       // ^ new закрытие модальное окно после успешного обновления:
       setIsEditing(false);
       onClose();
@@ -103,6 +164,19 @@ function ProfilePage(): JSX.Element {
       setError(error);
     }
   };
+  // ^ new очистка и обновления состояния после обновления
+  useEffect(() => {
+    if (!isEditing) {
+      setFormData({
+        username: user?.username,
+        email: user?.email,
+        telephone: user?.telephone,
+        userCity: user?.userCity,
+        password: '',
+        profilePhoto: null,
+      });
+    }
+  }, [isEditing, user]);
 
   // ^ new  useEffect для получения заказов пользователя при загрузке компонента
   useEffect(() => {
@@ -150,9 +224,38 @@ function ProfilePage(): JSX.Element {
       flexDirection="column"
       alignItems="center"
     >
+      {/* 🟪🟪 КАРТОЧКА ДЛЯ ПРОГРАММЫ ЛОЯЛЬНОСТИ */}
+      <Box>
+        <PurchaseHistory userId={user.id} />
+        <LoyaltyProgramComponent totalSpent={userTotalSpent} />
+        <Achievements userId={user.id} />
+      </Box>
+
       <Heading mb={6} color="#1e1f23">
         Профиль пользователя
       </Heading>
+      {/* 🟪 БЛОК ПРОГРАММЫ ЛОЯЛЬНОСТИ ПОЛЬЗОВАТЕЛЯ */}
+      <Box
+        bg="RGBA(0, 0, 0, 0.36)"
+        color="#f8f9fb"
+        p={6}
+        borderRadius="md"
+        w="full"
+        maxW="md"
+        boxShadow="md"
+        textAlign="left"
+        mb={8}
+      >
+        <Text fontSize="xl" fontWeight="bold" mb={4}>
+          Программа лояльности
+        </Text>
+        <Text>
+          Уровень: <span>{getUserLoyaltyInfo().userLevel}</span>
+        </Text>
+        <Text>
+          Вознаграждение: <span>{getUserLoyaltyInfo().reward}</span>
+        </Text>
+      </Box>
 
       <HStack spacing={6} w="full" align="flex-start" mb={8}>
         {/* 🟪 БЛОК ОТОБРАЖЕНИЯ ПОСЛЕДНЕГО ЗАКАЗА И ЕГО СТАТУСА */}
@@ -211,7 +314,13 @@ function ProfilePage(): JSX.Element {
           textAlign="center"
         >
           <Image
-            src={user.profilePhoto || '/uploads/no-photo.jpg'}
+            // src={user.photo ? `http://localhost:3000/${user.photo}` : 'http://localhost:3000/no-photo.jpg'}
+            // ^ new добавktybt случайный параметр к URL изображения t=${new Date().getTime()}? tckb dlehu ghj,jktvf bp-0pf ['ibhjdyfbz]
+            src={
+              user.photo
+                ? `http://localhost:3000/${user.photo}?t=${new Date().getTime()}`
+                : 'http://localhost:3000/no-photo.jpg'
+            } // ^
             alt="Profile Photo"
             boxSize="150px"
             borderRadius="full"
@@ -242,62 +351,62 @@ function ProfilePage(): JSX.Element {
       </HStack>
 
       {/* 🟪 БЛОК ОТОБРАЖЕНИЯ заказа из Истории Заказов */}
-      {/* {selectedOrder && (
-          <Box
-            bg="RGBA(0, 0, 0, 0.36)"
-            color="#f8f9fb"
-            p={6}
-            borderRadius="md"
-            w="full"
-            maxW="md"
-            boxShadow="md"
-            textAlign="left"
+      {selectedOrder && (
+        <Box
+          bg="RGBA(0, 0, 0, 0.36)"
+          color="#f8f9fb"
+          p={6}
+          borderRadius="md"
+          w="full"
+          maxW="md"
+          boxShadow="md"
+          textAlign="left"
+        >
+          <Text fontSize="xl" fontWeight="bold" mb={4}>
+            🟢 Детали заказа
+          </Text>
+          <VStack
+            spacing={4}
+            divider={<StackDivider borderColor="gray.200" />}
+            align="flex-start"
           >
-            <Text fontSize="xl" fontWeight="bold" mb={4}>
-              Детали заказа
+            <Text>
+              Дата заказа: <span>{selectedOrder.date}</span>
             </Text>
-            <VStack
-              spacing={4}
-              divider={<StackDivider borderColor="gray.200" />}
-              align="flex-start"
-            >
-              <Text>
-                Дата заказа: <span>{selectedOrder.date}</span>
-              </Text>
-              <Text>
-                Статус заказа: <span>{selectedOrder.status}</span>
-              </Text>
-              <Text>
-                Ориентировочное время доставки:{' '}
-                <span>{selectedOrder.estimatedDate}</span>
-              </Text>
-              <Text>
-                Общая стоимость:{' '}
-                <span>{selectedOrder.totalBasketPrice} руб.</span>
-              </Text>
-              <Text>
-                Адрес доставки: <span>{selectedOrder.deliveryAddress}</span>
-              </Text>
-              <Text>
-                Комментарий: <span>{selectedOrder.comment}</span>
-              </Text>
-            </VStack>
-            <VStack spacing={4} mt={4} align="flex-start">
-              {orderDetails.map((item) => (
-                <HStack key={item.id} w="full" justify="space-between">
-                  <Image
-                    src={item.product.picture || '/uploads/no-photo.jpg'}
-                    alt={item.product.title}
-                    boxSize="50px"
-                  />
-                  <Text>{item.product.title}</Text>
-                  <Text>{item.quantity} шт.</Text>
-                  <Text>{item.currentPrice} руб.</Text>
-                </HStack>
-              ))}
-            </VStack>
-          </Box>
-        )} */}
+            <Text>
+              Статус заказа: <span>{selectedOrder.status}</span>
+            </Text>
+            <Text>
+              Ориентировочное время доставки:{' '}
+              <span>{selectedOrder.estimatedDate}</span>
+            </Text>
+            <Text>
+              Общая стоимость:{' '}
+              <span>{selectedOrder.totalBasketPrice} руб.</span>
+            </Text>
+            <Text>
+              Адрес доставки: <span>{selectedOrder.deliveryAddress}</span>
+            </Text>
+            <Text>
+              Комментарий: <span>{selectedOrder.comment}</span>
+            </Text>
+          </VStack>
+          <VStack spacing={4} mt={4} align="flex-start">
+            {orderDetails.map((item) => (
+              <HStack key={item.id} w="full" justify="space-between">
+                <Image
+                  src={item.product.picture || '/uploads/no-photo.jpg'}
+                  alt={item.product.title}
+                  boxSize="50px"
+                />
+                <Text>{item.product.title}</Text>
+                <Text>{item.quantity} шт.</Text>
+                <Text>{item.currentPrice} руб.</Text>
+              </HStack>
+            ))}
+          </VStack>
+        </Box>
+      )}
 
       {/*  🟪 БЛОК ОТОБРАЖЕНИЯ ВЫБРАННОГО ЗАКАЗА */}
       {selectedOrder && (
@@ -340,12 +449,29 @@ function ProfilePage(): JSX.Element {
                   mb={3}
                 />
                 <Input
+                  type="telephone"
+                  name="telephone"
+                  value={formData.telephone}
+                  onChange={handleChange}
+                  placeholder="Номер телефона"
+                  mb={3}
+                />
+                <Input
+                  type="userCity"
+                  name="userCity"
+                  value={formData.userCity}
+                  onChange={handleChange}
+                  placeholder="Город"
+                  mb={3}
+                />
+                <Input
                   type="file"
                   name="profilePhoto"
                   accept="image/*"
                   onChange={handleChange}
                   mb={3}
                 />
+
                 <Button type="submit" colorScheme="blue">
                   Сохранить
                 </Button>
@@ -397,7 +523,7 @@ function ProfilePage(): JSX.Element {
               <Text fontWeight="bold" textAlign="left">
                 Ориентировочное время доставки:{' '}
                 <Text as="span" fontWeight="normal">
-                  {order.estimatedDate}
+                  {formatDateTime(order.estimatedDate)}
                 </Text>
               </Text>
               <Text fontWeight="bold" textAlign="left">
@@ -437,398 +563,3 @@ function ProfilePage(): JSX.Element {
 }
 
 export default ProfilePage;
-
-// !--------------
-//     <Box
-//       py={10}
-//       px={6}
-//       bg="RGBA(0, 0, 0, 0.24)" // Белый фон страницы
-//       minHeight="100vh"
-//       display="flex"
-//       flexDirection="column"
-//       alignItems="center"
-//     >
-//       <Heading mb={6} color="#1e1f23">
-//         Профиль пользователя
-//       </Heading>
-
-//       <HStack spacing={6} w="full" align="flex-start" mb={8}>
-//         {/* Карточка для последнего заказа */}
-//         {orders.length > 0 && (
-//           <Box
-//             bg="RGBA(0, 0, 0, 0.36)"
-//             color="#f8f9fb"
-//             p={6}
-//             borderRadius="md"
-//             w="full"
-//             maxW="md"
-//             boxShadow="md"
-//             textAlign="left"
-//           >
-//             <Text fontSize="xl" fontWeight="bold" mb={4}>
-//               Последний заказ
-//             </Text>
-//             <VStack
-//               spacing={4}
-//               divider={<StackDivider borderColor="gray.200" />}
-//               align="flex-start"
-//             >
-//               <Text>
-//                 Дата заказа: <span>{orders[0].date}</span>
-//               </Text>
-//               <Text>
-//                 Статус заказа: <span>{orders[0].status}</span>
-//               </Text>
-//               <Text>
-//                 Ориентировочное время доставки:{' '}
-//                 <span>{orders[0].estimatedDate}</span>
-//               </Text>
-//               <Text>
-//                 Общая стоимость: <span>{orders[0].totalBasketPrice} руб.</span>
-//               </Text>
-//               <Text>
-//                 Адрес доставки: <span>{orders[0].deliveryAddress}</span>
-//               </Text>
-//               <Text>
-//                 Комментарий: <span>{orders[0].comment}</span>
-//               </Text>
-//             </VStack>
-//             {/* <Steps mt={4} colorScheme="teal" activeStep={0}>
-//           <Step label="Заказ оформлен" />
-//           <Step label="Заказ собирается" />
-//           <Step label="Заказ отправлен" />
-//           <Step label="Заказ получен" />
-//         </Steps> */}
-//           </Box>
-//         )}
-//         <Box
-//           bg="RGBA(0, 0, 0, 0.24)"
-//           color="#f8f9fb"
-//           p={6}
-//           borderRadius="md"
-//           w="full"
-//           maxW="md"
-//           boxShadow="md"
-//           textAlign="center"
-//         >
-//           <Image
-//             src={user.profilePhoto || '/uploads/no-photo.jpg'}
-//             alt="Profile Photo"
-//             boxSize="150px"
-//             borderRadius="full"
-//             mx="auto"
-//             mb={4}
-//           />
-//           <Text fontSize="lg" fontWeight="bold">
-//             Имя пользователя: {user.username}
-//           </Text>
-//           <Text fontSize="lg" fontWeight="bold">
-//             Email: {user.email}
-//           </Text>
-//           <Button
-//             colorScheme="blue"
-//             mt={4}
-//             bg="#2F855A"
-//             _hover={{ bg: 'teal.700' }}
-//             _active={{ bg: 'teal.800' }}
-//             _focus={{ boxShadow: 'none' }}
-//             onClick={() => {
-//               setIsEditing(true);
-//               onOpen();
-//             }}
-//           >
-//             Редактировать профиль
-//           </Button>
-//         </Box>
-//       </HStack>
-
-//       <Heading mt={10} mb={6} color="#1e1f23">
-//         История заказов
-//       </Heading>
-//       <VStack spacing={6} align="start" w="70%">
-//         {orders.map((order) => (
-//           <Box
-//             key={order.id}
-//             w="full"
-//             p={6}
-//             borderWidth="1px"
-//             borderRadius="md"
-//             // bg="#2d3748"
-//             bg="RGBA(0, 0, 0, 0.36)"
-//             color="#f8f9fb"
-//           >
-//             <Text fontWeight="bold" textAlign="left">
-//               Дата заказа:{' '}
-//               <Text as="span" fontWeight="normal">
-//                 {order.date}
-//               </Text>
-//             </Text>
-//             <Text fontWeight="bold" textAlign="left">
-//               Статус:{' '}
-//               <Text as="span" fontWeight="normal">
-//                 {order.status}
-//               </Text>
-//             </Text>
-//             <Text fontWeight="bold" textAlign="left">
-//               Ориентировочное время доставки:{' '}
-//               <Text as="span" fontWeight="normal">
-//                 {order.estimatedDate}
-//               </Text>
-//             </Text>
-//             <Text fontWeight="bold" textAlign="left">
-//               Общая стоимость:{' '}
-//               <Text as="span" fontWeight="normal">
-//                 {order.totalBasketPrice} руб.
-//               </Text>
-//             </Text>
-//             <Text fontWeight="bold" textAlign="left">
-//               Адрес доставки:{' '}
-//               <Text as="span" fontWeight="normal">
-//                 {order.deliveryAddress}
-//               </Text>
-//             </Text>
-//             <Text fontWeight="bold" textAlign="left">
-//               Комментарий:{' '}
-//               <Text as="span" fontWeight="normal">
-//                 {order.comment}
-//               </Text>
-//             </Text>
-//             <Button mt={2} onClick={() => handleViewDetails(order)}>
-//               Посмотреть детали
-//             </Button>
-//           </Box>
-//         ))}
-//       </VStack>
-
-//       {selectedOrder && (
-//         <OrderDetailsModal
-//           isOpen={isDetailsOpen}
-//           onClose={onDetailsClose}
-//           order={selectedOrder}
-//         />
-//       )}
-
-//       {isEditing && (
-//         <Modal isOpen={isOpen} onClose={onClose}>
-//           <ModalOverlay />
-//           <ModalContent>
-//             <ModalHeader>Редактировать профиль</ModalHeader>
-//             <ModalCloseButton />
-//             <ModalBody>
-//               <form onSubmit={handleSubmit}>
-//                 <Input
-//                   name="username"
-//                   value={formData.username}
-//                   onChange={handleChange}
-//                   placeholder="Имя пользователя"
-//                   mb={3}
-//                 />
-//                 <Input
-//                   name="email"
-//                   value={formData.email}
-//                   onChange={handleChange}
-//                   placeholder="Эл.почта"
-//                   mb={3}
-//                 />
-//                 <Input
-//                   type="password"
-//                   name="password"
-//                   value={formData.password}
-//                   onChange={handleChange}
-//                   placeholder="Пароль"
-//                   mb={3}
-//                 />
-//                 <Input
-//                   type="file"
-//                   name="profilePhoto"
-//                   accept="image/*"
-//                   onChange={handleChange}
-//                   mb={3}
-//                 />
-//                 <Button type="submit" colorScheme="blue">
-//                   Сохранить
-//                 </Button>
-//               </form>
-//             </ModalBody>
-//           </ModalContent>
-//         </Modal>
-//       )}
-//     </Box>
-//   );
-// }
-
-// export default ProfilePage;
-
-// !---------------------
-
-//   return (
-//     <Box
-//       py={10}
-//       px={6}
-//       bg="RGBA(0, 0, 0, 0.16)"
-//       minHeight="100vh"
-//       display="flex"
-//       flexDirection="column"
-//       alignItems="center"
-//     >
-//       <Heading mb={6} color="#1e1f23">
-//         Профиль пользователя
-//       </Heading>
-
-//       <VStack spacing={6} mb={8} w="full"  align="flex-start" >
-//         <Box
-//           bg="#2d3748"
-//           color="#f8f9fb"
-//           p={6}
-//           borderRadius="md"
-//           w="full"
-//           maxW="md"
-//           boxShadow="md"
-//           textAlign="center"
-//         >
-//           <Image
-//             src={user.profilePhoto || '/uploads/no-photo.jpg'}
-//             alt="Profile Photo"
-//             boxSize="150px"
-//             borderRadius="full"
-//             mx="auto"
-//             mb={4}
-//           />
-//           <Text fontSize="lg" fontWeight="bold">
-//             Имя пользователя: {user.username}
-//           </Text>
-//           <Text fontSize="lg" fontWeight="bold">
-//             Email: {user.email}
-//           </Text>
-//           <Button
-//             colorScheme="blue"
-//             mt={4}
-//             bg="#2F855A"
-//             _hover={{ bg: 'teal.700' }}
-//             _active={{ bg: 'teal.800' }}
-//             _focus={{ boxShadow: 'none' }}
-//             onClick={() => {
-//               setIsEditing(true);
-//               onOpen();
-//             }}
-//           >
-//             Редактировать профиль
-//           </Button>
-//         </Box>
-
-//         {isEditing && (
-//           <Modal isOpen={isOpen} onClose={onClose}>
-//             <ModalOverlay />
-//             <ModalContent>
-//               <ModalHeader>Редактировать профиль</ModalHeader>
-//               <ModalCloseButton />
-//               <ModalBody>
-//                 <form onSubmit={handleSubmit}>
-//                   <Input
-//                     name="username"
-//                     value={formData.username}
-//                     onChange={handleChange}
-//                     placeholder="Имя пользователя"
-//                     mb={3}
-//                   />
-//                   <Input
-//                     name="email"
-//                     value={formData.email}
-//                     onChange={handleChange}
-//                     placeholder="Эл.почта"
-//                     mb={3}
-//                   />
-//                   <Input
-//                     type="password"
-//                     name="password"
-//                     value={formData.password}
-//                     onChange={handleChange}
-//                     placeholder="Пароль"
-//                     mb={3}
-//                   />
-//                   <Input
-//                     type="file"
-//                     name="profilePhoto"
-//                     accept="image/*"
-//                     onChange={handleChange}
-//                     mb={3}
-//                   />
-//                   <Button type="submit" colorScheme="blue">
-//                     Сохранить
-//                   </Button>
-//                 </form>
-//               </ModalBody>
-//             </ModalContent>
-//           </Modal>
-//         )}
-//       </VStack>
-
-//       <Heading mt={10} mb={6} color="#f8f9fb">
-//         История заказов
-//       </Heading>
-//       <VStack spacing={6} align="start" w="70%">
-//         {orders.map((order) => (
-//           <Box
-//             key={order.id}
-//             w="full"
-//             p={6}
-//             borderWidth="1px"
-//             borderRadius="md"
-//             bg="#2d3748"
-//             color="#f8f9fb"
-//           >
-//             <Text fontWeight="bold" textAlign="left">
-//               Дата заказа:{' '}
-//               <Text as="span" fontWeight="normal">
-//                 {order.date}
-//               </Text>
-//             </Text>
-//             <Text fontWeight="bold" textAlign="left">
-//               Статус:{' '}
-//               <Text as="span" fontWeight="normal">
-//                 {order.status}
-//               </Text>
-//             </Text>
-//             <Text fontWeight="bold" textAlign="left">
-//               Ориентировочное время доставки:{' '}
-//               <Text as="span" fontWeight="normal">
-//                 {order.estimatedDate}
-//               </Text>
-//             </Text>
-//             <Text fontWeight="bold" textAlign="left">
-//               Общая стоимость:{' '}
-//               <Text as="span" fontWeight="normal">
-//                 {order.totalBasketPrice} руб.
-//               </Text>
-//             </Text>
-//             <Text fontWeight="bold" textAlign="left">
-//               Адрес доставки:{' '}
-//               <Text as="span" fontWeight="normal">
-//                 {order.deliveryAddress}
-//               </Text>
-//             </Text>
-//             <Text fontWeight="bold" textAlign="left">
-//               Комментарий:{' '}
-//               <Text as="span" fontWeight="normal">
-//                 {order.comment}
-//               </Text>
-//             </Text>
-//             <Button mt={2} onClick={() => handleViewDetails(order)}>
-//               Посмотреть детали
-//             </Button>
-//           </Box>
-//         ))}
-//       </VStack>
-
-//       {selectedOrder && (
-//         <OrderDetailsModal
-//           isOpen={isDetailsOpen}
-//           onClose={onDetailsClose}
-//           order={selectedOrder}
-//         />
-//       )}
-//     </Box>
-//   );
-// }
-
-// export default ProfilePage;

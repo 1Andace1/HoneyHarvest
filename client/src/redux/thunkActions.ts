@@ -31,7 +31,7 @@ export const addUser: NewUser = createAsyncThunk(
     });
 
     // ^ Вывод содержимого formData
-    console.log('Contents of formData:');
+    console.log('🟪🟪🟪 FROM THUNK Contents of formData:');
     for (let entry of formData.entries()) {
       console.log(entry[0], entry[1]);
     }

@@ -26,11 +26,14 @@ export default function AuthForm({
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
      // добавлено: обработка изменения фото профиля
+     console.log(" 1======e.target.files[0]",  e.target.files);
+
     if (e.target.name === "profilePhoto" && e.target.files) {
       setProfilePhoto(e.target.files[0]);
     } else {
     setInputs(
       (prev: IInputs): IInputs => ({ ...prev, [e.target.name]: e.target.value })
+
     );
   }
 };
@@ -53,7 +56,7 @@ export default function AuthForm({
        
       // добавлено: создание formData и добавление фото профиля
       const  dataToSend = { ...inputs, profilePhoto };
-      console.log(" dataToSend",  dataToSend);
+      console.log("🟪🟪🟪 FROM AUTHFORM dataToSend",  dataToSend);
 
 
 try {
