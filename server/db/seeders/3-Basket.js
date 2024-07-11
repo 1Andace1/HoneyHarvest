@@ -24,7 +24,7 @@ module.exports = {
           productId: 2,
           numberBasket: 1,
           status: 2, // например, статус "доставляется"
-          comment: "Доставка в офис",
+          commentUser: "Доставка в офис",
           totalBasketPrice: 4500,
           deliveryAddress: "ул. Тверская, д. 15, Москва",
           date: new Date(),
@@ -37,7 +37,7 @@ module.exports = {
           productId: 3,
           numberBasket: 5,
           status: 3, // например, статус "доставлено"
-          comment: "Без комментариев",
+          commentUser: "Без комментариев",
           totalBasketPrice: 1500,
           deliveryAddress: "ул. Пушкина, д. 20, Рязань",
           date: new Date(),
@@ -50,7 +50,7 @@ module.exports = {
           productId: 3,
           numberBasket: 5,
           status: 1, // например, статус "в обработке"
-          comment: "Доставка в пункт выдачи",
+          commentUser: "Доставка в пункт выдачи",
           totalBasketPrice: 2500,
           deliveryAddress: "ул. Красная, д. 30, Краснодар",
           date: new Date(),

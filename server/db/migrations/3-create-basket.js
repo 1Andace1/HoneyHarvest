@@ -36,7 +36,7 @@ module.exports = {
       status: {
         type: Sequelize.INTEGER,
       },
-      comment: {
+      commentUser: {
         type: Sequelize.STRING,
       },
       totalBasketPrice: {

@@ -9,9 +9,6 @@ import {
   Stack,
   Text,
   Image,
-  HStack,
-  VStack,
-  Box,
   WrapItem,
 } from "@chakra-ui/react";
 import { IProducts } from "../../types/stateTypes";
@@ -24,11 +21,11 @@ export default function OneCard({ el }: { el: IProducts }): JSX.Element {
   const title = el.title;
   const price = el.price / 10;
   const discountRatio = el.discountRatio;
-  const category = el.category;
+  // const category = el.category;
   const sort = el.sort;
   const description = el.description;
   const yearOfHarvest = el.yearOfHarvest;
-  const availableQuantity = el.availableQuantity;
+  // const availableQuantity = el.availableQuantity;
   const picture = el.picture;
   const location = el.location;
   const starsRating = el.starsRating;

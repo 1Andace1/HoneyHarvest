@@ -16,18 +16,55 @@ router
       res.status(500).send(error.message);
     }
   })
-  .delete('./:id', verifyAccessToken, async (req, res) => {
+  .delete('/:id', verifyAccessToken, async (req, res) => {
     const { id } = req.params;
     try {
       const product = await Product.findByPk(id);
       // if (res.locals.user.id === product.userId) {  // здесь сделать сравнение с id админа, для чего предварительно осуществить поиск всех админов в БД
-        product.destroy();
-        res.sendStatus(200);
+      product.destroy();
+      res.sendStatus(200);
       // } else {
-        res.sendStatus(403);
+      // res.sendStatus(403);
       // }
     } catch (error) {
       console.log(error);
+      res.sendStatus(400);
+    }
+  })
+  .post('/', verifyAccessToken, async (req, res) => {
+    const {
+      title,
+      price,
+      discountRatio,
+      category,
+      sort,
+      description,
+      yearOfHarvest,
+      availableQuantity,
+      picture,
+      location,
+      starsRating,
+    } = req.body;
+
+    console.log('req.body-------++', req.body);
+
+    try {
+      const entry = await Resume.create({
+      title,
+      price,
+      discountRatio,
+      category,
+      sort,
+      description,
+      yearOfHarvest,
+      availableQuantity,
+      picture,
+      location,
+      starsRating,
+      });
+      res.json(entry);
+    } catch (error) {
+      console.error(error);
       res.sendStatus(400);
     }
   });

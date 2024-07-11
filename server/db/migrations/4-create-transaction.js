@@ -47,7 +47,7 @@ module.exports = {
       status: {
         type: Sequelize.INTEGER,
       },
-      comment: {
+      commentAdmin: {
         type: Sequelize.STRING,
       },
       basketId: {
