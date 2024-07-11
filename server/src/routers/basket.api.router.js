@@ -1,6 +1,6 @@
 const express = require('express');
 const { verifyAccessToken } = require('../middlewares/verifyToken');
-const { Basket } = require('../../db/models');
+const { Basket , Product} = require('../../db/models');
 
 const router = express.Router();
 
@@ -49,5 +49,27 @@ router.put('/put', verifyAccessToken, async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+router.get('/get', verifyAccessToken, async (req, res) => {
+  const { userId } = req.body;
+  console.log(req.body, '+++++++++гет------------');
+  console.log(userId, '+++++++++++гет++++++++++');
+  try {
+    const entry = await Basket.findAll({UserId: userId,   
+      include: [
+      {
+        model: Product,
+        as: 'product',
+      },
+    ],}
+    );
+    console.log(entry, 'Я ЗАШЕЛ В ТРУСИКИ');
+    res.status(201).json(entry);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(400);
+  }
+});
+
 
 module.exports = router;

@@ -47,7 +47,7 @@ export const getbasket = createAsyncThunk(
   "basket/get",
   async () => {
     const response = await axiosInstance.get(
-      `${VITE_BASE_URL}${VITE_API}/basket`
+      `${VITE_BASE_URL}${VITE_API}/basket/get`
     );
     console.log(response.data, 'ФФФФФФФФФФФФФФФФФФФФФФФФФФ');
     return response.data;

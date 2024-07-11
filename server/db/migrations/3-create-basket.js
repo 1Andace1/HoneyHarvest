@@ -31,16 +31,16 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       numberBasket: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
       },
       status: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
       },
       commentUser: {
         type: Sequelize.STRING,
       },
       totalBasketPrice: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
       },
       deliveryAddress: {
         type: Sequelize.STRING,
