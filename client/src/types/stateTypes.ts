@@ -8,11 +8,14 @@ export interface IInputs {
   }
 
 export interface IUser {
-    profilePhoto: string | undefined;
+    profilePhoto: string | undefined; 
     id: number,
     username: string,
     email: string,
     password: string,
+    // profilePhoto?: File | null; // добавила: поле profilePhoto
+    userCity?: string; // добавила: Добавлено поле userCity
+    telephone?: string; // добавила: Добавлено поле telephone
     createdAt: string,
     updatedAt: string
 }
