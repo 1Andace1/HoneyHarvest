@@ -32,38 +32,49 @@ router
     }
   })
   .post('/new', verifyAccessToken, async (req, res) => {
-
-console.log('++-------Зашли в ручку catalog.api.router.js,  req.body ===', req.body);
-
     const {
       title,
-      price,
-      discountRatio,
+      priceString,
+      discountRatioString,
       category,
       sort,
       description,
-      yearOfHarvest,
-      availableQuantity,
-      picture,
+      yearOfHarvestString,
+      availableQuantityString,
+      // picture,
       location,
-      starsRating,
-    } = req.body;
+    } = req.body.inputs;
+    const price = Number(priceString);
+    const discountRatio = Number(discountRatioString);
+    const yearOfHarvest = Number(yearOfHarvestString);
+    const availableQuantity = Number(availableQuantityString);
 
-    console.log('req.body-------++', req.body);
+    console.log('typeof price', typeof price, price);
+    console.log('typeof title', typeof title, title);
+    console.log('typeof price', typeof price, price);
+    console.log('typeof discountRatio', typeof discountRatio, discountRatio);
+    console.log('typeof category', typeof category, category);
+    console.log('typeof sort', typeof sort, sort);
+    console.log('typeof description', typeof description, description);
+    console.log('typeof yearOfHarvest', typeof yearOfHarvest, yearOfHarvest);
+    // console.log('typeof picture', typeof picture, picture);
+    console.log('typeof location', typeof location, location);
+
+
 
     try {
-      const entry = await Resume.create({
-      title,
-      price,
-      discountRatio,
-      category,
-      sort,
-      description,
-      yearOfHarvest,
-      availableQuantity,
-      picture,
-      location,
-      starsRating,
+      console.log('++-------Зашли в TRY в ручке catalog.api.router.js----------++');
+      const entry = await Product.create({
+        title,
+        price,
+        discountRatio,
+        category,
+        sort,
+        description,
+        yearOfHarvest,
+        availableQuantity,
+        // picture,
+        location,
       });
       res.json(entry);
     } catch (error) {
