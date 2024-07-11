@@ -3,8 +3,9 @@
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Basket extends Model {
-    static associate({User}) {
+    static associate({ User, Transaction }) {
       this.belongsTo(User, { foreignKey: "UserId", as: "user" });
+      this.hasMany(Transaction, { foreignKey: "basketId", as: "transactions" });
     }
   }
   Basket.init(
@@ -14,6 +15,8 @@ module.exports = (sequelize, DataTypes) => {
       numberBasket: DataTypes.INTEGER,
       status: DataTypes.INTEGER,
       comment: DataTypes.STRING,
+      totalBasketPrice:  DataTypes.INTEGER,
+      deliveryAddress:  DataTypes.STRING,
       date: DataTypes.DATE,// добавила
       estimatedDate: DataTypes.INTEGER,// добавила
     },

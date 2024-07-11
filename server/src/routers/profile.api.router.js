@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
-const { User, Basket } = require('../../db/models');
+const { User, Basket, Transaction, Product } = require('../../db/models');
 // const { verifyAccessToken } = require("../middlewares/verifyToken");
 // ^ добавляю малтера для возможности загрузок фото
 const upload = require('../middlewares/uploadPhotos');
@@ -88,6 +88,19 @@ router.get('/orders/:userId', async (req, res) => {
   } catch (error) {
     console.error("Ошибка при получении заказов:", error);
     res.status(500).json({message: 'Ошибка сервера'})
+  }
+});
+
+// Роут для получения деталей заказа:
+router.get('/profile/order-details/:orderId', async (req, res) => {
+  try {
+    const orderDetails = await Transaction.findAll({
+      where: { basketId: req.params.orderId },
+      include: [{ model: Product, attributes: ['title', 'picture'] }]
+    });
+    res.json(orderDetails);
+  } catch (error) {
+    res.status(500).json({ error: 'Не удалось получить детали заказа' });
   }
 });
 
