@@ -39,6 +39,12 @@ module.exports = {
       comment: {
         type: Sequelize.STRING,
       },
+      totalBasketPrice: {
+        type: Sequelize.INTEGER,
+      },
+      deliveryAddress: {
+        type: Sequelize.STRING,
+      },
       date: { // добавила поле даты заказа
         type: Sequelize.DATE,
         defaultValue: Sequelize.fn("NOW"),
