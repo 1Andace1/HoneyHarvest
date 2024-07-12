@@ -21,17 +21,17 @@ import ModalFormUpdate from "../ModalForm/ModalFormUpdate";
 export default function OneCard({ el }: { el: IProducts }): JSX.Element {
   console.log(el,'');
   
-  const title = el.title;
-  const price = el.price / 10;
-  const discountRatio = el.discountRatio;
-  // const category = el.category;
-  const sort = el.sort;
-  const description = el.description;
-  const yearOfHarvest = el.yearOfHarvest;
-  // const availableQuantity = el.availableQuantity;
-  const picture = el.picture;
-  const location = el.location;
-  const starsRating = el.starsRating;
+  const title = el?.title;
+  const price = el?.price / 10;
+  const discountRatio = el?.discountRatio;
+  // const category = el?.category;
+  const sort = el?.sort;
+  const description = el?.description;
+  const yearOfHarvest = el?.yearOfHarvest;
+  // const availableQuantity = el?.availableQuantity;
+  const picture = el?.picture;
+  const location = el?.location;
+  const starsRating = el?.starsRating;
   const priceConDiscountRatio = price * discountRatio;
 
   const dispatch = useAppDispatch();

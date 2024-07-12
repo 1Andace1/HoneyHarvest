@@ -66,8 +66,9 @@ router.get('/get', verifyAccessToken, async (req, res) => {
         },
       ],
     });    
-    console.log(entry, 'Я ЗАШЕЛ В ТРУСИКИ');
-    res.status(201).json(entry);
+    const totalPrice = entry.reduce((total, product) => total + product.numberBasket * (product.product.price), 0);
+    console.log(entry,totalPrice, 'Я ЗАШЕЛ В ТОТАЛ ПРАЙС 2222');
+    res.status(201).json({entry,totalPrice});
   } catch (error) {
     console.log(error);
     res.sendStatus(400);
