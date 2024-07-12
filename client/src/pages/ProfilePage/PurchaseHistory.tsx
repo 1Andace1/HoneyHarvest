@@ -11,18 +11,25 @@ const { VITE_API, VITE_BASE_URL }: ImportMeta['env'] = import.meta.env;
 const PurchaseHistory = ({ userId }) => {
   const [totalSpent, setTotalSpent] = useState(0);
   const [baskets, setBaskets] = useState([]);
-
+  const [ordersCount, setordersCount] = useState(0);
+  const [localProductsPurchased, setlocalProductsPurchased] = useState(0);
   // `${import.meta.env.VITE_API}/profile/purchase-history/${user.id}`
-
+ 
   useEffect(() => {
     const fetchPurchaseHistory = async () => {
       try {
         const response = await axiosInstance.get(
-          `${import.meta.env.VITE_API}/profile/purchase-history/${user.id}`
-        );
-        const { totalSpent, baskets } = response.data;
+        // `${import.meta.env.VITE_API}/profile/purchase-history/${user.id}`
+                  `${import.meta.env.VITE_API}/profile/purchase-history/${user.id}`
+      );
+      const { ordersCount, totalSpent, localProductsPurchased, } = response.data;
+      console.log('purchase-history===== response.data',response.data)
         setTotalSpent(totalSpent);
-        setBaskets(baskets);
+        setordersCount(ordersCount)
+        setlocalProductsPurchased(localProductsPurchased)
+        console.log('purchase-history===== totalSpent',totalSpent)
+        console.log('purchase-history===== ordersCount',ordersCount)
+        console.log('purchase-history===== localProductsPurchased',localProductsPurchased)
       } catch (error) {
         console.error('Ошибка при загрузке истории покупок:', error);
       }
