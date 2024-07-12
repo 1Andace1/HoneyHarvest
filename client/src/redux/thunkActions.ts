@@ -72,3 +72,4 @@ export const logoutUser = createAsyncThunk('users/logout', async () => {
     setAccessToken('');
   }
 });
+

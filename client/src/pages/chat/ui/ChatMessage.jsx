@@ -1,10 +1,28 @@
+// import React from 'react';
+// import { Card } from 'react-bootstrap';
+// import './ChatMessage.css'
+// export default function ChatMessage({ message, loggedUser }) {
+//   const justifyContent = loggedUser.id === message.User?.id ? 'border-1px-sold-black' : 'justify-content-start';
+//   return (
+//     <div className={`d-flex ${justifyContent} mt-2 mb-2`}>
+//       <Card style={{ width: '15rem' }}>
+//         <Card.Body>
+//           <Card.Subtitle className="mb-2 text-muted">{message.User?.username}</Card.Subtitle>
+//           <Card.Text>{message.text}</Card.Text>
+//         </Card.Body>
+//       </Card>
+//     </div>
+//   );
+// }
 import React from 'react';
 import { Card } from 'react-bootstrap';
-
+import './ChatMessage.css'
 export default function ChatMessage({ message, loggedUser }) {
-  const justifyContent = loggedUser.id === message.User?.id ? 'border-1px-sold-black' : 'justify-content-start';
+  // const justifyContent = loggedUser.id === message.User?.id ? 'border-1px-sold-black' : 'justify-content-start';
+  console.log(loggedUser)
+  console.log(message.User?.id)
   return (
-    <div className={`d-flex ${justifyContent} mt-2 mb-2`}>
+    <div className={loggedUser.id === message.User?.id ? 'you' : 'other'}>
       <Card style={{ width: '15rem' }}>
         <Card.Body>
           <Card.Subtitle className="mb-2 text-muted">{message.User?.username}</Card.Subtitle>
@@ -14,3 +32,4 @@ export default function ChatMessage({ message, loggedUser }) {
     </div>
   );
 }
+

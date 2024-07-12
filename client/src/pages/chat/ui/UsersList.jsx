@@ -5,11 +5,12 @@ import DotOnlineIcon from '../../../ui/icons/DotOnlineIcon';; // Предпол�
 import './UsersList.css';
 
 export default function UsersList({ users }) {
+  console.log(users)
   return (
     <Stack>
       {users.map((user) => (
         <div className="user-item p-2" key={user.id}>
-          <DotOnlineIcon /> <span className="username">{user.username}</span>
+          <DotOnlineIcon /> <span className="username"></span>
         </div>
       ))}
     </Stack>

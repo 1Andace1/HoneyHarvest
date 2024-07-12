@@ -59,6 +59,10 @@
 //     </Container>
 //   );
 // }
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+
+import axiosInstance, { setAccessToken } from "../axiosInstance"
 import React, { useState } from 'react';
 import { Button, Container } from 'react-bootstrap';
 import ChatComponent from './chat/ui/ChatComponent';
@@ -66,11 +70,21 @@ import useChat from '../hooks/useChat';
 import { useAppSelector } from "../redux/hooks";
 import './ChatPage.css';
 import UsersList from './chat/ui/UsersList';
-
+import { setUser } from '../redux/slices/authSlice'
 export default function ChatPage() {
   const { user } = useAppSelector((state) => state.authSlice);
   const { messages, users, typing, submitMessage, socketRef } = useChat();
   const [isChatVisible, setIsChatVisible] = useState(false);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    axiosInstance(`${import.meta.env.VITE_API}/tokens/refresh`).then((res) => {
+      dispatch(setUser(res.data.user));
+      setAccessToken(res.data.accessToken);
+    }).catch((error) => {
+      console.error("Failed to refresh token", error);
+    });
+  }, [dispatch]);
 
   const toggleChatVisibility = () => {
     setIsChatVisible(!isChatVisible);

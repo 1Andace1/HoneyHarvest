@@ -15,9 +15,24 @@ import Basket from "./pages/basket/basket";
 import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
 import CatalogPage from "./pages/Catalog/CatalogPage";
 import ChatPage from "./pages/ChatPage";
-
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { refreshUserToken } from './redux/thunk.refresh';
+import axiosInstance, { setAccessToken } from "./axiosInstance";
+import { setUser } from './redux/slices/authSlice'
 function App() {
   const { user } = useAppSelector((state) => state.authSlice);
+  const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    axiosInstance(`${import.meta.env.VITE_API}/tokens/refresh`).then((res) => {
+      dispatch(setUser(res.data.user));
+      setAccessToken(res.data.accessToken);
+    }).catch((error) => {
+      console.error("Failed to refresh token", error);
+    });
+  }, []);
 
   const router = createBrowserRouter([
     {

@@ -31,3 +31,33 @@
   .message-text {
     word-wrap: break-word;
   }
+  .you{
+    display: flex;
+    justify-content: start;
+    padding-right: 70px;
+    background-color: rgb(141, 211, 131);
+    border-radius: 15px;
+    color: #ffffff;
+    width: 240px;
+    height: 80px;
+    justify-content: center;
+    align-items: center;
+    border-top: 2px solid rgb(184, 170, 97);
+  }
+  .other{
+   
+      display: flex;
+      justify-content: end;
+      margin-left: 10px;
+      padding-left: 70px;
+      background-color: rgb(128, 141, 141);
+      border-radius: 15px;
+      color: #f1f1f1;
+     width: 230px;
+     height: 80px;
+     justify-content: center;
+     align-items: center;
+     border-top: 2px solid rgb(212, 41, 41);
+    }
+    
+  

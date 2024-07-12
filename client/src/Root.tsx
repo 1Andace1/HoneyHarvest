@@ -4,6 +4,7 @@ import Navbar from "./widgets/Navbar/Navbar";
 import ChatPage from './pages/ChatPage'
 
 export default function Root() {
+  
   return (
     <>
       <Navbar />
