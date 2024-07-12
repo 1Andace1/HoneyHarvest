@@ -11,112 +11,108 @@ interface Product {
   userId: number;
   productId: number;
   numberBasket: number;
-  status: number;
+  status: string;
   commentUser: string;
   totalBasketPrice: number;
   deliveryAddress: string;
 }
 
-
+interface IUser {
+  id: number;
+}
 
 const Basket: React.FC = () => {
   const { user }: { user: IUser } = useAppSelector((state) => state.authSlice);
   const defaultInputs = {
-  id: "",
-  userId: user.id,
-  // productId: "",
-  numberBasket: "",
-  status: "",
-  commentUser: "",
-  totalBasketPrice: "",
-  deliveryAddress: "",
+    id: 0,
+    userId: user.id,
+    numberBasket: 1,
+    status: "standard",
+    commentUser: "",
+    totalBasketPrice: 0,
+    deliveryAddress: "",
+    deliveryDate: "",
   }
-const [inputs, setInputs] = useState(defaultInputs);
-const changeHandler = (e) => {
+  const [inputs, setInputs] = useState(defaultInputs);
+  const changeHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-
-console.log(inputs);
-
   };
   const dispatch = useAppDispatch()
 
-  const submitHandler = async (e): Promise<void> => {
-    console.log("зашли в submitHandler, inputs = ", inputs);
+  const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(AddProduct(inputs))
-    setInputs(() => defaultInputs)
+    dispatch(AddProduct(inputs));
+    setInputs(defaultInputs);
   };
-  const [deliveryAddress, setDeliveryAddress] = useState('');
-  const [Details, setDetails] = useState('');
-  const [deliveryType, setDeliveryType] = useState('standard');
-  const [deliveryDate, setDeliveryDate] = useState('');
 
   const navigate = useNavigate();
   const baskets = useAppSelector((state) => state.basketSlice.basketApp);
-  console.log(baskets,"ПОКАЗАЛ ТРУСЫ");
-  
 
   useEffect(() => {
-    dispatch(getbasket({userId: Number(user.id)}));
-    console.log(Number(user.id),"ААААААААААААААААААААААААААААААААА");
-  }, [dispatch]);
+    dispatch(getbasket({ userId: Number(user.id) }));
+  }, [dispatch, user.id]);
+
+  useEffect(() => {
+    setInputs((prev) => ({
+      ...prev,
+      totalBasketPrice: baskets.reduce((total, product) => total + product.numberBasket * (product?.product?.price || 0), 0)
+    }));
+  }, [baskets]);
 
   const handleOrderAll = () => {
-    navigate(`/checkout?basket=${encodeURIComponent(JSON.stringify(baskets))}&address=${encodeURIComponent(deliveryAddress)}&Details=${encodeURIComponent(Details)}&type=${encodeURIComponent(deliveryType)}&date=${encodeURIComponent(deliveryDate)}`);
+    navigate(`/checkout?basket=${encodeURIComponent(JSON.stringify(baskets))}&address=${encodeURIComponent(inputs.deliveryAddress)}&Details=${encodeURIComponent(inputs.commentUser)}&type=${encodeURIComponent(inputs.status)}&date=${encodeURIComponent(inputs.deliveryDate)}`);
   };
 
   const handleQuantityChange = (id: number, change: number) => {
+    // Implement quantity change logic here
   };
 
   const handleRemoveProduct = (id: number) => {
+    // Implement remove product logic here
   };
 
   const handleBuyOne = (product: Product) => {
-    navigate(`/checkout?product=${encodeURIComponent(JSON.stringify(product))}&address=${encodeURIComponent(deliveryAddress)}&Details=${encodeURIComponent(Details)}&type=${encodeURIComponent(deliveryType)}&date=${encodeURIComponent(deliveryDate)}`);
+    navigate(`/checkout?product=${encodeURIComponent(JSON.stringify(product))}&address=${encodeURIComponent(inputs.deliveryAddress)}&Details=${encodeURIComponent(inputs.commentUser)}&type=${encodeURIComponent(inputs.status)}&date=${encodeURIComponent(inputs.deliveryDate)}`);
   };
-
-  const totalPrice = baskets.reduce((total, product) => total + product.numberBasket * (product.price || 0), 0);
 
   return (
     <div className="basket-container">
       <div className="basket">
         <button className="order-all-button" onClick={handleOrderAll}>Заказать все</button>
         <div className="total-price">
-          Общая сумма: Р{totalPrice}
+          Общая сумма: Р{inputs.totalBasketPrice}
         </div>
         <ul className="scrollable-list">
-        {baskets.slice(0, -1).map(basket => (
-  <li key={basket.id}>
-    <OneCard el={basket.product} />
-    <div className="product-actions">
-      <button onClick={() => handleQuantityChange(basket.id, -1)}>-</button>
-      <span>{basket.numberBasket}</span>
-      <button onClick={() => handleQuantityChange(basket.id, 1)}>+</button>
-      <button onClick={() => handleRemoveProduct(basket.id)}>убрать</button>
-      <button onClick={() => handleBuyOne(basket)}>Купить</button>
-    </div>
-  </li>
-))}
+          {baskets.map(basket => (
+            <li key={basket.id}>
+              <OneCard el={basket.product} />
+              <div className="product-actions">
+                <button onClick={() => handleQuantityChange(basket.id, -1)}>-</button>
+                <span>{basket.numberBasket}</span>
+                <button onClick={() => handleQuantityChange(basket.id, 1)}>+</button>
+                <button onClick={() => handleRemoveProduct(basket.id)}>убрать</button>
+                <button onClick={() => handleBuyOne(basket)}>Купить</button>
+              </div>
+            </li>
+          ))}
         </ul>
       </div>
       <div className="delivery-form">
         <h2>Адрес и доставка</h2>
-        <form>
+        <form onSubmit={submitHandler}>
           <label>Адрес доставки:</label>
-          {/* <input type="text" name="deliveryAddress" value={deliveryAddress} onChange={(e) => changeHandler(e.target.value)} /> */}
           <Input name="deliveryAddress" value={inputs.deliveryAddress} onChange={changeHandler} />
           <label>Детали доставки:</label>
           <Input name="commentUser" value={inputs.commentUser} onChange={changeHandler} />
           <label>Тип доставки:</label>
           <Select name="status" value={inputs.status} onChange={changeHandler}>
-            <option  value="standard">Стандартная</option>
-            <option  value="express">Экспресс</option>
+            <option value="standard">Стандартная</option>
+            <option value="express">Экспресс</option>
           </Select>
           <label>Дата доставки:</label>
           <Input type="date" name="deliveryDate" value={inputs.deliveryDate} onChange={changeHandler} />
+          <Button type="submit">добавить</Button>
         </form>
-        {/* <button onClick={() => submitHandler()}>Купить</button> */}
-        <Button type="submit" onClick={(e) => submitHandler(e)}>добавить</Button>
       </div>
     </div>
   );

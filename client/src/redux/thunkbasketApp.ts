@@ -53,7 +53,7 @@ export const getbasket = createAsyncThunk(
       { params: { userId } } 
     );
     console.log(response.data, 'ФФФФФФФФФФФФФФФФФФФФФФФФФФ');
-    return response.data;
+    return response.data.entry;
   }
 );
 
