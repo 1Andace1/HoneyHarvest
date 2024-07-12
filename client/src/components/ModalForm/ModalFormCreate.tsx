@@ -20,6 +20,7 @@ import { IProducts } from "../../types/stateTypes";
 import styles from "./ModalForm.module.css";
 
 export default function ModalFormCreate({ id }: { id: number }): JSX.Element {
+export default function ModalFormCreate({ id }: { id: number }): JSX.Element {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
 //   const defaultInputs = {
@@ -36,7 +37,10 @@ export default function ModalFormCreate({ id }: { id: number }): JSX.Element {
 //   };
 
   const [inputs, setInputs] = useState({});
+  const [inputs, setInputs] = useState({});
 
+  const changeHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    setInputs((prev: object) => ({ ...prev, [e.target.name]: e.target.value }));
   const changeHandler = (e: React.FormEvent<HTMLFormElement>) => {
     setInputs((prev: object) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -47,7 +51,41 @@ export default function ModalFormCreate({ id }: { id: number }): JSX.Element {
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     console.log("Зашли в submitHandler, inputs = ", inputs);
+  const submitHandler = async (
+    e: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
+    console.log("Зашли в submitHandler, inputs = ", inputs);
     e.preventDefault();
+    if (
+      !(
+        inputs?.title &&
+        inputs?.priceString &&
+        inputs?.discountRatioString &&
+        inputs?.category &&
+        inputs?.sort &&
+        inputs?.description &&
+        inputs?.yearOfHarvestString &&
+        inputs?.availableQuantityString &&
+        inputs?.location
+      )
+    ) {
+      console.log("Ошибка!!! Заполни все поля");
+    } else if (
+      !(
+        Number(inputs?.priceString) &&
+        Number(inputs?.discountRatioString) &&
+        Number(inputs?.yearOfHarvestString) &&
+        Number(inputs?.availableQuantityString)
+      )
+    ) {
+      console.log(
+        "Ошибка!!! Введи числа в поля: ЦЕНА, СКИДКА, ГОД УРОЖАЯ, ДОСТУПНО"
+      );
+    } else {
+      await dispatch(AddProduct(inputs));
+      onClose();
+      setInputs(() => {});
+    }
     if (
       !(
         inputs?.title &&
@@ -207,6 +245,36 @@ export default function ModalFormCreate({ id }: { id: number }): JSX.Element {
           onChange={changeHandler}
           borderColor="#3f3e3e"
           name="picture"
+          value={inputs?.picture}
+          placeholder="загрузить фото продукта"
+        /> */}
+                <Input
+                  onChange={changeHandler}
+                  borderColor="#3f3e3e"
+                  name="location"
+                  value={inputs?.location}
+                  placeholder="месторасположение"
+                />
+              </div>
+              <div className={styles.btns}>
+                <Button
+                  type="submit"
+                  colorScheme="green"
+                  onClick={submitHandler}
+                >
+                  Создать
+                </Button>
+              </div>
+            </form>
+          </ModalBody>
+          <ModalFooter>
+            {/* <Button variant="ghost" mr={3} onClick={onClose}>
+                  Закрыть
+                </Button> */}
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
           value={inputs?.picture}
           placeholder="загрузить фото продукта"
         /> */}
