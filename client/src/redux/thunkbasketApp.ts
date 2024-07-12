@@ -45,9 +45,12 @@ export const AddProduct = createAsyncThunk(
 
 export const getbasket = createAsyncThunk(
   "basket/get",
-  async () => {
+  async ({userId}:BasketItem) => {
+    console.log(userId,"гоВНОООООООООООООООООООООООООООООООООООООО");
+    
     const response = await axiosInstance.get(
-      `${VITE_BASE_URL}${VITE_API}/basket`
+      `${VITE_BASE_URL}${VITE_API}/basket/get`,
+      { params: { userId } } 
     );
     console.log(response.data, 'ФФФФФФФФФФФФФФФФФФФФФФФФФФ');
     return response.data;

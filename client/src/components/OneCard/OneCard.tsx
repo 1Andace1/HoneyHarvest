@@ -19,6 +19,8 @@ import { AuthState } from "../../redux/types/states";
 import ModalFormUpdate from "../ModalForm/ModalFormUpdate";
 
 export default function OneCard({ el }: { el: IProducts }): JSX.Element {
+  console.log(el,'');
+  
   const title = el.title;
   const price = el.price / 10;
   const discountRatio = el.discountRatio;
@@ -36,7 +38,6 @@ export default function OneCard({ el }: { el: IProducts }): JSX.Element {
   const { user }: { user: IUser } = useAppSelector(
     (state: { authSlice: AuthState }) => state.authSlice
   );
-  const { basket } = useAppSelector((state) => state.basketSlice);
 
   function basketHandler(id: number | string): void {
     console.log(id, user.id, "+++++++++++++++++++++++++++++++++++++----");
