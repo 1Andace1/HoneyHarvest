@@ -59,7 +59,7 @@ console.log('-------------------------------------------------------------------
       <WrapItem>
         <Card maxW="sm">
           <CardBody>
-            <Image src={picture} alt="honey" borderRadius="lg" />
+            <Image src={`/${picture}`} alt="honey" borderRadius="lg" />
               <Stack mt="6" spacing="3">
                 <Heading size="md">{title}</Heading>
                 <Text>{description}</Text>

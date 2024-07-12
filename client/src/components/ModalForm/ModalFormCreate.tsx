@@ -271,35 +271,6 @@ export default function ModalFormCreate({ id }: { id: number }): JSX.Element {
         </ModalContent>
       </Modal>
     </>
-          value={inputs?.picture}
-          placeholder="загрузить фото продукта"
-        /> */}
-                <Input
-                  onChange={changeHandler}
-                  borderColor="#3f3e3e"
-                  name="location"
-                  value={inputs?.location}
-                  placeholder="месторасположение"
-                />
-              </div>
-              <div className={styles.btns}>
-                <Button
-                  type="submit"
-                  colorScheme="green"
-                  onClick={submitHandler}
-                >
-                  Создать
-                </Button>
-              </div>
-            </form>
-          </ModalBody>
-          <ModalFooter>
-            {/* <Button variant="ghost" mr={3} onClick={onClose}>
-                  Закрыть
-                </Button> */}
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    </>
   );
+}
 }
