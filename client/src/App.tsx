@@ -14,6 +14,7 @@ import { useAppSelector } from "./redux/hooks";
 import Basket from "./pages/basket/basket";
 import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
 import CatalogPage from "./pages/Catalog/CatalogPage";
+import OneProductPage from "./pages/OneProductPage/OneProductPage";
 
 
 function App() {
@@ -53,6 +54,10 @@ function App() {
         {
           path: "/catalog",
           element: <CatalogPage />,
+        },
+        {
+          path: "/detail/*",
+          element: <OneProductPage />,
         },
         {
           path: "*", // ловушка для всех остальных маршрутов

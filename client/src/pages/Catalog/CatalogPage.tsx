@@ -65,7 +65,7 @@ export default memo(function CatalogPage(): JSX.Element {
         {filteredProducts.length ? (
           filteredProducts.map((el: IProducts) => (
             // <Stack direction="row" spacing="24px" key={el.id}>
-            <OneCard el={el} />
+            <OneCard el={el} key={el.id} />
             // </Stack>
           ))
         ) : (

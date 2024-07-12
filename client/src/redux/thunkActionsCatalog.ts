@@ -29,13 +29,15 @@ export const AddProduct = createAsyncThunk("catalog/new", async (inputs: any) =>
     `${VITE_BASE_URL}${VITE_API}/catalog/new`,
     { inputs }
   );
-  // const data = await response.json();
-  // return data;
   return response
 });
 
-// const res = await axiosInstance.post(`${VITE_API}/update`, {
-//   ...inputs,
-//   id,
-//   //   user: user.id,
-// });
+export const UpdProduct = createAsyncThunk("catalog/put", async (inputs: any) => {
+  const response: AxiosResponse<number, number> = await axiosInstance.put(
+    `${VITE_BASE_URL}${VITE_API}/catalog/put`,
+     inputs 
+  );
+  return response
+});
+
+
