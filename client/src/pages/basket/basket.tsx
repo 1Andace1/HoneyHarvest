@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './basket.css'; 
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { getbasket, AddProduct } from '../../redux/thunkbasketApp';
-import OneCard from '../../components/OneCard/OneCard'; // Путь к вашему компоненту OneCard
+import OneCard from '../../components/OneCard/OneCard'; 
 import { Button, Input, Select } from '@chakra-ui/react';
 
 interface Product {
@@ -46,7 +46,12 @@ const Basket: React.FC = () => {
   };
 
   const navigate = useNavigate();
-  const baskets = useAppSelector((state) => state.basketSlice.basketApp);
+  const baskets = useAppSelector((state) => state.basketSlice.basketApp) || [];
+  if (baskets && baskets.length > 0) {
+    // Теперь можно безопасно использовать map, reduce и другие методы массива
+  }
+console.log(baskets,'я массив бля');
+
 
   useEffect(() => {
     dispatch(getbasket({ userId: Number(user.id) }));
@@ -55,7 +60,11 @@ const Basket: React.FC = () => {
   useEffect(() => {
     setInputs((prev) => ({
       ...prev,
-      totalBasketPrice: baskets.reduce((total, product) => total + product.numberBasket * (product?.product?.price || 0), 0)
+      totalBasketPrice: baskets.reduce((total, product) => {
+        const productPrice = product?.product?.price || 0;
+        const productQuantity = product.numberBasket || 0;
+        return total + productQuantity * productPrice;
+      }, 0)
     }));
   }, [baskets]);
 
@@ -64,11 +73,20 @@ const Basket: React.FC = () => {
   };
 
   const handleQuantityChange = (id: number, change: number) => {
-    // Implement quantity change logic here
+    setBaskets((currentBaskets) => currentBaskets.map((basket) => {
+      if (basket.id === id) {
+        const newNumberBasket = basket.numberBasket + change;
+        return { ...basket, numberBasket: newNumberBasket >= 0 ? newNumberBasket : 0 };
+      }
+      return basket;
+    }));
   };
 
   const handleRemoveProduct = (id: number) => {
-    // Implement remove product logic here
+    setInputs((prev) => ({
+      ...prev,
+      baskets: prev.baskets.filter((basket) => basket.id !== id),
+    }));
   };
 
   const handleBuyOne = (product: Product) => {
