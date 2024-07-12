@@ -17,9 +17,11 @@ import { IUser } from "../../types/stateTypes";
 import { basketApp } from "../../redux/thunkbasketApp";
 import { AuthState } from "../../redux/types/states";
 import ModalFormUpdate from "../ModalForm/ModalFormUpdate";
+import { useNavigate } from "react-router-dom";
 
 export default function OneCard({ el }: { el: IProducts }): JSX.Element {
-  console.log(el,'');
+  const navigate = useNavigate()
+  const oneProductPage = () => {navigate(`/detail/${el.id}`)}
   
   const title = el?.title;
   const price = el?.price / 10;
@@ -45,6 +47,7 @@ export default function OneCard({ el }: { el: IProducts }): JSX.Element {
   }
 
   function deleteHandler(id: number | string): void {
+    console.log('deleteHandler----55-5-5-5-5-,  typeof id: ', typeof id);
     dispatch(delProduct(Number(id)));
   }
 
@@ -80,7 +83,7 @@ export default function OneCard({ el }: { el: IProducts }): JSX.Element {
                 >
                   Удалить
                 </Button>
-                <ModalFormUpdate el={el} />
+                <ModalFormUpdate el={el} key={el.id} />
               </ButtonGroup>
             ) : (
               <ButtonGroup spacing="2">
@@ -90,6 +93,13 @@ export default function OneCard({ el }: { el: IProducts }): JSX.Element {
                   colorScheme="teal"
                 >
                   Добавить в корзину
+                </Button>
+                <Button
+                  onClick={() => oneProductPage()}
+                  variant="outline"
+                  colorScheme="teal"
+                >
+                  Подробнее
                 </Button>
               </ButtonGroup>
             )}

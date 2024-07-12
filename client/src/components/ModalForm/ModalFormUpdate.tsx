@@ -12,7 +12,7 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
-import { AddProduct } from "../../redux/thunkActionsCatalog";
+import { UpdProduct } from "../../redux/thunkActionsCatalog";
 import { AuthState, ProductState } from "../../redux/types/states";
 import { IProducts } from "../../types/stateTypes";
 
@@ -38,6 +38,7 @@ export default function ModalFormUpdate({ el }): JSX.Element {
   const yearOfHarvestNumberToString = String(el.yearOfHarvest);
   const availableQuantityNumberToString = String(el.availableQuantity);
   const initialInputs = {
+    id: el.id,
     title: el.title,
     priceString: priceNumberToString,
     discountRatioString: discountNumberToString,
@@ -53,10 +54,6 @@ export default function ModalFormUpdate({ el }): JSX.Element {
 
   const [inputs, setInputs] = useState( initialInputs );
 
-// useEffect(() => {
-//     setInputs
-// }, []);
-
 
   const changeHandler = (e: React.FormEvent<HTMLFormElement>) => {
     setInputs((prev: object) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -71,6 +68,7 @@ export default function ModalFormUpdate({ el }): JSX.Element {
     e.preventDefault();
     if (
       !(
+        inputs?.id &&
         inputs?.title &&
         inputs?.priceString &&
         inputs?.discountRatioString &&
@@ -95,7 +93,7 @@ export default function ModalFormUpdate({ el }): JSX.Element {
         "Ошибка!!! Введи числа в поля: ЦЕНА, СКИДКА, ГОД УРОЖАЯ, ДОСТУПНО"
       );
     } else {
-      await dispatch(AddProduct(inputs));
+      await dispatch(UpdProduct(inputs));
       onClose();
       setInputs(() => {});
     }
