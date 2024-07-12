@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { AddProduct } from '../thunkbasketApp';
+import { AddProduct, getbasket } from '../thunkbasketApp';
 
 // Создаем асинхронные thunk для загрузки и добавления данных в корзину
 export const basketApp = createAsyncThunk('basket/basketApp', async (product) => {
@@ -8,10 +8,10 @@ export const basketApp = createAsyncThunk('basket/basketApp', async (product) =>
   return response.data;
 });
 
-export const getbasket = createAsyncThunk('basket/getbasket', async () => {
-  const response = await axios.get('/api/basket');
-  return response.data;
-});
+// export const getbasket = createAsyncThunk('basket/getbasket', async () => {
+//   const response = await axios.get('/api/basket');
+//   return response.data;
+// });
 
 const initialState = {
   basketApp: [],
