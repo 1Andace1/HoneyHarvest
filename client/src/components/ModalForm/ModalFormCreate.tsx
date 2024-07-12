@@ -20,7 +20,6 @@ import { IProducts } from "../../types/stateTypes";
 import styles from "./ModalForm.module.css";
 
 export default function ModalFormCreate({ id }: { id: number }): JSX.Element {
-export default function ModalFormCreate({ id }: { id: number }): JSX.Element {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
 //   const defaultInputs = {
@@ -37,10 +36,7 @@ export default function ModalFormCreate({ id }: { id: number }): JSX.Element {
 //   };
 
   const [inputs, setInputs] = useState({});
-  const [inputs, setInputs] = useState({});
 
-  const changeHandler = (e: React.FormEvent<HTMLFormElement>) => {
-    setInputs((prev: object) => ({ ...prev, [e.target.name]: e.target.value }));
   const changeHandler = (e: React.FormEvent<HTMLFormElement>) => {
     setInputs((prev: object) => ({ ...prev, [e.target.name]: e.target.value }));
   };

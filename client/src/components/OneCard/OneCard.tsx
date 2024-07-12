@@ -14,7 +14,6 @@ import { IProducts } from "../../types/stateTypes";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { delProduct } from "../../redux/thunkActionsCatalog";
 import { IUser } from "../../types/stateTypes";
-import { IUser } from "../../types/stateTypes";
 import { basketApp } from "../../redux/thunkbasketApp";
 import { AuthState } from "../../redux/types/states";
 import ModalFormUpdate from "../ModalForm/ModalFormUpdate";
@@ -44,7 +43,6 @@ export default function OneCard({ el }: { el: IProducts }): JSX.Element {
 
   function basketHandler(id: number | string): void {
     console.log(id, user.id, "+++++++++++++++++++++++++++++++++++++----");
-    console.log(id, user.id, "+++++++++++++++++++++++++++++++++++++----");
     dispatch(basketApp({ productId: Number(id), userId: Number(user.id) }));
   }
 
@@ -58,7 +56,6 @@ export default function OneCard({ el }: { el: IProducts }): JSX.Element {
       <WrapItem>
         <Card maxW="sm">
           <CardBody>
-            <Image src={picture} alt="honey" borderRadius="lg" />
             <Image src={picture} alt="honey" borderRadius="lg" />
             <Stack mt="6" spacing="3">
               <Heading size="md">{title}</Heading>
@@ -76,15 +73,9 @@ export default function OneCard({ el }: { el: IProducts }): JSX.Element {
             </Stack>
           </CardBody>
           {/* <Divider /> */}
-          {/* <Divider /> */}
           <CardFooter>
             {user?.isAdmin ? (
               <ButtonGroup spacing="2">
-                <Button
-                  onClick={() => deleteHandler(el.id)}
-                  variant="solid"
-                  colorScheme="red"
-                >
                 <Button
                   onClick={() => deleteHandler(el.id)}
                   variant="solid"
@@ -96,11 +87,6 @@ export default function OneCard({ el }: { el: IProducts }): JSX.Element {
               </ButtonGroup>
             ) : (
               <ButtonGroup spacing="2">
-                <Button
-                  onClick={() => basketHandler(el.id)}
-                  variant="solid"
-                  colorScheme="teal"
-                >
                 <Button
                   onClick={() => basketHandler(el.id)}
                   variant="solid"
