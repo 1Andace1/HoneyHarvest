@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { useAppDispatch } from "../../redux/hooks";
-import OneCard from "../../components/OneCard/OneCard";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   Input,
   Button,
@@ -19,23 +18,45 @@ import { IProducts } from "../../types/stateTypes";
 
 import styles from "./ModalForm.module.css";
 
-export default function ModalFormCreate({ id }: { id: number }): JSX.Element {
+export default function ModalFormUpdate({ el }): JSX.Element {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-//   const defaultInputs = {
-//     title: "",
-//     priceString: "",
-//     discountRatioString: "",
-//     category: "",
-//     sort: "",
-//     description: "",
-//     yearOfHarvestString: "",
-//     availableQuantityString: "",
-//     // picture: "",
-//     location: "",
-//   };
+  //   const dispatch = useAppDispatch();
 
-  const [inputs, setInputs] = useState({});
+  const { products } = useAppSelector(
+    (state: { productSlice: ProductState }) => state.productSlice
+  );
+  const { user } = useAppSelector(
+    (state: { authSlice: AuthState }) => state.authSlice
+  );
+
+  //   console.log('products--------++----++', products);
+  //   console.log('user--------++----++', user);
+
+  const priceNumberToString = String(el.price);
+  const discountNumberToString = String(el.discountRatio);
+  const yearOfHarvestNumberToString = String(el.yearOfHarvest);
+  const availableQuantityNumberToString = String(el.availableQuantity);
+  const initialInputs = {
+    title: el.title,
+    priceString: priceNumberToString,
+    discountRatioString: discountNumberToString,
+    category: el.category,
+    sort: el.sort,
+    description: el.description,
+    yearOfHarvestString: yearOfHarvestNumberToString,
+    availableQuantityString: availableQuantityNumberToString,
+    location: el.location,
+  };
+
+  console.log("initialInputs---------++", initialInputs);
+
+  const [inputs, setInputs] = useState( initialInputs );
+
+// useEffect(() => {
+//     setInputs
+// }, []);
+
 
   const changeHandler = (e: React.FormEvent<HTMLFormElement>) => {
     setInputs((prev: object) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -131,17 +152,17 @@ export default function ModalFormCreate({ id }: { id: number }): JSX.Element {
       <Button
         onClick={onOpen}
         // isLoading={user?.isAdmin === true}
-        spinner={<p>создание записи</p>}
+        spinner={<p>редактирование записи</p>}
         variant="solid"
         colorScheme="teal"
       >
-        Добавить новые продукты в каталог
+        Редактировать
       </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Новая запись в каталог</ModalHeader>
+          <ModalHeader>Редактирование записи в каталоге</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <form className={styles.wrapper}>
@@ -221,10 +242,10 @@ export default function ModalFormCreate({ id }: { id: number }): JSX.Element {
               <div className={styles.btns}>
                 <Button
                   type="submit"
-                  colorScheme="green"
+                  colorScheme="teal"
                   onClick={submitHandler}
                 >
-                  Создать
+                  Изменить
                 </Button>
               </div>
             </form>

@@ -1,8 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosResponse } from "axios";
-import axiosInstance, { setAccessToken } from "../axiosInstance";
+import axiosInstance from "../axiosInstance";
 import { IType, IUser } from "../types/stateTypes";
-import { NewUser } from "./types/thunk";
 // import { useNavigate } from "react-router-dom";
 
 const { VITE_API, VITE_BASE_URL }: ImportMeta["env"] = import.meta.env;
@@ -25,14 +24,14 @@ export const delProduct = createAsyncThunk(
   }
 );
 
-export const AddProduct = createAsyncThunk("catalog/new", async (inputs) => {
-  console.log("Thunk, AddProduct, получили id: ", id);
+export const AddProduct = createAsyncThunk("catalog/new", async (inputs: any) => {
   const response: AxiosResponse<number, number> = await axiosInstance.post(
     `${VITE_BASE_URL}${VITE_API}/catalog/new`,
     { inputs }
   );
-  const data = await response.json();
-  return data;
+  // const data = await response.json();
+  // return data;
+  return response
 });
 
 // const res = await axiosInstance.post(`${VITE_API}/update`, {

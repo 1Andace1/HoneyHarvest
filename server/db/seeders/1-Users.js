@@ -68,7 +68,7 @@ const userPassword = await generateHashedPassword('222');
           password: "$2b$10$8twGfMWhatr.wNpizjqfOuEek5w381Wr7kaPEW1PpVDJkGUoMEswy",
           cashAccount: 0,
           isAdmin: true,
-          photo: "./usersPhoto/admin.jpeg",
+          photo: "admin.jpeg",
         },
         {
           username: "Иван Кузнецов",
@@ -78,7 +78,7 @@ const userPassword = await generateHashedPassword('222');
           password: "$2b$10$EGdL7CMHrH4ULizl8YJ8me.dDUY5VRDmtYH1edkkZjdq0iK9.iZs.",
           cashAccount: 1000,
           isAdmin: false,
-          photo: "./usersPhoto/img-02.jpeg",
+          photo: "img-02.jpeg",
         },
       ],
       // [
