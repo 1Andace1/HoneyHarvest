@@ -106,10 +106,11 @@ import LoyaltyProgramComponent from './LoyaltyProgramComponent';
 import Achievements from './Achievements';
 import LoyaltyInfo from './LoyaltyInfo';
 import OrderCard from './OrderCard';
-
-// interface ProfilePageProps {
-// ПРОПСЫ ПОТОМ СЮДА ПРОКИНУТЬ
-// }
+import MyCalendar from '../../components/CalendarCard/CalendarCard';
+import WeatherCard from '../../components/WeatherCard/WeatherCard';
+import WeatherCard_2 from '../../components/WeatherCard/WeatherCard NEW';
+import WeatherForecast from '../../components/WeatherForecast NEW/WeatherForecast';
+import styles from './ProfilePage.module.css'
 
 const { VITE_API, VITE_BASE_URL }: ImportMeta['env'] = import.meta.env;
 
@@ -291,17 +292,67 @@ function ProfilePage(): JSX.Element {
 
   return (
     <>
-      {' '}
+    <div className={styles.wrapper}>
+    <MyCalendar />
+    <WeatherCard_2 />
+    </div>
+
+    <div className={styles.wrapper}></div>
+
+    <div className={styles.wrapper}></div>
+
+    <div className={styles.wrapper}></div>
+    {/* <div
+    style={{width: '100%', height: '50px', backgroundColor: 'black'}}
+    >
+      ПРИВЕТ!
+    </div>  */}
       <Box
-  py={10}
-  px={6}
-  bg="RGBA(0, 0, 0, 0.24)"
-  width="100%"   // установка ширины на 100% экрана
-  display="flex"
-  flexDirection="column"
-  alignItems="center"
-  overflowX="hidden"
->
+        py={10}
+        px={6}
+        bg="RGBA(0, 0, 0, 0.24)"
+        // width="2100px" // установка ширины на 100% экрана
+        display="flex"
+        flexDirection="row"
+        alignItems="center"
+        overflowX="hidden"
+        p={4}
+        borderWidth="1px"
+        borderRadius="lg"
+        mb={8}
+      >
+        <MyCalendar />
+        <WeatherCard_2 />
+      </Box>
+      <Box
+        py={10}
+        px={6}
+        bg="RGBA(0, 0, 0, 0.24)"
+        width="100%" // установка ширины на 100% экрана
+        display="flex"
+        flexDirection="row"
+        alignItems="center"
+        overflowX="hidden"
+        p={4}
+        borderWidth="1px"
+        borderRadius="lg"
+        mb={8}
+      >        <WeatherForecast />
+      </Box>
+
+      <Box
+        py={10}
+        px={6}
+        bg="RGBA(0, 0, 0, 0.24)"
+        width="100%" // установка ширины на 100% экрана
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        overflowX="hidden"
+      >
+        {/* <MyCalendar/>
+<WeatherCard_2/>
+<WeatherForecast/> */}
 
         {/* {loyalty && <LoyaltyInfo loyalty={loyalty} onOpen={onOpen} />} */}
         {/* 🟪🟪 КАРТОЧКА ДЛЯ ПРОГРАММЫ ЛОЯЛЬНОСТИ */}
@@ -648,12 +699,12 @@ function ProfilePage(): JSX.Element {
           ))}
         </VStack>
       </Box>
-      
-        {/* 🟪🟪🟪 ____ КОМПОНЕНТ ДОСТИЖЕНИЙ */}
-        <Achievements userId={user.id} />
-        <Box borderBottom="1px solid #cbd5e0" mb={8} />
-        {/* 🟪🟪🟪 ____ КОМПОНЕНТ ЛОЯЛЬНОСТИ */}
-        <LoyaltyProgramComponent userTotalSpent={userTotalSpent} />
+
+      {/* 🟪🟪🟪 ____ КОМПОНЕНТ ДОСТИЖЕНИЙ */}
+      <Achievements userId={user.id} />
+      <Box borderBottom="1px solid #cbd5e0" mb={8} />
+      {/* 🟪🟪🟪 ____ КОМПОНЕНТ ЛОЯЛЬНОСТИ */}
+      <LoyaltyProgramComponent userTotalSpent={userTotalSpent} />
     </>
   );
 }
