@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useAppDispatch } from "../../redux/hooks";
-import OneCard from "../../components/OneCard/OneCard";
 import {
   Input,
   Button,
@@ -12,33 +11,24 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  NumberInput,
+  NumberInputField,
 } from "@chakra-ui/react";
 import { AddProduct } from "../../redux/thunkActionsCatalog";
-import { AuthState, ProductState } from "../../redux/types/states";
-import { IProducts } from "../../types/stateTypes";
+import { IInputsProducts, IInputsProductsString } from "../../types/stateTypes";
 
 import styles from "./ModalForm.module.css";
 
-export default function ModalFormCreate({ id }: { id: number }): JSX.Element {
+export default function ModalFormCreate(): JSX.Element {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-//   const defaultInputs = {
-//     title: "",
-//     priceString: "",
-//     discountRatioString: "",
-//     category: "",
-//     sort: "",
-//     description: "",
-//     yearOfHarvestString: "",
-//     availableQuantityString: "",
-//     // picture: "",
-//     location: "",
-//   };
-
-  const [inputs, setInputs] = useState({});
+  // const defaultInputs = { picture: "./productsPhoto/pattern.jpeg" };
+  const defaultInputs = {} as IInputsProductsString;
+  const [inputs, setInputs] = useState(defaultInputs);
 
   const changeHandler = (e: React.FormEvent<HTMLFormElement>) => {
     setInputs((prev: object) => ({ ...prev, [e.target.name]: e.target.value }));
+    // console.log("[e.target.name]: e.target.value", e.target.name, e.target.value);
   };
 
   const dispatch = useAppDispatch();
@@ -74,57 +64,30 @@ export default function ModalFormCreate({ id }: { id: number }): JSX.Element {
         "Ошибка!!! Введи числа в поля: ЦЕНА, СКИДКА, ГОД УРОЖАЯ, ДОСТУПНО"
       );
     } else {
-      await dispatch(AddProduct(inputs));
+      // const convertedInputs = {} as IInputsProducts;
+      const convertedInputs = {} as IInputsProducts;
+
+      convertedInputs.picture =
+        inputs?.picture || "./productsPhoto/pattern.jpeg";
+      convertedInputs.title = inputs?.title;
+      convertedInputs.price = Number(inputs?.priceString);
+      convertedInputs.discountRatio = Number(inputs?.discountRatioString);
+      convertedInputs.category = inputs?.category;
+      convertedInputs.sort = inputs?.sort;
+      convertedInputs.description = inputs?.description;
+      convertedInputs.yearOfHarvest = Number(inputs?.yearOfHarvestString);
+      convertedInputs.availableQuantity = Number(
+        inputs?.availableQuantityString
+      );
+      convertedInputs.location = inputs?.location;
+
+      console.log("Зашли в submitHandler,  convertedInputs =", convertedInputs);
+
+      await dispatch(AddProduct(convertedInputs));
       onClose();
-      setInputs(() => {});
+      setInputs(() => defaultInputs);
     }
-
-    // const res = await axiosInstance.post(`${VITE_API}/update`, {
-    //   ...inputs,
-    //   id,
-    //   //   user: user.id,
-    // });
-    // if (res.status === 200) {
-    //   setEntries((prev) => [...prev, res.data]);
-    //   setInputs({
-    //     title: "",
-    //     price: "",
-    //     discountRatio: "",
-    //     category: "",
-    //     sort: "",
-    //     description: "",
-    //     yearOfHarvest: "",
-    //     availableQuantity: "",
-    //     picture: "",
-    //     location: "",
-    //   });
-    // }
   };
-
-  //   const submitHandler = async (e) => {
-  //     console.log("зашли в submitHandler, inputs = ", inputs);
-  //     e.preventDefault();
-  //     const res = await axiosInstance.post(`${VITE_API}/update`, {
-  //       ...inputs,
-  //       id,
-  //       //   user: user.id,
-  //     });
-  //     if (res.status === 200) {
-  //       setEntries((prev) => [...prev, res.data]);
-  //       setInputs({
-  //         title: "",
-  //         price: "",
-  //         discountRatio: "",
-  //         category: "",
-  //         sort: "",
-  //         description: "",
-  //         yearOfHarvest: "",
-  //         availableQuantity: "",
-  //         picture: "",
-  //         location: "",
-  //       });
-  //     }
-  //   };
 
   return (
     <>
@@ -154,20 +117,25 @@ export default function ModalFormCreate({ id }: { id: number }): JSX.Element {
                   value={inputs?.title}
                   placeholder="Название продукта"
                 />
-                <Input
-                  onChange={changeHandler}
-                  borderColor="#3f3e3e"
-                  name="priceString"
-                  value={inputs?.priceString}
-                  placeholder="цена за 1 кг"
-                />
-                <Input
-                  onChange={changeHandler}
-                  borderColor="#3f3e3e"
-                  name="discountRatioString"
-                  value={inputs?.discountRatioString}
-                  placeholder="коэффициент скидки, например 0.9"
-                />
+                <NumberInput>
+                  <NumberInputField
+                    onChange={changeHandler}
+                    borderColor="#3f3e3e"
+                    name="priceString"
+                    value={inputs?.priceString}
+                    placeholder="цена за 1 кг"
+                  />
+                </NumberInput>
+
+                <NumberInput>
+                  <NumberInputField
+                    onChange={changeHandler}
+                    borderColor="#3f3e3e"
+                    name="discountRatioString"
+                    value={inputs?.discountRatioString}
+                    placeholder="коэффициент скидки, например 0.9"
+                  />
+                </NumberInput>
                 <Input
                   onChange={changeHandler}
                   borderColor="#3f3e3e"
@@ -189,20 +157,25 @@ export default function ModalFormCreate({ id }: { id: number }): JSX.Element {
                   value={inputs?.description}
                   placeholder="описание"
                 />
-                <Input
-                  onChange={changeHandler}
-                  borderColor="#3f3e3e"
-                  name="yearOfHarvestString"
-                  value={inputs?.yearOfHarvestString}
-                  placeholder="год урожая"
-                />
-                <Input
-                  onChange={changeHandler}
-                  borderColor="#3f3e3e"
-                  name="availableQuantityString"
-                  value={inputs?.availableQuantityString}
-                  placeholder="доступное количество продукта"
-                />
+                <NumberInput>
+                  <NumberInputField
+                    onChange={changeHandler}
+                    borderColor="#3f3e3e"
+                    name="yearOfHarvestString"
+                    value={inputs?.yearOfHarvestString}
+                    placeholder="год урожая"
+                  />
+                </NumberInput>
+                <NumberInput>
+                  <NumberInputField
+                    onChange={changeHandler}
+                    borderColor="#3f3e3e"
+                    name="availableQuantityString"
+                    value={inputs?.availableQuantityString}
+                    placeholder="доступное количество продукта"
+                  />
+                </NumberInput>
+
                 {/* <Input
           onChange={changeHandler}
           borderColor="#3f3e3e"
@@ -218,21 +191,14 @@ export default function ModalFormCreate({ id }: { id: number }): JSX.Element {
                   placeholder="месторасположение"
                 />
               </div>
-              <div className={styles.btns}>
-                <Button
-                  type="submit"
-                  colorScheme="green"
-                  onClick={submitHandler}
-                >
-                  Создать
-                </Button>
-              </div>
             </form>
           </ModalBody>
           <ModalFooter>
-            {/* <Button variant="ghost" mr={3} onClick={onClose}>
-                  Закрыть
-                </Button> */}
+            {/* <div className={styles.btns}> */}
+            <Button type="submit" colorScheme="green" onClick={submitHandler}>
+              Создать
+            </Button>
+            {/* </div> */}
           </ModalFooter>
         </ModalContent>
       </Modal>

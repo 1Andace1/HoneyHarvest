@@ -31,39 +31,86 @@ router
       res.sendStatus(400);
     }
   })
+  // .post('/new', verifyAccessToken, async (req, res) => {
+  //   const {
+  //     title,
+  //     priceString,
+  //     discountRatioString,
+  //     category,
+  //     sort,
+  //     description,
+  //     yearOfHarvestString,
+  //     availableQuantityString,
+  //     // picture,
+  //     location,
+  //   } = req.body.inputs;
+  //   const price = Number(priceString);
+  //   const discountRatio = Number(discountRatioString);
+  //   const yearOfHarvest = Number(yearOfHarvestString);
+  //   const availableQuantity = Number(availableQuantityString);
+
+  //   console.log('typeof price', typeof price, price);
+  //   console.log('typeof title', typeof title, title);
+  //   console.log('typeof price', typeof price, price);
+  //   console.log('typeof discountRatio', typeof discountRatio, discountRatio);
+  //   console.log('typeof category', typeof category, category);
+  //   console.log('typeof sort', typeof sort, sort);
+  //   console.log('typeof description', typeof description, description);
+  //   console.log('typeof yearOfHarvest', typeof yearOfHarvest, yearOfHarvest);
+  //   // console.log('typeof picture', typeof picture, picture);
+  //   console.log('typeof location', typeof location, location);
+
+
+
+  //   try {
+  //     console.log('++-------Зашли в TRY в ручке catalog.api.router.js----------++');
+  //     const entry = await Product.create({
+  //       title,
+  //       price,
+  //       discountRatio,
+  //       category,
+  //       sort,
+  //       description,
+  //       yearOfHarvest,
+  //       availableQuantity,
+  //       // picture,
+  //       location,
+  //     });
+  //     res.json(entry);
+  //   } catch (error) {
+  //     console.error(error);
+  //     res.sendStatus(400);
+  //   }
+  // })
+
+
+
+
   .post('/new', verifyAccessToken, async (req, res) => {
     const {
       title,
-      priceString,
-      discountRatioString,
+      price,
+      discountRatio,
       category,
       sort,
       description,
-      yearOfHarvestString,
-      availableQuantityString,
-      // picture,
+      yearOfHarvest,
+      availableQuantity,
+      picture,
       location,
     } = req.body.inputs;
-    const price = Number(priceString);
-    const discountRatio = Number(discountRatioString);
-    const yearOfHarvest = Number(yearOfHarvestString);
-    const availableQuantity = Number(availableQuantityString);
-
-    console.log('typeof price', typeof price, price);
-    console.log('typeof title', typeof title, title);
-    console.log('typeof price', typeof price, price);
-    console.log('typeof discountRatio', typeof discountRatio, discountRatio);
-    console.log('typeof category', typeof category, category);
-    console.log('typeof sort', typeof sort, sort);
-    console.log('typeof description', typeof description, description);
-    console.log('typeof yearOfHarvest', typeof yearOfHarvest, yearOfHarvest);
+    // console.log('typeof price', typeof price, price);
+    // console.log('typeof title', typeof title, title);
+    // console.log('typeof price', typeof price, price);
+    // console.log('typeof discountRatio', typeof discountRatio, discountRatio);
+    // console.log('typeof category', typeof category, category);
+    // console.log('typeof sort', typeof sort, sort);
+    // console.log('typeof description', typeof description, description);
+    // console.log('typeof yearOfHarvest', typeof yearOfHarvest, yearOfHarvest);
     // console.log('typeof picture', typeof picture, picture);
-    console.log('typeof location', typeof location, location);
-
-
-
+    // console.log('typeof location', typeof location, location);
     try {
-      console.log('++-------Зашли в TRY в ручке catalog.api.router.js----------++');
+      console.log('++-------Зашли в TRY в ручке NEW в catalog.api.router.js----------++');
       const entry = await Product.create({
         title,
         price,
@@ -73,7 +120,7 @@ router
         description,
         yearOfHarvest,
         availableQuantity,
-        // picture,
+        picture,
         location,
       });
       res.json(entry);
@@ -82,6 +129,13 @@ router
       res.sendStatus(400);
     }
   })
+
+
+
+
+
+
+
 
 
 
@@ -123,7 +177,7 @@ router
 
 
     try {
-      console.log('++-------Зашли в TRY в ручке catalog.api.router.js----------++');
+      console.log('++-------Зашли в TRY в ручке PUT в catalog.api.router.js----------++');
       const updatedEntry = await Product.update({
         title,
         price,

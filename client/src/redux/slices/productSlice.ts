@@ -98,11 +98,16 @@ const productSlice: ProductSlice = createSlice({
     builder.addCase(
       UpdProduct.fulfilled,
       (state: Draft<ProductState>, action: PayloadAction<IProducts>): void => {
+        const modifiedСard = JSON.parse(action.payload.config.data)
         state.products = state.products.filter(
-          (el: Draft<IProducts>): boolean => el.id !== action.payload.id
-        ); //подумать с условием фильтра !!!
-        state.products.push(action.payload)
+          (el: Draft<IProducts>): boolean => el.id !== modifiedСard.id
+        );
+        state.products.push(modifiedСard)
+        state.products.sort((a: Draft<IProducts>, b: Draft<IProducts>) => a.id - b.id)
         state.loading = false;
+
+console.log('В Слайс поступил такой response: ', modifiedСard);
+
       }
     );
     builder.addCase(

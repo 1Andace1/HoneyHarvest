@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   Input,
@@ -18,10 +18,10 @@ import { IProducts } from "../../types/stateTypes";
 
 import styles from "./ModalForm.module.css";
 
-export default function ModalFormUpdate({ el }): JSX.Element {
+export default memo(function ModalFormUpdate({ el }: { el: IProducts}): JSX.Element {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  //   const dispatch = useAppDispatch();
+  console.log("Загрузилось модальное окно редактирования продукта с id №", el.id);
 
   const { products } = useAppSelector(
     (state: { productSlice: ProductState }) => state.productSlice
@@ -29,9 +29,6 @@ export default function ModalFormUpdate({ el }): JSX.Element {
   const { user } = useAppSelector(
     (state: { authSlice: AuthState }) => state.authSlice
   );
-
-  //   console.log('products--------++----++', products);
-  //   console.log('user--------++----++', user);
 
   const priceNumberToString = String(el.price);
   const discountNumberToString = String(el.discountRatio);
@@ -95,7 +92,7 @@ export default function ModalFormUpdate({ el }): JSX.Element {
     } else {
       await dispatch(UpdProduct(inputs));
       onClose();
-      setInputs(() => {});
+      setInputs(() => initialInputs);
     }
 
     // const res = await axiosInstance.post(`${VITE_API}/update`, {
@@ -258,3 +255,4 @@ export default function ModalFormUpdate({ el }): JSX.Element {
     </>
   );
 }
+)

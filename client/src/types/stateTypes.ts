@@ -8,6 +8,7 @@ export interface IInputs {
   }
 
 export interface IUser {
+    isAdmin: boolean;
     profilePhoto: string | undefined; 
     id: number,
     username: string,
@@ -53,13 +54,24 @@ export interface IInputsProducts {
   availableQuantity: number,
   picture: string,
   location: string,
-  starsRating: number,
+}
+
+export interface IInputsProductsString {
+  title: string,
+  priceString: string,
+  discountRatioString: string,
+  category: string,
+  sort: string,
+  description: string,
+  yearOfHarvestString: string,
+  availableQuantityString: string,
+  picture: string,
+  location: string,
 }
 
 export interface IProducts extends IInputsProducts {
-  id: string,
+  id: number,
+  starsRating: number,
   createdAt: string,
   updatedAt: string,
 }
-
-

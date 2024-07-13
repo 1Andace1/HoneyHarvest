@@ -19,6 +19,7 @@ module.exports = {
           picture: './productsPhoto/107.jpeg',
           location: 'Башкирия',
           starsRating: 4,
+          createdAt: Sequelize.fn("NOW"),
         },
         {
           title: 'Бортевый липовый мёд',
@@ -33,6 +34,7 @@ module.exports = {
           picture: './productsPhoto/102.jpeg',
           location: 'Башкирия',
           starsRating: 5,
+          createdAt: Sequelize.fn("NOW"),
         },
         {
           title: 'Цветочный мёд',
@@ -46,6 +48,7 @@ module.exports = {
           picture: './productsPhoto/103.jpeg',
           location: 'Алтай',
           starsRating: 3,
+          createdAt: '2023-07-14 00:15:23.802 +0500',
         },
         {
           title: 'Таволговый мёд',
@@ -59,6 +62,7 @@ module.exports = {
           picture: './productsPhoto/104.jpeg',
           location: 'Алтай',
           starsRating: 4,
+          createdAt: '2023-07-14 00:15:23.802 +0500',
         },
         {
           title: 'Липовый мёд в сотах',
@@ -72,6 +76,7 @@ module.exports = {
           picture: './productsPhoto/151.jpeg',
           location: 'Алтай',
           starsRating: 3,
+          createdAt: '2023-07-14 00:15:23.802 +0500',
         },
         {
           title: 'Акациевый мёд',
@@ -85,6 +90,7 @@ module.exports = {
           picture: './productsPhoto/105.jpeg',
           location: 'Кавказ',
           starsRating: 5,
+          createdAt: '2023-07-14 00:15:23.802 +0500',
         },
         {
           title: 'Цветочный мёд',
@@ -98,6 +104,7 @@ module.exports = {
           picture: './productsPhoto/106.jpeg',
           location: 'Кавказ',
           starsRating: 3,
+          createdAt: '2023-07-14 00:15:23.802 +0500',
         },
         {
           title: 'Кипрейный мёд',
@@ -111,6 +118,7 @@ module.exports = {
           picture: './productsPhoto/101.jpeg',
           location: 'Башкирия',
           starsRating: 3,
+          createdAt: '2023-07-14 00:15:23.802 +0500',
         },
         {
           title: 'Донниковый мёд',
@@ -124,6 +132,7 @@ module.exports = {
           picture: './productsPhoto/108.jpeg',
           location: 'Башкирия',
           starsRating: 3,
+          createdAt: '2023-07-14 00:15:23.802 +0500',
         },
         {
           title: 'Перга',
@@ -137,6 +146,7 @@ module.exports = {
           picture: './productsPhoto/401.jpeg',
           location: 'Кавказ',
           starsRating: 0,
+          createdAt: '2023-07-14 00:15:23.802 +0500',
         },
         {
           title: 'Подсолнечный мёд',
@@ -150,6 +160,7 @@ module.exports = {
           picture: './productsPhoto/114.jpeg',
           location: 'Алтай',
           starsRating: 3,
+          createdAt: '2023-07-14 00:15:23.802 +0500',
         },
         {
           title: 'Прополис',
@@ -163,6 +174,7 @@ module.exports = {
           picture: './productsPhoto/301.jpeg',
           location: 'Алтай',
           starsRating: 4,
+          createdAt: '2023-07-14 00:15:23.802 +0500',
         },
         {
           title: 'Воск',
@@ -179,6 +191,7 @@ module.exports = {
           picture: './productsPhoto/203.jpeg',
           location: 'Кавказ',
           starsRating: 4,
+          createdAt: '2023-07-14 00:15:23.802 +0500',
         },
         {
           title: 'Кипрейный мёд',
@@ -192,6 +205,7 @@ module.exports = {
           picture: './productsPhoto/109.jpeg',
           location: 'Башкирия',
           starsRating: 3,
+          createdAt: '2023-07-14 00:15:23.802 +0500',
         },
         {
           title: 'Гречишный мёд',
@@ -205,6 +219,7 @@ module.exports = {
           picture: './productsPhoto/110.jpeg',
           location: 'Башкирия',
           starsRating: 3,
+          createdAt: '2023-07-14 00:15:23.802 +0500',
         },
         {
           title: 'Донниковый мёд',
@@ -218,6 +233,7 @@ module.exports = {
           picture: './productsPhoto/111.jpeg',
           location: 'Башкирия',
           starsRating: 4,
+          createdAt: '2023-07-14 00:15:23.802 +0500',
         },
         {
           title: 'Подсолнечный мёд',
@@ -231,6 +247,7 @@ module.exports = {
           picture: './productsPhoto/113.jpeg',
           location: 'Кавказ',
           starsRating: 5,
+          createdAt: '2023-07-14 00:15:23.802 +0500',
         },
         {
           title: 'Цветочный мёд в сотах',
@@ -244,6 +261,7 @@ module.exports = {
           picture: './productsPhoto/150.jpeg',
           location: 'Башкирия',
           starsRating: 5,
+          createdAt: '2023-07-14 00:15:23.802 +0500',
         },
         {
           title: 'Гречишный мёд',
@@ -257,6 +275,7 @@ module.exports = {
           picture: './productsPhoto/115.jpeg',
           location: 'Башкирия',
           starsRating: 3,
+          createdAt: '2023-07-14 00:15:23.802 +0500',
         },
         {
           title: 'Кипрейный мёд',
@@ -270,6 +289,7 @@ module.exports = {
           picture: './productsPhoto/116.jpeg',
           location: 'Башкирия',
           starsRating: 3,
+          createdAt: '2023-07-14 00:15:23.802 +0500',
         },
         {
           title: 'Подсолнечный мёд',
@@ -283,6 +303,7 @@ module.exports = {
           picture: './productsPhoto/112.jpeg',
           location: 'Башкирия',
           starsRating: 4,
+          createdAt: '2023-07-14 00:15:23.802 +0500',
         },
         {
           title: 'Кипрейный бортевой мёд в сотах',
@@ -296,6 +317,7 @@ module.exports = {
           picture: './productsPhoto/152.jpeg',
           location: 'Башкирия',
           starsRating: 5,
+          createdAt: '2023-07-14 00:15:23.802 +0500',
         },
         {
           title: 'Липовый горный мёд',
@@ -309,6 +331,7 @@ module.exports = {
           picture: './productsPhoto/118.jpeg',
           location: 'Башкирия',
           starsRating: 3,
+          createdAt: '2023-07-14 00:15:23.802 +0500',
         },
         {
           title: 'Цветочный горный мёд',
@@ -322,6 +345,7 @@ module.exports = {
           picture: './productsPhoto/119.jpeg',
           location: 'Алтай',
           starsRating: 3,
+          createdAt: '2023-07-14 00:15:23.802 +0500',
         },
         {
           title: 'Акациевый мёд',
@@ -335,6 +359,7 @@ module.exports = {
           picture: './productsPhoto/120.jpeg',
           location: 'Кавказ',
           starsRating: 3,
+          createdAt: '2023-07-14 00:15:23.802 +0500',
         },
         {
           title: 'Липовый горный мёд',
@@ -348,6 +373,7 @@ module.exports = {
           picture: './productsPhoto/121.jpeg',
           location: 'Кавказ',
           starsRating: 3,
+          createdAt: '2023-07-14 00:15:23.802 +0500',
         },
         {
           title: 'Цветоный горный мёд',
@@ -361,6 +387,7 @@ module.exports = {
           picture: './productsPhoto/122.jpeg',
           location: 'Кавказ',
           starsRating: 3,
+          createdAt: '2023-07-14 00:15:23.802 +0500',
         },
         {
           title: 'Кипрейный мёд',
@@ -374,6 +401,7 @@ module.exports = {
           picture: './productsPhoto/123.jpeg',
           location: 'Башкирия',
           starsRating: 3,
+          createdAt: '2023-07-14 00:15:23.802 +0500',
         },
         {
           title: 'Гречишный мёд',
@@ -387,6 +415,7 @@ module.exports = {
           picture: './productsPhoto/124.jpeg',
           location: 'Алтай',
           starsRating: 3,
+          createdAt: '2023-07-14 00:15:23.802 +0500',
         },
       ],
       {}
