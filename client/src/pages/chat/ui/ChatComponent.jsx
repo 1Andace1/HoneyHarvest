@@ -6,7 +6,7 @@ import './ChatComponent.css';
 
 export default function ChatComponent({ submitHandler, messages, loggedUser, socketRef }) {
   const messagesEndRef = useRef(null);
-  console.log(loggedUser)
+ 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };

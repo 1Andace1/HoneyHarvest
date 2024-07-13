@@ -27,7 +27,8 @@ export default function MessageForm({ submitHandler, socketRef }) {
     <Form
     
       onSubmit={(event) => {
-        event.preventDefault();
+        event.preventDefault()
+       
         submitHandler(input);
         setInput('');
       }}

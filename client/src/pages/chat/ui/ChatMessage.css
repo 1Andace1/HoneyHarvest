@@ -12,7 +12,7 @@
   }
   
   .message-content {
-    max-width: 70%;
+    max-width: 100%;
     padding: 10px;
     border-radius: 10px;
     background-color: #f1f1f1;
@@ -26,38 +26,81 @@
   .message-username {
     font-weight: bold;
     margin-bottom: 5px;
+    border-bottom: 1px solid blue;
   }
   
-  .message-text {
-    word-wrap: break-word;
+  .message-text { 
+      word-wrap: break-word; 
+      white-space: pre-wrap; 
+      margin-right: 20px;
+      text-align: left;
+      width: 180px;
+     text-shadow: 1px;
+      color: rgb(255, 255, 255);
+      background-color: #92686f;
+      padding-left: 10px;
+      padding-bottom: 3px;
+      border-radius: 10px;
+      
   }
   .you{
     display: flex;
     justify-content: start;
+    margin-right: 15px;
     padding-right: 70px;
     background-color: rgb(141, 211, 131);
-    border-radius: 15px;
+    border-radius: 30px;
     color: #ffffff;
     width: 240px;
     height: 80px;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    border-top: 2px solid rgb(184, 170, 97);
+    border-top: 2px solid rgb(13, 105, 33);
+    border-bottom-left-radius: 0px;
   }
   .other{
    
       display: flex;
-      justify-content: end;
-      margin-left: 10px;
-      padding-left: 70px;
-      background-color: rgb(128, 141, 141);
-      border-radius: 15px;
+      justify-content: start;
+      
+      
+      background-color: rgb(97, 188, 234);
+      border-radius: 30px;
       color: #f1f1f1;
-     width: 230px;
+     width: 240px;
      height: 80px;
-     justify-content: center;
+     justify-content: flex-start;
      align-items: center;
-     border-top: 2px solid rgb(212, 41, 41);
+     border-top: 2px solid rgb(23, 79, 151);
+     border-bottom-right-radius: 0px;
+    }
+    .youName{
+      border-bottom: 1px solid rgb(164, 65, 119);
+      border-left: 1px solid rgb(164, 65, 119);
+      border-radius: 10px;
+      background-color: #d8c7c7;
+      color:rgb(164, 65, 119);
+      padding-right: 5px;
+      width: 125px;
+      
+    }
+    .otherName{
+      
+      border-bottom: 1px solid rgb(164, 65, 119);
+      border-left: 1px solid rgb(164, 65, 119);
+      border-radius: 10px;
+      background-color: #d8c7c7;
+      color:rgb(164, 65, 119);
+      text-align: right;
+      width: 125px;
+      margin-left: 54px;
+      padding-right: 5px;
     }
     
   
+    .you .youName, .other .otherName {
+      align-self: flex-start;
+      
+    }
+   
+    
