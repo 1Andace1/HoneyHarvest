@@ -47,7 +47,6 @@ const productSlice: ProductSlice = createSlice({
     );
     // удаление записи из каталога:
     builder.addCase(delProduct.pending, (state: Draft<ProductState>): void => {
-      console.log("Слайс, ожидание удаления записи----------------++");
       state.loading = true;
     });
     builder.addCase(
@@ -56,7 +55,6 @@ const productSlice: ProductSlice = createSlice({
         state: Draft<ProductState>,
         action: PayloadAction<number | void>
       ): void => {
-        console.log("Слайс, запись удалена----------------++");
         state.products = state.products.filter(
           (el): boolean => Number(el.id) !== action.payload
         );
@@ -78,7 +76,7 @@ const productSlice: ProductSlice = createSlice({
     builder.addCase(
       AddProduct.fulfilled,
       (state: Draft<ProductState>, action: PayloadAction<IProducts>): void => {
-        state.products.push(action.payload);
+        state.products.push(action.payload.data);
         state.loading = false;
       }
     );
@@ -98,16 +96,13 @@ const productSlice: ProductSlice = createSlice({
     builder.addCase(
       UpdProduct.fulfilled,
       (state: Draft<ProductState>, action: PayloadAction<IProducts>): void => {
-        const modifiedСard = JSON.parse(action.payload.config.data)
+        const modifiedСard: IProducts = action.payload.data
         state.products = state.products.filter(
           (el: Draft<IProducts>): boolean => el.id !== modifiedСard.id
         );
         state.products.push(modifiedСard)
         state.products.sort((a: Draft<IProducts>, b: Draft<IProducts>) => a.id - b.id)
         state.loading = false;
-
-console.log('В Слайс поступил такой response: ', modifiedСard);
-
       }
     );
     builder.addCase(

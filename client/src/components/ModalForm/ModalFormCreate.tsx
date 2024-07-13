@@ -64,7 +64,6 @@ export default function ModalFormCreate(): JSX.Element {
         "Ошибка!!! Введи числа в поля: ЦЕНА, СКИДКА, ГОД УРОЖАЯ, ДОСТУПНО"
       );
     } else {
-      // const convertedInputs = {} as IInputsProducts;
       const convertedInputs = {} as IInputsProducts;
 
       convertedInputs.picture =

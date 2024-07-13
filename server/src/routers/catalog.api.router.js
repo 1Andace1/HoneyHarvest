@@ -178,7 +178,7 @@ router
 
     try {
       console.log('++-------Зашли в TRY в ручке PUT в catalog.api.router.js----------++');
-      const updatedEntry = await Product.update({
+      await Product.update({
         title,
         price,
         discountRatio,
@@ -191,7 +191,8 @@ router
         location,
       },
     { where: { id }});
-      res.json(updatedEntry);
+    const updatedEntry = await Product.findByPk(id)
+      res.send(updatedEntry);
     } catch (error) {
       console.error(error);
       res.sendStatus(400);

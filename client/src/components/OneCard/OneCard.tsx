@@ -26,8 +26,6 @@ export default function OneCard({ el }: { el: IProducts }): JSX.Element {
     navigate(`/detail/${el.id}`);
   };
 
-  console.log("el.createdAt", el.createdAt);
-
   const {
     title,
     discountRatio,

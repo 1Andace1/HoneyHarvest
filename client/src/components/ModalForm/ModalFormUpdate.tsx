@@ -1,5 +1,5 @@
-import React, { memo, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import React, { useState } from "react";
+import { useAppDispatch } from "../../redux/hooks";
 import {
   Input,
   Button,
@@ -13,22 +13,23 @@ import {
   ModalOverlay,
 } from "@chakra-ui/react";
 import { UpdProduct } from "../../redux/thunkActionsCatalog";
-import { AuthState, ProductState } from "../../redux/types/states";
+// import { AuthState, ProductState } from "../../redux/types/states";
+// import { ProductState } from "../../redux/types/states";
 import { IProducts } from "../../types/stateTypes";
 
 import styles from "./ModalForm.module.css";
 
-export default memo(function ModalFormUpdate({ el }: { el: IProducts}): JSX.Element {
+export default function ModalFormUpdate({ el }: { el: IProducts}): JSX.Element {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   console.log("Загрузилось модальное окно редактирования продукта с id №", el.id);
 
-  const { products } = useAppSelector(
-    (state: { productSlice: ProductState }) => state.productSlice
-  );
-  const { user } = useAppSelector(
-    (state: { authSlice: AuthState }) => state.authSlice
-  );
+  // const { products } = useAppSelector(
+  //   (state: { productSlice: ProductState }) => state.productSlice
+  // );
+  // const { user } = useAppSelector(
+  //   (state: { authSlice: AuthState }) => state.authSlice
+  // );
 
   const priceNumberToString = String(el.price);
   const discountNumberToString = String(el.discountRatio);
@@ -50,6 +51,14 @@ export default memo(function ModalFormUpdate({ el }: { el: IProducts}): JSX.Elem
   console.log("initialInputs---------++", initialInputs);
 
   const [inputs, setInputs] = useState( initialInputs );
+
+  // const { products } = useAppSelector(
+  //   (state: { productSlice: ProductState }) => state.productSlice
+  // );
+
+  // useEffect(() => {
+  //   setInputs(initialInputs)
+  // }, [products]);
 
 
   const changeHandler = (e: React.FormEvent<HTMLFormElement>) => {
@@ -94,53 +103,9 @@ export default memo(function ModalFormUpdate({ el }: { el: IProducts}): JSX.Elem
       onClose();
       setInputs(() => initialInputs);
     }
-
-    // const res = await axiosInstance.post(`${VITE_API}/update`, {
-    //   ...inputs,
-    //   id,
-    //   //   user: user.id,
-    // });
-    // if (res.status === 200) {
-    //   setEntries((prev) => [...prev, res.data]);
-    //   setInputs({
-    //     title: "",
-    //     price: "",
-    //     discountRatio: "",
-    //     category: "",
-    //     sort: "",
-    //     description: "",
-    //     yearOfHarvest: "",
-    //     availableQuantity: "",
-    //     picture: "",
-    //     location: "",
-    //   });
-    // }
   };
 
-  //   const submitHandler = async (e) => {
-  //     console.log("зашли в submitHandler, inputs = ", inputs);
-  //     e.preventDefault();
-  //     const res = await axiosInstance.post(`${VITE_API}/update`, {
-  //       ...inputs,
-  //       id,
-  //       //   user: user.id,
-  //     });
-  //     if (res.status === 200) {
-  //       setEntries((prev) => [...prev, res.data]);
-  //       setInputs({
-  //         title: "",
-  //         price: "",
-  //         discountRatio: "",
-  //         category: "",
-  //         sort: "",
-  //         description: "",
-  //         yearOfHarvest: "",
-  //         availableQuantity: "",
-  //         picture: "",
-  //         location: "",
-  //       });
-  //     }
-  //   };
+
 
   return (
     <>
@@ -255,4 +220,3 @@ export default memo(function ModalFormUpdate({ el }: { el: IProducts}): JSX.Elem
     </>
   );
 }
-)
