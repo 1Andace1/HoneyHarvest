@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { AddProduct, getbasket } from '../thunkbasketApp';
+import { AddProduct, deleteProduct, getbasket } from '../thunkbasketApp';
 
 // Создаем асинхронные thunk для загрузки и добавления данных в корзину
 export const basketApp = createAsyncThunk('basket/basketApp', async (product) => {
@@ -65,7 +65,20 @@ const basketSlice = createSlice({
       state.error = action.error.message;
       state.loading = false;
     });
+    
+  builder.addCase(deleteProduct.pending, (state) => {
+    state.loading = true;
+  });
+  builder.addCase(deleteProduct.fulfilled, (state, action) => {
+    state.basketApp = state.basketApp.filter((product) => product.id !== action.payload);
+    state.loading = false;
+  });
+  builder.addCase(deleteProduct.rejected, (state, action) => {
+    state.error = action.error.message;
+    state.loading = false;
+  });
   },
 });
+
 
 export default basketSlice.reducer;

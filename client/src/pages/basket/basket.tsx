@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './basket.css'; 
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { getbasket, AddProduct } from '../../redux/thunkbasketApp';
+import { getbasket, AddProduct, deleteProduct } from '../../redux/thunkbasketApp';
 import OneCard from '../../components/OneCard/OneCard'; 
 import { Button, Input, Select } from '@chakra-ui/react';
 
@@ -34,6 +34,7 @@ const Basket: React.FC = () => {
     deliveryDate: "",
   }
   const [inputs, setInputs] = useState(defaultInputs);
+  const [baskets, setBaskets] = useState([]);
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -46,9 +47,14 @@ const Basket: React.FC = () => {
   };
 
   const navigate = useNavigate();
-  const baskets = useAppSelector((state) => state.basketSlice.basketApp) || [];
+  const basketData = useAppSelector((state) => state.basketSlice.basketApp);
+  useEffect(() => {
+    if (basketData) {
+      setBaskets(basketData);
+    }
+  }, [basketData]);
+
   if (baskets && baskets.length > 0) {
-    // Теперь можно безопасно использовать map, reduce и другие методы массива
   }
 console.log(baskets,'я массив бля');
 
@@ -61,8 +67,8 @@ console.log(baskets,'я массив бля');
     setInputs((prev) => ({
       ...prev,
       totalBasketPrice: baskets.reduce((total, product) => {
-        const productPrice = product?.product?.price || 0;
-        const productQuantity = product.numberBasket || 0;
+        const productPrice = product?.product?.price || 1;
+        const productQuantity = product.numberBasket || 1;
         return total + productQuantity * productPrice;
       }, 0)
     }));
@@ -83,16 +89,25 @@ console.log(baskets,'я массив бля');
   };
 
   const handleRemoveProduct = (id: number) => {
-    setInputs((prev) => ({
-      ...prev,
-      baskets: prev.baskets.filter((basket) => basket.id !== id),
-    }));
+    dispatch(deleteProduct(id))
+      .unwrap()
+      .then(() => {
+        setBaskets((currentBaskets) => currentBaskets.filter((product) => product.id !== id));
+      })
+      .catch((error) => {
+        console.error('Ошибка при удалении продукта:', error);
+        
+      });
   };
+    // setInputs((prev) => ({
+    //   ...prev,
+    //   baskets: prev.baskets.filter((basket) => basket.id !== id),
+    // }));
 
   const handleBuyOne = (product: Product) => {
     navigate(`/checkout?product=${encodeURIComponent(JSON.stringify(product))}&address=${encodeURIComponent(inputs.deliveryAddress)}&Details=${encodeURIComponent(inputs.commentUser)}&type=${encodeURIComponent(inputs.status)}&date=${encodeURIComponent(inputs.deliveryDate)}`);
   };
-
+useEffect(()=>{console.log('useEffect');},[handleRemoveProduct])
   return (
     <div className="basket-container">
       <div className="basket">

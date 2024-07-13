@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../axiosInstance";
 
+
 const { VITE_API, VITE_BASE_URL }: ImportMeta["env"] = import.meta.env;
 
 interface BasketItem {
@@ -57,6 +58,23 @@ export const getbasket = createAsyncThunk(
   }
 );
 
+export const deleteProduct = createAsyncThunk(
+  "basket/delete",
+  async (id: number, { rejectWithValue }) => {
+    console.log(id,"Я УДАЛЯЮ");
+    try {
+      const response = await axiosInstance.delete(
+        `${VITE_BASE_URL}${VITE_API}/basket/delete/${id}`
+      );
+      if (response.status === 200) {
+        return id; 
+      }
+    } catch (error) {
+      console.log(rejectWithValue, 'Я УДАЛЕНИЕ ПРОВЕРЯЮ');
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
 
 
