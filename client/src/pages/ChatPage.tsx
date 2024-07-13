@@ -16,16 +16,17 @@ export default function ChatPage(): React.FC {
   const [isChatVisible, setIsChatVisible] = useState(false);
   const dispatch = useDispatch();
   const [adminMessages, setAdminMessages] = useState([]);
-   
+   const [needMes, setNeedMes] = useState([])
   useEffect(() => {
     axiosInstance(`${import.meta.env.VITE_API}/tokens/refresh`).then((res) => {
       dispatch(setUser(res.data.user));
       setAccessToken(res.data.accessToken);
+      setNeedMes(messages)
     }).catch((error) => {
       console.error("Failed to refresh token", error);
     });
   }, [dispatch]);
-
+  console.log('все+++++++++++++++',allUsers)
   const toggleChatVisibility = () => {
     setIsChatVisible(!isChatVisible);
   };
@@ -71,11 +72,13 @@ export default function ChatPage(): React.FC {
             
             <div className={user.isAdmin? "chat-container-foAdm" : "chat-container"}>
             <div className= {user.isAdmin? 'usersOnline' : 'suport'}>
-               {user.isAdmin ? (<UsersList users={allUsers.filter((el) => el.id !== user.id)} />) : (<div className="sup"> Тех.Поддержка</div>)}
+               {user.isAdmin ?
+                (<UsersList users={allUsers.filter((el) => el.id !== user.id)} />) : (<div className="sup"> Тех.Поддержка</div>)}
                </div>
               <ChatComponent
                 submitHandler={submitMessage}
-                messages={user.isAdmin? messages  :filteredMessages} 
+                 messages={user.isAdmin? messages  : filteredMessages} 
+                // messages={ messages}
                 loggedUser={user}
                 socketRef={socketRef}
               />
@@ -87,3 +90,4 @@ export default function ChatPage(): React.FC {
     </>
   );
 }
+{/* <div>test</div>: (<div className="sup"> Тех.Поддержка</div>) */}

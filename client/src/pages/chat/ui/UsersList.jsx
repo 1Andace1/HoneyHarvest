@@ -5,7 +5,7 @@ import DotOnlineIcon from '../../../ui/icons/DotOnlineIcon';
 import './UsersList.css';
 import useChat from '../../../hooks/useChat';
 export default function UsersList() {
-  const { users, allUsers } = useChat();
+  const {  allUsers } = useChat();
   const [showModal, setShowModal] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
   const [description, setDescription] = useState('');
