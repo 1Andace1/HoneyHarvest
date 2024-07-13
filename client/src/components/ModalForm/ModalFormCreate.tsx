@@ -1,10 +1,7 @@
-import React, { memo, useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import OneCard from "../../components/OneCard/OneCard";
-import { Input, Button, Heading, Wrap } from "@chakra-ui/react";
-import { getProducts } from "../../redux/thunkActionsCatalog";
-import { AuthState, ProductState } from "../../redux/types/states";
-import { IProducts } from "../../types/stateTypes";
+import {useState } from "react";
+
+import { Input, Button} from "@chakra-ui/react";
+
 // import { Stack, HStack, VStack, Box } from "@chakra-ui/react";
 
 import styles from "./ModalForm.module.css";
@@ -15,13 +12,30 @@ const { VITE_API } = import.meta.env;
 export default function ModalFormCreate({ id }) {
 console.log('зашли в FormUpdate, id = ', id);
 
+interface Inputs {
+  title: string;
+    price: number;
+    discountRatio: number;
+    category: string;
+    sort: string;
+    description: string;
+    yearOfHarvest: number;
+    availableQuantity: number;
+    picture: string;
+    location: string;
+}
 
-  const [inputs, setInputs] = useState({
+  const [inputs, setInputs] = useState<Inputs>({
     title: "",
-    education: "",
-    experience: "",
-    skills: "",
-    public: false,
+    price: 0,
+    discountRatio: 0,
+    category: "",
+    sort: "",
+    description: "",
+    yearOfHarvest: 0,
+    availableQuantity: 0,
+    picture: "",
+    location: ""
   });
 
   const changeHandler = (e) => {
@@ -34,16 +48,20 @@ console.log('зашли в FormUpdate, id = ', id);
     const res = await axiosInstance.put(`${VITE_API}/update`, {
       ...inputs,
       id,
-      //   user: user.id,
+      
     });
     if (res.status === 200) {
-      setEntries((prev) => [...prev, res.data]);
       setInputs({
         title: "",
-        education: "",
-        experience: "",
-        skills: "",
-        public: false,
+        price: 0,
+        discountRatio: 0,
+        category: "",
+        sort: "",
+        description: "",
+        yearOfHarvest: 0,
+        availableQuantity: 0,
+        picture: "",
+        location: ""
       });
     }
   };

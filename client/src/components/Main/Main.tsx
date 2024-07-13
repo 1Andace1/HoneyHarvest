@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { useAppSelector } from "../../redux/hooks";
 import './Main.css'
-import ChatComponent from '../Chat/Chat';
+
 
 
 function Main(): JSX.Element {

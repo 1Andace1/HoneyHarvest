@@ -1,5 +1,5 @@
 
-import React, {useState} from 'react';
+import {useState} from 'react';
 import { Stack, Button, Modal, Form } from 'react-bootstrap';
 import DotOnlineIcon from '../../../ui/icons/DotOnlineIcon';
 import './UsersList.css';

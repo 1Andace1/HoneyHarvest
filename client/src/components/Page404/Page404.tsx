@@ -1,4 +1,4 @@
-import React from 'react';
+
 import styles from './Page404.module.css'; // Импорт стилей из CSS-модуля
 
 const Page404 = () => {

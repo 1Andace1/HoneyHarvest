@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 //! --- 4 ---
 import { useEffect, useRef, useState } from 'react';
-import axiosInstance , { setAccessToken } from '../axiosInstance';
+import axiosInstance from '../axiosInstance';
 import { useAppSelector } from "../redux/hooks";
 const { VITE_API, VITE_BASE_URL } = import.meta.env;
 export default function useChat() {

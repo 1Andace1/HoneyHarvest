@@ -1,5 +1,5 @@
 import { useAppSelector } from '../../redux/hooks';
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import {
   Box,
   Text,
@@ -10,7 +10,7 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
+  
   ModalBody,
   ModalCloseButton,
   Input,

@@ -9,19 +9,18 @@ import { useAppSelector } from "../redux/hooks";
 import './ChatPage.css';
 import UsersList from './chat/ui/UsersList';
 import { setUser } from '../redux/slices/authSlice';
-import axios from 'axios';
+
 export default function ChatPage(): React.FC {
   const { user } = useAppSelector((state) => state.authSlice);
-  const { messages, users,allUsers, typing, submitMessage, socketRef } = useChat();
+  const { messages, users,allUsers, submitMessage, socketRef } = useChat();
   const [isChatVisible, setIsChatVisible] = useState(false);
   const dispatch = useDispatch();
-  const [adminMessages, setAdminMessages] = useState([]);
-   const [needMes, setNeedMes] = useState([])
+
   useEffect(() => {
     axiosInstance(`${import.meta.env.VITE_API}/tokens/refresh`).then((res) => {
       dispatch(setUser(res.data.user));
       setAccessToken(res.data.accessToken);
-      setNeedMes(messages)
+      
     }).catch((error) => {
       console.error("Failed to refresh token", error);
     });

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import  { useEffect, useRef } from 'react';
 import { Stack } from 'react-bootstrap';
 import MessageForm from './MessageForm';
 import MessagesList from './MessagesList';

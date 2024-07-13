@@ -1,4 +1,4 @@
-import React from 'react';
+
 import {
   Modal,
   ModalOverlay,
@@ -8,6 +8,9 @@ import {
   ModalCloseButton,
   Text,
   VStack,
+  HStack,
+  Box,
+  Image,
 } from '@chakra-ui/react';
 
 function OrderDetailsModal({ isOpen, onClose, order }) {

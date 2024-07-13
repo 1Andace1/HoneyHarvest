@@ -14,10 +14,10 @@ import { useAppSelector } from "./redux/hooks";
 import Basket from "./pages/basket/basket";
 import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
 import CatalogPage from "./pages/Catalog/CatalogPage";
-import ChatPage from "./pages/ChatPage";
+
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { refreshUserToken } from './redux/thunk.refresh';
+
 import axiosInstance, { setAccessToken } from "./axiosInstance";
 import { setUser } from './redux/slices/authSlice'
 function App() {
@@ -55,7 +55,7 @@ function App() {
         {
           path: "/profile",
           element:
-            user?.id !== 0 ? <ProfilePage user={user} /> : <Navigate to="/" />,
+            user?.id !== 0 ? <ProfilePage /> : <Navigate to="/" />,
         },
         {
           path: "/basket",

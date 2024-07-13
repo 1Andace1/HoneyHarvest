@@ -1,8 +1,6 @@
-import { UserState } from './../../components/initState';
-import { ActionReducerMapBuilder, Draft, createSlice } from "@reduxjs/toolkit"
-import { AuthState } from "../types/states"
-import { addUser, logoutUser } from '../thunkActions';
-import { AuthSlice, RejectedAction, UserAction } from '../types/reducers';
+
+import {  createSlice } from "@reduxjs/toolkit"
+
 import { basketApp, getbasket } from '../thunkbasketApp';
 
 
@@ -13,7 +11,7 @@ const basketSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder): void => {
-    //пополнение данных в корзину 
+
     builder.addCase(basketApp.pending, (state): void => {
       state.loading = true;
     })
