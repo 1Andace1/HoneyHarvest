@@ -14,10 +14,34 @@ const MyCalendar = () => {
     <div className="calendar-container">
       {" "}
       {/* Применяем стиль к родительскому контейнеру */}
-      <FullCalendar
+      {/* <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin]}
         initialView="dayGridMonth"
         // Добавьте другие опции и события по мере необходимости
+      /> */}
+            {/* <div className="calendar-container">
+        <FullCalendar
+          plugins={[dayGridPlugin, timeGridPlugin]}
+          initialView="dayGridMonth"
+          initialDate={new Date(new Date().setMonth(new Date().getMonth() + 1))}
+        />
+      </div> */}
+       <FullCalendar
+        plugins={[dayGridPlugin, timeGridPlugin]}
+        initialView="dayGridMonth"
+        headerToolbar={{
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek'
+        }}
+        buttonText={{
+          today: 'Сегодня',
+          month: 'Месяц',
+          // week: 'Неделя',
+          // day: 'День'
+        }}
+        height="auto"
+        contentHeight="auto"
       />
     </div>
   );
