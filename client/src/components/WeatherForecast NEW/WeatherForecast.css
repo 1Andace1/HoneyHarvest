@@ -1,124 +1,105 @@
-.weather-forecast {
-    /* display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px; */
-    display: flex;
-    /* flex-direction: row; Изменение направления на горизонтальное */
-    justify-content: center;
-    gap: 20px; /* Расстояние между карточками дней */
-    flex-wrap: wrap; /* Позволяет переносить карточки на следующую строку, если они не помещаются */
-    width: 50px; /* Увеличиваем ширину карточки */
-    height: 550px
-  }
-  
-  /* .detailed-forecast {
-    text-align: center;
-  } */
+.weather-forecast-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 20px;
+}
 
-  .weather-forecast-container {
-    display: flex;
-    /* flex-direction: column; */
-    flex-direction: row;
-    align-items: center;
-    /* flex: 1 1 150px;     Флекс-заполнение: 1 1 150px */
-    width: 50px; /* Увеличиваем ширину карточки */
-    /* height: 250px; Фиксированная высота карточки */
-    height: 500px
-  }
-  
-  .city-input {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .city-input input[type="text"] {
-    flex: 1;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #784040;
-    border-radius: 4px;
-    margin-right: 10px;
-  }
-  
-  .city-input button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #d7b548;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  /* .weather-forecast {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 10px;
-  } */
-  
-  .navigation {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-      flex: 1; /* Равномерное распределение по высоте, если используется flexbox */
-  }
-  
-  .nav-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #debd53;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .detailed-forecast {
-    margin-top: 20px;
-  }
-  
-  .detailed-forecast h2 {
-    font-size: 20px;
-  }
-  
-  .detailed-forecast p {
-    font-size: 16px;
-  }
-  
-  .detailed-forecast img {
-    max-width: 170px;
-    max-height: 1750px;
-    margin-top: 10px;
-  }
+.left-section {
+  flex: 1;
+  max-width: 400px;
+  margin-right: 20px;
+}
 
-  .weather-day {
-    /* display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    transition: transform 0.2s; */
-    flex: 1 1 150px; /* Флекс-заполнение: 1 1 150px */
-    width: 120px; /* Увеличиваем ширину карточки */
-    /* height: 250px; Фиксированная высота карточки */
-    flex: 1; /* Равномерное распределение по высоте, если используется flexbox */
-    text-align: center; /* Выравниваем текст по центру */
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    transition: transform 0.2s;
-  }
-  
-  .weather-day:hover {
-    transform: scale(1.05);
-    
-  }
-  
-  .weather-day img {
-    max-width: 100%;
-    height: auto;
-  }
+.city-input {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.city-input input[type="text"] {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #784040;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.city-input button {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #d7b548;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.detailed-forecast {
+  text-align: center;
+}
+
+.detailed-forecast h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.detailed-forecast p {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.detailed-forecast img {
+  max-width: 100%;
+  height: auto;
+}
+
+.right-section {
+  flex: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.weather-day-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+}
+
+.weather-day {
+  width: 18%;
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: transform 0.2s;
+}
+
+.weather-day:hover {
+  transform: scale(1.05);
+}
+
+.weather-day img {
+  max-width: 100%;
+  height: auto;
+}
+.detailed-forecast {
+  position: relative;
+  padding: 10px;
+}
+
+.detailed-forecast img {
+  float: left;
+  margin: 0 0 10px 10px;
+  width: 100px; /* можно задать подходящий размер */
+  height: auto;
+}
+
+.bold-text {
+  font-weight: bold;
+}
+
+

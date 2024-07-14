@@ -9,11 +9,6 @@ import { ChakraProvider, theme } from "@chakra-ui/react";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <ChakraProvider theme={theme}>
-        <div
-    style={{width: '100%', height: '50px', backgroundColor: 'black'}}
-    >
-      ПРИВЕТ!
-    </div>
     <Provider store={store}>
       <App />
     </Provider>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axiosInstance from '../../axiosInstance';
+import axiosInstance from '../../../axiosInstance';
 import { Box, Heading, Text, VStack, StackDivider } from '@chakra-ui/react';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru';

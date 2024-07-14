@@ -1,72 +1,3 @@
-// import React, { useState, useEffect } from 'react';
-// import { Container, Text, VStack, useDisclosure } from '@chakra-ui/react';
-// import axiosInstance from '../../axiosInstance';
-// import UserProfileCard from './UserProfileCard';
-// import OrderCard from './OrderCard';
-// import LoyaltyInfo from './LoyaltyInfo';
-// // import Loader from '../Loader/Loader';
-
-// const { VITE_API, VITE_BASE_URL }: ImportMeta['env'] = import.meta.env;
-
-// const ProfilePage = () => {
-//   const [user, setUser] = useState(null);
-//   const [loyalty, setLoyalty] = useState(null);
-//   const [orders, setOrders] = useState([]);
-//   const [loading, setLoading] = useState(true);
-//   const { isOpen, onOpen, onClose } = useDisclosure();
-//   const [selectedOrder, setSelectedOrder] = useState(null);
-//   const [orderDetails, setOrderDetails] = useState([]);
-
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       try {
-//         const userProfileResponse = await axiosInstance.get(`${import.meta.env.VITE_API}/profile/users`);
-//         setUser(userProfileResponse.data);
-
-//         const loyaltyResponse = await axiosInstance.get(`${import.meta.env.VITE_API}/profile/loyalty-program`);
-//         setLoyalty(loyaltyResponse.data);
-
-//         const ordersResponse = await axiosInstance.get(`${import.meta.env.VITE_API}/profile/orders`);
-//         setOrders(ordersResponse.data);
-
-//         setLoading(false);
-//       } catch (error) {
-//         console.error(error);
-//       }
-//     };
-
-//     fetchData();
-//   }, []);
-
-//   const handleOrderDetailsOpen = (order, details) => {
-//     setSelectedOrder(order);
-//     setOrderDetails(details);
-//     onOpen();
-//   };
-
-//   // if (loading) {
-//   //   return <Loader />;
-//   // }
-
-//   return (
-//     <Container maxW="container.lg" py={8}>
-//       {user && <UserProfileCard user={user} />}
-//       {loyalty && <LoyaltyInfo loyalty={loyalty} onOpen={onOpen} />}
-//       <Text fontSize="2xl" mt={8} mb={4} fontWeight="bold" color="#2F855A">
-//         История заказов
-//       </Text>
-//       <VStack spacing={4} align="stretch">
-//         {orders.map((order) => (
-//           <OrderCard key={order.id} order={order} onDetailsOpen={handleOrderDetailsOpen} />
-//         ))}
-//       </VStack>
-//       {/* Здесь можно добавить модальное окно для показа деталей заказа */}
-//     </Container>
-//   );
-// };
-
-// export default ProfilePage;
-
 // & КОД ДО ПЕРЕНОСА ВСЕГО В МАЛЕНЬКИЕ КОМПОНЕНТЫ:
 
 import { useAppSelector, useAppDispatch } from '../../redux/hooks'; // ^ new добавила useAppDispatch
@@ -101,16 +32,16 @@ dayjs.extend(localizedFormat); //  для отрисовки красиво да
 dayjs.locale('ru'); //  для отрисовки красиво даты
 import { updateUser } from '../../redux/slices/authSlice'; // ^ new импорт action для обновления пользователя
 import LoyaltyProgram from './LoyaltyProgram';
-import PurchaseHistory from './PurchaseHistory';
+import PurchaseHistory from './profile_components/PurchaseHistory';
 import LoyaltyProgramComponent from './LoyaltyProgramComponent';
-import Achievements from './Achievements';
-import LoyaltyInfo from './LoyaltyInfo';
+import Achievements from './profile_components/Achievements';
+import LoyaltyInfo from '../profile_components/LoyaltyInfo';
 import OrderCard from './OrderCard';
 import MyCalendar from '../../components/CalendarCard/CalendarCard';
 import WeatherCard from '../../components/WeatherCard/WeatherCard';
 import WeatherCard_2 from '../../components/WeatherCard/WeatherCard NEW';
 import WeatherForecast from '../../components/WeatherForecast NEW/WeatherForecast';
-import styles from './ProfilePage.module.css'
+import styles from './ProfilePage.module.css';
 
 const { VITE_API, VITE_BASE_URL }: ImportMeta['env'] = import.meta.env;
 
@@ -292,21 +223,47 @@ function ProfilePage(): JSX.Element {
 
   return (
     <>
-    <div className={styles.wrapper}>
+      {/* <div class="container">
+  <div class="row">
+    <div class="col-md-4">
+    <MyCalendar />
+    </div>
+    <div class="col-md-4">   <WeatherCard_2 /></div>
+    <div class="col-md-4">   <WeatherCard_2 /></div>
+  </div>
+</div> */}
+
+      <div class="flex-container">
+        <div class="flex-item">
+          {' '}
+          <MyCalendar />
+        </div>
+        <div class="flex-item">
+          <WeatherCard_2 />
+        </div>
+        <div class="flex-item">
+          <WeatherCard_2 />
+        </div>
+      </div>
+
+      <div class="grid-container">
+        <div class="grid-item">Блок кода 1</div>
+        <div class="grid-item">Блок кода 2</div>
+        <div class="grid-item">Блок кода 3</div>
+      </div>
+      {/* <div className={styles.wrapper}>
     <MyCalendar />
     <WeatherCard_2 />
-    </div>
+    </div> */}
+      {/* 
+      <div className={styles.wrapper}></div>
 
-    <div className={styles.wrapper}></div>
+      <div className={styles.wrapper}></div>
 
-    <div className={styles.wrapper}></div>
-
-    <div className={styles.wrapper}></div>
-    {/* <div
-    style={{width: '100%', height: '50px', backgroundColor: 'black'}}
-    >
-      ПРИВЕТ!
-    </div>  */}
+      <div className={styles.wrapper}></div> */}
+      {/* <div style={{ width: '100%', height: '50px', backgroundColor: 'black' }}>
+        ПРИВЕТ!
+      </div> */}
       <Box
         py={10}
         px={6}
@@ -324,11 +281,12 @@ function ProfilePage(): JSX.Element {
         <MyCalendar />
         <WeatherCard_2 />
       </Box>
+
       <Box
         py={10}
         px={6}
         bg="RGBA(0, 0, 0, 0.24)"
-        width="100%" // установка ширины на 100% экрана
+        width="1200px" // установка ширины на 100% экрана
         display="flex"
         flexDirection="row"
         alignItems="center"
@@ -337,7 +295,8 @@ function ProfilePage(): JSX.Element {
         borderWidth="1px"
         borderRadius="lg"
         mb={8}
-      >        <WeatherForecast />
+      >
+        <WeatherForecast />
       </Box>
 
       <Box
@@ -353,14 +312,6 @@ function ProfilePage(): JSX.Element {
         {/* <MyCalendar/>
 <WeatherCard_2/>
 <WeatherForecast/> */}
-
-        {/* {loyalty && <LoyaltyInfo loyalty={loyalty} onOpen={onOpen} />} */}
-        {/* 🟪🟪 КАРТОЧКА ДЛЯ ПРОГРАММЫ ЛОЯЛЬНОСТИ */}
-        {/* <Box>
-      <PurchaseHistory userId={user.id} />
-      // <LoyaltyProgramComponent totalSpent={userTotalSpent} />
-   
-    </Box> */}
 
         <Heading mb={6} color="#1e1f23">
           Профиль пользователя
@@ -389,8 +340,8 @@ function ProfilePage(): JSX.Element {
     </Box> */}
 
         <HStack spacing={6} w="full" align="flex-start" mb={8}>
-          🟪 БЛОК ОТОБРАЖЕНИЯ ПОСЛЕДНЕГО ЗАКАЗА И ЕГО СТАТУСА
-          {orders.length > 0 && (
+          {/* 🟪 БЛОК ОТОБРАЖЕНИЯ ПОСЛЕДНЕГО ЗАКАЗА И ЕГО СТАТУСА */}
+          {/* {orders.length > 0 && (
             <Box
               bg="RGBA(0, 0, 0, 0.36)"
               color="#f8f9fb"
@@ -431,8 +382,8 @@ function ProfilePage(): JSX.Element {
                 </Text>
               </VStack>
             </Box>
-          )}
-          {/* 🟪 БЛОК ПРОФИЛЯ  */}
+          )} */}
+          {/* 🟪 БЛОК ПРОФИЛЯ 
           <Box
             bg="RGBA(0, 0, 0, 0.24)"
             color="#f8f9fb"
@@ -464,6 +415,7 @@ function ProfilePage(): JSX.Element {
             <Text fontSize="lg" fontWeight="bold">
               Ваш email: {user.email}
             </Text>
+            
             <Button
               colorScheme="blue"
               mt={4}
@@ -478,17 +430,31 @@ function ProfilePage(): JSX.Element {
             >
               Редактировать профиль
             </Button>
-          </Box>
+          </Box> */}
+          {/* <div>
+          <PurchaseHistory userId={user.id} />
           <LoyaltyProgramComponent userTotalSpent={userTotalSpent} />
+          </div> */}
+
+
+          {/* <Box>
+            {' '}
+            <PurchaseHistory userId={user.id} />
+            <LoyaltyProgramComponent userTotalSpent={userTotalSpent} />
+          </Box> */}
+          <div className={styles.wrapper}>
+            <PurchaseHistory userId={user.id} />
+            <LoyaltyProgramComponent userTotalSpent={userTotalSpent} />
+          </div>
+          {/* <LoyaltyProgramComponent userTotalSpent={userTotalSpent} />
+          <PurchaseHistory userId={user.id} /> */}
         </HStack>
 
         {/* 🟪🟪🟪 ____ КОМПОНЕНТ ДОСТИЖЕНИЙ */}
         <Achievements userId={user.id} />
-        {/* 🟪🟪🟪 ____ КОМПОНЕНТ ЛОЯЛЬНОСТИ */}
-        <LoyaltyProgramComponent userTotalSpent={userTotalSpent} />
 
         {/* 🟪 БЛОК ОТОБРАЖЕНИЯ заказа из Истории Заказов */}
-        {selectedOrder && (
+        {/* {selectedOrder && (
           <Box
             bg="RGBA(0, 0, 0, 0.36)"
             color="#f8f9fb"
@@ -543,19 +509,19 @@ function ProfilePage(): JSX.Element {
               ))}
             </VStack>
           </Box>
-        )}
+        )} */}
 
         {/*  🟪 БЛОК ОТОБРАЖЕНИЯ ВЫБРАННОГО ЗАКАЗА */}
-        {selectedOrder && (
+        {/* {selectedOrder && (
           <OrderDetailsModal
             isOpen={isDetailsOpen}
             onClose={onDetailsClose}
             order={selectedOrder}
           />
-        )}
+        )} */}
 
         {/*  🟪 МОДАЛЬНОЕ ОКНО РЕДАКТИРОВАНИЯ ПРОФИЛЯ */}
-        {isEditing && (
+        {/* {isEditing && (
           <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
             <ModalContent>
@@ -616,7 +582,7 @@ function ProfilePage(): JSX.Element {
               </ModalBody>
             </ModalContent>
           </Modal>
-        )}
+        )} */}
 
         {/*  🟪БЛОК ИСТОРИИ ВСЕХ ЗАКАЗОВ */}
         {/* <Heading mt={10} mb={6} color="#1e1f23">
@@ -640,22 +606,17 @@ function ProfilePage(): JSX.Element {
               justifyContent="space-between"
               alignItems="center"
             >
-              {/* <Text fontWeight="bold" textAlign="left">
-            Дата заказа:{' '}
-            <Text as="span" fontWeight="normal">
-              {order.date}
-            </Text>
-          </Text> */}
-              <Box>
+              <Text fontWeight="bold" textAlign="left" fontSize="xl">
                 <Text fontWeight="bold">
-                  Дата заказа:{' '}
+                  Дата заказа: <br />
                   <Text as="span" fontWeight="normal">
                     {formatDateTime(order.date)}
                   </Text>
                 </Text>
-
+              </Text>
+              <Box>
                 <Text fontWeight="bold" textAlign="left">
-                  Статус:{' '}
+                  Статус (ОТПРАВЛЕН/ДОСТАВЛЕН):{' '}
                   <Text as="span" fontWeight="normal">
                     {order.status}
                   </Text>
@@ -678,12 +639,12 @@ function ProfilePage(): JSX.Element {
                     {order.deliveryAddress}
                   </Text>
                 </Text>
-                <Text fontWeight="bold" textAlign="left">
+                {/* <Text fontWeight="bold" textAlign="left">
                   Комментарий:{' '}
                   <Text as="span" fontWeight="normal">
                     {order.comment}
                   </Text>
-                </Text>
+                </Text> */}
               </Box>
               <Button
                 colorScheme="blue"
@@ -699,12 +660,6 @@ function ProfilePage(): JSX.Element {
           ))}
         </VStack>
       </Box>
-
-      {/* 🟪🟪🟪 ____ КОМПОНЕНТ ДОСТИЖЕНИЙ */}
-      <Achievements userId={user.id} />
-      <Box borderBottom="1px solid #cbd5e0" mb={8} />
-      {/* 🟪🟪🟪 ____ КОМПОНЕНТ ЛОЯЛЬНОСТИ */}
-      <LoyaltyProgramComponent userTotalSpent={userTotalSpent} />
     </>
   );
 }
