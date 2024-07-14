@@ -1,17 +1,18 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosResponse } from "axios";
 import axiosInstance from "../axiosInstance";
-import { IType, IUser } from "../types/stateTypes";
+import { IInputsProducts } from "../types/stateTypes";
+import { DelProduct, GetProducts, NewProduct, UpdateProduct } from "./types/thunkProduct";
 // import { useNavigate } from "react-router-dom";
 
 const { VITE_API, VITE_BASE_URL }: ImportMeta["env"] = import.meta.env;
 
-export const getProducts = createAsyncThunk("catalog/all", async () => {
+export const getProducts: GetProducts = createAsyncThunk("catalog/all", async () => {
   const { data } = await axios.get(`${VITE_BASE_URL}${VITE_API}/catalog`);
   return data;
 });
 
-export const delProduct = createAsyncThunk(
+export const delProduct: DelProduct = createAsyncThunk(
   "catalog/del",
   async (id: number): Promise<number | void> => {
     // проверить типизацию response (правильно ли указано: <number, number>):
@@ -24,7 +25,7 @@ export const delProduct = createAsyncThunk(
   }
 );
 
-export const AddProduct = createAsyncThunk("catalog/new", async (inputs: any) => {
+export const AddProduct: NewProduct = createAsyncThunk("catalog/new", async (inputs: IInputsProducts) => {
   const response: AxiosResponse<number, number> = await axiosInstance.post(
     `${VITE_BASE_URL}${VITE_API}/catalog/new`,
     { inputs }
@@ -32,7 +33,7 @@ export const AddProduct = createAsyncThunk("catalog/new", async (inputs: any) =>
   return response
 });
 
-export const UpdProduct = createAsyncThunk("catalog/put", async (inputs: any) => {
+export const UpdProduct: UpdateProduct = createAsyncThunk("catalog/put", async (inputs: IInputsProducts) => {
   const response: AxiosResponse<number, number> = await axiosInstance.put(
     `${VITE_BASE_URL}${VITE_API}/catalog/put`,
      inputs 
