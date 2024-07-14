@@ -1,25 +1,15 @@
 // & КОД ДО ПЕРЕНОСА ВСЕГО В МАЛЕНЬКИЕ КОМПОНЕНТЫ:
 
 import { useAppSelector, useAppDispatch } from '../../redux/hooks'; // ^ new добавила useAppDispatch
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Box,
   Text,
   Heading,
   VStack,
   HStack,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  Input,
-  Image,
   Button,
   useDisclosure,
-  StackDivider,
 } from '@chakra-ui/react';
 import axiosInstance from '../../axiosInstance';
 // import OrderDetailsModal from '../../components/OrderDetailsModal/OrderDetailsModal';
@@ -27,7 +17,6 @@ import axiosInstance from '../../axiosInstance';
 import dayjs from 'dayjs'; //  для отрисовки красиво даты
 import 'dayjs/locale/ru'; // для отрисовки красиво даты Импорт русской локали для dayjs
 import localizedFormat from 'dayjs/plugin/localizedFormat'; //   для отрисовки красиво даты
-import OrderDetailsModal from '../../components/OrderDetailsModal/OrderDetailsModal';
 dayjs.extend(localizedFormat); //  для отрисовки красиво даты
 dayjs.locale('ru'); //  для отрисовки красиво даты
 import { updateUser } from '../../redux/slices/authSlice'; // ^ new импорт action для обновления пользователя
@@ -35,10 +24,7 @@ import LoyaltyProgram from './LoyaltyProgram';
 import PurchaseHistory from './profile_components/PurchaseHistory';
 import LoyaltyProgramComponent from './LoyaltyProgramComponent';
 import Achievements from './profile_components/Achievements';
-import LoyaltyInfo from '../profile_components/LoyaltyInfo';
-import OrderCard from './OrderCard';
 import MyCalendar from '../../components/CalendarCard/CalendarCard';
-import WeatherCard from '../../components/WeatherCard/WeatherCard';
 import WeatherCard_2 from '../../components/WeatherCard/WeatherCard NEW';
 import WeatherForecast from '../../components/WeatherForecast NEW/WeatherForecast';
 import styles from './ProfilePage.module.css';
