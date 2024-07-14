@@ -13,7 +13,7 @@ import Page404 from "./components/Page404/Page404"; // добавила: имп�
 import { useAppSelector } from "./redux/hooks";
 import Basket from "./pages/basket/basket";
 import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
-import CatalogPage from "./pages/Catalog/CatalogPage";
+import CatalogPage from "./pages/CatalogPage/CatalogPage";
 import OneProductPage from "./pages/OneProductPage/OneProductPage";
 
 

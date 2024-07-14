@@ -53,20 +53,15 @@ export default memo(function CatalogPage(): JSX.Element {
   return (
     <>
       {user?.isAdmin ? (
-                <ModalFormCreate id={user.id} />
+                <ModalFormCreate />
       ) : (
         false
       )}
-
-      {/* <SimpleGrid columns={[2, null, 3]} spacing={4} > */}
-      {/* <Stack direction="row" spacing="24px"> */}
       <FilterComponent onFilterChange={handleFilterChange} />
       <Wrap spacing="30px">
         {filteredProducts.length ? (
           filteredProducts.map((el: IProducts) => (
-            // <Stack direction="row" spacing="24px" key={el.id}>
             <OneCard el={el} key={el.id} />
-            // </Stack>
           ))
         ) : (
           <Heading as="h2" size="2xl">
@@ -74,9 +69,6 @@ export default memo(function CatalogPage(): JSX.Element {
           </Heading>
         )}
       </Wrap>
-
-      {/* </Stack> */}
-      {/* </SimpleGrid> */}
     </>
   );
 });
