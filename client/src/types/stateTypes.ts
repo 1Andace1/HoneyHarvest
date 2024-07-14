@@ -75,3 +75,7 @@ export interface IProducts extends IInputsProducts {
   createdAt: string,
   updatedAt: string,
 }
+export interface IProductsSlice {
+  data: IProducts,
+}
+

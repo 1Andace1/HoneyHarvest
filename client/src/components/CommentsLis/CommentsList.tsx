@@ -1,5 +1,5 @@
 import { memo } from "react";
-// import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 // import OneCard from "../OneCard/OneCard";
 // import {  Heading,  Wrap } from "@chakra-ui/react";
 // import { getProducts } from "../../redux/thunkActionsCatalog";
@@ -9,7 +9,7 @@ import { memo } from "react";
 
 export default memo(function CommentsList(): JSX.Element {
 
-//   const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
 //   const { products } = useAppSelector(
 //     (state: { productSlice: ProductState }) => state.productSlice
