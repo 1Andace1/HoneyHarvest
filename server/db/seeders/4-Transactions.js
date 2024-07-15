@@ -2,6 +2,7 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
+    
     await queryInterface.bulkInsert('Transactions', [
       {
         UserId: 1,
@@ -14,6 +15,7 @@ module.exports = {
         status: 1,
         commentAdmin: 'No comments',
         basketId: 1,
+        orderId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -28,6 +30,7 @@ module.exports = {
         status: 1,
         commentAdmin: 'No comments',
         basketId: 1,
+        orderId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -42,6 +45,7 @@ module.exports = {
         status: 1,
         commentAdmin: 'No comments',
         basketId: 1,
+        orderId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -56,6 +60,7 @@ module.exports = {
         status: 1,
         commentAdmin: 'No comments',
         basketId: 1,
+        orderId: 2,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -70,6 +75,7 @@ module.exports = {
         status: 1,
         commentAdmin: 'No comments',
         basketId: 1,
+        orderId: 2,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -84,6 +90,7 @@ module.exports = {
         status: 1,
         commentAdmin: 'No comments',
         basketId: 1,
+        orderId: 2,
         createdAt: new Date(),
         updatedAt: new Date(),
       },

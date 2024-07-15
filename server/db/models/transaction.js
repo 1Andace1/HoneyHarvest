@@ -3,10 +3,11 @@
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Transaction extends Model {
-    static associate({ User, Basket, Product }) {
+    static associate({ User, Basket, Product, Order }) {
       this.belongsTo(User, { foreignKey: "UserId", as: "user" });
       this.belongsTo(Basket, { foreignKey: "basketId", as: "basket" });
       this.belongsTo(Product, { foreignKey: "productId", as: "product" });
+      this.belongsTo(Order, { foreignKey: 'orderId', as: 'order' });
     }
   }
   Transaction.init(
@@ -21,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       status: DataTypes.INTEGER,
       commentAdmin: DataTypes.STRING,
       basketId: DataTypes.INTEGER,
+      orderId: DataTypes.INTEGER,
     },
     {
       sequelize,

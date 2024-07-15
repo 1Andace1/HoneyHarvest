@@ -59,6 +59,17 @@ module.exports = {
           key: 'id',
         },
       },
+      orderId: {
+        // ! МАША ДОБАВИЛА
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Orders',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
+      },
       createdAt: {
         allowNull: false,
         defaultValue: Sequelize.fn('NOW'),
