@@ -9,8 +9,14 @@ import {
   ModalFooter,
   Button,
 } from "@chakra-ui/react";
+interface ErrorModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  error: string;
+}
 
-const ErrorModal = ({ isOpen, onClose, error }) => {
+
+const ErrorModal = ({ isOpen, onClose, error }:ErrorModalProps) => {
   return (
     <Modal isCentered isOpen={isOpen} onClose={onClose}>
       <ModalOverlay
