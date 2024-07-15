@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import  { Box, Heading, Text, VStack, Image, Flex }from '@chakra-ui/react';
-import axiosInstance from '../../axiosInstance';
-import LoyaltyProgram from './LoyaltyProgram';
+import axiosInstance from '../../../axiosInstance';
+import LoyaltyProgram from './../LoyaltyProgram';
 
 const loyaltyProgram = new LoyaltyProgram();
 

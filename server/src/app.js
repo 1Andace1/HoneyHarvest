@@ -19,10 +19,12 @@ const { PORT } = process.env;
 const corsConfig = {
   origin: ["http://localhost:5173"],
   credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
 
+app.options('/profile/order-details/:orderId', cors(corsConfig));
+app.options('/api/v1/profile/order-details/:orderId', cors(corsConfig));
 
 app.use(morgan("dev"));
 app.use(cookieParser());

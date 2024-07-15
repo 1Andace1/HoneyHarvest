@@ -91,12 +91,13 @@ router.put('/users/:id', upload.single('profilePhoto'), async (req, res) => {
       .json({ message: 'Server Error with updating profile' });
   }
 });
-// * Роут для допступа к спискам заказов и статусам
+// * Роут для доступа к спискам заказов и статусам
 router.get('/orders/:userId', async (req, res) => {
   try {
     const orders = await Basket.findAll({
       where: { UserId: req.params.userId },
     });
+    console.log('✅orders from /orders/:userId', orders)
     res.json(orders);
   } catch (error) {
     console.error('Ошибка при получении заказов:', error);
@@ -105,12 +106,23 @@ router.get('/orders/:userId', async (req, res) => {
 });
 
 // Роут для получения деталей заказа:
-router.get('/profile/order-details/:orderId', async (req, res) => {
+router.get('/order-details/:orderId', async (req, res) => {
+  console.log('✅ЗАШЛИ');
   try {
+      console.log('✅Получение деталей заказа для orderId:', req.params.orderId);
+    // const orderDetails = await Transaction.findAll({
+    //   where: { basketId: req.params.orderId },
+    //   include: [{ model: Product, attributes: ['title', 'picture'] }],
+    // });
     const orderDetails = await Transaction.findAll({
-      where: { basketId: req.params.orderId },
-      include: [{ model: Product, attributes: ['title', 'picture'] }],
+      where: { UserId: req.params.orderId },
+      include: [{ model: Basket, attributes: ['title', 'picture'] }],
     });
+    console.log('✴️orderDetails:', orderDetails);
+    if (!orderDetails.length) {
+      return res.status(404).json({ error: 'Детали заказа не найдены' });
+    }
+    console.log('orderDetails', orderDetails);
     res.json(orderDetails);
   } catch (error) {
     res.status(500).json({ error: 'Не удалось получить детали заказа' });
@@ -164,7 +176,7 @@ router.get('/purchase-history/:userId', async (req, res) => {
       ordersCount,
       totalSpent, // это общая сумма покупок
             // reviewsCount,
-      localProductsPurchased: localProductsPurchased > 0,
+      // localProductsPurchased: localProductsPurchased > 0,
     });
   } catch (error) {
     console.error('Ошибка при получении истории покупок пользователя:', error);
@@ -192,18 +204,18 @@ router.get('/achievements/:userId', async (req, res) => {
    
     const reviewsCount = 0;
 
-    const localProducts = await Product.findAll({
-      // where: { category: 'мёд' }, // ? ПОКА ЧТО такая категория (тк самая распространенная)
-      where: {
-        [Op.or]: [
-          { category: 'мёд' },
-          { category: 'перга' },
-          { category: 'прополис' },
-          //можно другие потом добавить
-        ],
-      },
-      attributes: ['id'],
-    });
+    // const localProducts = await Product.findAll({
+    //   // where: { category: 'мёд' }, // ? ПОКА ЧТО такая категория (тк самая распространенная)
+    //   where: {
+    //     [Op.or]: [
+    //       { category: 'мёд' },
+    //       { category: 'перга' },
+    //       { category: 'прополис' },
+    //       //можно другие потом добавить
+    //     ],
+    //   },
+    //   attributes: ['id'],
+    // });
 
     // const localProductIds = localProducts.map((product) => product.id);
     // console.log('🟥 FROM /achievements/ =======localProductIds', localProductIds);
