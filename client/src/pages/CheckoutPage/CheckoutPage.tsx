@@ -35,7 +35,7 @@ const CheckoutPage: React.FC = () => {
   // const basket: Product[] = basketString ? JSON.parse(decodeURIComponent(basketString)) : [];
   // const product: Product | null = productString ? JSON.parse(decodeURIComponent(productString)) : null;// ! эТО ЗДЕСЬ НЕ ПЕРЕЖАЕТСЯ, ТК null
   const deliveryAddress = searchParams.get('address') || '';
-  const commentUser = searchParams.get('Details') || '';
+  const Details = searchParams.get('Details') || '';
   const deliveryType = searchParams.get('type') || '';
   const deliveryDate = searchParams.get('date') || '';
   // console.log('🌸CheckoutPage=== basket', basket)
@@ -110,7 +110,7 @@ const CheckoutPage: React.FC = () => {
       <form className="checkout-form">
         <label>
           Имя:
-          <input type="text" name="name" className="form-input" required />
+          <input type="text" name="name" className="form-input" />
         </label>
         <label>
           Адрес доставки:
@@ -118,7 +118,7 @@ const CheckoutPage: React.FC = () => {
         </label>
         <label>
           Email:
-          <input type="email" name="email" className="form-input" required />
+          <input type="email" name="email" className="form-input" />
         </label>
         <button type="submit" className="submit-button">Подтвердить заказ</button>
       </form>
