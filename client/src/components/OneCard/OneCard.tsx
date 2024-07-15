@@ -15,11 +15,11 @@ import { IProducts } from "../../types/stateTypes";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { delProduct } from "../../redux/thunkActionsCatalog";
 import { IUser } from "../../types/stateTypes";
-import { basketApp } from "../../redux/thunkbasketApp";
+
 import { AuthState } from "../../redux/types/states";
 import ModalFormUpdate from "../ModalForm/ModalFormUpdate";
 import { useNavigate } from "react-router-dom";
-import { IUser } from '../../types/stateTypes';
+
 
 
 export default function OneCard({ el }: { el: IProducts }): JSX.Element {
@@ -60,7 +60,6 @@ export default function OneCard({ el }: { el: IProducts }): JSX.Element {
   const { user }: { user: IUser } = useAppSelector(
     (state: { authSlice: AuthState }) => state.authSlice
   );
-  const { user }: { user: IUser } = useAppSelector((state) => state.authSlice);
   // const { basket } = useAppSelector((state) => state.basketSlice);
 
   function basketHandler(id: number): void {

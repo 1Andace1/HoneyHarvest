@@ -37,7 +37,7 @@
     position: fixed;
     bottom: 100px;
     right: 20px;
-    width: 320px;
+    width: 285px;
     height: 410px;
     background-color: white;
     border: 1px solid #ccc;
@@ -66,7 +66,7 @@
     position: fixed;
     bottom: 100px;
     right: 20px;
-    width: 250px;
+    width: 285px;
     height: 410px;
     background-color: white;
     border: 1px solid #ccc;
@@ -79,7 +79,7 @@
   .usersOnline, .suport {
     flex: 1; 
     
-    margin-left: 75px;
+    margin-left: 5px;
   }
   /* .sup{
     width: 200px;
