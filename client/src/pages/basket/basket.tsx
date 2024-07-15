@@ -34,6 +34,7 @@ const Basket: React.FC = () => {
     totalBasketPrice: 0,
     deliveryAddress: "",
     estimatedDate: "",
+
   }
   const [inputs, setInputs] = useState<Omit<Product, 'productId'>>(defaultInputs);
   const [baskets, setBaskets] = useState<Product[]>([]);

@@ -146,7 +146,7 @@ export default function OneCard({ el }: { el: IProducts }): JSX.Element {
             ) : (
               <ButtonGroup spacing="2">
                 <Button
-                  onClick={() => basketHandler(el.id)}
+                  onClick={() => basketHandler(el?.id)}
                   variant="solid"
                   colorScheme="teal"
                 >
