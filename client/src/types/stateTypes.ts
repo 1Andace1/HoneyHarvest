@@ -5,6 +5,7 @@ export interface IInputs {
     profilePhoto?: File | null; // добавила: поле profilePhoto
     userCity?: string; // добавила: Добавлено поле userCity
     telephone?: string; // добавила: Добавлено поле telephone
+    location:string;
   }
 
 export interface IUser {
@@ -13,6 +14,7 @@ export interface IUser {
     id: number,
     username: string,
     email: string,
+    isAdmin: boolean,
     password: string,
     // profilePhoto?: File | null; // добавила: поле profilePhoto
     userCity?: string; // добавила: Добавлено поле userCity
@@ -41,6 +43,13 @@ export interface IType {
   }
 
 // export type IBooks = IBook[]
+export interface Message {
+  authorId: number;
+  content: string;
+  createdAt: string;
+  id: number;
+  updatedAt: string;
+}
 
 
 export interface IInputsProducts {

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Select, Button, VStack, HStack, Text } from "@chakra-ui/react";
+import { Box, Select, Button, VStack,  Text } from "@chakra-ui/react";
 import {
   Slider,
   SliderTrack,

@@ -1,4 +1,4 @@
-import React from 'react';
+
 import {
   Modal,
   ModalOverlay,
@@ -8,9 +8,40 @@ import {
   ModalCloseButton,
   Text,
   VStack,
+  HStack,
+  Box,
+  Image,
 } from '@chakra-ui/react';
+interface OrderItem {
+  imageUrl: string;
+  name: string;
+  price: number;
+  quantity: number;
+}
 
-function OrderDetailsModal({ isOpen, onClose, order }) {
+interface IOrder {
+  deliveryAddress: string;
+  status: string;
+  totalBasketPrice: number;
+  items: OrderItem[];
+  createdAt: string;
+  comment: string;
+  updatedAt: string;
+}
+
+interface OrderDetailsModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  order: IOrder ;
+}
+
+
+function OrderDetailsModal({ isOpen, onClose, order }: OrderDetailsModalProps) {
+  
+  if (!order) {
+    return null;
+  }
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -36,9 +67,9 @@ function OrderDetailsModal({ isOpen, onClose, order }) {
                 </HStack>
               </Box>
             ))}
-       
+
             <Text>Дата создания: {order.createdAt}</Text>
-            <Text>Адрес доставки: {order.comment}</Text>
+            <Text>Комментарий: {order.comment}</Text>
             <Text>Последнее обновление: {order.updatedAt}</Text>
           </VStack>
         </ModalBody>
