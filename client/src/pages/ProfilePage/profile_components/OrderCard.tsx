@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
 // dayjs.extend(localizedFormat); //  для отрисовки красиво даты
 dayjs.locale('ru'); //  для отрисовки красиво даты
+import MyCalendar from '../../../components/CalendarCard/CalendarCard';
 
 
 
@@ -32,11 +33,11 @@ const OrderCard = ({ key, order, onDetailsOpen }) => {
   };
 
   return (
-    <Box
+    <Box>  <Box
       p={4}
       borderWidth="1px"
       borderRadius="md"
-      w="700px"
+      w="50%"
       _hover={{ boxShadow: 'md', cursor: 'pointer' }}
       onClick={() => onDetailsOpen(order.id)}
     >
@@ -81,23 +82,27 @@ const OrderCard = ({ key, order, onDetailsOpen }) => {
         </Text>
       </Text>
 
-      <Button onClick={() => onDetailsOpen(order.id)}> Сломалось</Button>
+      {/* <Button onClick={() => onDetailsOpen(order.id)}> Подробнее </Button> */}
       </Text>
 
 
       
 
-      {/* <Button
+      <Button
         colorScheme="blue"
-        onClick={() => fetchOrderDetails(order)}
-        bg="#2F855A"
+        // onClick={() => fetchOrderDetails(order)}
+        onClick={() => onDetailsOpen(order.id)}
+        bg="#ECC94B"
         _hover={{ bg: 'teal.700' }}
         _active={{ bg: 'teal.800' }}
         _focus={{ boxShadow: 'none' }}
       >
         Посмотреть детали
-      </Button> */}
+      </Button>
     </Box>
+
+    </Box>
+  
   );
 };
 

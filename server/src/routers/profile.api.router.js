@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
-const { User, Basket, Transaction, Product } = require('../../db/models');
+const { User, Basket, Transaction, Product, Order } = require('../../db/models');
 const { Op } = require('sequelize');
 // const { verifyAccessToken } = require("../middlewares/verifyToken");
 // ^ добавляю малтера для возможности загрузок фото
@@ -97,7 +97,7 @@ router.get('/orders/:userId', async (req, res) => {
     const orders = await Basket.findAll({
       where: { UserId: req.params.userId },
     });
-    console.log('✅orders from /orders/:userId', orders)
+    console.log('✅orders from /orders/:userId', orders);
     res.json(orders);
   } catch (error) {
     console.error('Ошибка при получении заказов:', error);
@@ -107,24 +107,27 @@ router.get('/orders/:userId', async (req, res) => {
 
 // Роут для получения деталей заказа:
 router.get('/order-details/:orderId', async (req, res) => {
-  console.log('✅ЗАШЛИ');
+  // console.log('✅ЗАШЛИ');
+  const orderId = req.params.orderId;
+
   try {
-      console.log('✅Получение деталей заказа для orderId:', req.params.orderId);
-    // const orderDetails = await Transaction.findAll({
-    //   where: { basketId: req.params.orderId },
-    //   include: [{ model: Product, attributes: ['title', 'picture'] }],
-    // });
-    const orderDetails = await Transaction.findAll({
-      where: { UserId: req.params.orderId },
-      include: [{ model: Basket, attributes: ['title', 'picture'] }],
+    console.log('✅Получение деталей заказа для orderId:', req.params.orderId);
+     const orderDetail = await Order.findByPk(orderId, {
+      include: [
+        {
+          model: Transaction,
+          as: 'transactions',
+          include: [
+            { model: Product, as: 'product' },
+            { model: Basket, as: 'basket' },
+          ],
+        },
+      ],
     });
-    console.log('✴️orderDetails:', orderDetails);
-    if (!orderDetails.length) {
-      return res.status(404).json({ error: 'Детали заказа не найдены' });
-    }
-    console.log('orderDetails', orderDetails);
-    res.json(orderDetails);
+    console.log(JSON.stringify(orderDetail, null, 2));
+res.json(orderDetail)
   } catch (error) {
+    console.error('Ошибка при получении деталей заказа:', error);
     res.status(500).json({ error: 'Не удалось получить детали заказа' });
   }
 });
@@ -132,51 +135,24 @@ router.get('/order-details/:orderId', async (req, res) => {
 // ^ Роут для получения истории покупок пользователя
 router.get('/purchase-history/:userId', async (req, res) => {
   try {
-    // const user = await User.findByPk(req.params.userId, {
-    //   include: {
-    //     model: Basket,
-    //     as: 'baskets',
-    //     include: {
-    //       model: Transaction,
-    //       as: 'transactions',
-    //       where: { status: 2 }, // фильтр для успешно оплаченных заказов
-    //     },
-    //   },
-    // });
-
     const userId = req.params.userId;
 
-    const transactions  = await Transaction.findAll({
+    const transactions = await Transaction.findAll({
       where: { UserId: userId },
     });
-    console.log('✅ FROM /achievements/ =======transactions ', transactions )
-
-    // if (!user) {
-    //   return res.status(404).json({ message: 'Пользователь не найден' });
-    // }
+    // console.log('✅ FROM /achievements/ =======transactions ', transactions);
 
     const ordersCount = transactions.length;
     const totalSpent = transactions.reduce((total, transaction) => {
       return total + transaction.quantity * transaction.currentPrice;
     }, 0);
-    console.log('✅ FROM /achievements/ =======ordersCount', ordersCount);
-    console.log('✅ FROM /achievements/ =======totalSpent', totalSpent);
+    // console.log('✅ FROM /achievements/ =======ordersCount', ordersCount);
+    // console.log('✅ FROM /achievements/ =======totalSpent', totalSpent);
 
-    // // общая сумма потраченных средств
-    // let totalSpent = 0;
-    // user.baskets.forEach((basket) => {
-    //   basket.transactions.forEach((transaction) => {
-    //     totalSpent += transaction.currentPrice;
-    //   });
-    // });
-    // console.log('=======totalSpent', totalSpent)
-    // console.log('=======user', user)
-    // res.json({ totalSpent, baskets: user.baskets });
     res.json({
       ordersCount,
       totalSpent, // это общая сумма покупок
-            // reviewsCount,
-      // localProductsPurchased: localProductsPurchased > 0,
+
     });
   } catch (error) {
     console.error('Ошибка при получении истории покупок пользователя:', error);
@@ -190,47 +166,20 @@ router.get('/achievements/:userId', async (req, res) => {
     const userId = req.params.userId;
     // console.log('✅ FROM /achievements/ =======userId', userId);
 
-    const transactions  = await Transaction.findAll({
+    const transactions = await Transaction.findAll({
       where: { UserId: userId },
     });
-    
+
     // подсчет количество заказов и общую сумму покупок
     const ordersCount = transactions.length;
     const totalSpent = transactions.reduce((total, transaction) => {
       return total + transaction.quantity * transaction.currentPrice;
     }, 0);
-    console.log('✅ FROM /achievements/ =======ordersCount', ordersCount);
-    console.log('✅ FROM /achievements/ =======totalSpent', totalSpent);
-   
+    // console.log('✅ FROM /achievements/ =======ordersCount', ordersCount);
+    // console.log('✅ FROM /achievements/ =======totalSpent', totalSpent);
+
     const reviewsCount = 0;
 
-    // const localProducts = await Product.findAll({
-    //   // where: { category: 'мёд' }, // ? ПОКА ЧТО такая категория (тк самая распространенная)
-    //   where: {
-    //     [Op.or]: [
-    //       { category: 'мёд' },
-    //       { category: 'перга' },
-    //       { category: 'прополис' },
-    //       //можно другие потом добавить
-    //     ],
-    //   },
-    //   attributes: ['id'],
-    // });
-
-    // const localProductIds = localProducts.map((product) => product.id);
-    // console.log('🟥 FROM /achievements/ =======localProductIds', localProductIds);
-
-    // // тут подсчет количества покупок пользователя
-    // const localProductsPurchasedCount  = await Transaction.count({
-    //   where: {
-    //     UserId: userId,
-    //     productId: {
-    //       [Op.in]: localProductIds,
-    //     },
-    //   },
-    // });
-    // console.log('🟥 FROM /achievements/ =======localProductsPurchasedCount', localProductsPurchasedCount);
-    
     res.json({
       ordersCount,
       totalSpent, // это общая сумма покупок

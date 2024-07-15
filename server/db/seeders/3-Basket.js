@@ -8,6 +8,7 @@ module.exports = {
       [
         {
           UserId: 2, // Иван Петров
+          orderId: 1, // ! МАША ДОБАВИЛА // связываем с первым заказом
           productId: 1,
           numberBasket: "2",
           status: "1", // например, статус "в обработке"
@@ -21,6 +22,7 @@ module.exports = {
         },
         {
           UserId: 2, // Иван Петров
+          orderId: 2, // ! МАША ДОБАВИЛА // связываем со вторым заказом
           productId: 2,
           numberBasket: "1",
           status: "2", // например, статус "доставляется"
@@ -34,6 +36,7 @@ module.exports = {
         },
         {
           UserId: 3, // Олег Семенов
+          orderId: 3, // ! МАША ДОБАВИЛА  // связываем с третьим заказом
           productId: 3,
           numberBasket: "5",
           status: "3", // например, статус "доставлено"
@@ -47,6 +50,7 @@ module.exports = {
         },
         {
           UserId: 4, // spyder
+          orderId: 4, // ! МАША ДОБАВИЛА // связываем с четвертым заказом
           productId: 3,
           numberBasket: "5",
           status: "1", // например, статус "в обработке"

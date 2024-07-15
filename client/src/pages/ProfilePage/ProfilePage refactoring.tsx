@@ -215,23 +215,41 @@ function ProfilePag_refactoring(): JSX.Element {
   return (
     <Container maxW="3000px" pt={10}>
       <Flex flexWrap="wrap" gap={6}>
+      <Box
+          flexBasis={{ base: '100%', md: '100%' }}
+          alignSelf={{ base: 'auto', md: 'flex-start' }}
+        >
+          <UserProfilePage
+                user={user}
+                onEdit={onOpen}
+                userTotalSpent={userTotalSpent}
+              />
+          <WeatherForecast />
+        </Box>
         {/* Левая колонка - UserProfilePage и MyCalendar */}
 
         <Box flexBasis={{ base: '100%', md: '80%' }}>
           <Flex direction={{ base: 'column', md: 'row' }} gap={6}>
-            <Box flexBasis={{ base: '100%', md: '100%' }}>
+            
+            {/* <Box flexBasis={{ base: '100%', md: '100%' }}>
               <UserProfilePage
                 user={user}
                 onEdit={onOpen}
                 userTotalSpent={userTotalSpent}
               />
-            </Box>
-            <Box flexBasis={{ base: '100%', md: '100%' }}>
+               <Box
+          flexBasis={{ base: '100%', md: '100%' }}
+          alignSelf={{ base: 'auto', md: 'flex-start' }}
+        >
+          <WeatherForecast />
+        </Box>
+            </Box> */}
+            {/* <Box flexBasis={{ base: '100%', md: '100%' }}>
               <WeatherCard_2 />
             </Box>
             <Box flexBasis={{ base: '100%', md: '100%' }}>
               <MyCalendar />
-            </Box>
+            </Box> */}
           </Flex>
         </Box>
         {/* <Box flexBasis={{ base: '100%', md: '100%' }}>
@@ -272,7 +290,7 @@ function ProfilePag_refactoring(): JSX.Element {
           </Box>
         )}
         <Box flexBasis="100%">
-          <OrdersPageComponent user={user} orders={ordersData} />
+          <OrdersPageComponent  user={user} userId={user.id} orders={ordersData} />
         </Box>
       </Flex>
 
@@ -284,6 +302,13 @@ function ProfilePag_refactoring(): JSX.Element {
         handleChange={handleChange}
         handleSubmit={handleSubmit}
       />
+
+<Box flexBasis={{ base: '100%', md: '100%' }}>
+              <WeatherCard_2 />
+            </Box>
+            <Box flexBasis={{ base: '100%', md: '100%' }}>
+              <MyCalendar />
+            </Box>
     </Container>
   );
 }

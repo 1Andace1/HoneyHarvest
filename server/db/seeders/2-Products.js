@@ -16,7 +16,8 @@ module.exports = {
             'Вкуснейший липовый мёд собран в экологически чистой горной местности, вдали от промышленных производств, городов и шоссейных дорог',
           yearOfHarvest: 2023,
           availableQuantity: 100,
-          picture: './productsPhoto/107.jpeg',
+          // picture: './productsPhoto/107.jpeg', // !!! МАША ЭТО ПОХОЖЕ НАДО ИМЕНИТЬ!?! отчка в адресе была лишняя вначале
+          picture: '/productsPhoto/107.jpeg',
           location: 'Башкирия',
           starsRating: 4,
           createdAt: Sequelize.fn("NOW"),
