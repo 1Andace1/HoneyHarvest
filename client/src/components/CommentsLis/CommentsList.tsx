@@ -8,10 +8,11 @@ import { getAllComments } from "../../redux/thunkActionsComment";
 import { Heading, Wrap } from "@chakra-ui/react";
 import { IProducts } from "../../types/stateTypes";
 import ModalFormCreate from "../ModalForm/ModalFormCreate";
+import OneComment from "./OneComment";
 // import { IProducts } from "../../types/stateTypes";
 // import ModalFormCreate from "../ModalForm/ModalFormCreate";
 
-export default memo(function CommentsList(): JSX.Element {
+export default memo(function CommentsList({currentProduct}): JSX.Element {
 
   const dispatch = useAppDispatch();
 
@@ -41,8 +42,8 @@ export default memo(function CommentsList(): JSX.Element {
       ) : (
         false
       )}
-      {/* <Wrap spacing="30px">
-        {verifiedComments.length ? (
+      <Wrap spacing="30px">
+        {/* {verifiedComments.length ? (
           verifiedComments.map((el: IProducts) => (
             <OneComment el={el} key={el.id} />
           ))
@@ -50,8 +51,21 @@ export default memo(function CommentsList(): JSX.Element {
           <Heading as="h2" size="2xl">
             Комментариев нет
           </Heading>
+        )} */}
+
+{comments.length ? (
+          comments.filter((comment) => comment.isVerified !== true).map((el: IProducts) => (
+            <OneComment el={el} key={el.id} />
+          ))
+        ) : (
+          <Heading as="h2" size="2xl">
+            Комментариев нет
+          </Heading>
         )}
-      </Wrap>  */}
+
+
+
+      </Wrap> 
     </>
   );
 });

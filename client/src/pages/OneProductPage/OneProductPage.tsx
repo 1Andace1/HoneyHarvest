@@ -44,20 +44,23 @@ export default function OneProductPage(): JSX.Element {
     currentProduct?.id
   );
 
-  const {
-    title,
-    discountRatio,
-    category,
-    sort,
-    description,
-    yearOfHarvest,
-    availableQuantity,
-    picture,
-    location,
-    starsRating,
-    createdAt,
-    updatedAt,
-  } = currentProduct as IProducts;
+  const title = currentProduct?.title
+  const discountRatio = currentProduct?.discountRatio
+  const category = currentProduct?.category
+  const sort = currentProduct?.sort
+  const description = currentProduct?.description
+  const yearOfHarvest = currentProduct?.yearOfHarvest
+  const availableQuantity = currentProduct?.availableQuantity
+  const picture = currentProduct?.picture
+  const location = currentProduct?.location
+  const starsRating = currentProduct?.starsRating
+  const createdAt = currentProduct?.createdAt
+  const updatedAt = currentProduct?.updatedAt
+
+  // const {title, discountRatio, category, sort, description, yearOfHarvest,
+  //   availableQuantity, picture, location, starsRating, createdAt,
+  //   updatedAt} = currentProduct as IProducts;
+
   const price = (currentProduct?.price || 0) / 10;
   const priceConDiscountRatio = price * (discountRatio || 0);
   const availableQuantityForBuyers: number | string | undefined =
@@ -175,7 +178,7 @@ export default function OneProductPage(): JSX.Element {
             )}
           </CardFooter>
         </Card>
-        <CommentsList />
+        <CommentsList currentProduct={currentProduct} />
       </WrapItem>
     </div>
   );
