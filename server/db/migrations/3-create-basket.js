@@ -50,7 +50,7 @@ module.exports = {
         defaultValue: Sequelize.fn("NOW"),
       },
       estimatedDate: {// добавила поле даты предполагаемой доставки
-        type: Sequelize.DATE,
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,

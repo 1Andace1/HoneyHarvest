@@ -74,6 +74,19 @@ router.get('/get', verifyAccessToken, async (req, res) => {
     res.sendStatus(400);
   }
 });
-
-
+//ручку написать для удаление из бд когда убрать нажимаешь 
+router.delete('/delete/:id', verifyAccessToken, async (req, res) => {
+  const { id } = req.params;
+  try {
+    const productToDelete = await Basket.findOne({ where: { id } });
+    if (!productToDelete) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+    await productToDelete.destroy();
+    res.status(200).json({ message: 'Product removed successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 module.exports = router;
