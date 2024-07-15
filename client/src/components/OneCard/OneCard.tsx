@@ -15,10 +15,12 @@ import { IProducts } from "../../types/stateTypes";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { delProduct } from "../../redux/thunkActionsCatalog";
 import { IUser } from "../../types/stateTypes";
-import { basketApp } from "../../redux/thunkbasketApp";
+
 import { AuthState } from "../../redux/types/states";
 import ModalFormUpdate from "../ModalForm/ModalFormUpdate";
 import { useNavigate } from "react-router-dom";
+
+
 
 export default function OneCard({ el }: { el: IProducts }): JSX.Element {
   const navigate = useNavigate();
@@ -58,15 +60,23 @@ export default function OneCard({ el }: { el: IProducts }): JSX.Element {
   const { user }: { user: IUser } = useAppSelector(
     (state: { authSlice: AuthState }) => state.authSlice
   );
+  // const { basket } = useAppSelector((state) => state.basketSlice);
 
   function basketHandler(id: number): void {
     console.log(id, user.id, "+++++++++++++++++++++++++++++++++++++----");
     dispatch(basketApp({ productId: Number(id), userId: Number(user.id) }));
   }
-
-  function deleteHandler(id: number): void {
-    console.log("deleteHandler----55-5-5-5-5-,  typeof id: ", typeof id);
-    dispatch(delProduct(id));
+  interface BasketAppPayload {
+    productId: number;
+    userId: number;
+  }
+  
+  const basketApp = (payload: BasketAppPayload) => ({
+    type: 'BASKET_APP',
+    payload,
+  });
+  function deleteHandler(id: number | string): void {
+    dispatch(delProduct(Number(id)));
   }
 
   return (

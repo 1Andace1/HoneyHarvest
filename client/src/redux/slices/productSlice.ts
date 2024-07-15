@@ -20,6 +20,7 @@ import { IProducts, IProductsSlice } from "../../types/stateTypes";
 
 const initialState: ProductState = { products: [], loading: true, error: {} };
 
+
 const productSlice: ProductSlice = createSlice({
   name: "productSlice",
   initialState,
@@ -32,6 +33,7 @@ const productSlice: ProductSlice = createSlice({
     builder.addCase(
       getProducts.fulfilled,
       (state: Draft<ProductState>, action: ProductAction): void => {
+        //@ts-ignore
         state.products = action.payload;
         state.loading = false;
       }

@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Navigate,
+
   RouterProvider,
   createBrowserRouter,
 } from 'react-router-dom';
@@ -9,16 +9,35 @@ import Root from './Root';
 import SigninPage from './pages/SigninPage/SigninPage';
 import SignupPage from './pages/SignupPage/SignupPage';
 import Main from './components/Main/Main';
-import Basket from './pages/basket/basket';
+
 import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
 import OneProductPage from './pages/OneProductPage/OneProductPage';
 import ProfilePag_refactoring from './pages/ProfilePage/ProfilePage refactoring';
 import Page404 from "./components/Page404/Page404"; // добавила: импорт компонента 404 страницы
 import { useAppSelector } from "./redux/hooks";
-import CatalogPage from "./pages/CatalogPage/CatalogPage";
+import Basket from "./pages/basket/basket";
 
+import CatalogPage from './pages/CatalogPage/CatalogPage';
+
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+
+
+import axiosInstance, { setAccessToken } from "./axiosInstance";
+import { setUser } from './redux/slices/authSlice'
 function App() {
   const { user } = useAppSelector((state) => state.authSlice);
+  const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    axiosInstance(`${import.meta.env.VITE_API}/tokens/refresh`).then((res) => {
+      dispatch(setUser(res.data.user));
+      setAccessToken(res.data.accessToken);
+    }).catch((error) => {
+      console.error("Failed to refresh token", error);
+    });
+  }, []);
 
   const router = createBrowserRouter([
     {
