@@ -7,6 +7,7 @@ import 'dayjs/locale/ru';
 // dayjs.extend(localizedFormat); //  для отрисовки красиво даты
 dayjs.locale('ru'); //  для отрисовки красиво даты
 import MyCalendar from '../../../components/CalendarCard/CalendarCard';
+import axiosInstance from '../../../axiosInstance';
 
 
 

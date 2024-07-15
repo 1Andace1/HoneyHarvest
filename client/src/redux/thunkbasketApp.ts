@@ -1,8 +1,7 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import axiosInstance from "../axiosInstance";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import axiosInstance from '../axiosInstance';
 
-
-const { VITE_API, VITE_BASE_URL }: ImportMeta["env"] = import.meta.env;
+const { VITE_API, VITE_BASE_URL }: ImportMeta['env'] = import.meta.env;
 
 interface BasketItem {
   userId: number;
@@ -12,17 +11,17 @@ interface BasketItem {
   commentUser: string;
   totalBasketPrice: number;
   deliveryAddress: string;
-  estimatedDate:number;
+  estimatedDate: number;
 }
 
 export const basketApp = createAsyncThunk(
-  "basket/App",
-  async ({ userId, productId}: BasketItem) => {
-    console.log(userId, productId,'ЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩ');
+  'basket/App',
+  async ({ userId, productId }: BasketItem) => {
+    console.log(userId, productId, 'ЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩ');
 
     const response = await axiosInstance.post(
       `${VITE_BASE_URL}${VITE_API}/basket/catalog`,
-      { userId, productId}
+      { userId, productId }
     );
     if (response.status === 200) {
       return response.data; // Предполагается, что сервер возвращает данные корзины
@@ -31,12 +30,65 @@ export const basketApp = createAsyncThunk(
 );
 
 export const AddProduct = createAsyncThunk(
-  "basket/Add",
-  async ({ userId, numberBasket, status, commentUser, totalBasketPrice, deliveryAddress,estimatedDate }: BasketItem) => {
-    console.log(userId, numberBasket, status, commentUser, totalBasketPrice, deliveryAddress ,estimatedDate,'ЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩ');
+  'basket/Add',
+  async ({
+    userId,
+    productId,
+    orderId,
+    numberBasket,
+    status,
+    commentUser,
+    date,
+    totalBasketPrice,
+    deliveryAddress,
+    estimatedDate,
+  }: BasketItem) => {
+    // console.log(
+    //   userId,
+    //   numberBasket,
+    //   status,
+    //   commentUser,
+    //   totalBasketPrice,
+    //   deliveryAddress,
+    //   estimatedDate,
+    //   'ЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩ'
+    // );
+
+    console.log(
+      'Передача данных в AddProduct в Thunk:',
+      '1.userId:',
+      userId,
+      '2. numberBasket:',
+      numberBasket,
+      '3. status:',
+      status,
+      '4. totalBasketPrice:',
+      totalBasketPrice,
+      '5.  deliveryAddress:',
+      deliveryAddress,
+      '6. estimatedDate:',
+      estimatedDate,
+      '7. productId:',
+      productId,
+      '8. orderId:',
+      orderId,
+      '9. date:',
+      date
+    );
     const response = await axiosInstance.put(
       `${VITE_BASE_URL}${VITE_API}/basket/put`,
-      { userId,numberBasket, status, commentUser, totalBasketPrice, deliveryAddress , estimatedDate}
+      {
+        userId,
+        productId,
+        orderId,
+        numberBasket,
+        status,
+        commentUser,
+        date,
+        totalBasketPrice,
+        deliveryAddress,
+        estimatedDate,
+      }
     );
     if (response.status === 200) {
       return response.data; // Предполагается, что сервер возвращает данные корзины
@@ -45,29 +97,30 @@ export const AddProduct = createAsyncThunk(
 );
 
 export const getbasket = createAsyncThunk(
-  "basket/get",
-  async ({userId}:BasketItem) => {
-    console.log(userId,"гоВНОООООООООООООООООООООООООООООООООООООО");
-    
+  'basket/get',
+  async ({ userId }: BasketItem) => {
+    console.log(userId, 'гоВНОООООООООООООООООООООООООООООООООООООО');
+
     const response = await axiosInstance.get(
       `${VITE_BASE_URL}${VITE_API}/basket/get`,
-      { params: { userId } } 
+      { params: { userId } }
     );
-    console.log(response.data, 'ФФФФФФФФФФФФФФФФФФФФФФФФФФ');
+    console.log('response.data from getbasket', response.data);
     return response.data.entry;
   }
 );
 
 export const deleteProduct = createAsyncThunk(
-  "basket/delete",
+  'basket/delete',
   async (id: number, { rejectWithValue }) => {
-    console.log(id,"Я УДАЛЯЮ");
+    console.log(id, 'Я УДАЛЯЮ');
     try {
       const response = await axiosInstance.delete(
         `${VITE_BASE_URL}${VITE_API}/basket/delete/${id}`
       );
+      console.log('response.data from deleteProduct===', response);
       if (response.status === 200) {
-        return id; 
+        return id;
       }
     } catch (error) {
       console.log(rejectWithValue, 'Я УДАЛЕНИЕ ПРОВЕРЯЮ');
@@ -75,9 +128,6 @@ export const deleteProduct = createAsyncThunk(
     }
   }
 );
-
-
-
 
 // export const getProducts = createAsyncThunk("catalog/all", async () => {
 //   const { data } = await axios.get(`${VITE_BASE_URL}${VITE_API}/catalog`);
