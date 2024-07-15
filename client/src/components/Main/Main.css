@@ -30,33 +30,51 @@
 }
 
 .about-us {
-
+  border-top: 3PX solid rgb(185, 103, 16);
+background-color: #d9d6c8;
   text-align: center;
    margin-top: 50px;
   font-size: 60px;
   border-bottom: 3px black solid;
+  background-image: url(https://d138zd1ktt9iqe.cloudfront.net/media/seo_landing_files/shankari-g-polygon-shapes-14-1606312302.png);
+  background-size: cover; /* Это свойство масштабирует изображение, чтобы оно заполнило элемент, сохраняя пропорции */
+  background-position: center; /* Это свойство центрирует изображение */
+  background-repeat: no-repeat; /* Это свойство предотвращает повторение изображения */
+  height: auto;
 }
 
 .arrow-down {
   display: block;
   
   font-size: 60px;
-  color: black;
+  color: #3e3a12;
   text-decoration: none;
+  
 }
 
 .apiary-selection {
   display: flex;
   justify-content: space-around;
   padding: 20px;
+  background: linear-gradient(to bottom, #006400, #90EE90);
+  font-size: 17px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  
   
   
 }
 
 .apiary-details {
+  
   padding: 20px;
   text-align: center;
-  background-color: rgb(84, 78, 78);
+  background-image: url(https://img.goodfon.ru/original/1920x1080/b/c1/stakan-voda-vetochka.jpg);
+  /* background-color: rgba(39, 103, 73, 0.2); */
+  background-size: cover; /* Это свойство масштабирует изображение, чтобы оно заполнило элемент, сохраняя пропорции */
+  background-position: center; /* Это свойство центрирует изображение */
+  background-repeat: no-repeat; /* Это свойство предотвращает повторение изображения */
+  height: auto;
   border-radius: 15px;
 }
 
@@ -64,11 +82,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  
 }
 
 .apiary-details-text {
   margin-right: 20px;
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
 }
 
 .apiary-details-image {
@@ -76,37 +95,94 @@
   height: auto;
 }
 .footer {
-    
-    padding: 20px;
-    text-align: center;
-    border-top: 1px solid #e9ecef;
-  }
+  margin-top: 20px;
+  background-color: #333;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  margin-bottom: 0px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-right: 250px;
+}
+
+
+.footer-section a {
+  display: block;
+  margin: 20px 0; 
+  color: white;
+  text-decoration: none;
+}
+.footer-section h3 {
+  margin-bottom: 10px;
+}
+
+.footer-section p, .footer-section a {
+  color: white;
+  text-decoration: none;
+  margin: 20px 0;
   
-  .footer-content {
-    max-width: 1000px;
-    margin: 0 auto;
-    background-color: rgb(182, 182, 156);
-    border-radius: 15px;
-  }
+}
+
+.footer-section a:hover {
+  text-decoration: underline;
+  
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.footer-section a {
+  display: inline-block;
+  margin-right: 20px; /* Горизонтальный отступ между ссылками */
+  color: white;
+  text-decoration: none;
+}
+
+.footer-section a:last-child {
+  margin-right: 0; /* Убираем отступ у последней ссылки */
+}
+
+.footer-section a:hover {
+  text-decoration: underline;
+}
   .navigation {
     display: flex;
     justify-content: space-between;
     width: 100%;
     height: 150px;
     margin-top: 20px;
+    
   }
   
   .navigation-box {
+    border-bottom:5px solid black;
     flex: 1;
     margin: 0 10px;
-    padding: 20px;
-    background-color: rgba(128, 128, 128, 0.5); 
+    padding: 10px;
+    background-color: #ffdd6c; 
     border-radius: 10px;
     transition: background-color 0.3s ease; 
+    font-weight: bold;
+    width: 150px;
+    height: 165px;
+    
   }
   
+  
   .navigation-box:hover {
-    background-color: rgba(128, 128, 128, 0.8); 
+    background-color: #e8b444; 
   }
   .theme{
     width: 100px;
@@ -114,38 +190,89 @@
     border-top: 0px;
     border-left: 0px;
     border-right: 0px;
-   border-bottom: 5px solid black;
+   border-bottom: 5px solid #F6E05E;
+   background-color: #f0e7e7;
+   
   }
   .theme:hover{
-    background-color: aliceblue;
+    background-color: rgb(204, 178, 83);
+    color:white;
     border-top: 0px;
     border-left: 0px;
     border-right: 0px;
-    border-color: rgb(180, 139, 139);
+    border-color: #d28635;
   }
  .rewiew{
     margin-top: 65px;
  }
  .rewiew {
+ 
     display: flex;
     align-items: center; 
     gap: 20px; 
     margin-top: 20px;
-    background-color: rgb(182, 182, 156);
+  
     border-radius: 15px;
 
   }
+
   
-  .rewiew-video {
-    flex: 1; 
-  }
-  
+
   .rewiew-text {
     flex: 1; 
     font-size: 16px;
     color: #ffffff;
-    background-color: rgb(84, 78, 78);
+    background-color: #1D4044;
     border-radius: 15px;
-    height: 320px;
-    width: 300px;
+   height: 310px;
+    width: 250px;
+    
   }
+  .video{
+    margin-left: 20px;
+  }
+  #root{
+    background-color: #ffffff;
+  }
+ 
+  body {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+.log{
+  font-size: 20px;
+  text-decoration: underline;
+}
+.lilText{
+  text-align: left;
+  margin-left: 10px;
+}
+.descrip{
+  font-size: 20px;
+  text-align: left;
+}
+.name{
+  text-align: left;
+  margin-left: 10px;
+  color: #000000;
+  font-size: 30px;
+}
+.main-container{
+  width: 100%;
+}
+
+.log {
+  display: flex;
+  align-items: center;
+  margin-left: 80px;
+  
+}
+
+.helpimg {
+  margin-left: 10px;
+  width: 30px;
+  height: 30px; 
+  margin-left: 20px;
+}
+.society{
+  width: 40px;
+}

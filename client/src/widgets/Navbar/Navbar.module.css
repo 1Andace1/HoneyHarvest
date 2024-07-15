@@ -9,7 +9,8 @@
   align-items: center;
   text-align: center;
   left: 0;
-  background-color: rgb(84, 78, 78);
+  background-color: rgb(108, 178, 105);
+  transition: background-color 0.3s ease;
 }
 
 .left, .right {
@@ -23,9 +24,14 @@ a {
   color: rgb(255, 255, 255);
   font-size: 20px;
   margin: 10px;
+  transition: color 0.3s ease;
 }
 
 a:hover,
 a:focus {
   color: #ffffff;
+ 
+}
+.wrapper:hover{
+  background-color: rgb(198, 208, 160);
 }
