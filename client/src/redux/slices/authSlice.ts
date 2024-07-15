@@ -1,9 +1,10 @@
 import { UserState } from './../../components/initState';
-import { ActionReducerMapBuilder, Draft, createSlice } from "@reduxjs/toolkit"
+import { ActionReducerMapBuilder, Draft, createSlice,PayloadAction  } from "@reduxjs/toolkit"
 import { AuthState } from "../types/states"
 import { addUser, logoutUser } from '../thunkActions';
-import { AuthSlice, RejectedAction, UserAction } from '../types/reducers';
+import { AuthSlice, RejectedAction} from '../types/reducers';
 import { refreshUserToken } from '../thunk.refresh'
+import { IUser } from '../../types/stateTypes';
 
 const initialState: AuthState = { user: UserState, loading: true, error: {}}
 
@@ -11,7 +12,7 @@ const authSlice: AuthSlice = createSlice({
   name: 'authorizationSlice',
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<any>) => {
+    setUser: (state, action: PayloadAction<IUser>) => {
       state.user = action.payload;
       state.loading = false;
       state.error = {};
@@ -21,11 +22,11 @@ const authSlice: AuthSlice = createSlice({
     builder.addCase(addUser.pending, (state: Draft<AuthState>): void => {
       state.loading = true;
     })
-    builder.addCase(addUser.fulfilled, (state: Draft<AuthState>, action: UserAction): void => {
+    builder.addCase(addUser.fulfilled, (state, action: PayloadAction<IUser>): void => {
       state.user = action.payload
       state.loading = false;
     })
-    builder.addCase(addUser.rejected, (state: Draft<AuthState>, action: RejectedAction): void => {
+    builder.addCase(addUser.rejected, (state, action): void => {
       console.log('Неправильно введены данные', action.error)
       state.error = action.error;
       state.loading = false;
@@ -33,7 +34,7 @@ const authSlice: AuthSlice = createSlice({
     builder.addCase(logoutUser.pending, (state: Draft<AuthState>): void => {
       state.loading = true;
     })
-    builder.addCase(logoutUser.fulfilled, (state: Draft<AuthState>, action: UserAction): void => {
+    builder.addCase(logoutUser.fulfilled, (state: Draft<AuthState>): void => {
       state.user = UserState;
       state.loading = false;
     })

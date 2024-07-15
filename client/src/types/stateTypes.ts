@@ -39,6 +39,13 @@ export interface IType {
   }
 
 // export type IBooks = IBook[]
+export interface Message {
+  authorId: number;
+  content: string;
+  createdAt: string;
+  id: number;
+  updatedAt: string;
+}
 
 
 export interface IInputsProducts {

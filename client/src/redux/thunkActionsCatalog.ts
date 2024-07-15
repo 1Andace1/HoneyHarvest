@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosResponse } from "axios";
-import axiosInstance, { setAccessToken } from "../axiosInstance";
+import axiosInstance from "../axiosInstance";
 
 // import { useNavigate } from "react-router-dom";
 

@@ -1,11 +1,12 @@
 
 import {useState} from 'react';
 import { Stack, Button, Modal, Form } from 'react-bootstrap';
-import DotOnlineIcon from '../../../ui/icons/DotOnlineIcon';
+// import DotOnlineIcon from '../../../ui/icons/DotOnlineIcon';
 import './UsersList.css';
-import useChat from '../../../hooks/useChat';
+// import useChat from '../../../hooks/useChat';
+// import { IUser } from '../../../types/stateTypes';
 export default function UsersList() {
-  const {  allUsers } = useChat();
+  // const {  allUsers } = useChat();
   const [showModal, setShowModal] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
   const [description, setDescription] = useState('');
@@ -22,9 +23,9 @@ export default function UsersList() {
   return (
     <Stack className="users-list-container">
       
-      <h6>Users online({allUsers.length})</h6>
+      {/* <h6>Users online({allUsers.length})</h6>
       <div>
-      {allUsers.map((user) => (
+      {allUsers.map((user: IUser) => (
         <div className="p-2" key={user.id}>
           <DotOnlineIcon />
           {user.username}
@@ -33,7 +34,7 @@ export default function UsersList() {
       
       ))}
       
-      </div>
+      </div> */}
       <Button variant="danger" className="report-button" onClick={handleShowModal}>Отправить репорт</Button>
       <Modal  className='modal' show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>

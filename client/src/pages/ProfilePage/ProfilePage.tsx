@@ -20,12 +20,12 @@ import {
   StackDivider,
 } from '@chakra-ui/react';
 import axiosInstance from '../../axiosInstance';
-// import OrderDetailsModal from '../../components/OrderDetailsModal/OrderDetailsModal';
+import OrderDetailsModal from '../../components/OrderDetailsModal/OrderDetailsModal';
 // import { Step, Steps, useSteps } from '@chakra-ui/react';
 import dayjs from 'dayjs'; // ^ new = для отрисовки красиво даты
 import 'dayjs/locale/ru'; // ^ new = для отрисовки красиво даты Импорт русской локали для dayjs
 import localizedFormat from 'dayjs/plugin/localizedFormat'; // ^ new=  для отрисовки красиво даты
-import OrderDetailsModal from '../../components/OrderDetailsModal/OrderDetailsModal';
+
 dayjs.extend(localizedFormat); // ^ new = для отрисовки красиво даты
 dayjs.locale('ru'); // ^ new = для отрисовки красиво даты
 
@@ -37,31 +37,56 @@ function ProfilePage(): JSX.Element {
   // состояние для режима редактирования профиля
   const [isEditing, setIsEditing] = useState(false);
   // состояние для режима редактирования профиля
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    username: string | undefined;
+    email: string | undefined;
+    password: string;
+    profilePhoto: File | null;
+  }>({
     username: user?.username,
     email: user?.email,
     password: '',
     profilePhoto: null,
   });
+  interface OrderItem {
+    imageUrl: string;
+    name: string;
+    price: number;
+    quantity: number;
+  }
+  
+  interface IOrder {
+    id: number;
+    date: string;
+    status: string;
+    estimatedDate: string;
+    totalBasketPrice: number;
+    deliveryAddress: string;
+    comment: string;
+    items: OrderItem[];
+    createdAt: string; 
+    updatedAt: string;
+  }
   // состояние для хранения ошибок
-  const [error, setError] = useState(null);
+   const [error, setError] = useState<any | null>(null);
   // состояние для хранения заказов пользователя
-  const [orders, setOrders] = useState([]); // ^ new состояния для истории заказов
+  const [orders, setOrders] = useState<IOrder[]>([]); // ^ new состояния для истории заказов
   // useDisclosure для управления состоянием модального окна чакры для редактирования
   const { isOpen, onOpen, onClose } = useDisclosure(); // ^ new
   // состояние для просмотра деталей конкреттного заказа
-  const [selectedOrder, setSelectedOrder] = useState(null); // ^ new
+  const [selectedOrder, setSelectedOrder] = useState<IOrder | null>(null); // ^ new
   // useDisclosure для модельного окна просмотра деталей заказа
+  console.log(error)
   const {
     isOpen: isDetailsOpen,
-    onOpen: onDetailsOpen,
+    // ? onOpen: onDetailsOpen,
     onClose: onDetailsClose,
   } = useDisclosure(); // ^ new
   // состояние для хранения выбранного заказа
-  const [orderDetails, setOrderDetails] = useState([]); // ^ new
+   const [orderDetails, setOrderDetails] = useState<any[]>([]); // ^ new
   // обработчик изменения полей формы
-  const handleChange = (e) => {
-    if (e.target.name === 'profilePhoto') {
+  const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
       // eсли меняется фото профиля, сохраняем файл в состояние
       setFormData({ ...formData, profilePhoto: e.target.files[0] });
     } else {
@@ -71,13 +96,17 @@ function ProfilePage(): JSX.Element {
   };
 
   // РЕДАКТИРОВАНИЕ: обработчик отправки формы для обновления профайла
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) =>  {
     e.preventDefault();
     try {
       // объект FormData для отправки данных формы на сервер
       const formDataObj = new FormData();
-      formDataObj.append('username', formData.username);
+      if (formData.username !== undefined) {
+        formDataObj.append('username', formData.username);
+      }
+      if (formData.email !== undefined) {
       formDataObj.append('email', formData.email);
+      }
       if (formData.password) {
         formDataObj.append('password', formData.password);
       }
@@ -85,7 +114,8 @@ function ProfilePage(): JSX.Element {
         formDataObj.append('profilePhoto', formData.profilePhoto);
       }
       // отправка PUT запрос на сервер для обновления профиля
-      const res = await axiosInstance.put(
+      await axiosInstance.put(
+        
         `${import.meta.env.VITE_API}/profile/users/${user.id}`,
         formDataObj,
         {
@@ -98,9 +128,11 @@ function ProfilePage(): JSX.Element {
       // ^ new закрытие модальное окно после успешного обновления:
       setIsEditing(false);
       onClose();
-    } catch (error) {
+    }  catch (error) {
+     
       // Устанавливаем ошибку в состоянии при неудаче
       setError(error);
+      // Устанавливаем ошибку в состоянии при неудаче
     }
   };
 
@@ -124,19 +156,20 @@ function ProfilePage(): JSX.Element {
   //   setSelectedOrder(order);
   //   onDetailsOpen();
   // };
-  const handleViewDetails = async (order) => {
+  const handleViewDetails = async (order: IOrder) => {
     setSelectedOrder(order);
     try {
       const response = await axiosInstance.get(
         `${VITE_BASE_URL}${VITE_API}/profile/order-details/${order.id}`
       );
+      console.log(orderDetails)
       setOrderDetails(response.data);
     } catch (error) {
       setError(error);
     }
   };
 
-  const formatDateTime = (datetime) => {
+  const formatDateTime = (datetime: string) => {
     return dayjs(datetime).format('D MMMM (dddd) в HH:mm');
   };
 

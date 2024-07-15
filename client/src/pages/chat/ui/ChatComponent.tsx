@@ -3,9 +3,18 @@ import { Stack } from 'react-bootstrap';
 import MessageForm from './MessageForm';
 import MessagesList from './MessagesList';
 import './ChatComponent.css';
+import { IUser } from '../../../types/stateTypes';
+import { Message } from '../../../types/stateTypes';
+interface ChatComponentProps {
+  submitHandler: (message: string) => void;
+  messages: Message[];
+  loggedUser: IUser;
+  socketRef: React.MutableRefObject<WebSocket | null>;
+}
 
-export default function ChatComponent({ submitHandler, messages, loggedUser, socketRef }) {
-  const messagesEndRef = useRef(null);
+
+export default function ChatComponent({ submitHandler, messages, loggedUser, socketRef }: ChatComponentProps) {
+  const messagesEndRef = useRef<HTMLDivElement | null>(null)
  
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });

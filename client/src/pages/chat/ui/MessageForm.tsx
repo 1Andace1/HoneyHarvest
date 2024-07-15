@@ -3,9 +3,14 @@ import  { useEffect, useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import SendIcon from '../../../ui/icons/SendIcon';
 import './MessageForm.css'
-export default function MessageForm({ submitHandler, socketRef }) {
+
+interface MessageFormProps {
+  submitHandler: (message: string) => void;
+  socketRef: React.MutableRefObject<WebSocket | null>;
+}
+export default function MessageForm({ submitHandler, socketRef }: MessageFormProps) {
   const [input, setInput] = useState('');
-  const changeHandler = (e) => setInput(e.target.value);
+  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => setInput(e.target.value);
 
   useEffect(() => {
     if (!socketRef.current) return;
@@ -37,11 +42,6 @@ export default function MessageForm({ submitHandler, socketRef }) {
         <Form.Control className='inputs '
           placeholder='Your message'
           value={input}
-          sx={{
-            _focus: {
-              outline: "none",
-            },
-          }}
           onChange={changeHandler}
         />
         <InputGroup.Text id='basic-addon2'>

@@ -1,11 +1,9 @@
 import  { useState } from 'react';
-import { useAppSelector } from "../../redux/hooks";
 import './Main.css'
 
 
 
 function Main(): JSX.Element {
-  const { user } = useAppSelector((state) => state.authSlice);
   const [selectedApiary, setSelectedApiary] = useState<string | null>(null);
 
   const apiaries = [
@@ -45,7 +43,7 @@ function Main(): JSX.Element {
       </div>
       <div className='rewiew'>
       <div className='rewiew-video'>
-      <p><iframe width="560" height="315" src="https://www.youtube.com/embed/U-6fhnTK5H0?si=72l1DQ52y2coX6Ph" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></p>
+      <p><iframe width="560" height="315" src="https://www.youtube.com/embed/U-6fhnTK5H0?si=72l1DQ52y2coX6Ph" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe></p>
       </div>
       <div className='rewiew-text'>
     <p>Что мы предлагаем:

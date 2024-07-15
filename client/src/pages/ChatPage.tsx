@@ -9,10 +9,19 @@ import { useAppSelector } from "../redux/hooks";
 import './ChatPage.css';
 import UsersList from './chat/ui/UsersList';
 import { setUser } from '../redux/slices/authSlice';
+import { IUser } from "../types/stateTypes";
 
-export default function ChatPage(): React.FC {
-  const { user } = useAppSelector((state) => state.authSlice);
-  const { messages, users,allUsers, submitMessage, socketRef } = useChat();
+interface IMessage {
+  authorId: number;
+  content: string;
+  createdAt: string;
+  id: number;
+  updatedAt: string;
+}
+
+const ChatPage: React.FC = () => {
+  const user: IUser | null = useAppSelector((state) => state.authSlice.user);
+  const { messages, allUsers, submitMessage, socketRef } = useChat();
   const [isChatVisible, setIsChatVisible] = useState(false);
   const dispatch = useDispatch();
 
@@ -20,35 +29,26 @@ export default function ChatPage(): React.FC {
     axiosInstance(`${import.meta.env.VITE_API}/tokens/refresh`).then((res) => {
       dispatch(setUser(res.data.user));
       setAccessToken(res.data.accessToken);
-      
     }).catch((error) => {
       console.error("Failed to refresh token", error);
     });
   }, [dispatch]);
-  console.log('все+++++++++++++++',allUsers)
+
   const toggleChatVisibility = () => {
     setIsChatVisible(!isChatVisible);
   };
-  console.log('Юзер', user)
-  console.log('Юзеры', users)
-  console.log('Сообщения', messages)
-  const admins = allUsers.filter(u => u.isAdmin);
-  console.log('eqddqwqwd',admins)
-  // const filteredMessages = messages.filter(message => message.authorId === 1 ||  message.authorId === user.id)
-  // const filteredMessages = user.isAdmin
-  // ? messages
-  // : messages.filter(message => 
-  //     message.authorId === user.id ||  message.authorId === 1
-      
-  //   );
-  const filteredMessages = messages.filter(message => {
-    const sender = allUsers.find(u => u.id === message.authorId);
-    return message.authorId === user.id || (sender && sender.isAdmin === true);
+
+  const typedAllUsers: IUser[] = allUsers;
+  
+
+  const filteredMessages: IMessage[] = messages.filter(message => {
+    const sender: IUser | undefined = typedAllUsers.find(u => u.id === message.authorId);
+    return message.authorId === user?.id || (sender && sender.isAdmin === true);
   });
-   
 
   return (
     <>
+    
       {user && (
         <Container className='chatik'>
           <Button
@@ -65,28 +65,29 @@ export default function ChatPage(): React.FC {
               height: '50px',
             }}
           >
-            {isChatVisible ? 'X' : '💬'}  
+            {isChatVisible ? 'X' : '💬'}
           </Button>
           {isChatVisible && (
-            
-            <div className={user.isAdmin? "chat-container-foAdm" : "chat-container"}>
-            <div className= {user.isAdmin? 'usersOnline' : 'suport'}>
-               {user.isAdmin ?
-                (<UsersList users={allUsers.filter((el) => el.id !== user.id)} />) : (<div className="sup"> Тех.Поддержка</div>)}
-               </div>
+            <div className={user.isAdmin ? "chat-container-foAdm" : "chat-container"}>
+              
+              <div className={user.isAdmin ? 'usersOnline' : 'suport'}>
+                {user.isAdmin ?
+                  (<UsersList/>)
+                   : (<div className="sup"> Тех.Поддержка</div>)}
+              </div>
               <ChatComponent
                 submitHandler={submitMessage}
-                 messages={user.isAdmin? messages  : filteredMessages} 
-                // messages={ messages}
+                messages={user.isAdmin ? messages : filteredMessages}
                 loggedUser={user}
                 socketRef={socketRef}
               />
-              
             </div>
           )}
         </Container>
       )}
     </>
   );
-}
+};
+
+export default ChatPage;
 {/* <div>test</div>: (<div className="sup"> Тех.Поддержка</div>) */}

@@ -10,9 +10,11 @@ interface Product {
   productId: number;
   numberBasket: number;
   status: number;
+  price:number;
+  name:string;
 }
 
-const Basket: React.FC = () => {
+const Basket:  React.FC = () => {
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [Details, setDetails] = useState('');
   const [deliveryType, setDeliveryType] = useState('standard');
@@ -20,7 +22,7 @@ const Basket: React.FC = () => {
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const basket = useAppSelector((state) => state.basketSlice.basketApp);
+  const basket: Product[] = useAppSelector((state) => state.basketSlice.basketApp);
 
   useEffect(() => {
     dispatch(getbasket());
@@ -31,18 +33,18 @@ const Basket: React.FC = () => {
   };
 
   const handleQuantityChange = (id: number, change: number) => {
- 
+ console.log(id,change)
   };
 
   const handleRemoveProduct = (id: number) => {
-
+    console.log(id)
   };
 
   const handleBuyOne = (product: Product) => {
     navigate(`/checkout?product=${encodeURIComponent(JSON.stringify(product))}&address=${encodeURIComponent(deliveryAddress)}&Details=${encodeURIComponent(Details)}&type=${encodeURIComponent(deliveryType)}&date=${encodeURIComponent(deliveryDate)}`);
   };
 
-  const totalPrice = basket.reduce((total, product) => total + product.numberBasket * (product.price || 0), 0);
+  const totalPrice = basket.reduce((total, product:Product) => total + product.numberBasket * (product.price || 0), 0);
 
   return (
     <div className="basket-container">

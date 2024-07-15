@@ -6,6 +6,7 @@ import { ProductState } from "../types/states";
 
 const initialState: ProductState = { products: [], loading: true, error: {} };
 
+
 const productSlice: ProductSlice = createSlice({
   name: "productSlice",
   initialState,
@@ -18,6 +19,7 @@ const productSlice: ProductSlice = createSlice({
     builder.addCase(
       getProducts.fulfilled,
       (state: Draft<ProductState>, action: ProductAction): void => {
+        //@ts-ignore
         state.products = action.payload;
         state.loading = false;
       }
@@ -39,6 +41,7 @@ const productSlice: ProductSlice = createSlice({
       delProduct.fulfilled,
       (state: Draft<ProductState>, action: PayloadAction<number | void>): void => {
         console.log('Слайс, запись удалена----------------++');
+        //@ts-ignore
         state.products = state.products.filter((el): boolean => el.id !== action.payload);
         state.loading = false;
       }

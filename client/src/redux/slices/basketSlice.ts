@@ -1,10 +1,18 @@
 
-import {  createSlice } from "@reduxjs/toolkit"
+import {  createSlice, PayloadAction  } from "@reduxjs/toolkit"
 
 import { basketApp, getbasket } from '../thunkbasketApp';
 
 
 const initialState = { basketApp: [], loading: true, error: {}}
+interface BasketItem {
+  id: number;
+  name: string;
+  price: number;
+  
+ 
+}
+
 
 const basketSlice = createSlice({
   name: 'basketSlice',
@@ -15,7 +23,8 @@ const basketSlice = createSlice({
     builder.addCase(basketApp.pending, (state): void => {
       state.loading = true;
     })
-    builder.addCase(basketApp.fulfilled, (state, action): void => {
+    builder.addCase(basketApp.fulfilled, (state, action: PayloadAction<BasketItem>): void => {
+      // @ts-ignore
       state.basketApp.push(action.payload)
       state.loading = false;
     })

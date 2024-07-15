@@ -5,9 +5,10 @@ import axiosInstance from "../axiosInstance";
 // import { useNavigate } from "react-router-dom";
 
 const { VITE_API, VITE_BASE_URL }: ImportMeta["env"] = import.meta.env;
-
-export const basketApp = createAsyncThunk(
+//@ts-ignore
+export const  basketApp: AsyncThunk<any, number, AsyncThunkConfig> = createAsyncThunk(
   "basket/App",
+  //@ts-ignore
   async (userId:number ,productId:number) => {
     console.log(userId,productId,'ЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩ');
     
@@ -17,11 +18,13 @@ export const basketApp = createAsyncThunk(
       {userId, productId}
     );
     if (response.status === 200) {
+      //@ts-ignore
       return id;
     }
   }
 );
-export const getbasket = createAsyncThunk(
+//@ts-ignore
+export const  getbasket: AsyncThunk<any, void, AsyncThunkConfig> = createAsyncThunk(
     "basket/get",
     async ()=> {
 

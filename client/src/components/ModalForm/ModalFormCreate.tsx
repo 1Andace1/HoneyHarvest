@@ -9,10 +9,12 @@ import axiosInstance from "../../axiosInstance";
 
 const { VITE_API } = import.meta.env;
 
-export default function ModalFormCreate({ id }) {
+export default function ModalFormCreate({ id }: {
+  id: number;
+}): JSX.Element {
 console.log('зашли в FormUpdate, id = ', id);
 
-interface Inputs {
+interface IInputs {
   title: string;
     price: number;
     discountRatio: number;
@@ -25,7 +27,7 @@ interface Inputs {
     location: string;
 }
 
-  const [inputs, setInputs] = useState<Inputs>({
+  const [inputs, setInputs] = useState<IInputs>({
     title: "",
     price: 0,
     discountRatio: 0,
@@ -38,11 +40,11 @@ interface Inputs {
     location: ""
   });
 
-  const changeHandler = (e) => {
-    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputs((prev:IInputs) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const submitHandler = async (e) => {
+  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     console.log('зашли в submitHandler, inputs = ', inputs);
     e.preventDefault();
     const res = await axiosInstance.put(`${VITE_API}/update`, {
