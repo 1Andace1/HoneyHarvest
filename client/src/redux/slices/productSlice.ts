@@ -4,7 +4,6 @@ import {
   PayloadAction,
   createSlice,
 } from "@reduxjs/toolkit";
-// import { AuthState } from "../types/states"
 import {
   AddProduct,
   delProduct,
@@ -17,7 +16,7 @@ import {
   RejectedActionProduct,
 } from "../types/reducers";
 import { ProductState } from "../types/states";
-import { IProducts } from "../../types/stateTypes";
+import { IProducts, IProductsSlice } from "../../types/stateTypes";
 
 const initialState: ProductState = { products: [], loading: true, error: {} };
 
@@ -75,8 +74,12 @@ const productSlice: ProductSlice = createSlice({
     });
     builder.addCase(
       AddProduct.fulfilled,
-      (state: Draft<ProductState>, action: PayloadAction<IProducts>): void => {
-        state.products.push(action.payload.data);
+      (state: Draft<ProductState>, action: PayloadAction<IProductsSlice>): void => {
+console.log('В слайс приходит action.payload.data', action.payload.data);
+console.log('В слайс приходит action.payload', action.payload);
+console.log('В слайс приходит action', action);
+const { data } = action.payload
+        state.products.push(data);
         state.loading = false;
       }
     );
@@ -95,7 +98,7 @@ const productSlice: ProductSlice = createSlice({
     });
     builder.addCase(
       UpdProduct.fulfilled,
-      (state: Draft<ProductState>, action: PayloadAction<IProducts>): void => {
+      (state: Draft<ProductState>, action: PayloadAction<IProductsSlice>): void => {
         const modifiedСard: IProducts = action.payload.data
         state.products = state.products.filter(
           (el: Draft<IProducts>): boolean => el.id !== modifiedСard.id

@@ -31,10 +31,14 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
       },
-
       text: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
+      },
+      isVerified: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
       },
       likesQuantity: {
         defaultValue: 0,

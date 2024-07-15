@@ -18,6 +18,7 @@ import { basketApp } from "../../redux/thunkbasketApp";
 import { AuthState, ProductState } from "../../redux/types/states";
 import ModalFormUpdate from "../../components/ModalForm/ModalFormUpdate";
 import { Params, useNavigate, useParams } from "react-router-dom";
+import CommentsList from "../../components/CommentsLis/CommentsList";
 
 export default function OneProductPage(): JSX.Element {
   const { "*": idString }: Params<string> = useParams();
@@ -174,6 +175,7 @@ export default function OneProductPage(): JSX.Element {
             )}
           </CardFooter>
         </Card>
+        <CommentsList />
       </WrapItem>
     </div>
   );
