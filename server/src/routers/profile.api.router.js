@@ -91,6 +91,7 @@ router.put('/users/:id', upload.single('profilePhoto'), async (req, res) => {
       .json({ message: 'Server Error with updating profile' });
   }
 });
+// 5. Просмотр заказов пользователя
 // * Роут для доступа к спискам заказов и статусам
 router.get('/orders/:userId', async (req, res) => {
   try {
@@ -105,6 +106,7 @@ router.get('/orders/:userId', async (req, res) => {
   }
 });
 
+// 5. Просмотр заказов пользователя
 // Роут для получения деталей заказа:
 router.get('/order-details/:orderId', async (req, res) => {
   // console.log('✅ЗАШЛИ');
