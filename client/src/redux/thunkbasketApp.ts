@@ -33,7 +33,7 @@ export const basketApp = createAsyncThunk(
 export const AddProduct = createAsyncThunk(
   "basket/Add",
   async ({ userId, numberBasket, status, commentUser, totalBasketPrice, deliveryAddress,estimatedDate }: BasketItem) => {
-    console.log(userId,numberBasket, status, commentUser, totalBasketPrice, deliveryAddress ,estimatedDate,'ЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩ');
+    console.log(userId, numberBasket, status, commentUser, totalBasketPrice, deliveryAddress ,estimatedDate,'ЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩ');
     const response = await axiosInstance.put(
       `${VITE_BASE_URL}${VITE_API}/basket/put`,
       { userId,numberBasket, status, commentUser, totalBasketPrice, deliveryAddress , estimatedDate}

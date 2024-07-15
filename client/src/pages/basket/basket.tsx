@@ -7,6 +7,7 @@ import OneCard from '../../components/OneCard/OneCard';
 import { Button, Input, Select } from '@chakra-ui/react';
 
 interface Product {
+  product: any;
   id: number;
   userId: number;
   productId: number;
@@ -66,7 +67,16 @@ const Basket: React.FC = () => {
   }, [basketData]);
 
   useEffect(() => {
-    dispatch(getbasket({ userId: Number(user.id) }));
+    dispatch(getbasket({
+      userId: Number(user.id),
+      productId: 0,
+      numberBasket: 1,
+      status: 0,
+      commentUser: '',
+      totalBasketPrice: 0,
+      deliveryAddress: '',
+      estimatedDate: 0
+    }));
   }, [dispatch, user.id]);
 
   useEffect(() => {
@@ -87,8 +97,8 @@ const Basket: React.FC = () => {
   const handleQuantityChange = (id: number, change: number) => {
     setBaskets(currentBaskets => currentBaskets.map(basket => {
       if (basket.id === id) {
-        const newNumberBasket = parseInt(basket.numberBasket) + change;
-        return { ...basket, numberBasket: newNumberBasket >= 0 ? newNumberBasket : 0 };
+        const newNumberBasket = basket.numberBasket + change;
+        return { ...basket, numberBasket: newNumberBasket > 0 ? newNumberBasket : 1 };
       }
       return basket;
     }));

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import './CheckoutPage.css'; 
+import './CheckoutPage.css';
 
 interface Product {
   id: number;
@@ -17,9 +17,9 @@ const CheckoutPage: React.FC = () => {
   const basket: Product[] = basketString ? JSON.parse(decodeURIComponent(basketString)) : [];
   const product: Product | null = productString ? JSON.parse(decodeURIComponent(productString)) : null;
   const deliveryAddress = searchParams.get('address') || '';
-  const Details = searchParams.get('Details') || '';
+  const commentUser = searchParams.get('Details') || '';
   const deliveryType = searchParams.get('type') || '';
-  const deliveryDate = searchParams.get('date') || '';
+  const estimatedDate = searchParams.get('date') || '';
 
   return (
     <div className="checkout-container">
@@ -45,29 +45,23 @@ const CheckoutPage: React.FC = () => {
         )}
         <div className="delivery-details">
           <p>Адрес доставки: {deliveryAddress}</p>
-          </div>
-          <div className="delivery-details1">
-          <p>Детали доставки:{Details}</p>
-          </div>
-          <div className="delivery-details2">
+          <p>Детали доставки: {commentUser}</p>
           <p>Тип доставки: {deliveryType}</p>
-          </div>
-          <div className="delivery-details2">
-          <p>Дата доставки: {deliveryDate}</p>
-          </div>
+          <p>Дата доставки: {estimatedDate}</p>
+        </div>
       </div>
       <form className="checkout-form">
         <label>
           Имя:
-          <input type="text" name="name" className="form-input" />
+          <input type="text" name="name" className="form-input" required />
         </label>
         <label>
-          доставка:
-          <input type="text" name="address" defaultValue={deliveryAddress} className="form-input" />
+          Адрес доставки:
+          <input type="text" name="address" defaultValue={deliveryAddress} className="form-input" required />
         </label>
         <label>
           Email:
-          <input type="email" name="email" className="form-input" />
+          <input type="email" name="email" className="form-input" required />
         </label>
         <button type="submit" className="submit-button">Подтвердить заказ</button>
       </form>
