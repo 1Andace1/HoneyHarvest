@@ -7,6 +7,7 @@ const { VITE_API, VITE_BASE_URL }: ImportMeta["env"] = import.meta.env;
 interface BasketItem {
   userId: number;
   productId: number;
+  orderId:number;
   numberBasket: number;
   status: number;
   commentUser: string;
@@ -36,7 +37,7 @@ export const AddProduct = createAsyncThunk(
     console.log(userId, numberBasket, status, commentUser, totalBasketPrice, deliveryAddress ,estimatedDate,'ЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩ');
     const response = await axiosInstance.put(
       `${VITE_BASE_URL}${VITE_API}/basket/put`,
-      { userId,numberBasket, status, commentUser, totalBasketPrice, deliveryAddress , estimatedDate}
+      { userId,numberBasket, status, commentUser, totalBasketPrice, deliveryAddress , estimatedDate }
     );
     if (response.status === 200) {
       return response.data; // Предполагается, что сервер возвращает данные корзины
