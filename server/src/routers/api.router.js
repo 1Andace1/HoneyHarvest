@@ -5,6 +5,7 @@ const tokensRouter = require('./tokens.api.router');
 const profileRouter = require('./profile.api.router');
 const basketRouter = require('./basket.api.router'); 
 const catalogRouter = require('./catalog.api.router'); 
+const commentRouter = require('./comment.api.router'); 
 
 router.use('/tokens', tokensRouter);
 router.use('/auth', authRouter);
@@ -12,5 +13,6 @@ router.use('/auth', authRouter);
 router.use('/profile', profileRouter);
 router.use('/basket', basketRouter); 
 router.use('/catalog', catalogRouter); 
+router.use('/comment', commentRouter); 
 
 module.exports = router;

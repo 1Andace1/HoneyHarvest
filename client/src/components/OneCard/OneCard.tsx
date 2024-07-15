@@ -25,19 +25,18 @@ export default function OneCard({ el }: { el: IProducts }): JSX.Element {
   const oneProductPage = () => {
     navigate(`/detail/${el.id}`);
   };
-
-  const {
-    title,
-    discountRatio,
-    sort,
-    description,
-    yearOfHarvest,
-    picture,
-    location,
-    starsRating,
-    createdAt,
-  } = el as IProducts;
+  const title = el?.title;
   const price = el?.price / 10;
+  const discountRatio = el?.discountRatio;
+  // const category = el?.category;
+  const sort = el?.sort;
+  const description = el?.description;
+  const yearOfHarvest = el?.yearOfHarvest;
+  // const availableQuantity = el?.availableQuantity;
+  const picture = el?.picture;
+  const location = el?.location;
+  const starsRating = el?.starsRating;
+  const createdAt = el?.createdAt;
   const priceConDiscountRatio = price * discountRatio;
   const discountIsTrue: boolean = discountRatio < 1;
 
