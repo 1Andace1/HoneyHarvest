@@ -5,11 +5,12 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { getbasket, AddProduct, deleteProduct } from '../../redux/thunkbasketApp';
 import OneCard from '../../components/OneCard/OneCard';
 import { Button, Input, Select } from '@chakra-ui/react';
-import axios from 'axios';
+
 interface Product {
   id: number;
   userId: number;
   productId: number;
+
   numberBasket: number;
   status: string;
   commentUser: string;
@@ -25,15 +26,15 @@ interface IUser {
 const Basket: React.FC = () => {
   const { user }: { user: IUser } = useAppSelector((state) => state.authSlice);
   const defaultInputs: Omit<Product, 'productId'> = {
-    id: 0,
+    id: "",
     userId: user.id,
     numberBasket: 1,
+    orderId: 0,
     status: "standard",
     commentUser: "",
     totalBasketPrice: 0,
     deliveryAddress: "",
     estimatedDate: "",
-
   }
   const [inputs, setInputs] = useState<Omit<Product, 'productId'>>(defaultInputs);
   const [baskets, setBaskets] = useState<Product[]>([]);
@@ -48,19 +49,16 @@ const Basket: React.FC = () => {
       console.error('Необходимо заполнить все поля формы.');
       return;
     }
-    try {
-      await dispatch(AddProduct(inputs as Product)).unwrap();
-      setInputs(prev => ({ ...prev, commentUser: '', deliveryAddress: '', estimatedDate: '' }));
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.error('Ошибка при добавлении продукта:', error.message);
-        if (error.response) {
-          console.error('Детали ошибки:', error.response.data);
-        }
-      } else {
-        console.error('Неизвестная ошибка:', error);
-      }
-    }
+    dispatch(AddProduct(inputs as Product))
+      .unwrap()
+      .then(() => {
+        setInputs(prev => ({ ...prev, commentUser: '', deliveryAddress: '', estimatedDate: '' }));
+        console.log(setInputs,'ffffffffffffffffffffffffffffffffffffffffffffff');
+        
+      })
+      .catch((error) => {
+        console.error('Ошибка при добавлении продукта:', error);
+      });
   };
 
   const navigate = useNavigate();
@@ -75,12 +73,12 @@ const Basket: React.FC = () => {
     dispatch(getbasket({
       userId: Number(user.id),
       productId: 0,
-      numberBasket: 1,
+      numberBasket: 0,
       status: 0,
-      commentUser: '',
+      commentUser: "",
       totalBasketPrice: 0,
-      deliveryAddress: '',
-      estimatedDate: 0
+      deliveryAddress: "",
+      estimatedDate: "",
     }));
   }, [dispatch, user.id]);
 

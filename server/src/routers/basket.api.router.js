@@ -4,18 +4,12 @@ const { Basket , Product} = require('../../db/models');
 
 const router = express.Router();
 
-// 1. Добавление товара в корзину
 router.post('/catalog', verifyAccessToken, async (req, res) => {
   const { userId, productId } = req.body;
   console.log(req.body, '+++++++++пост------------');
   console.log(userId, productId, '+++++++++++пост++++++++++');
   try {
-    const product = await Product.findByPk(productId);
-    if (!product) {
-      return res.status(404).json({ message: 'Product not found' });
-    }
-    
-    const entry = await Basket.create({ UserId: userId, productId, numberBasket: 1});
+    const entry = await Basket.create({ UserId: userId, productId });
     res.status(201).json(entry);
   } catch (error) {
     console.log(error);
@@ -23,31 +17,40 @@ router.post('/catalog', verifyAccessToken, async (req, res) => {
   }
 });
 
-// 3. Обновление корзины (добавление/удаление товаров)
 router.put('/put', verifyAccessToken, async (req, res) => {
   console.log('зашли в ручку put');
-  // console.log(req.body, '++++++++++++req.body+++++++++++++');
-  // const { userId, numberBasket, status, commentUser, totalBasketPrice, deliveryAddress , estimatedDate} = req.body;
-  // console.log(userId, 'Я ЗАШЕЛ СЮДА В ЮЗЕР');
-  // const { basketId, numberBasket } = req.body;
-  const { basketId, numberBasket } = req.body;
+  console.log(req.body, '++++++++++++req.body+++++++++++++');
+  const { userId, numberBasket, status, commentUser, totalBasketPrice, deliveryAddress , estimatedDate} = req.body;
+  console.log(userId, 'Я ЗАШЕЛ СЮДА В ЮЗЕР');
+
   try {
-    const basketItem = await Basket.findByPk(basketId);
-    console.log(basketItem, 'Я СЮДА ЗАШЕЛ ++++++');
-    if (!basketItem) {
-      return res.status(404).json({ message: 'Basket item not found' });
+    const entries = await Basket.findAll({ where: { UserId: userId } });
+    console.log(entries, 'Я СЮДА ЗАШЕЛ ++++++');
+
+    if (entries.length === 0) {
+      return res.status(404).json({ error: 'No entries found for this userId' });
     }
 
-    await basketItem.update({ numberBasket });
-    res.status(200).json({ message: 'Basket updated successfully' });
+    for (let entry of entries) {
+      console.log(entry, 'PPPPPPPPPPPPPPPPPP');
+      await entry.update({
+        numberBasket,
+        status,
+        commentUser,
+        totalBasketPrice,
+        deliveryAddress,
+        estimatedDate,
+      
+      });
+    }
 
-     } catch (error) {
+    res.status(200).json({ message: 'Entries updated successfully' });
+  } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
 
-// 2. Просмотр корзины
 router.get('/get', verifyAccessToken, async (req, res) => {
   const { userId } = req.query;
   console.log(req.query, '+++++++++гет------------');
@@ -75,20 +78,16 @@ router.get('/get', verifyAccessToken, async (req, res) => {
 //ручку написать для удаление из бд когда убрать нажимаешь 
 router.delete('/delete/:id', verifyAccessToken, async (req, res) => {
   const { id } = req.params;
-
   try {
-    const basketItem  = await Basket.findByPk(id);
-    
-    if (!basketItem) {
-      return res.status(404).json({ error: 'basketItem not found' });
+    const productToDelete = await Basket.findOne({ where: { id } });
+    if (!productToDelete) {
+      return res.status(404).json({ error: 'Product not found' });
     }
-    await basketItem.destroy();
-    res.status(200).json({ message: 'basketItem removed successfully' });
+    await productToDelete.destroy();
+    res.status(200).json({ message: 'Product removed successfully' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Error deleting basketItem' });
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
-
-
 module.exports = router;
