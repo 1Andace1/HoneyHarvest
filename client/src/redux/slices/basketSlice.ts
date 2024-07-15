@@ -42,8 +42,12 @@ const basketSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(AddProduct.fulfilled, (state, action) => {
-      state.basketApp = state.basketApp.filter((el): boolean => el.id !== action.payload);//подумать с условием фильтра !!!
-      state.basketApp.push(action.payload);//
+      const index = state.basketApp.findIndex((el) => el.id === action.payload.id);
+      if (index !== -1) {
+        state.basketApp[index] = action.payload;
+      } else {
+        state.basketApp.push(action.payload);
+      }
       state.loading = false;
     });
     builder.addCase(AddProduct.rejected, (state, action) => {

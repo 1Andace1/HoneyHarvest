@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './basket.css'; 
+import './basket.css';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { getbasket, AddProduct, deleteProduct } from '../../redux/thunkbasketApp';
-import OneCard from '../../components/OneCard/OneCard'; 
+import OneCard from '../../components/OneCard/OneCard';
 import { Button, Input, Select } from '@chakra-ui/react';
 
 interface Product {
@@ -15,6 +15,7 @@ interface Product {
   commentUser: string;
   totalBasketPrice: number;
   deliveryAddress: string;
+  estimatedDate: string; 
 }
 
 interface IUser {
@@ -23,7 +24,7 @@ interface IUser {
 
 const Basket: React.FC = () => {
   const { user }: { user: IUser } = useAppSelector((state) => state.authSlice);
-  const defaultInputs = {
+  const defaultInputs: Omit<Product, 'productId'> = {
     id: 0,
     userId: user.id,
     numberBasket: 1,
@@ -31,19 +32,29 @@ const Basket: React.FC = () => {
     commentUser: "",
     totalBasketPrice: 0,
     deliveryAddress: "",
-    deliveryDate: "",
+    estimatedDate: "",
   }
-  const [inputs, setInputs] = useState(defaultInputs);
-  const [baskets, setBaskets] = useState([]);
+  const [inputs, setInputs] = useState<Omit<Product, 'productId'>>(defaultInputs);
+  const [baskets, setBaskets] = useState<Product[]>([]);
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(AddProduct(inputs));
-    setInputs(defaultInputs);
+    if (!inputs.deliveryAddress || !inputs.estimatedDate) {
+      console.error('Необходимо заполнить все поля формы.');
+      return;
+    }
+    dispatch(AddProduct(inputs as Product))
+      .unwrap()
+      .then(() => {
+        setInputs(prev => ({ ...prev, commentUser: '', deliveryAddress: '', estimatedDate: '' }));
+      })
+      .catch((error) => {
+        console.error('Ошибка при добавлении продукта:', error);
+      });
   };
 
   const navigate = useNavigate();
@@ -53,11 +64,6 @@ const Basket: React.FC = () => {
       setBaskets(basketData);
     }
   }, [basketData]);
-
-  if (baskets && baskets.length > 0) {
-  }
-console.log(baskets,'я массив бля');
-
 
   useEffect(() => {
     dispatch(getbasket({ userId: Number(user.id) }));
@@ -75,13 +81,13 @@ console.log(baskets,'я массив бля');
   }, [baskets]);
 
   const handleOrderAll = () => {
-    navigate(`/checkout?basket=${encodeURIComponent(JSON.stringify(baskets))}&address=${encodeURIComponent(inputs.deliveryAddress)}&Details=${encodeURIComponent(inputs.commentUser)}&type=${encodeURIComponent(inputs.status)}&date=${encodeURIComponent(inputs.deliveryDate)}`);
+    navigate(`/checkout?basket=${encodeURIComponent(JSON.stringify(baskets))}&address=${encodeURIComponent(inputs.deliveryAddress)}&Details=${encodeURIComponent(inputs.commentUser)}&type=${encodeURIComponent(inputs.status)}&date=${encodeURIComponent(inputs.estimatedDate)}`);
   };
 
   const handleQuantityChange = (id: number, change: number) => {
-    setBaskets((currentBaskets) => currentBaskets.map((basket) => {
+    setBaskets(currentBaskets => currentBaskets.map(basket => {
       if (basket.id === id) {
-        const newNumberBasket = basket.numberBasket + change;
+        const newNumberBasket = parseInt(basket.numberBasket) + change;
         return { ...basket, numberBasket: newNumberBasket >= 0 ? newNumberBasket : 0 };
       }
       return basket;
@@ -96,18 +102,13 @@ console.log(baskets,'я массив бля');
       })
       .catch((error) => {
         console.error('Ошибка при удалении продукта:', error);
-        
       });
   };
-    // setInputs((prev) => ({
-    //   ...prev,
-    //   baskets: prev.baskets.filter((basket) => basket.id !== id),
-    // }));
 
   const handleBuyOne = (product: Product) => {
-    navigate(`/checkout?product=${encodeURIComponent(JSON.stringify(product))}&address=${encodeURIComponent(inputs.deliveryAddress)}&Details=${encodeURIComponent(inputs.commentUser)}&type=${encodeURIComponent(inputs.status)}&date=${encodeURIComponent(inputs.deliveryDate)}`);
+    navigate(`/checkout?product=${encodeURIComponent(JSON.stringify(product))}&address=${encodeURIComponent(inputs.deliveryAddress)}&Details=${encodeURIComponent(inputs.commentUser)}&type=${encodeURIComponent(inputs.status)}&date=${encodeURIComponent(inputs.estimatedDate)}`);
   };
-useEffect(()=>{console.log('useEffect');},[handleRemoveProduct])
+
   return (
     <div className="basket-container">
       <div className="basket">
@@ -143,8 +144,8 @@ useEffect(()=>{console.log('useEffect');},[handleRemoveProduct])
             <option value="express">Экспресс</option>
           </Select>
           <label>Дата доставки:</label>
-          <Input type="date" name="deliveryDate" value={inputs.deliveryDate} onChange={changeHandler} />
-          <Button type="submit">добавить</Button>
+          <Input type="date" name="estimatedDate" value={inputs.estimatedDate} onChange={changeHandler} />
+          <Button type="submit">к оформлению</Button>
         </form>
       </div>
     </div>
