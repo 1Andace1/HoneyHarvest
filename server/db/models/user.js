@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
       // добавила связь Один  ко многим
       this.hasMany(Basket, { foreignKey: 'UserId', as: 'baskets' });
       this.hasMany(Transaction, { foreignKey: 'UserId', as: 'transactions' });
-      this.hasMany(Comment, { foreignKey: 'UserId' });
+      this.hasMany(Comment, { foreignKey: 'userId' });
     }
   }
   User.init(

@@ -7,9 +7,6 @@ router
     try {
       const entries = await Product.findAll();
       const catalog = entries.map((el) => el.get({ plain: true }));
-
-      // console.log('catalog-------------++', catalog);
-
       res.json(catalog);
     } catch (error) {
       console.log(error);
@@ -20,12 +17,13 @@ router
     const { id } = req.params;
     try {
       const product = await Product.findByPk(id);
-      // if (res.locals.user.id === product.userId) {  // здесь сделать сравнение с id админа, для чего предварительно осуществить поиск всех админов в БД
-      product.destroy();
-      res.sendStatus(200);
-      // } else {
-      // res.sendStatus(403);
-      // }
+      // проверка пользователя на наличие у него статуса админа:
+      if (res.locals.user.isAdmin) {
+        product.destroy();
+        res.sendStatus(200);
+      } else {
+        res.sendStatus(403);
+      }
     } catch (error) {
       console.log(error);
       res.sendStatus(400);
@@ -65,20 +63,6 @@ router
     }
   })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
   .put('/put', verifyAccessToken, async (req, res) => {
     const {
       id,
@@ -109,29 +93,31 @@ router
     // console.log('typeof picture', typeof picture, picture);
     console.log('typeof location', typeof location, location);
 
-
-
     try {
-      console.log('++-------Зашли в TRY в ручке PUT в catalog.api.router.js----------++');
-      await Product.update({
-        title,
-        price,
-        discountRatio,
-        category,
-        sort,
-        description,
-        yearOfHarvest,
-        availableQuantity,
-        // picture,
-        location,
-      },
-    { where: { id }});
-    const updatedEntry = await Product.findByPk(id)
+      console.log(
+        '++-------Зашли в TRY в ручке PUT в catalog.api.router.js----------++'
+      );
+      await Product.update(
+        {
+          title,
+          price,
+          discountRatio,
+          category,
+          sort,
+          description,
+          yearOfHarvest,
+          availableQuantity,
+          // picture,
+          location,
+        },
+        { where: { id } }
+      );
+      const updatedEntry = await Product.findByPk(id);
       res.send(updatedEntry);
     } catch (error) {
       console.error(error);
       res.sendStatus(400);
     }
-  })
+  });
 
 module.exports = router;

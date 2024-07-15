@@ -48,7 +48,7 @@ export type AuthSlice = Slice<
 >;
 
 export type ProductAction = PayloadAction<
-  IProducts,
+  IProducts[],
   string,
   {
     arg: void | IInputsProducts;

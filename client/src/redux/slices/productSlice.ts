@@ -4,7 +4,6 @@ import {
   PayloadAction,
   createSlice,
 } from "@reduxjs/toolkit";
-// import { AuthState } from "../types/states"
 import {
   AddProduct,
   delProduct,
@@ -99,7 +98,7 @@ const { data } = action.payload
     });
     builder.addCase(
       UpdProduct.fulfilled,
-      (state: Draft<ProductState>, action: PayloadAction<IProducts>): void => {
+      (state: Draft<ProductState>, action: PayloadAction<IProductsSlice>): void => {
         const modifiedСard: IProducts = action.payload.data
         state.products = state.products.filter(
           (el: Draft<IProducts>): boolean => el.id !== modifiedСard.id

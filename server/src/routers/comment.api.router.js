@@ -5,29 +5,34 @@ const { where } = require('sequelize');
 const { response } = require('express');
 
 router
-  .get('/allcomments', async (req, res) => {
+  .get('/all', async (req, res) => {
+
+console.log('Мы зашли в ручку GET в файле comment.api.router.js');
+    
     try {
-      const entries = await Comment.findAll({ where: { productId } });
+      const entries = await Comment.findAll();
       const allComments = entries.map((el) => el.get({ plain: true }));
-      // console.log('allComments------------->', allComments);
+
+      console.log('allComments------------->', allComments);
+      
       res.json(allComments);
     } catch (error) {
       console.log(error);
       res.status(500).send(error.message);
     }
   })
-  .get('/commentsoncard/:id', async (req, res) => {
-    const { id: productId } = req.params;
-    try {
-      const entries = await Comment.findAll({ where: { productId } });
-      const allCommentsOnOneCard = entries.map((el) => el.get({ plain: true }));
-      // console.log('AllCommentsOnOneCard------------->', allCommentsOnOneCard);
-      res.json(allCommentsOnOneCard);
-    } catch (error) {
-      console.log(error);
-      res.status(500).send(error.message);
-    }
-  })
+  // .get('/commentsoncard/:id', async (req, res) => {
+  //   const { id: productId } = req.params;
+  //   try {
+  //     const entries = await Comment.findAll({ where: { productId } });
+  //     const allCommentsOnOneCard = entries.map((el) => el.get({ plain: true }));
+  //     // console.log('AllCommentsOnOneCard------------->', allCommentsOnOneCard);
+  //     res.json(allCommentsOnOneCard);
+  //   } catch (error) {
+  //     console.log(error);
+  //     res.status(500).send(error.message);
+  //   }
+  // })
   .delete('/:id', verifyAccessToken, async (req, res) => {
     const { id } = req.params;
     try {
