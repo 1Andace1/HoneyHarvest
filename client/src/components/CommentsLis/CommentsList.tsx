@@ -1,14 +1,22 @@
 import { memo, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
-import { AuthState, CommentState, ProductState } from "../../redux/types/states";
+import {
+  AuthState,
+  CommentState,
+  ProductState,
+} from "../../redux/types/states";
 import { getAllComments } from "../../redux/thunkActionsComment";
 import { Heading, VStack } from "@chakra-ui/react";
 import { IComment, IProducts } from "../../types/stateTypes";
 import OneComment from "./OneComment";
 import ModalFormCreateComment from "../ModalForm/ModalFormCreateComment";
 
-export default memo(function CommentsList({ currentProduct }: {currentProduct: IProducts}): JSX.Element {
+export default memo(function CommentsList({
+  currentProduct,
+}: {
+  currentProduct: IProducts;
+}): JSX.Element {
   const dispatch = useAppDispatch();
 
   const { comments } = useAppSelector(
@@ -37,7 +45,11 @@ export default memo(function CommentsList({ currentProduct }: {currentProduct: I
         spacing={4}
         align="stretch"
       >
-        {user?.id ? <ModalFormCreateComment currentProduct={currentProduct} /> : false}
+        {user?.id ? (
+          <ModalFormCreateComment currentProduct={currentProduct} />
+        ) : (
+          false
+        )}
         {comments.length ? (
           comments
             .filter(
@@ -45,7 +57,9 @@ export default memo(function CommentsList({ currentProduct }: {currentProduct: I
                 comment.isVerified === true &&
                 currentProduct.id === comment.productId
             )
-            .map((el: IComment) => <OneComment el={el} key={el.id} currentProduct={currentProduct} />)
+            .map((el: IComment) => (
+              <OneComment el={el} key={el.id} currentProduct={currentProduct} />
+            ))
         ) : (
           <Heading as="h2" size="2xl">
             Комментариев нет
