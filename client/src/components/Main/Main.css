@@ -53,6 +53,7 @@ background-color: #d9d6c8;
 }
 
 .apiary-selection {
+  margin-top: 20px;
   display: flex;
   justify-content: space-around;
   padding: 20px;
@@ -60,7 +61,7 @@ background-color: #d9d6c8;
   font-size: 17px;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
-  
+  margin-bottom: 10px;
   
   
 }
@@ -279,4 +280,7 @@ background-color: #d9d6c8;
 
 #root{
   width: 2000px;
+}
+.menu{
+  margin-right: 25px;
 }

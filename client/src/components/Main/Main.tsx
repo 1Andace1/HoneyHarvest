@@ -92,7 +92,7 @@ function Main(): JSX.Element {
             <p>Email: info@paseka-shop.ru</p>
           </div>
           <div className="footer-section">
-            <h3>Меню</h3>
+            <h3 className='menu'>Меню</h3>
             <a href="#about-us">О нас</a>
             <a href="#apiary-selection">Пасеки</a>
             <a href="#rewiew">Отзывы</a>
