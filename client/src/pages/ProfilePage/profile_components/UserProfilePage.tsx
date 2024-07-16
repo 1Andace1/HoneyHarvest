@@ -7,6 +7,7 @@ import LoyaltyInfo from './LoyaltyProgramComponent';
 import OrdersPage from './OrdersPageComponent';
 import { useDispatch } from 'react-redux';
 import { updateUser } from '../../../redux/slices/authSlice'; // Замените на правильный путь
+import styles from '../ProfilePage.module.css';
 
 const { VITE_API, VITE_BASE_URL }: ImportMeta['env'] = import.meta.env;
 
@@ -90,44 +91,12 @@ const UserProfilePage = ({ user, userTotalSpent }) => {
           updatedFields[key] = formData[key];
         }
       }
-      // // сравнение текущих данных формы с начальными и добавление измененных полей в updatedFields
-      // if (formData.username !== initialFormData.username) {
-      //   updatedFields.username = formData.username;
-      // }
-      // if (formData.email !== initialFormData.email) {
-      //   updatedFields.email = formData.email;
-      // }
-      // if (formData.telephone !== initialFormData.telephone) {
-      //   updatedFields.telephone = formData.telephone;
-      // }
-      // if (formData.userCity !== initialFormData.userCity) {
-      //   updatedFields.userCity = formData.userCity;
-      // }
-      // if (formData.password) {
-      //   updatedFields.password = formData.password;
-      // }
-      // if (formData.profilePhoto) {
-      //   updatedFields.profilePhoto = formData.profilePhoto;
-      // }
-      // если нет изменений, ничего не отправляем
+
       if (Object.keys(updatedFields).length === 0) {
         console.log('No changes detected, form not submitted.');
         return;
       }
 
-      // const formDataObj = new FormData();
-      // formDataObj.append('username', formData.username);
-      // formDataObj.append('email', formData.email);
-      // formDataObj.append('telephone', formData.telephone);
-      // formDataObj.append('userCity', formData.userCity);
-      // if (formData.password) {
-      //   formDataObj.append('password', formData.password);
-      // }
-      // if (formData.profilePhoto) {
-      //   formDataObj.append('profilePhoto', formData.profilePhoto);
-      // }
-
-      // создание FormData объекта для отправки данных формы на сервер
       const formDataObj = new FormData();
       for (const key in updatedFields) {
         formDataObj.append(key, updatedFields[key]);
@@ -151,9 +120,7 @@ const UserProfilePage = ({ user, userTotalSpent }) => {
       // Обновляем состояние пользователя на клиенте (тк Сервер вмдит изменения, а клиент нет)
       const updatedUser = res.data.user;
       dispatch(updateUser(updatedUser)); // Замените на ваш метод обновления пользователя в redux или в другом state management
-      // new закрытие модальное окно после успешного обновления:
-      // setIsEditing(false);
-      onClose();
+;      onClose();
     } catch (error) {
       setError(error);
       console.error('Ошибка при обновлении данных пользователя', error);
@@ -161,7 +128,7 @@ const UserProfilePage = ({ user, userTotalSpent }) => {
   };
 
   return (
-    <Box p={6}>
+    <Box p={6}  className={styles.boxСontainer}>
       {user && <UserProfileCard user={user} onEdit={onOpen} />}
       {loyalty && <LoyaltyInfo userTotalSpent={userTotalSpent} />}
       {/* <OrdersPage user={user} /> */}
