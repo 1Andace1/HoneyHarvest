@@ -1,4 +1,5 @@
-.filter-component {
+.filter-component  {
+    z-index: 1000;
     position: fixed;
     top: 60px;
     right: 0px;

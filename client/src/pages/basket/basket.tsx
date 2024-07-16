@@ -125,7 +125,6 @@ const Basket: React.FC = () => {
   return (
     <div className="basket-container">
       <div className="basket">
-        <button className="order-all-button" onClick={handleOrderAll}>Заказать все</button>
         <div className="total-price">
           Общая сумма: Р{inputs.totalBasketPrice}
         </div>
@@ -145,7 +144,7 @@ const Basket: React.FC = () => {
         </ul>
       </div>
       <div className="delivery-form">
-        <h2>Адрес и доставка</h2>
+        <h2>оформление заказа</h2>
         <form onSubmit={submitHandler}>
           <label>Адрес доставки:</label>
           <Input name="deliveryAddress" value={inputs.deliveryAddress} onChange={changeHandler} />
@@ -158,7 +157,7 @@ const Basket: React.FC = () => {
           </Select>
           <label>Дата доставки:</label>
           <Input type="date" name="estimatedDate" value={inputs.estimatedDate} onChange={changeHandler} />
-          <Button type="submit">к оформлению</Button>
+          <Button type="submit">оформить</Button>
         </form>
       </div>
     </div>
