@@ -1,5 +1,5 @@
 import { AsyncThunk, Dispatch } from "@reduxjs/toolkit";
-import { IInputsProducts, IProducts } from "../../types/stateTypes";
+import { IComment, IInputsComment, IInputsProducts, IProducts } from "../../types/stateTypes";
 import { AxiosResponse } from "axios";
 
 type AsyncThunkConfig = {
@@ -37,3 +37,23 @@ export type UpdateProduct = AsyncThunk<
   IInputsProducts,
   AsyncThunkConfig
 >;
+
+
+export type getComments = AsyncThunk<IComment[], void, AsyncThunkConfig>;
+
+export type NewComment = AsyncThunk<
+  AxiosResponse<number, number>,
+  IInputsComment,
+  AsyncThunkConfig
+>;
+
+export type DelComment = AsyncThunk<number | void, number, AsyncThunkConfig>;
+
+export type UpdateComment = AsyncThunk<
+  AxiosResponse<number, number>,
+  IInputsComment,
+  AsyncThunkConfig
+>;
+
+
+

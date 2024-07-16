@@ -84,7 +84,27 @@ export interface IProducts extends IInputsProducts {
   createdAt: string,
   updatedAt: string,
 }
+
 export interface IProductsSlice {
   data: IProducts,
 }
 
+export interface IInputsComment {
+  text: string,
+  productId: number,
+  userId: number,
+}
+
+export interface IComment extends IInputsComment {
+  id: number,
+  userId: number,
+  isVerified: boolean,
+  likesQuantity: number,
+  createdAt: string,
+  updatedAt: string,
+  User: { userId: number, username: string},
+}
+
+export interface ICommentSlice {
+  data: IComment,
+}

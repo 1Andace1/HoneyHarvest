@@ -38,7 +38,7 @@ module.exports = {
       isVerified: {
         allowNull: false,
         type: Sequelize.BOOLEAN,
-        defaultValue: false,
+        defaultValue: true,
       },
       likesQuantity: {
         defaultValue: 0,
