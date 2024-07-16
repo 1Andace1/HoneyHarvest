@@ -27,6 +27,7 @@
   .chatik {
     
     margin-bottom: 20px;
+    
   }
   
   .chat-toggle-button {
@@ -34,11 +35,12 @@
   }
   
   .chat-container-foAdm {
+    width: 315px;
     position: fixed;
     bottom: 100px;
     right: 20px;
-    width: 285px;
-    height: 410px;
+   
+    height: 420px;
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -67,8 +69,8 @@
     position: fixed;
     bottom: 100px;
     right: 20px;
-    width: 285px;
-    height: 410px;
+    width: 315px;
+    height: 420px;
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 10px;
