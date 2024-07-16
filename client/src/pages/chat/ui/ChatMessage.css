@@ -64,14 +64,14 @@
       justify-content: start;
       
       
-      background-color: rgb(97, 188, 234);
+      background-color: rgb(222, 217, 111);
       border-radius: 30px;
       color: #f1f1f1;
      width: 240px;
      height: 80px;
      justify-content: flex-start;
      align-items: center;
-     border-top: 2px solid rgb(23, 79, 151);
+     border-top: 2px solid rgb(235, 138, 28);
      border-bottom-right-radius: 0px;
     }
     .youName{

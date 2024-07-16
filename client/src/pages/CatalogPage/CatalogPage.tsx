@@ -1,7 +1,7 @@
 import { memo, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import OneCard from "../../components/OneCard/OneCard";
-import {  Heading,  Wrap } from "@chakra-ui/react";
+import {  Heading,  Wrap, Button } from "@chakra-ui/react";
 import { getProducts } from "../../redux/thunkActionsCatalog";
 import { AuthState, ProductState } from "../../redux/types/states";
 import { IProducts } from "../../types/stateTypes";
@@ -21,7 +21,11 @@ export default memo(function CatalogPage(): JSX.Element {
     (state: { authSlice: AuthState }) => state.authSlice
   );
   const [filteredProducts, setFilteredProducts] = useState<IProducts[]>([]);
+  const[openFilter, setOpenFilter] = useState(false);
 
+  const handleOpenFilter = () => {
+    setOpenFilter(!openFilter);
+  };
   useEffect((): void => {
     dispatch(getProducts());
   }, []);
@@ -59,7 +63,14 @@ export default memo(function CatalogPage(): JSX.Element {
       ) : (
         false
       )}
+      <button className='btnFilter' onClick={handleOpenFilter}  >
+  <div>-</div>
+  <div>-</div>
+  <div>-</div>
+</button>
+      {openFilter ? (
       <FilterComponent onFilterChange={handleFilterChange} />
+    ) : <></>}
       <Wrap spacing="30px">
         {filteredProducts.length ? (
           filteredProducts.map((el: IProducts) => (

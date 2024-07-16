@@ -4,7 +4,7 @@ const { Product, Comment, Like, Rating } = require('../../db/models');
 
 // npm install multer - установка малтера
 // добавлен малтер для возможности загрузок фото:
-const upload = require('../middlewares/uploadProductPhotos'); 
+const upload = require('../middlewares/uploadProductPhotos');
 
 router
   .get('/', async (req, res) => {
@@ -33,38 +33,12 @@ router
       res.sendStatus(400);
     }
   })
-  .post('/new', upload.single('picture'), verifyAccessToken, async (req, res) => {
-    
-    console.log('-----зашли в ручку для загрузки фото --------');
-
-    const {
-      title,
-      price,
-      discountRatio,
-      category,
-      sort,
-      description,
-      yearOfHarvest,
-      availableQuantity,
-      // picture,
-      location,
-    } = req.body;
-    const picture = req.file; // доступ к загруженному файлу
-
-    try {
-
-console.log('req.body----------------->', req.body);
-console.log('req.body.picture----------------->', req.body.picture);
-
-      let photoPath = './productsPhoto/pattern.jpeg'
-      if (picture) {
-        photoPath = picture.originalname;
-      }
-
-      console.log('photoPath------------>', photoPath);
-
-
-      const entry = await Product.create({
+  .post(
+    '/new',
+    upload.single('picture'),
+    verifyAccessToken,
+    async (req, res) => {
+      const {
         title,
         price,
         discountRatio,
@@ -73,17 +47,34 @@ console.log('req.body.picture----------------->', req.body.picture);
         description,
         yearOfHarvest,
         availableQuantity,
-        picture: photoPath, // сохранение пути фото в базу данных
         location,
-      });
-      const response = entry.get({ plain: true });
-      res.json(response);
-    } catch (error) {
-      console.error(error);
-      res.sendStatus(400);
+      } = req.body;
+      const picture = req.file; // доступ к загруженному файлу
+      try {
+        let photoPath = './productsPhoto/pattern.jpeg';
+        if (picture) {
+          photoPath = picture.originalname;
+        }
+        const entry = await Product.create({
+          title,
+          price,
+          discountRatio,
+          category,
+          sort,
+          description,
+          yearOfHarvest,
+          availableQuantity,
+          picture: photoPath, // сохранение пути фото в базу данных
+          location,
+        });
+        const response = entry.get({ plain: true });
+        res.json(response);
+      } catch (error) {
+        console.error(error);
+        res.sendStatus(400);
+      }
     }
-  })
-
+  )
   .put('/put', verifyAccessToken, async (req, res) => {
     const {
       id,

@@ -45,7 +45,7 @@ export default function MessageForm({ submitHandler, socketRef }: MessageFormPro
           onChange={changeHandler}
         />
         <InputGroup.Text id='basic-addon2'>
-          <Button variant='outline-primary' type='submit'  className='btn-outline-primary'>
+          <Button variant='outline-primary' type='submit'  className='btnChat'>
             <SendIcon />
           </Button>
         </InputGroup.Text>
