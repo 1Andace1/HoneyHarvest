@@ -19,6 +19,7 @@ import { IUser } from "../../types/stateTypes";
 import { AuthState } from "../../redux/types/states";
 import ModalFormUpdate from "../ModalForm/ModalFormUpdate";
 import { useNavigate } from "react-router-dom";
+import { basketApp } from "../../redux/thunkbasketApp";
 
 
 
@@ -71,10 +72,10 @@ export default function OneCard({ el }: { el: IProducts }): JSX.Element {
     userId: number;
   }
   
-  const basketApp = (payload: BasketAppPayload) => ({
-    type: 'BASKET_APP',
-    payload,
-  });
+  // const basketApp = (payload: BasketAppPayload) => ({
+  //   type: 'BASKET_APP',
+  //   payload,
+  // });
   function deleteHandler(id: number | string): void {
     dispatch(delProduct(Number(id)));
   }
