@@ -25,7 +25,7 @@
     margin-top: 10px;
   } */
   .chatik {
-    padding: 20px;
+    
     margin-bottom: 20px;
   }
   
@@ -46,6 +46,7 @@
     padding: 10px;
     display: flex;
     flex-direction: column;
+    z-index: 1000;
   }
 
   .chat-container-foAdm {
@@ -75,6 +76,7 @@
     padding: 10px;
     display: flex;
     flex-direction: column;
+    z-index: 1000;
   }
   .usersOnline, .suport {
     flex: 1; 

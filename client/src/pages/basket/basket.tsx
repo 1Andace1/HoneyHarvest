@@ -10,6 +10,7 @@ interface Product {
   id: number;
   userId: number;
   productId: number;
+
   numberBasket: number;
   status: string;
   commentUser: string;
@@ -25,9 +26,10 @@ interface IUser {
 const Basket: React.FC = () => {
   const { user }: { user: IUser } = useAppSelector((state) => state.authSlice);
   const defaultInputs: Omit<Product, 'productId'> = {
-    id: 0,
+    id: "",
     userId: user.id,
     numberBasket: 1,
+    orderId: 0,
     status: "standard",
     commentUser: "",
     totalBasketPrice: 0,
@@ -51,6 +53,8 @@ const Basket: React.FC = () => {
       .unwrap()
       .then(() => {
         setInputs(prev => ({ ...prev, commentUser: '', deliveryAddress: '', estimatedDate: '' }));
+        console.log(setInputs,'ffffffffffffffffffffffffffffffffffffffffffffff');
+        
       })
       .catch((error) => {
         console.error('Ошибка при добавлении продукта:', error);
@@ -66,7 +70,16 @@ const Basket: React.FC = () => {
   }, [basketData]);
 
   useEffect(() => {
-    dispatch(getbasket({ userId: Number(user.id) }));
+    dispatch(getbasket({
+      userId: Number(user.id),
+      productId: 0,
+      numberBasket: 0,
+      status: 0,
+      commentUser: "",
+      totalBasketPrice: 0,
+      deliveryAddress: "",
+      estimatedDate: "",
+    }));
   }, [dispatch, user.id]);
 
   useEffect(() => {
@@ -87,8 +100,8 @@ const Basket: React.FC = () => {
   const handleQuantityChange = (id: number, change: number) => {
     setBaskets(currentBaskets => currentBaskets.map(basket => {
       if (basket.id === id) {
-        const newNumberBasket = parseInt(basket.numberBasket) + change;
-        return { ...basket, numberBasket: newNumberBasket >= 0 ? newNumberBasket : 0 };
+        const newNumberBasket = basket.numberBasket + change;
+        return { ...basket, numberBasket: newNumberBasket > 0 ? newNumberBasket : 1 };
       }
       return basket;
     }));

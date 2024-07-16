@@ -17,7 +17,7 @@ const UserProfileCard: React.FC<UserProfileCardProps> = ({ user, onEdit }) => {
   
   return (
            <Box
-      bg="RGBA(0, 0, 0, 0.24)"
+      bg="#C6F6D5"
       color="#f8f9fb"
       p={6}
       borderRadius="md"
@@ -36,29 +36,34 @@ const UserProfileCard: React.FC<UserProfileCardProps> = ({ user, onEdit }) => {
             : 'http://localhost:3000/no-photo.jpg'
         } // ^
         alt="Profile Photo"
-        boxSize="150px"
+        boxSize="208px"
         borderRadius="full"
         mx="auto"
         mb={4}
+        style={{
+          boxShadow: '0 0 50px rgba(0, 0, 0, 0.5)',
+          // filter: 'grayscale(100%) sepia(80%)',
+          background: 'linear-gradient(to right, hsl(60, 70%, 50%), hsl(100, 70%, 70%))',
+          resize: 'both',
+          clipPath: 'circle(70% at center)',
+        }}
       />
-      <Text fontSize="lg" fontWeight="bold">
+
+      <Text fontSize="1.5rem" fontWeight="bold" color="gray.500">
         Имя: {user.username}
       </Text>
-      <Text fontSize="lg" fontWeight="bold">
-        Ваш email: {user.email}
+      <Text fontSize="1.5rem" color="gray.500">
+        Email: {user.email}
       </Text>
       
       <Button
-        colorScheme="blue"
+        colorScheme="#48BB78"
         mt={4}
-        bg="#2F855A"
+        bg="#68D391"
         _hover={{ bg: 'teal.700' }}
-        _active={{ bg: 'teal.800' }}
+        _active={{ bg: '#48BB78' }}
         _focus={{ boxShadow: 'none' }}
-        // onClick={() => {
-        //   setIsEditing(true);
-        //   onOpen();
-        // }}
+        fontSize="1.1rem"
         onClick={onEdit} // ^ new Onclck изменила и добавила onEdit
       >
         Редактировать профиль

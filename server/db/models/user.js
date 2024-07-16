@@ -2,11 +2,12 @@
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-    static associate({ Basket, Transaction, Comment }) {
+    static associate({ Basket, Transaction, Comment,Order }) {
       // добавила связь Один  ко многим
       this.hasMany(Basket, { foreignKey: 'UserId', as: 'baskets' });
       this.hasMany(Transaction, { foreignKey: 'UserId', as: 'transactions' });
       this.hasMany(Comment, { foreignKey: 'userId' });
+      this.hasMany(Order, { foreignKey: 'userId', as: 'orders' });  // ! МАША нвоое от 15.07
     }
   }
   User.init(
@@ -20,9 +21,8 @@ module.exports = (sequelize, DataTypes) => {
       isAdmin: DataTypes.BOOLEAN,
       photo: DataTypes.STRING,
       totalSpent: {
-        // ^ new поле для отслеживания суммы потраченной пользователем
         type: DataTypes.INTEGER,
-        defaultValue: 0, //  ^ new по умолчанию сумма потраченная равна 0
+        defaultValue: 0, 
       },
     },
     {

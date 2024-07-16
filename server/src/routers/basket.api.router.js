@@ -39,7 +39,8 @@ router.put('/put', verifyAccessToken, async (req, res) => {
         commentUser,
         totalBasketPrice,
         deliveryAddress,
-        estimatedDate
+        estimatedDate,
+      
       });
     }
 
@@ -66,7 +67,7 @@ router.get('/get', verifyAccessToken, async (req, res) => {
         },
       ],
     });    
-    const totalPrice = entry.reduce((total, product) => total + product.numberBasket * (product.product.price), 0);
+    const totalPrice = entry.reduce((total, product) => total + product.productId * (product.product.price), 0);
     console.log(entry,totalPrice, 'Я ЗАШЕЛ В ТОТАЛ ПРАЙС 2222');
     res.status(201).json({entry,totalPrice});
   } catch (error) {
