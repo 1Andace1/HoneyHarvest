@@ -1,11 +1,20 @@
 .weather-forecast-container {
-  display: flex;
+  /* display: flex; */
   flex-direction: row;
-  align-items: flex-start;
-  justify-content: center;
+  /* align-items: flex-start; */
+  /* justify-content: center; */
   padding: 20px;
 }
 
+.weather-day-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  flex-direction: row;
+  flex-wrap: wrap; /* Разрешаем перенос элементов на новую строку */
+  /* justify-content: center; Выравниваем элементы по центру по горизонтали */
+}
 .left-section {
   flex: 1;
   max-width: 400px;
@@ -15,7 +24,7 @@
 .city-input {
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
+  margin-bottom: 10%;
 }
 
 .city-input input[type="text"] {
@@ -24,6 +33,7 @@
   border: 1px solid #784040;
   border-radius: 4px;
   margin-bottom: 10px;
+  margin-bottom: 10%;
 }
 
 .city-input button {
@@ -62,21 +72,21 @@
   gap: 10px;
 }
 
-.weather-day-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 50%;
-}
+
 
 .weather-day {
-  width: 18%;
+  width: 28%;
   text-align: center;
   padding: 10px;
+  margin: 10px 10px;
   border: 1px solid #ccc;
   border-radius: 8px;
   transition: transform 0.2s;
+      cursor: pointer;
+  position: relative;
+  
 }
+
 
 .weather-day:hover {
   transform: scale(1.05);
@@ -101,5 +111,6 @@
 .bold-text {
   font-weight: bold;
 }
+
 
 

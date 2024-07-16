@@ -16,8 +16,9 @@ module.exports = {
             'Вкуснейший липовый мёд собран в экологически чистой горной местности, вдали от промышленных производств, городов и шоссейных дорог',
           yearOfHarvest: 2023,
           availableQuantity: 100,
-          // picture: './productsPhoto/107.jpeg', // !!! МАША ЭТО ПОХОЖЕ НАДО ИМЕНИТЬ!?! отчка в адресе была лишняя вначале
-          picture: '/productsPhoto/107.jpeg',
+          // picture: './productsPhoto/107.jpeg', // !!! МАША ЭТО ПОХОЖЕ НАДО ИМЕНИТЬ!?! точка в адресе была лишняя вначале
+          // Ответ Влада: без точки в адресе не грузится фотография на странице одного товара (на которой комментарии пользователей)
+          picture: './productsPhoto/107.jpeg',
           location: 'Башкирия',
           starsRating: 4,
           createdAt: Sequelize.fn("NOW"),
@@ -141,7 +142,7 @@ module.exports = {
           discountRatio: 0.9,
           category: 'перга',
           sort: 'гранулированная',
-          description: '_____________описание__________',
+          description: 'Перга - это пыльца, утрамбованная и залитая медом в ячейках сот пчёлами. Таким образом, пыльца проходит молочнокислое брожение, и получается перга',
           yearOfHarvest: 2023,
           availableQuantity: 10,
           picture: './productsPhoto/401.jpeg',

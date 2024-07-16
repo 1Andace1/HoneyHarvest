@@ -6,10 +6,7 @@ const { response } = require('express');
 
 router
   .get('/all', async (req, res) => {
-
-console.log('Мы зашли в ручку GET в файле comment.api.router.js');
-    
-    try {
+        try {
       const entries = await Comment.findAll({
         include: {
           model: User,
@@ -17,9 +14,6 @@ console.log('Мы зашли в ручку GET в файле comment.api.router.
         }
       });
       const allComments = entries.map((el) => el.get({ plain: true }));
-
-      console.log('allComments------------->', allComments);
-
       res.json(allComments);
     } catch (error) {
       console.log(error);
@@ -96,7 +90,7 @@ console.log('Мы зашли в ручку GET в файле comment.api.router.
     // console.log('typeof id', typeof id, id);
     // console.log('typeof isVerified', typeof isVerified, isVerified);
     try {
-      console.log('++-----Зашли в TRY-- в ручке PUTIsVerified в comment.api.router.js--------++');
+      // console.log('++-----Зашли в TRY-- в ручке PUTIsVerified в comment.api.router.js--------++');
       await Comment.update({ isVerified }, { where: { id } });
       const updatedEntry = await Product.findByPk(id);
       const response = updatedEntry.get({ plain: true });

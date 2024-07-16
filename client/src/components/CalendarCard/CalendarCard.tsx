@@ -7,7 +7,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 // import '@fullcalendar/core/main.css'; // Импортируем основные стили FullCalendar
 // import '@fullcalendar/daygrid/main.css'; // Импортируем стили DayGrid
 // import '@fullcalendar/timegrid/main.css'; // Импортируем стили TimeGrid
-import "./MyCalendar.css";
+
 
 const MyCalendar = () => {
   return (
