@@ -68,7 +68,7 @@ export default function ModalFormCreateComment({currentProduct}: {currentProduct
         isLoading={user?.id === true}
         spinner={<p>создание комментария</p>}
         variant="solid"
-        colorScheme="teal"
+        colorScheme="green"
       >
         Добавить комментарий
       </Button>

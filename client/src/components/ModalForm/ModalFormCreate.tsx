@@ -93,11 +93,12 @@ export default function ModalFormCreate(): JSX.Element {
   return (
     <>
       <Button
+      margin={8}
         onClick={onOpen}
         // isLoading={user?.isAdmin === true}
         spinner={<p>создание записи</p>}
         variant="solid"
-        colorScheme="teal"
+        colorScheme="green"
       >
         Добавить новые продукты в каталог
       </Button>
