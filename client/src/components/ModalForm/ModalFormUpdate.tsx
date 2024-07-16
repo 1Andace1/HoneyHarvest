@@ -114,7 +114,7 @@ export default function ModalFormUpdate({ el }: { el: IProducts}): JSX.Element {
         // isLoading={user?.isAdmin === true}
         spinner={<p>редактирование записи</p>}
         variant="solid"
-        colorScheme="teal"
+        colorScheme="green"
       >
         Редактировать
       </Button>
@@ -200,20 +200,18 @@ export default function ModalFormUpdate({ el }: { el: IProducts}): JSX.Element {
                 />
               </div>
               <div className={styles.btns}>
-                <Button
-                  type="submit"
-                  colorScheme="teal"
-                  onClick={submitHandler}
-                >
-                  Изменить
-                </Button>
+
               </div>
             </form>
           </ModalBody>
           <ModalFooter>
-            {/* <Button variant="ghost" mr={3} onClick={onClose}>
-                  Закрыть
-                </Button> */}
+          <Button
+                  type="submit"
+                  colorScheme="green"
+                  onClick={submitHandler}
+                >
+                  Изменить
+                </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

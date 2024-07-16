@@ -11,10 +11,8 @@ import {
 import { DeleteIcon } from "@chakra-ui/icons";
 import { IComment } from "../../types/stateTypes";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { delProduct } from "../../redux/thunkActionsCatalog";
 import { IUser } from "../../types/stateTypes";
 import { AuthState } from "../../redux/types/states";
-import ModalFormUpdate from "../ModalForm/ModalFormUpdate";
 import { delComment } from "../../redux/thunkActionsComment";
 import EditIcon from "../../ui/icons/EditIcon";
 import "./OneComment.css";
@@ -28,7 +26,7 @@ export default function OneComment({ el }: { el: IComment }): JSX.Element {
   const {
     id,
     productId,
-    text,
+    // text,
     isVerified,
     likesQuantity,
     createdAt,
@@ -43,7 +41,7 @@ export default function OneComment({ el }: { el: IComment }): JSX.Element {
 
 
   const username = `${el?.User?.username}:`;
-  // const text = `${creationDay}.$${creationMonth}.${creationYear} {el?.User?.username}: ${el?.text}`;
+  const text = `${creationDay}.${creationMonth}.${creationYear} ${el?.User?.username}: ${el?.text}`;
   //   console.log("el.User.username------->", el.User.username);
 
   const dispatch = useAppDispatch();

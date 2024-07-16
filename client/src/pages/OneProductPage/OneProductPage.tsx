@@ -8,7 +8,6 @@ import {
   Stack,
   Text,
   Image,
-  WrapItem,
 } from "@chakra-ui/react";
 import { IProducts } from "../../types/stateTypes";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -104,6 +103,7 @@ export default function OneProductPage(): JSX.Element {
   return (
     <div>
         <Card 
+        // justify={"center"}
         className="card"
           direction={{ base: 'column', sm: 'row' }}
           overflow='hidden'
@@ -162,11 +162,12 @@ export default function OneProductPage(): JSX.Element {
           {/* <Divider /> */}
           <CardFooter>
             {user?.isAdmin ? (
-              <ButtonGroup spacing="2">
+              <ButtonGroup flexDirection={["column"]} spacing="2" justifyContent={"flex-end"} >
                 <Button
                   onClick={() => deleteHandler(currentProduct?.id)}
                   variant="solid"
                   colorScheme="red"
+                  marginBottom={7}
                 >
                   Удалить
                 </Button>
@@ -177,7 +178,7 @@ export default function OneProductPage(): JSX.Element {
                 <Button
                   onClick={() => basketHandler(currentProduct?.id)}
                   variant="solid"
-                  colorScheme="teal"
+                  colorScheme="green"
                 >
                   Добавить в корзину
                 </Button>
