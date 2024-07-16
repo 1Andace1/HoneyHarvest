@@ -1,0 +1,29 @@
+.bodyProfile {
+    background-color: #F0FFF4;
+  }
+
+.container {
+  max-width: 1300px; /* Установка максимальной ширины контейнера */
+  margin: 0 auto; /* Центрирование контейнера по горизонтали */
+  padding-top: 10px; /* Установка отступа сверху */
+  background-color: #1b582b; /* Цвет фона контейнера */
+}
+
+
+.card {
+  margin-bottom: 0; /* Удаление отступа между карточками */
+}
+
+.flex-item {
+  width: 30%; /* Ширина карточки в левой колонке */
+  margin-bottom: 0; /* Удаление отступа между карточками внутри flex-контейнера */
+}
+
+.flex-item:last-child {
+  width: 200%; /* Ширина карточки Achievements в правой колонке */
+}
+
+.boxСontainer {
+  border: none; /* Удаление границы у всех box-контейнеров */
+  margin-bottom: 0;
+}

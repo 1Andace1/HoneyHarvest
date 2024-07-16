@@ -5,13 +5,14 @@ import { WeatherData } from './types/weatherData';
 import WeatherDay from './WeatherDay';
 import './WeatherForecast.css';
 import { Box, Flex } from '@chakra-ui/react';
+import styles from '../../pages/ProfilePage/ProfilePage.module.css';
 
 const WeatherForecast: React.FC = (): JSX.Element => {
   const defaultCity = 'Moscow';
   const [selectedDay, setSelectedDay] = useState<WeatherData | null>(null);
   const [city, setCity] = useState<string>(defaultCity);
   const [startIndex, setStartIndex] = useState<number>(0);
-  const [daysToShow, setDaysToShow] = useState<number>(5);
+  const [daysToShow, setDaysToShow] = useState<number>(4);
   const [weatherData, setWeatherData] = useState<WeatherData[]>([]);
   const chartRef = useRef<HTMLCanvasElement>(null);
   const chartInstance = useRef<Chart | null>(null);
@@ -31,15 +32,21 @@ const WeatherForecast: React.FC = (): JSX.Element => {
     getUserLocation();
   }, []);
 
-  const fetchCityNameFromCoordinates = async (latitude: number, longitude: number) => {
+  const fetchCityNameFromCoordinates = async (
+    latitude: number,
+    longitude: number
+  ) => {
     try {
-      const response = await axios.get('https://api.bigdatacloud.net/data/reverse-geocode-client', {
-        params: {
-          latitude,
-          longitude,
-          localityLanguage: 'ru',
-        },
-      });
+      const response = await axios.get(
+        'https://api.bigdatacloud.net/data/reverse-geocode-client',
+        {
+          params: {
+            latitude,
+            longitude,
+            localityLanguage: 'ru',
+          },
+        }
+      );
       const city = response.data.city;
       setCity(city);
       fetchWeatherDataFromAPI(city);
@@ -50,14 +57,17 @@ const WeatherForecast: React.FC = (): JSX.Element => {
 
   const fetchWeatherDataFromAPI = async (city: string) => {
     try {
-      const response = await axios.get('https://api.openweathermap.org/data/2.5/forecast', {
-        params: {
-          q: city,
-          lang: 'ru',
-          units: 'metric',
-          appid: '99e0c898b1f7f1468ec90102289ead55',
-        },
-      });
+      const response = await axios.get(
+        'https://api.openweathermap.org/data/2.5/forecast',
+        {
+          params: {
+            q: city,
+            lang: 'ru',
+            units: 'metric',
+            appid: '99e0c898b1f7f1468ec90102289ead55',
+          },
+        }
+      );
       const dailyWeatherData = groupWeatherDataByDay(response.data.list);
       setWeatherData(dailyWeatherData);
     } catch (error) {
@@ -90,8 +100,14 @@ const WeatherForecast: React.FC = (): JSX.Element => {
           weatherIcon: `https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`,
         };
       } else {
-        groupedByDate[date].minTemp = Math.min(groupedByDate[date].minTemp, item.main.temp_min);
-        groupedByDate[date].maxTemp = Math.max(groupedByDate[date].maxTemp, item.main.temp_max);
+        groupedByDate[date].minTemp = Math.min(
+          groupedByDate[date].minTemp,
+          item.main.temp_min
+        );
+        groupedByDate[date].maxTemp = Math.max(
+          groupedByDate[date].maxTemp,
+          item.main.temp_max
+        );
       }
     });
 
@@ -186,78 +202,84 @@ const WeatherForecast: React.FC = (): JSX.Element => {
     console.log(`Прогноз погоды на ${numberOfDays} дней`);
   };
 
-  const visibleWeatherData = weatherData.slice(startIndex, startIndex + daysToShow);
+  const visibleWeatherData = weatherData.slice(
+    startIndex,
+    startIndex + daysToShow
+  );
 
-  
   return (
-    <Box  bg="#C6F6D5"> <div className="weather-forecast-container" >
-      <Flex w="100%" alignItems="flex-start" justifyContent="space-between" bg="#F0FFF4">
-  <Box
-    key={1}
-    p={4}
-    borderWidth={1}
-    borderRadius="md"
-    w="20%" // Пример ширины одной карточки (можете настроить по вашему желанию)
+    <Box bg="#C6F6D5" w="100%" className={styles.boxСontainer}>
+      {' '}
+      <div className="weather-forecast-container">
+        <Flex
+          w="100%"
+          alignItems="flex-start"
+          justifyContent="space-around"
+          bg="#F0FFF4"
+                  >
+          <Box
+            key={1}
+            w="20%" // Пример ширины одной карточки (можете настроить по вашему желанию)
+            className={styles.boxСontainer}
+            bg="#C6F6D5"
+            style={{
+              boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)',
+            }}
+          >
+            <div className="city-input">
+              <input
+                type="text"
+                placeholder="Введите название города"
+                value={city}
+                onChange={handleCityChange}
+                style={{ fontSize: '1.1rem' }}
+              />
+              <button onClick={handleCitySubmit}>Обновить</button>
+            </div>
+            {selectedDay && (
+              <div className="detailed-forecast">
+                <h2 className="bold-text">
+                  Прогноз погоды на {selectedDay.date}{' '}
+                </h2>
+                <img src={selectedDay.weatherIcon} alt="weather icon" />
+                <p className="bold-text">{selectedDay.description}</p>
+                <p>Минимальная: {selectedDay.minTemp}°C</p>
+                <p>Максимальная : {selectedDay.maxTemp}°C</p>
+              </div>
+            )}
 
-      bg="#C6F6D5"
-   style={{
-    boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)',
-     }}
-  >
-
-  <div className="city-input">
-          <input
-            type="text"
-            placeholder="Введите название города"
-            value={city}
-            onChange={handleCityChange}
-            style={{ fontSize: '1.1rem' }}
-          />
-          <button onClick={handleCitySubmit}>Обновить</button>
-        </div>
-        {selectedDay && (
-          <div className="detailed-forecast">
-    
-            <h2 className="bold-text">
-              Прогноз погоды на {selectedDay.date}  </h2>
-              <img src={selectedDay.weatherIcon} alt="weather icon" />
-              <p className="bold-text">{selectedDay.description}</p>
-            <p>Минимальная: {selectedDay.minTemp}°C</p>
-            <p>Максимальная : {selectedDay.maxTemp}°C</p>
-            
-          </div>
-          
-        )}
-     
-    {/* Содержимое первой карточки */}
-  </Box>
-  <Box
-    key={2}
-    p={4}
-    borderWidth={1}
-    borderRadius="md"
-    w="80%" // Пример ширины одной карточки (можете настроить по вашему желанию)
-  bg="#C6F6D5"
-  >
-    {/* Содержимое второй карточки */}
-    <div >
+            {/* Содержимое первой карточки */}
+          </Box>
+          <Box
+            key={2}
+            p={4}
+            borderWidth={1}
+            borderRadius="md"
+            bg="#C6F6D5"
+            w="100%"
+            className={styles.boxСontainer}
+            flexDirection="column"
+          >
+            {/* Содержимое второй карточки */}
+            <div >
         {weatherData.length > 0 &&
           visibleWeatherData.map((day, index) => (
-            <WeatherDay key={index} day={day} onClick={handleDayClick} />
+            <WeatherDay key={day.date} day={day} onClick={handleDayClick} />
           ))}
       </div>
-      <Box w="100%" alignItems="center" justifyContent="centre">
-  {Array.from({ length: daysToShow }, (_, index) => (
-
- <WeatherDay key={index} day={visibleWeatherData[index]} onClick={handleDayClick} />
-
-  ))}
-</Box>
-  </Box>
- 
-</Flex>
-    </div></Box>
-   
+            {/* <Box w="100%" alignItems="center" justifyContent="space-between"  flexDirection="row">
+              {Array.from({ length: daysToShow }, (_, index) => (
+                <WeatherDay
+                  key={index}
+                  day={visibleWeatherData[index]}
+                  onClick={handleDayClick}
+                />
+              ))}
+            </Box> */}
+          </Box>
+        </Flex>
+      </div>
+    </Box>
   );
 };
 

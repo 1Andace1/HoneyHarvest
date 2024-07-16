@@ -5,7 +5,7 @@ const theme = extendTheme({
     global: {
       body: {
         // bg: '#1e1f23', // !!! ВОт этот серый цвет влиял на все все все
-        bg: '#ffffff',
+        bg: '#c31212',
         color: '#f8f9fb',   
       },
       a: {

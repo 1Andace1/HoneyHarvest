@@ -224,15 +224,16 @@ function ProfilePag_refactoring(): JSX.Element {
                       </Text> */
   }
   return (
-    <Container maxW="1700px" pt={10} bg="#F0FFF4">
+    <Container maxW="100%" pt={10} bg="#F0FFF4"   className={styles.bodyProfile}>
       {/* ФЛЕКС ОДИН СТАРТА */}
-      <Flex w="100%" flexWrap="wrap" gap={6} bg="#C6F6D5">
+      <Flex maxW="1300px" flexWrap="wrap" gap={6} bg="#C6F6D5" >
         {/* ФЛЕКС 2 СТАРТА */}
         <Flex
-          w="100%"
+          maxW="100%"
           alignItems="flex-start"
           justifyContent="space-between"
           bg="#F0FFF4"
+          
         >
           <Box
             key={1}
@@ -241,6 +242,7 @@ function ProfilePag_refactoring(): JSX.Element {
             borderRadius="md"
             w="30%" // Пример ширины одной карточки (можете настроить по вашему желанию)
             bg="#C6F6D5"
+            className={styles.boxСontainer}
           >
             <UserProfilePage
               user={user}
@@ -249,21 +251,7 @@ function ProfilePag_refactoring(): JSX.Element {
             />
             {/* Содержимое первой карточки */}
           </Box>
-          <Box
-            key={2}
-            p={4}
-            borderWidth={1}
-            borderRadius="md"
-            w="30%" // Пример ширины одной карточки (можете настроить по вашему желанию)
-            bg="#C6F6D5"
-            h="100%" // ! Устанавливает высоту на 100% от родительского элемента
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-          >
-            {/* Содержимое второй карточки */}
-            <WeatherCard_2 />
-          </Box>
+
           <Box
             key={2}
             p={4}
@@ -271,6 +259,7 @@ function ProfilePag_refactoring(): JSX.Element {
             borderRadius="md"
             w="200%" // Пример ширины одной карточки (можете настроить по вашему желанию)
             bg="#C6F6D5"
+            className={styles.boxСontainer}
           >
             {/* Содержимое третьей карточки */}
             <Achievements userId={user.id} />
@@ -282,6 +271,7 @@ function ProfilePag_refactoring(): JSX.Element {
           alignItems="flex-start"
           justifyContent="space-between"
           bg="#F0FFF4"
+          className={styles.boxСontainer}
         >
           <Box
             key={1}
@@ -290,6 +280,9 @@ function ProfilePag_refactoring(): JSX.Element {
             borderRadius="md"
             w="100%" // Пример ширины одной карточки (можете настроить по вашему желанию)
             bg="#C6F6D5"
+            className={styles.boxСontainer}
+            flex-direction="column"
+            
           >
             <WeatherForecast />
             {/* Содержимое первой карточки */}
@@ -298,7 +291,7 @@ function ProfilePag_refactoring(): JSX.Element {
 
         {/* Левая колонка - UserProfilePage и MyCalendar */}
 
-        <Box flexBasis={{ base: '100%', md: '80%' }}>
+        <Box flexBasis={{ base: '100%', md: '80%' }} >
           <Flex direction={{ base: 'column', md: 'row' }} gap={6}></Flex>
         </Box>
 
@@ -314,7 +307,7 @@ function ProfilePag_refactoring(): JSX.Element {
         {/* Правая колонка - Achievements, OrderHistory, OrderDetails, OrdersPageComponent */}
 
         {selectedOrder && (
-          <Box flexBasis="100%">
+          <Box flexBasis="100%"  className={styles.boxСontainer}>
             <OrderDetails
               selectedOrder={selectedOrder}
               orderDetails={orderDetails}
@@ -339,7 +332,7 @@ function ProfilePag_refactoring(): JSX.Element {
         handleSubmit={handleSubmit}
       />
 
-      <Box flexBasis={{ base: '100%', md: '100%' }}>
+      <Box flexBasis={{ base: '100%', md: '100%' }}  className={styles.boxСontainer}>
         <MyCalendar />
       </Box>
     </Container>
