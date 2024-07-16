@@ -142,6 +142,14 @@ module.exports = {
           likesQuantity: 0,
           createdAt: Sequelize.fn('NOW'),
         },
+        {
+          userId: 2,
+          productId: 8,
+          text: 'Очень понравился. диабетикам самое то. Банка пришла отлично упакована. Покупала для себя. Если бы не упаковка самой банки, то точно бы разбилась, поскольку коробка была вся помята. Так же очень понравился подарок. Спасибо!',
+          isVerified: true,
+          likesQuantity: 0,
+          createdAt: Sequelize.fn('NOW'),
+        },
       ],
       {}
     );
