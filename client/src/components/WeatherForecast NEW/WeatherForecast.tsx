@@ -4,6 +4,7 @@ import Chart from 'chart.js/auto';
 import { WeatherData } from './types/weatherData';
 import WeatherDay from './WeatherDay';
 import './WeatherForecast.css';
+import { Box, Flex } from '@chakra-ui/react';
 
 const WeatherForecast: React.FC = (): JSX.Element => {
   const defaultCity = 'Moscow';
@@ -189,14 +190,28 @@ const WeatherForecast: React.FC = (): JSX.Element => {
 
   
   return (
-    <div className="weather-forecast-container">
-      <div className="left-section">
-        <div className="city-input">
+    <Box  bg="#C6F6D5"> <div className="weather-forecast-container" >
+      <Flex w="100%" alignItems="flex-start" justifyContent="space-between" bg="#F0FFF4">
+  <Box
+    key={1}
+    p={4}
+    borderWidth={1}
+    borderRadius="md"
+    w="20%" // Пример ширины одной карточки (можете настроить по вашему желанию)
+
+      bg="#C6F6D5"
+   style={{
+    boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)',
+     }}
+  >
+
+  <div className="city-input">
           <input
             type="text"
             placeholder="Введите название города"
             value={city}
             onChange={handleCityChange}
+            style={{ fontSize: '1.1rem' }}
           />
           <button onClick={handleCitySubmit}>Обновить</button>
         </div>
@@ -211,27 +226,38 @@ const WeatherForecast: React.FC = (): JSX.Element => {
             <p>Максимальная : {selectedDay.maxTemp}°C</p>
             
           </div>
+          
         )}
-      </div>
-      <div className="right-section">
+     
+    {/* Содержимое первой карточки */}
+  </Box>
+  <Box
+    key={2}
+    p={4}
+    borderWidth={1}
+    borderRadius="md"
+    w="80%" // Пример ширины одной карточки (можете настроить по вашему желанию)
+  bg="#C6F6D5"
+  >
+    {/* Содержимое второй карточки */}
+    <div >
         {weatherData.length > 0 &&
           visibleWeatherData.map((day, index) => (
             <WeatherDay key={index} day={day} onClick={handleDayClick} />
           ))}
       </div>
-      {/* <div className="navigation">
-        <button onClick={handlePreviousDays}>◀◀</button>
-        <button onClick={handleNextDays}>▶▶</button>
-        <div>
-          <button onClick={() => handleSelectDays(4)}>4 дня</button>
-          <button onClick={() => handleSelectDays(7)}>7 дней</button>
-          <button onClick={() => handleSelectDays(10)}>10 дней</button>
-        </div>
-      </div> */}
-      {/* <div className="chart-container">
-        <canvas ref={chartRef}></canvas>
-      </div> */}
-    </div>
+      <Box w="100%" alignItems="center" justifyContent="centre">
+  {Array.from({ length: daysToShow }, (_, index) => (
+
+ <WeatherDay key={index} day={visibleWeatherData[index]} onClick={handleDayClick} />
+
+  ))}
+</Box>
+  </Box>
+ 
+</Flex>
+    </div></Box>
+   
   );
 };
 

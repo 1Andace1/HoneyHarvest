@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './CheckoutPage.css';
+import axiosInstance from '../../axiosInstance';
 
 interface BasketItem {
   id: number;
@@ -24,11 +25,14 @@ interface Product {
   quantity: number;
   title: string;
   discountRatio: number;
-  category: string
+  category: string;
 }
+
+const { VITE_API, VITE_BASE_URL }: ImportMeta['env'] = import.meta.env;
 
 const CheckoutPage: React.FC = () => {
   const location = useLocation();
+  const history = useHistory();
   const searchParams = new URLSearchParams(location.search);
   const basketString = searchParams.get('basket');
   // const productString = searchParams.get('product');
@@ -38,6 +42,7 @@ const CheckoutPage: React.FC = () => {
   const Details = searchParams.get('Details') || '';
   const deliveryType = searchParams.get('type') || '';
   const deliveryDate = searchParams.get('date') || '';
+  const [error, setError] = useState<string>('');
   // console.log('🌸CheckoutPage=== basket', basket)
   // console.log('🌸CheckoutPage=== basket[0]', basket[0])
   // console.log('🌸CheckoutPage=== basket[0].product', basket[0].product)
@@ -65,15 +70,38 @@ const CheckoutPage: React.FC = () => {
   }, [basketString]);
 
   useEffect(() => {
-    console.log('Данные из URL:', basket, deliveryAddress, Details, deliveryType, deliveryDate);
-   }, [basketString, deliveryAddress, Details, deliveryType, deliveryDate]);
-   
+    console.log(
+      'Данные из URL:',
+      basket,
+      deliveryAddress,
+      Details,
+      deliveryType,
+      deliveryDate
+    );
+  }, [basketString, deliveryAddress, Details, deliveryType, deliveryDate]);
+
   const calculateTotalPrice = () => {
     return basket.reduce((total, item) => {
-      return total + (item.product.price * item.numberBasket);
+      return total + item.product.price * item.numberBasket;
     }, 0);
   };
 
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      const response = await axiosInstance.post(
+        `${import.meta.env.VITE_API}/orders`,
+        {
+          userId: user.id, // Подставьте реального пользователя, например, из Redux или состояния
+          deliveryAddress,
+          // Другие данные о заказе, которые нужно отправить
+        }
+      );
+      history.push(`${import.meta.env.VITE_API}/orders/${response.data.id}`);
+    } catch (error) {
+      setError('Ошибка при создании заказа');
+    }
+  };
 
   return (
     <div className="checkout-container">
@@ -82,9 +110,10 @@ const CheckoutPage: React.FC = () => {
         <h2>Ваш заказ:</h2>
         {basket.length > 0 ? (
           <ul className="product-list">
-            {basket.map(item => (
+            {basket.map((item) => (
               <li key={item.id} className="product-item">
-                {item.product.title} - {item.numberBasket} шт. - {item.product.price * item.numberBasket} Р
+                {item.product.title} - {item.numberBasket} шт. -{' '}
+                {item.product.price * item.numberBasket} Р
               </li>
             ))}
           </ul>
@@ -114,13 +143,20 @@ const CheckoutPage: React.FC = () => {
         </label>
         <label>
           Адрес доставки:
-          <input type="text" name="address" defaultValue={deliveryAddress} className="form-input" />
+          <input
+            type="text"
+            name="address"
+            defaultValue={deliveryAddress}
+            className="form-input"
+          />
         </label>
         <label>
           Email:
           <input type="email" name="email" className="form-input" />
         </label>
-        <button type="submit" className="submit-button">Подтвердить заказ</button>
+        <button type="submit" className="submit-button">
+          Подтвердить заказ
+        </button>
       </form>
     </div>
   );

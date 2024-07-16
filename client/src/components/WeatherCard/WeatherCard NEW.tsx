@@ -83,7 +83,8 @@ const WeatherCard_2 = () => {
       borderRadius="lg"
       p={4}
       mb={4}
-      bg="teal.50"
+      bg="#C6F6D5"
+      borderColor="transparent" // ! Устанавливает цвет границы в прозрачный
       boxShadow="lg"
       transition="transform 0.3s ease-in-out"
       _hover={{ transform: 'translateY(-5px)' }}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import  { Box, Heading, Text, VStack, Image, Flex }from '@chakra-ui/react';
+import  { Box, Heading, Text, VStack, Image, Flex, GridItem, Grid, Spacer }from '@chakra-ui/react';
 import axiosInstance from '../../../axiosInstance';
 import LoyaltyProgram from './../LoyaltyProgram';
 
@@ -34,48 +34,59 @@ const Achievements = ({ userId }) => {
 
     fetchAchievements();
   }, [userId]);
-
+ 
   return (
-    <Box    width="100%" w="full">
-      <Heading as="h3" size="lg">
-        Достижения и бейджи
-      </Heading>
-      <VStack spacing={4}>
-        {achievements.map((achievement) => (
+
+    <Box w="100%" bg="#C6F6D5" p={10} borderRadius="md" boxShadow="lg">
+    <Heading as="h3" size="lg" mb={10}>
+      Достижения и бейджи
+    </Heading>
+    <Grid templateColumns="repeat(3, 1fr)"   cursor="pointer" gap={4}>
+      {achievements.map((achievement) => (
+        <GridItem key={achievement.id}>
           <Box
-            key={achievement.id}
             p={4}
             borderWidth={1}
-            borderRadius="md"
-            w="full"
-            bg={achievement.isCompleted ? '#FFFFF0' : 'gray.200'}
+            borderRadius="22%" // Делаем карточку круглой
+            w="280px"
+            h="280px"
+            
+            bg={achievement.isCompleted ? '#9AE6B4' : '#48BB78'}
             opacity={achievement.isCompleted ? 1 : 0.5}
+           transition="all 0.5s ease-in-out"
+          //  transform="rotate(-10deg)"
+            transform="scale(1.1)"
+            boxShadow="0 0 10px rgba(0, 0, 0, 0.5)"
+            style={{
+              boxShadow: '0 0 20px rgba(0, 0, 0, 0.5)',
+              // filter: 'grayscale(100%) sepia(80%)',
+              background: 'linear-gradient(to right, hsl(60, 70%, 50%), hsl(100, 70%, 70%))',
+              resize: 'both',
+              clipPath: 'circle(70% at center)',
+              cursor: 'pointer',
+            }}
           >
-            <Flex alignItems="center">
-              <Image
-                src={achievement.icon}
-                alt={achievement.name}
-                boxSize="50px"
-                mr={4}
-              />
-              <VStack align="flex-start">
-                <Text fontWeight="bold" fontSize="lg">
+              {/* <Text fontSize="1.1rem" color="gray.500">
+                                 </Text> */}
+            <Flex alignItems="center" justifyContent="center" h="100%">
+              <Image src={achievement.icon} alt={achievement.name} boxSize="70px" mr={4} />
+              <VStack align="flex-start" w="100%">
+                <Text fontWeight="bold" fontSize="1.4rem" mb={2}>
                   {achievement.name}
                 </Text>
-                <Text>
+                <Text mb={2} fontSize="1.1rem">
                   {achievement.isCompleted
                     ? achievement.descriptionDone
                     : achievement.description}
                 </Text>
-                <Text>
-                  {achievement.isCompleted ? '' : 'IN PROGRESS...'}
-                </Text>
+                <Text  mb={5}>{achievement.isCompleted ? '' : 'IN PROGRESS...'}</Text>
               </VStack>
-            </Flex>
+            </Flex >
           </Box>
-        ))}
-      </VStack>
-    </Box>
+        </GridItem>
+      ))}
+    </Grid>
+  </Box>
   );
 };
 
