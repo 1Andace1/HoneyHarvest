@@ -64,18 +64,19 @@ export default function OneCard({ el }: { el: IProducts }): JSX.Element {
   // const { basket } = useAppSelector((state) => state.basketSlice);
 
   function basketHandler(id: number): void {
-    console.log(id, user.id, "+++++++++++++++++++++++++++++++++++++----");
+    // console.log(id, user.id, "+++++++++++++++++++++++++++++++++++++----");
     dispatch(basketApp({ productId: Number(id), userId: Number(user.id) }));
   }
-  interface BasketAppPayload {
-    productId: number;
-    userId: number;
-  }
-  
-  // const basketApp = (payload: BasketAppPayload) => ({
+
+  // interface BasketAppPayload {
+  //   productId: number;
+  //   userId: number;
+  // }
+    // const basketApp = (payload: BasketAppPayload) => ({
   //   type: 'BASKET_APP',
   //   payload,
   // });
+
   function deleteHandler(id: number | string): void {
     dispatch(delProduct(Number(id)));
   }
