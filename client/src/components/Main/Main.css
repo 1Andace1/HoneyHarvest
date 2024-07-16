@@ -1,6 +1,6 @@
 .main-container {
   font-family: Arial, sans-serif;
-  width: 1100px;
+ 
   margin: 0 auto;
 }
 
@@ -275,4 +275,8 @@ background-color: #d9d6c8;
 }
 .society{
   width: 40px;
+}
+
+#root{
+  width: 2000px;
 }
