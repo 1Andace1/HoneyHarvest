@@ -82,21 +82,7 @@ router
     const yearOfHarvest = Number(yearOfHarvestString);
     const availableQuantity = Number(availableQuantityString);
 
-    console.log('typeof price', typeof price, price);
-    console.log('typeof title', typeof title, title);
-    console.log('typeof price', typeof price, price);
-    console.log('typeof discountRatio', typeof discountRatio, discountRatio);
-    console.log('typeof category', typeof category, category);
-    console.log('typeof sort', typeof sort, sort);
-    console.log('typeof description', typeof description, description);
-    console.log('typeof yearOfHarvest', typeof yearOfHarvest, yearOfHarvest);
-    // console.log('typeof picture', typeof picture, picture);
-    console.log('typeof location', typeof location, location);
-
     try {
-      console.log(
-        '++-------Зашли в TRY в ручке PUT в catalog.api.router.js----------++'
-      );
       await Product.update(
         {
           title,
