@@ -12,8 +12,12 @@ dayjs.locale('ru'); //  для отрисовки красиво даты
 const OrderHistory = ({ orders, onDetailsOpen}) => {
  // Используйте useEffect для отслеживания изменений в orders
  useEffect(() => {
-  console.log('🟠orders from OrderHistory', orders);
+  console.log('🟠🟠🟠🟠🟠orders from OrderHistory', orders);
 }, [orders]); // Передайте orders в зависимости, чтобы useEffect сработал при их изменении
+
+
+
+
  
 return (
     <>
