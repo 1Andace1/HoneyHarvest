@@ -1,5 +1,5 @@
 :root {
-    --chakra-colors-green-100: #f0fff4;
+    --chakra-colors-green-300: #ffdd6c; ;
 }
 
 .basket-container {
@@ -8,17 +8,17 @@
 }
 
 .basket {
-    width: 500px;
+    width: 700px;
     position: fixed;
     left: 0;
-    top: 0;
+    top: 90px;
     bottom: 0;
-    background-color: var(--chakra-colors-green-100);
+    background-color: #ffdd6c; 
     box-shadow: 2px 0 5px rgba(0,0,0,0.1);
     padding: 20px;
     display: flex;
     flex-direction: column;
-    border-radius: 10px; /* Rounded corners for the basket */
+    border-radius: 10px; 
 }
 
 .order-all-button {
@@ -42,7 +42,7 @@
 }
 
 .scrollable-list::-webkit-scrollbar {
-    width: 10px; /* Corrected width */
+    width: 10px;
 }
 
 .scrollable-list::-webkit-scrollbar-track {
@@ -50,7 +50,7 @@
 }
 
 .scrollable-list::-webkit-scrollbar-thumb {
-    background: #f3db00; /* Цвет ползунка скроллбара */
+    background: #ffdd6c; /* Цвет ползунка скроллбара */
     border-radius: 10px; /* Скругление углов ползунка */
 }
 
@@ -63,10 +63,17 @@
 }
 
 .delivery-form {
-    flex-grow: 1;
-    margin-left: 520px; 
+    width: 600px;
     padding: 20px;
-    border-radius: 10px; 
+    border-radius: 10px;
+    background-color: #ffdd6c; 
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
 }
 
 .delivery-form h2 {
@@ -88,3 +95,34 @@
     border: 1px solid #ccc;
     border-radius: 5px;
 }
+.product-actions {
+    width: 100px;
+    height: 100px;
+    align-items: center;
+    margin-right: 100px; 
+  }
+  .scrollable-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+  }
+  .one-card-container {
+    flex-grow: 1;
+  }
+  .one-card-container {
+    flex-grow: 1;
+    padding: 10px; 
+    max-width: 80%; 
+  }
+  
+
+  .card-element {
+    font-size: 0.9em; 
+    padding: 5px; 
+  }
+  
+
+  .card-image {
+    width: 100px; 
+    height: auto; 
+  }
