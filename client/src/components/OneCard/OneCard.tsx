@@ -82,7 +82,7 @@ export default function OneCard({ el }: { el: IProducts }): JSX.Element {
   return (
     <div>
       <WrapItem>
-        <Card maxW="sm">
+        <Card maxW="sm" variant="filled">
           <CardBody>
             <Image src={picture} alt="honey" borderRadius="lg" />
             <Stack mt="6" spacing="3">

@@ -27,6 +27,9 @@ import { getAllComments, delComment, AddComment, UpdComment } from "../thunkActi
       builder.addCase(
         getAllComments.fulfilled,
         (state, action): void => {
+
+console.log('action.payload----------->', action.payload);
+
           state.comments = action.payload;
           state.loading = false;
         }

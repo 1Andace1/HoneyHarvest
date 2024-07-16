@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { verifyAccessToken } = require('../middlewares/verifyToken');
-const { Product, Comment, Like, Rating } = require('../../db/models');
+const { Product, Comment, User, Like, Rating } = require('../../db/models');
 const { where } = require('sequelize');
 const { response } = require('express');
 
@@ -10,11 +10,16 @@ router
 console.log('Мы зашли в ручку GET в файле comment.api.router.js');
     
     try {
-      const entries = await Comment.findAll();
+      const entries = await Comment.findAll({
+        include: {
+          model: User,
+          attributes: [ 'username']
+        }
+      });
       const allComments = entries.map((el) => el.get({ plain: true }));
 
       console.log('allComments------------->', allComments);
-      
+
       res.json(allComments);
     } catch (error) {
       console.log(error);

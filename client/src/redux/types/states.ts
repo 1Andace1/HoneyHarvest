@@ -1,4 +1,4 @@
-import { IProducts, IUser } from "../../types/stateTypes"
+import { IComment, IProducts, IUser } from "../../types/stateTypes"
 
 export type AuthState = {
     user: IUser,
@@ -8,6 +8,11 @@ export type AuthState = {
 
 export type ProductState = {
     products: IProducts[],
+    loading: boolean,
+    error: object
+}
+export type CommentState = {
+    comments: IComment[],
     loading: boolean,
     error: object
 }

@@ -19,6 +19,8 @@ import { AuthState, ProductState } from "../../redux/types/states";
 import ModalFormUpdate from "../../components/ModalForm/ModalFormUpdate";
 import { Params, useNavigate, useParams } from "react-router-dom";
 import CommentsList from "../../components/CommentsLis/CommentsList";
+import './OneProductPage.css'
+
 
 export default function OneProductPage(): JSX.Element {
   const { "*": idString }: Params<string> = useParams();
@@ -44,25 +46,28 @@ export default function OneProductPage(): JSX.Element {
     currentProduct?.id
   );
 
-  const {
-    title,
-    discountRatio,
-    category,
-    sort,
-    description,
-    yearOfHarvest,
-    availableQuantity,
-    picture,
-    location,
-    starsRating,
-    createdAt,
-    updatedAt,
-  } = currentProduct as IProducts;
+  const title = currentProduct?.title
+  const discountRatio = currentProduct?.discountRatio
+  const category = currentProduct?.category
+  const sort = currentProduct?.sort
+  const description = currentProduct?.description
+  const yearOfHarvest = currentProduct?.yearOfHarvest
+  const availableQuantity = currentProduct?.availableQuantity
+  const picture = currentProduct?.picture
+  const location = currentProduct?.location
+  const starsRating = currentProduct?.starsRating
+  const createdAt = currentProduct?.createdAt
+  const updatedAt = currentProduct?.updatedAt
+
+  // const {title, discountRatio, category, sort, description, yearOfHarvest,
+  //   availableQuantity, picture, location, starsRating, createdAt,
+  //   updatedAt} = currentProduct as IProducts;
+
   const price = (currentProduct?.price || 0) / 10;
   const priceConDiscountRatio = price * (discountRatio || 0);
   const availableQuantityForBuyers: number | string | undefined =
-    availableQuantity <= 10 ? availableQuantity : "более 10 кг";
-  const discountIsTrue: boolean = discountRatio < 1;
+    availableQuantity <= 10 ? availableQuantity : "более 10 ";
+  const discountIsTrue: boolean = !(discountRatio === undefined || discountRatio >= 1);
 
   const productCreationDate: Date = new Date(createdAt);
   const productCreationYear: number = productCreationDate.getFullYear();
@@ -98,39 +103,44 @@ export default function OneProductPage(): JSX.Element {
 
   return (
     <div>
-      <WrapItem>
-        <Card maxW="sm">
-          <CardBody>
-            <Image src={`/${picture}`} alt="honey" borderRadius="lg" />
+        <Card 
+        className="card"
+          direction={{ base: 'column', sm: 'row' }}
+          overflow='hidden'
+          variant='outline'>
+            <Image src={`/${picture}`} alt="honey" borderRadius="lg"
+            objectFit='cover'
+            maxW={{ base: '100%', sm: '500px' }} />
             <Stack mt="6" spacing="3">
-              <Heading size="md">{title}</Heading>
-              <Text>Категория: {category}</Text>
-              <Text>Сорт: {sort}</Text>
-              <Text>{description}</Text>
-              <Text>Год урожая: {yearOfHarvest}</Text>
-              <Text>Местонахождение: {location}</Text>
+          <CardBody>
+              <Heading size="lg">{title}</Heading>
+              <Text fontSize='2xl'>Категория: {category}</Text>
+              <Text fontSize='2xl'>Сорт: {sort}</Text>
+              <Text fontSize='2xl'>{description}</Text>
+              <Text fontSize='2xl'>Год урожая: {yearOfHarvest}</Text>
+              <Text fontSize='2xl'>Местонахождение: {location}</Text>
               {user?.isAdmin ? (
-                <Text>Для продажи доступно: {availableQuantity} кг</Text>
+                <Text fontSize='2xl'>Для продажи доступно: {availableQuantity} кг</Text>
               ) : (
-                <Text>
+                <Text fontSize='2xl'>
                   Для покупки доступно: {availableQuantityForBuyers} кг
                 </Text>
               )}
               {discountIsTrue ? (
                 <>
-                  <Text as="del" fontSize="xl">
+                  <Text as="del" fontSize="2xl">
                     Цена: {price} руб. / 100 гр.
                   </Text>
-                  <Text color="blue.600" fontSize="2xl">
+                  <Text color="blue.600" fontSize="3xl">
                     Цена со скидкой: {priceConDiscountRatio} руб. / 100 гр.
                   </Text>
                 </>
               ) : (
-                <Text color="blue.600" fontSize="2xl">
+                <Text color="blue.600" fontSize="3xl">
                   Цена: {price} руб. / 100 гр.
                 </Text>
               )}
-              <Text>Рейтинг: {starsRating}</Text>
+              <Text fontSize='2xl'>Рейтинг: {starsRating}</Text>
               {user?.isAdmin ? (
                 <>
                   <Text>
@@ -147,8 +157,8 @@ export default function OneProductPage(): JSX.Element {
               ) : (
                 false
               )}
-            </Stack>
           </CardBody>
+            </Stack>
           {/* <Divider /> */}
           <CardFooter>
             {user?.isAdmin ? (
@@ -175,8 +185,7 @@ export default function OneProductPage(): JSX.Element {
             )}
           </CardFooter>
         </Card>
-        <CommentsList />
-      </WrapItem>
+        <CommentsList currentProduct={currentProduct} />
     </div>
   );
 }

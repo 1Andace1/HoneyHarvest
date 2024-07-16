@@ -1,13 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosResponse } from "axios";
 import axiosInstance from "../axiosInstance";
-import { IInputsProducts } from "../types/stateTypes";
-import { DelProduct, GetProducts, NewProduct, UpdateProduct } from "./types/thunkProduct";
-// import { useNavigate } from "react-router-dom";
+import { IInputsComment } from "../types/stateTypes";
+import { DelComment, getComments, NewComment, UpdateComment } from "./types/thunkProduct";
 
 const { VITE_API, VITE_BASE_URL }: ImportMeta["env"] = import.meta.env;
 
-export const getAllComments: GetProducts = createAsyncThunk("comment/all", async () => {
+export const getAllComments: getComments = createAsyncThunk("comment/all", async () => {
   const { data } = await axios.get(`${VITE_BASE_URL}${VITE_API}/comment/all`);
   return data;
 });
@@ -22,7 +21,7 @@ export const getAllComments: GetProducts = createAsyncThunk("comment/all", async
 //   return data;
 // });
 
-export const delComment: DelProduct = createAsyncThunk(
+export const delComment: DelComment = createAsyncThunk(
   "comment/del",
   async (id: number): Promise<number | void> => {
     // проверить типизацию response (правильно ли указано: <number, number>):
@@ -35,7 +34,7 @@ export const delComment: DelProduct = createAsyncThunk(
   }
 );
 
-export const AddComment: NewProduct = createAsyncThunk("comment/new", async (inputs: IInputsProducts) => {
+export const AddComment: NewComment = createAsyncThunk("comment/new", async (inputs: IInputsComment) => {
   const response: AxiosResponse<number, number> = await axiosInstance.post(
     `${VITE_BASE_URL}${VITE_API}/comment/new`,
     { inputs }
@@ -43,7 +42,7 @@ export const AddComment: NewProduct = createAsyncThunk("comment/new", async (inp
   return response
 });
 
-export const UpdComment: UpdateProduct = createAsyncThunk("catalog/put", async (inputs: IInputsProducts) => {
+export const UpdComment: UpdateComment = createAsyncThunk("catalog/put", async (inputs: IInputsComment) => {
   const response: AxiosResponse<number, number> = await axiosInstance.put(
     `${VITE_BASE_URL}${VITE_API}/comment/put`,
      inputs 

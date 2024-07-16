@@ -1,57 +1,57 @@
-import { memo, useEffect, useState } from "react";
+import { memo, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-// import OneCard from "../OneCard/OneCard";
-// import {  Heading,  Wrap } from "@chakra-ui/react";
-// import { getProducts } from "../../redux/thunkActionsCatalog";
-import { AuthState, ProductState } from "../../redux/types/states";
+
+import { AuthState, CommentState, ProductState } from "../../redux/types/states";
 import { getAllComments } from "../../redux/thunkActionsComment";
-import { Heading, Wrap } from "@chakra-ui/react";
-import { IProducts } from "../../types/stateTypes";
-import ModalFormCreate from "../ModalForm/ModalFormCreate";
-// import { IProducts } from "../../types/stateTypes";
-// import ModalFormCreate from "../ModalForm/ModalFormCreate";
+import { Heading, VStack } from "@chakra-ui/react";
+import { IComment, IProducts } from "../../types/stateTypes";
+import OneComment from "./OneComment";
+import ModalFormCreateComment from "../ModalForm/ModalFormCreateComment";
 
-export default memo(function CommentsList(): JSX.Element {
-
+export default memo(function CommentsList({ currentProduct }: {currentProduct: IProducts}): JSX.Element {
   const dispatch = useAppDispatch();
 
   const { comments } = useAppSelector(
-    (state: { commentSlice: ProductState }) => state.commentSlice
+    (state: { commentSlice: CommentState }) => state.commentSlice
   );
   const { user } = useAppSelector(
     (state: { authSlice: AuthState }) => state.authSlice
   );
-  
+
   useEffect((): void => {
     dispatch(getAllComments());
   }, []);
-  
-    const [verifiedComments, setVerifiedComments] = useState<IProducts[]>([]);
 
-  useEffect(() => {
-    const filtredComments = comments.filter((comment) => comment.isVerified === true )
-    setVerifiedComments(filtredComments);
-  }, [comments]);
-
+  // const [verifiedComments, setVerifiedComments] = useState<IProducts[]>([]);
+  // useEffect(() => {
+  //   const filtredComments = comments.filter(
+  //     (comment) => comment.isVerified === true
+  //   );
+  //   setVerifiedComments(filtredComments);
+  // }, [comments]);
 
   return (
     <>
-       {user?.id ? (
-                <ModalFormCreate />
-      ) : (
-        false
-      )}
-      {/* <Wrap spacing="30px">
-        {verifiedComments.length ? (
-          verifiedComments.map((el: IProducts) => (
-            <OneComment el={el} key={el.id} />
-          ))
+      <VStack
+        // divider={<StackDivider borderColor='gray.200' />}
+        spacing={4}
+        align="stretch"
+      >
+        {user?.id ? <ModalFormCreateComment currentProduct={currentProduct} /> : false}
+        {comments.length ? (
+          comments
+            .filter(
+              (comment: IComment) =>
+                comment.isVerified === true &&
+                currentProduct.id === comment.productId
+            )
+            .map((el: IComment) => <OneComment el={el} key={el.id} currentProduct={currentProduct} />)
         ) : (
           <Heading as="h2" size="2xl">
             Комментариев нет
           </Heading>
         )}
-      </Wrap>  */}
+      </VStack>
     </>
   );
 });
