@@ -22,8 +22,6 @@ import styles from "./ModalForm.module.css";
 export default function ModalFormUpdate({ el }: { el: IProducts}): JSX.Element {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  console.log("Загрузилось модальное окно редактирования продукта с id №", el.id);
-
   // const { products } = useAppSelector(
   //   (state: { productSlice: ProductState }) => state.productSlice
   // );
@@ -48,7 +46,8 @@ export default function ModalFormUpdate({ el }: { el: IProducts}): JSX.Element {
     location: el.location,
   };
 
-  console.log("initialInputs---------++", initialInputs);
+  // console.log("Загрузилось модальное окно редактирования продукта с id №", el.id);
+  // console.log("initialInputs---------++", initialInputs);
 
   const [inputs, setInputs] = useState( initialInputs );
 

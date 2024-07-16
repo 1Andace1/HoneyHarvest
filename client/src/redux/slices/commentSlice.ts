@@ -5,21 +5,20 @@ import {
     createSlice,
   } from "@reduxjs/toolkit";
   import {
-    ProductAction,
-    ProductSlice,
-    RejectedActionProduct,
+    CommentSlice,
+    RejectedActionComment,
   } from "../types/reducers";
-  import { ProductState } from "../types/states";
-  import { IProducts, IProductsSlice } from "../../types/stateTypes";
+  import { CommentState } from "../types/states";
+  import { IComment, ICommentSlice } from "../../types/stateTypes";
 import { getAllComments, delComment, AddComment, UpdComment } from "../thunkActionsComment";
   
-  const initialState: ProductState = { comments: [], loading: true, error: {} };
+  const initialState: CommentState = { comments: [], loading: true, error: {} };
   
-  const commentSlice: ProductSlice = createSlice({
+  const commentSlice: CommentSlice = createSlice({
     name: "commentSlice",
     initialState,
     reducers: {},
-    extraReducers: (builder: ActionReducerMapBuilder<ProductState>): void => {
+    extraReducers: (builder: ActionReducerMapBuilder<CommentState>): void => {
       // получение всех комментариев:
       builder.addCase(getAllComments.pending, (state): void => {
         state.loading = true;
@@ -27,29 +26,26 @@ import { getAllComments, delComment, AddComment, UpdComment } from "../thunkActi
       builder.addCase(
         getAllComments.fulfilled,
         (state, action): void => {
-
-console.log('action.payload----------->', action.payload);
-
           state.comments = action.payload;
           state.loading = false;
         }
       );
       builder.addCase(
         getAllComments.rejected,
-        (state: Draft<ProductState>, action: RejectedActionProduct): void => {
+        (state: Draft<CommentState>, action: RejectedActionComment): void => {
           console.log("Ошибка получения комментариев", action.error);
           state.error = action.error;
           state.loading = false;
         }
       );
       // удаление одного комментария:
-      builder.addCase(delComment.pending, (state: Draft<ProductState>): void => {
+      builder.addCase(delComment.pending, (state: Draft<CommentState>): void => {
         state.loading = true;
       });
       builder.addCase(
         delComment.fulfilled,
         (
-          state: Draft<ProductState>,
+          state: Draft<CommentState>,
           action: PayloadAction<number | void>
         ): void => {
           state.comments = state.comments.filter(
@@ -60,19 +56,19 @@ console.log('action.payload----------->', action.payload);
       );
       builder.addCase(
         delComment.rejected,
-        (state: Draft<ProductState>, action: RejectedActionProduct): void => {
+        (state: Draft<CommentState>, action: RejectedActionComment): void => {
           console.log("Ошибка удаления одного комментария", action.error);
           state.error = action.error;
           state.loading = false;
         }
       );
       // создание записи в каталоге:
-      builder.addCase(AddComment.pending, (state: Draft<ProductState>): void => {
+      builder.addCase(AddComment.pending, (state: Draft<CommentState>): void => {
         state.loading = true;
       });
       builder.addCase(
         AddComment.fulfilled,
-        (state: Draft<ProductState>, action: PayloadAction<IProductsSlice>): void => {
+        (state: Draft<CommentState>, action: PayloadAction<ICommentSlice>): void => {
   console.log('В слайс приходит action.payload.data', action.payload.data);
   console.log('В слайс приходит action.payload', action.payload);
   console.log('В слайс приходит action', action);
@@ -83,7 +79,7 @@ console.log('action.payload----------->', action.payload);
       );
       builder.addCase(
         AddComment.rejected,
-        (state: Draft<ProductState>, action: RejectedActionProduct): void => {
+        (state: Draft<CommentState>, action: RejectedActionComment): void => {
           console.log("Ошибка создания комментария", action.error);
           state.error = action.error;
           state.loading = false;
@@ -91,24 +87,24 @@ console.log('action.payload----------->', action.payload);
       );
   
       // изменение записи в каталоге:
-      builder.addCase(UpdComment.pending, (state: Draft<ProductState>): void => {
+      builder.addCase(UpdComment.pending, (state: Draft<CommentState>): void => {
         state.loading = true;
       });
       builder.addCase(
         UpdComment.fulfilled,
-        (state: Draft<ProductState>, action: PayloadAction<IProductsSlice>): void => {
-          const modifiedСard: IProducts = action.payload.data
+        (state: Draft<CommentState>, action: PayloadAction<ICommentSlice>): void => {
+          const modifiedСard: IComment = action.payload.data
           state.comments = state.comments.filter(
-            (el: Draft<IProducts>): boolean => el.id !== modifiedСard.id
+            (el: Draft<IComment>): boolean => el.id !== modifiedСard.id
           );
           state.comments.push(modifiedСard)
-          state.comments.sort((a: Draft<IProducts>, b: Draft<IProducts>) => a.id - b.id)
+          state.comments.sort((a: Draft<IComment>, b: Draft<IComment>) => a.id - b.id)
           state.loading = false;
         }
       );
       builder.addCase(
         UpdComment.rejected,
-        (state: Draft<ProductState>, action: RejectedActionProduct): void => {
+        (state: Draft<CommentState>, action: RejectedActionComment): void => {
           console.log("Ошибка изменения комментария", action.error);
           state.error = action.error;
           state.loading = false;

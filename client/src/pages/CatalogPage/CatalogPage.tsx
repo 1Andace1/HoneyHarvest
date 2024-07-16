@@ -7,7 +7,7 @@ import { AuthState, ProductState } from "../../redux/types/states";
 import { IProducts } from "../../types/stateTypes";
 import FilterComponent from "./Filter";
 import ModalFormCreate from "../../components/ModalForm/ModalFormCreate";
-import styles from "./Catalog.css";
+// import styles from "./Catalog.css";
 
 
 export default memo(function CatalogPage(): JSX.Element {

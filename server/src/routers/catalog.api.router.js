@@ -2,6 +2,10 @@ const router = require('express').Router();
 const { verifyAccessToken } = require('../middlewares/verifyToken');
 const { Product, Comment, Like, Rating } = require('../../db/models');
 
+// npm install multer - установка малтера
+// добавлен малтер для возможности загрузок фото:
+const upload = require('../middlewares/uploadProductPhotos'); 
+
 router
   .get('/', async (req, res) => {
     try {
@@ -29,7 +33,10 @@ router
       res.sendStatus(400);
     }
   })
-  .post('/new', verifyAccessToken, async (req, res) => {
+  .post('/new', upload.single('picture'), verifyAccessToken, async (req, res) => {
+    
+    console.log('-----зашли в ручку для загрузки фото --------');
+
     const {
       title,
       price,
@@ -39,10 +46,24 @@ router
       description,
       yearOfHarvest,
       availableQuantity,
-      picture,
+      // picture,
       location,
-    } = req.body.inputs;
+    } = req.body;
+    const picture = req.file; // доступ к загруженному файлу
+
     try {
+
+console.log('req.body----------------->', req.body);
+console.log('req.body.picture----------------->', req.body.picture);
+
+      let photoPath = './productsPhoto/pattern.jpeg'
+      if (picture) {
+        photoPath = picture.originalname;
+      }
+
+      console.log('photoPath------------>', photoPath);
+
+
       const entry = await Product.create({
         title,
         price,
@@ -52,7 +73,7 @@ router
         description,
         yearOfHarvest,
         availableQuantity,
-        picture,
+        picture: photoPath, // сохранение пути фото в базу данных
         location,
       });
       const response = entry.get({ plain: true });
