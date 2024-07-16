@@ -80,6 +80,11 @@ function ProfilePag_refactoring(): JSX.Element {
 
   console.log('🟪 user============', user);
 
+  useEffect(() => {
+    fetchUserTotalSpent();
+    fetchOrders();
+  }, []);
+
   // ~ fetchUserTotalSpent = Загрузка общей суммы, потраченной пользователем:
   const fetchUserTotalSpent = async () => {
     if (!user) return;
@@ -212,75 +217,102 @@ function ProfilePag_refactoring(): JSX.Element {
       setError(error);
     }
   };
+
+  {
+    /* <Text fontSize="1.1rem" color="gray.500" bg="#C6F6D5" color="gray.500">
+                        {product.description}
+                      </Text> */
+  }
   return (
-    <Container maxW="3000px" pt={10}>
-      <Flex flexWrap="wrap" gap={6}>
-      <Box
-          flexBasis={{ base: '100%', md: '100%' }}
-          alignSelf={{ base: 'auto', md: 'flex-start' }}
+    <Container maxW="1700px" pt={10} bg="#F0FFF4">
+      {/* ФЛЕКС ОДИН СТАРТА */}
+      <Flex w="100%" flexWrap="wrap" gap={6} bg="#C6F6D5">
+        {/* ФЛЕКС 2 СТАРТА */}
+        <Flex
+          w="100%"
+          alignItems="flex-start"
+          justifyContent="space-between"
+          bg="#F0FFF4"
         >
-          <UserProfilePage
-                user={user}
-                onEdit={onOpen}
-                userTotalSpent={userTotalSpent}
-              />
-          <WeatherForecast />
-        </Box>
+          <Box
+            key={1}
+            p={4}
+            borderWidth={1}
+            borderRadius="md"
+            w="30%" // Пример ширины одной карточки (можете настроить по вашему желанию)
+            bg="#C6F6D5"
+          >
+            <UserProfilePage
+              user={user}
+              onEdit={onOpen}
+              userTotalSpent={userTotalSpent}
+            />
+            {/* Содержимое первой карточки */}
+          </Box>
+          <Box
+            key={2}
+            p={4}
+            borderWidth={1}
+            borderRadius="md"
+            w="30%" // Пример ширины одной карточки (можете настроить по вашему желанию)
+            bg="#C6F6D5"
+            h="100%" // ! Устанавливает высоту на 100% от родительского элемента
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+          >
+            {/* Содержимое второй карточки */}
+            <WeatherCard_2 />
+          </Box>
+          <Box
+            key={2}
+            p={4}
+            borderWidth={1}
+            borderRadius="md"
+            w="200%" // Пример ширины одной карточки (можете настроить по вашему желанию)
+            bg="#C6F6D5"
+          >
+            {/* Содержимое третьей карточки */}
+            <Achievements userId={user.id} />
+          </Box>
+        </Flex>
+
+        <Flex
+          w="100%"
+          alignItems="flex-start"
+          justifyContent="space-between"
+          bg="#F0FFF4"
+        >
+          <Box
+            key={1}
+            p={4}
+            borderWidth={1}
+            borderRadius="md"
+            w="100%" // Пример ширины одной карточки (можете настроить по вашему желанию)
+            bg="#C6F6D5"
+          >
+            <WeatherForecast />
+            {/* Содержимое первой карточки */}
+          </Box>
+        </Flex>
+
         {/* Левая колонка - UserProfilePage и MyCalendar */}
 
         <Box flexBasis={{ base: '100%', md: '80%' }}>
-          <Flex direction={{ base: 'column', md: 'row' }} gap={6}>
-            
-            {/* <Box flexBasis={{ base: '100%', md: '100%' }}>
-              <UserProfilePage
-                user={user}
-                onEdit={onOpen}
-                userTotalSpent={userTotalSpent}
-              />
-               <Box
-          flexBasis={{ base: '100%', md: '100%' }}
-          alignSelf={{ base: 'auto', md: 'flex-start' }}
-        >
-          <WeatherForecast />
+          <Flex direction={{ base: 'column', md: 'row' }} gap={6}></Flex>
         </Box>
-            </Box> */}
-            {/* <Box flexBasis={{ base: '100%', md: '100%' }}>
-              <WeatherCard_2 />
-            </Box>
-            <Box flexBasis={{ base: '100%', md: '100%' }}>
-              <MyCalendar />
-            </Box> */}
-          </Flex>
+
+        <Box flexBasis="100%">
+          <MyCalendar />
         </Box>
-        {/* <Box flexBasis={{ base: '100%', md: '100%' }}>
-              <MyCalendar />
-            </Box> */}
-        {/* Средняя колонка - WeatherCard_2 */}
-        {/* <Box flexBasis={{ base: '100%', md: '50%' }}>
-  <WeatherCard_2 />
-</Box> */}
-            <Box flexBasis="100%">
-              <MyCalendar />
-            </Box>
         {/* Правая боковая колонка - WeatherForecast */}
         <Box
           flexBasis={{ base: '100%', md: '100%' }}
           alignSelf={{ base: 'auto', md: 'flex-start' }}
-        >
-          <WeatherForecast />
-        </Box>
+        ></Box>
 
         {/* Правая колонка - Achievements, OrderHistory, OrderDetails, OrdersPageComponent */}
-        <Box flexBasis="100%">
-          <Achievements userId={user.id} />
-        </Box>
-        {/* <Box flexBasis="100%">
-          <OrderHistory
-            orders={ordersData}
-            onViewDetails={handleViewDetails}
-            onDetailsOpen={onDetailsOpen}
-          />
-        </Box> */}
+
         {selectedOrder && (
           <Box flexBasis="100%">
             <OrderDetails
@@ -290,7 +322,11 @@ function ProfilePag_refactoring(): JSX.Element {
           </Box>
         )}
         <Box flexBasis="100%">
-          <OrdersPageComponent  user={user} userId={user.id} orders={ordersData} />
+          <OrdersPageComponent
+            user={user}
+            userId={user.id}
+            orders={ordersData}
+          />
         </Box>
       </Flex>
 
@@ -303,12 +339,9 @@ function ProfilePag_refactoring(): JSX.Element {
         handleSubmit={handleSubmit}
       />
 
-<Box flexBasis={{ base: '100%', md: '100%' }}>
-              <WeatherCard_2 />
-            </Box>
-            <Box flexBasis={{ base: '100%', md: '100%' }}>
-              <MyCalendar />
-            </Box>
+      <Box flexBasis={{ base: '100%', md: '100%' }}>
+        <MyCalendar />
+      </Box>
     </Container>
   );
 }
