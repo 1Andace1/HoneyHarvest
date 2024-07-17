@@ -4,48 +4,76 @@ import React from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
-// import '@fullcalendar/core/main.css'; // Импортируем основные стили FullCalendar
-// import '@fullcalendar/daygrid/main.css'; // Импортируем стили DayGrid
-// import '@fullcalendar/timegrid/main.css'; // Импортируем стили TimeGrid
+import { Box, Text } from "@chakra-ui/react";
+import "./MyCalendar.css"
 
 
 const MyCalendar = () => {
   return (
-    <div className="calendar-container">
-      {" "}
-      {/* Применяем стиль к родительскому контейнеру */}
-      {/* <FullCalendar
-        plugins={[dayGridPlugin, timeGridPlugin]}
-        initialView="dayGridMonth"
-        // Добавьте другие опции и события по мере необходимости
-      /> */}
-            {/* <div className="calendar-container">
+    <Box bg="#C6F6D5" p={4} borderRadius="lg">
+      <Text fontSize="2xl" color="gray.700" mb={4}>
+        Календарь событий
+      </Text>
+      <div className="calendar-container">
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin]}
           initialView="dayGridMonth"
-          initialDate={new Date(new Date().setMonth(new Date().getMonth() + 1))}
+          headerToolbar={{
+            left: "prev,next today",
+            center: "title"
+          }}
+          buttonText={{
+            today: "Сегодня",
+            month: "Месяц",
+            week: "Неделя",
+            day: "День",
+          }}
+          height="auto"
+          contentHeight="auto"
         />
-      </div> */}
-       <FullCalendar
-        plugins={[dayGridPlugin, timeGridPlugin]}
-        initialView="dayGridMonth"
-        headerToolbar={{
-          left: 'prev,next today',
-          center: 'title',
-          right: 'dayGridMonth,timeGridWeek'
-        }}
-        buttonText={{
-          today: 'Сегодня',
-          month: 'Месяц',
-          // week: 'Неделя',
-          // day: 'День'
-        }}
-        height="auto"
-        contentHeight="auto"
-      />
-    </div>
+      </div>
+    </Box>
   );
 };
+
+//   return (
+//     <div className="calendar-container">
+//       {" "}
+//       {/* Применяем стиль к родительскому контейнеру */}
+//       {/* <FullCalendar
+//         plugins={[dayGridPlugin, timeGridPlugin]}
+//         initialView="dayGridMonth"
+//         // Добавьте другие опции и события по мере необходимости
+//       /> */}
+//             <div className="calendar-container">
+//         <FullCalendar
+//           plugins={[dayGridPlugin, timeGridPlugin]}
+//           initialView="dayGridMonth"
+          
+//           initialDate={new Date(new Date().setMonth(new Date().getMonth() + 1))}
+//         />
+        
+//       </div>
+//        <FullCalendar
+//         plugins={[dayGridPlugin, timeGridPlugin]}
+//         initialView="dayGridMonth"
+//         headerToolbar={{
+//           left: 'prev,next today',
+//           center: 'title',
+//           right: 'dayGridMonth,timeGridWeek'
+//         }}
+//         buttonText={{
+//           today: 'Сегодня',
+//           month: 'Месяц',
+//           // week: 'Неделя',
+//           // day: 'День'
+//         }}
+//         height="auto"
+//         contentHeight="auto"
+//       />
+//     </div>
+//   );
+// };
 
 export default MyCalendar;
 

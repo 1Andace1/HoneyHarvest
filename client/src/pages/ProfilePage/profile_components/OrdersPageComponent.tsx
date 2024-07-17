@@ -520,7 +520,8 @@ const OrdersPageComponent: React.FC<OrdersPageComponentProps> = ({
           </Box>
         )}
       </Box>
-      {/* <Divider mt={6} /> */}
+      <Divider mt={6} />
+      
 
       {/* статист. по месяцам */}
       <Box mt="4"  bg="#9AE6B4">
@@ -689,10 +690,12 @@ const OrdersPageComponent: React.FC<OrdersPageComponentProps> = ({
             ))}
           </Box>
         ) : (
-          <p>Loading...</p>
+          <p>Данных о заказах не было.</p>
         )}
       </div>
+      
     </Box>
+    
   );
 };
 

@@ -1,0 +1,57 @@
+/* Уменьшение размеров ячеек календаря */
+.fc .fc-daygrid-day-frame {
+    padding: 2px; /* Уменьшаем padding */
+    height: 20px; /* Устанавливаем высоту ячеек */
+  }
+  
+  /* Цвет шрифта и фона ячеек */
+  .fc .fc-daygrid-day {
+    background-color: #C6F6D5; /* Цвет фона */
+    color: gray; /* Цвет шрифта */
+  }
+  
+  /* Цвет текста заголовков */
+  .fc .fc-toolbar-title, .fc .fc-daygrid-day-number {
+    color: gray; /* Цвет шрифта */
+  }
+  
+  /* Анимация при наведении на ячейку */
+  .fc .fc-daygrid-day:hover {
+    transform: scale(1.05); /* Увеличение при наведении */
+    transition: transform 0.2s ease-in-out; /* Плавный переход */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тень при наведении */
+  }
+  
+  /* Цвет кнопок */
+  .fc-toolbar button {
+    background-color: rgb(139, 189, 108) !important; /* Приглушенно салатово-зеленый цвет */
+    color: white !important; /* Белый цвет текста */
+    border: none !important; /* Убираем границу */
+    padding: 5px 10px !important; /* Устанавливаем padding */
+  }
+  
+  .fc-toolbar button:hover {
+    background-color: #76a15c !important; /* Темнее при наведении */
+  }
+  
+  /* Заголовки дней недели */
+  .fc .fc-col-header-cell-cushion {
+    font-size: 12px; /* Уменьшенный размер текста */
+    width: 40px; /* Устанавливаем ширину */
+  }
+  
+  /* Ширина ячеек */
+  .fc .fc-daygrid-day {
+    width: 3px; /* Устанавливаем ширину ячеек */
+    height: 3px; /* Устанавливаем высоту ячеек */
+  }
+
+  /* Изменение цвета текста дней недели */
+.fc .fc-col-header-cell-cushion {
+    color: #333; /* Тёмно-серый цвет текста */
+  }
+  
+  /* Изменение цвета фона при наведении на дни недели */
+  .fc .fc-col-header-cell:hover {
+    background-color: #E2E8F0; /* Серый цвет фона при наведении */
+  }
