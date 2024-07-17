@@ -58,10 +58,6 @@ export default function OneProductPage(): JSX.Element {
   const createdAt = currentProduct?.createdAt
   const updatedAt = currentProduct?.updatedAt
 
-  // const {title, discountRatio, category, sort, description, yearOfHarvest,
-  //   availableQuantity, picture, location, starsRating, createdAt,
-  //   updatedAt} = currentProduct as IProducts;
-
   const price = (currentProduct?.price || 0) / 10;
   const priceConDiscountRatio = price * (discountRatio || 0);
   const availableQuantityForBuyers: number | string | undefined =
@@ -103,14 +99,26 @@ export default function OneProductPage(): JSX.Element {
   return (
     <div>
         <Card 
-        // justify={"center"}
         className="card"
           direction={{ base: 'column', sm: 'row' }}
           overflow='hidden'
           variant='outline'>
-            <Image src={`/${picture}`} alt="honey" borderRadius="lg"
+            <Image 
+            // src={`/${picture}`} 
+            src={
+              picture
+                ? `http://localhost:3000/productsPhoto/${picture}?t=${new Date().getTime()}`
+                : `http://localhost:3000/productsPhoto/pattern.jpeg?t=${new Date().getTime()}`
+            }
+            alt="honey" borderRadius="lg"
             objectFit='cover'
-            maxW={{ base: '100%', sm: '500px' }} />
+            maxW={{ base: '100%', sm: '500px' }} 
+            // Эффекты при наведении:
+            _hover={{
+              transform: 'scale(1.02)', // Увеличение масштаба
+              boxShadow: 'lg', // Увеличиваем тень при наведении
+            }}
+            />
             <Stack mt="6" spacing="3">
           <CardBody>
               <Heading size="lg">{title}</Heading>

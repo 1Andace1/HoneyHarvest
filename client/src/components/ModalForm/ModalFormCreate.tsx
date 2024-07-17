@@ -75,7 +75,7 @@ try {
       const convertedInputs = {} as IInputsProducts;
 
   
-      convertedInputs.picture = picture || './productsPhoto/pattern.jpeg';
+      convertedInputs.picture = picture || 'pattern.jpeg';
       convertedInputs.title = inputs?.title;
       convertedInputs.price = Number(inputs?.priceString);
       convertedInputs.discountRatio = Number(inputs?.discountRatioString);
@@ -192,6 +192,7 @@ try {
               type="file"
               name="picture"
               accept="image/*"
+              color="rgb(74, 85, 104)"
             />
                 {/* <Input
                   onChange={changeHandler}

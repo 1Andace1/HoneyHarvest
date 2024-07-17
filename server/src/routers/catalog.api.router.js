@@ -38,6 +38,10 @@ router
     upload.single('picture'),
     verifyAccessToken,
     async (req, res) => {
+
+      console.log('Зашли в ручку создания продукта, --req.body------->', req.body);
+      console.log('-----------------------------------req.file------->', req.file);
+
       const {
         title,
         price,
@@ -51,7 +55,7 @@ router
       } = req.body;
       const picture = req.file; // доступ к загруженному файлу
       try {
-        let photoPath = './productsPhoto/pattern.jpeg';
+        let photoPath = 'pattern.jpeg';
         if (picture) {
           photoPath = picture.originalname;
         }
