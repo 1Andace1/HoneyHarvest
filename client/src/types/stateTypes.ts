@@ -9,7 +9,6 @@ export interface IInputs {
   }
 
 export interface IUser {
-    isAdmin: boolean;
     profilePhoto: string | undefined; 
     id: number,
     username: string,
@@ -52,7 +51,36 @@ export interface Message {
 }
 
 
-export interface IInputsProducts {
+export interface IInputsProduct {
+  title: string,
+  price: number,
+  discountRatio: number,
+  category: string,
+  sort: string,
+  description: string,
+  yearOfHarvest: number,
+  availableQuantity: number,
+  picture: File | null,
+  location: string,
+}
+
+export interface IInputsProductString {
+  id: number,
+  title: string,
+  priceString: string,
+  discountRatioString: string,
+  category: string,
+  sort: string,
+  description: string,
+  yearOfHarvestString: string,
+  availableQuantityString: string,
+  picture: File | null,
+  location: string,
+}
+
+export type IInputsProductStringWithoutPicture = Omit<IInputsProductString, 'picture'>
+ 
+export interface IProduct {
   title: string,
   price: number,
   discountRatio: number,
@@ -63,22 +91,6 @@ export interface IInputsProducts {
   availableQuantity: number,
   picture: string,
   location: string,
-}
-
-export interface IInputsProductsString {
-  title: string,
-  priceString: string,
-  discountRatioString: string,
-  category: string,
-  sort: string,
-  description: string,
-  yearOfHarvestString: string,
-  availableQuantityString: string,
-  picture: string | File | null,
-  location: string,
-}
-
-export interface IProducts extends IInputsProducts {
   id: number,
   starsRating: number,
   createdAt: string,
@@ -86,7 +98,7 @@ export interface IProducts extends IInputsProducts {
 }
 
 export interface IProductsSlice {
-  data: IProducts,
+  data: IProduct,
 }
 
 export interface IInputsComment {

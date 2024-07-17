@@ -1,10 +1,10 @@
 import { memo, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import OneCard from "../../components/OneCard/OneCard";
-import {  Heading,  Wrap, Button } from "@chakra-ui/react";
+import {  Heading, Wrap } from "@chakra-ui/react";
 import { getProducts } from "../../redux/thunkActionsCatalog";
 import { AuthState, ProductState } from "../../redux/types/states";
-import { IProducts } from "../../types/stateTypes";
+import { IProduct } from "../../types/stateTypes";
 import FilterComponent from "./Filter";
 import ModalFormCreate from "../../components/ModalForm/ModalFormCreate";
 // import styles from "./Catalog.css";
@@ -20,7 +20,7 @@ export default memo(function CatalogPage(): JSX.Element {
   const { user } = useAppSelector(
     (state: { authSlice: AuthState }) => state.authSlice
   );
-  const [filteredProducts, setFilteredProducts] = useState<IProducts[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<IProduct[]>([]);
   const[openFilter, setOpenFilter] = useState(false);
 
   const handleOpenFilter = () => {
@@ -42,7 +42,7 @@ export default memo(function CatalogPage(): JSX.Element {
   }) => {
     console.log("++++++++++:", filter);
     const { category, sort, location, starsRating, maxPrice } = filter;
-    const filtered = products.filter((product) => {
+    const filtered = products.filter((product: IProduct) => {
       return (
         (category ? product.category === category : true) &&
         (sort ? product.sort === sort : true) &&
@@ -51,10 +51,10 @@ export default memo(function CatalogPage(): JSX.Element {
         (maxPrice ? product.price <= maxPrice : true)
       );
     });
-    console.log("-------------:", filtered);
+    // console.log("-------------:", filtered);
     setFilteredProducts(filtered);
   };
-  // console.log(products);
+
 
   return (
     <>
@@ -73,13 +73,22 @@ export default memo(function CatalogPage(): JSX.Element {
     ) : <></>}
       <Wrap spacing="30px">
         {filteredProducts.length ? (
-          filteredProducts.map((el: IProducts) => (
+          filteredProducts.map((el: IProduct) => (
             <OneCard el={el} key={el.id} />
           ))
         ) : (
+          <>
           <Heading as="h2" size="2xl">
             Каталог пуст или загружается
           </Heading>
+          {/* <Spinner
+          thickness='4px'
+          speed='0.65s'
+          emptyColor='gray.200'
+          color='blue.500'
+          size='xl'
+        /> */}
+        </>
         )}
       </Wrap>
     </>
