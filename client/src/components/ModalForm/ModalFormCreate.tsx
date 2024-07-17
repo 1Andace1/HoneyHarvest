@@ -13,7 +13,6 @@ import {
   ModalOverlay,
   NumberInput,
   NumberInputField,
-  Image
 } from '@chakra-ui/react';
 import { AddProduct } from '../../redux/thunkActionsCatalog';
 import { IInputsProducts, IInputsProductsString } from '../../types/stateTypes';
@@ -26,9 +25,15 @@ export default function ModalFormCreate(): JSX.Element {
   // const defaultInputs = { picture: "./productsPhoto/pattern.jpeg" };
   const defaultInputs = {} as IInputsProductsString;
   const [inputs, setInputs] = useState(defaultInputs);
+  const [picture, setPicture] = useState<File | null>(null); // либо null, либо объектом типа File (встроен в JS) = берем из <input type="file">.
 
-  const changeHandler = (e: React.FormEvent<HTMLFormElement>) => {
-    setInputs((prev: object) => ({ ...prev, [e.target.name]: e.target.value }));
+
+  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.name === "picture" && e.target.files) {
+      setPicture(e.target.files[0]);
+    } else {
+    setInputs((prev: IInputsProductsString): IInputsProductsString => ({ ...prev, [e.target.name]: e.target.value }))
+    }
     // console.log("[e.target.name]: e.target.value", e.target.name, e.target.value);
   };
 
@@ -39,6 +44,8 @@ export default function ModalFormCreate(): JSX.Element {
   ): Promise<void> => {
     console.log('Зашли в submitHandler, inputs = ', inputs);
     e.preventDefault();
+
+try {
     if (
       !(
         inputs?.title &&
@@ -68,8 +75,7 @@ export default function ModalFormCreate(): JSX.Element {
       const convertedInputs = {} as IInputsProducts;
 
   
-      convertedInputs.picture =
-        inputs?.picture || './productsPhoto/pattern.jpeg';
+      convertedInputs.picture = picture || './productsPhoto/pattern.jpeg';
       convertedInputs.title = inputs?.title;
       convertedInputs.price = Number(inputs?.priceString);
       convertedInputs.discountRatio = Number(inputs?.discountRatioString);
@@ -82,12 +88,15 @@ export default function ModalFormCreate(): JSX.Element {
       );
       convertedInputs.location = inputs?.location;
 
-      console.log('Зашли в submitHandler,  convertedInputs =', convertedInputs);
+      console.log('----->-----> Зашли в submitHandler,  convertedInputs =', convertedInputs);
 
       await dispatch(AddProduct(convertedInputs));
       onClose();
       setInputs(() => defaultInputs);
     }
+  } catch (error) {
+    console.log(error);
+  }
   };
 
   return (
@@ -177,7 +186,13 @@ export default function ModalFormCreate(): JSX.Element {
                     placeholder="доступное количество продукта"
                   />
                 </NumberInput>
-
+                <Input
+              onChange={changeHandler}
+              borderColor="#3f3e3e"
+              type="file"
+              name="picture"
+              accept="image/*"
+            />
                 {/* <Input
                   onChange={changeHandler}
                   src={`./productsPhoto/${convertedInputs.picture}`}
@@ -186,7 +201,7 @@ export default function ModalFormCreate(): JSX.Element {
                   value={inputs?.picture}
                   placeholder="загрузить фото продукта"
                 /> */}
-                <div>
+                {/* <div>
                   {' '}
                   <Image
                     src={`./productsPhoto/${convertedInputs.picture}`}
@@ -194,7 +209,7 @@ export default function ModalFormCreate(): JSX.Element {
                     objectFit="cover"
                     marginRight="10px"
                   />
-                </div>
+                </div> */}
 
                 <Input
                   onChange={changeHandler}
