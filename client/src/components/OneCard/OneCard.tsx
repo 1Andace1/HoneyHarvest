@@ -84,13 +84,28 @@ export default function OneCard({ el }: { el: IProducts }): JSX.Element {
   return (
     <div>
       <WrapItem>
-        <Card maxW="sm" variant="filled">
+        <Card maxW="sm" variant="filled"
+              _hover={{
+                // Эффекты при наведении
+                transform: 'scale(1.01)', // Увеличение масштаба
+                boxShadow: 'lg', // Увеличиваем тень при наведении
+              }}
+        >
           <CardBody>
-            <Image src={picture} alt="honey" borderRadius="lg" />
+            <Image 
+            // src={picture} 
+            alt="honey" borderRadius="lg" 
+            src={
+              picture
+                ? `http://localhost:3000/productsPhoto/${picture}?t=${new Date().getTime()}`
+                : `http://localhost:3000/productsPhoto/pattern.jpeg?t=${new Date().getTime()}`
+            }
+            />
             <Stack mt="6" spacing="3">
               <Heading size="md">
                 {title}
                 {productIsNew ? (
+                  // здась располагается метка нового продукта:
                 <Tag
                   ml="1"
                   fontSize="sm"
@@ -119,7 +134,7 @@ export default function OneCard({ el }: { el: IProducts }): JSX.Element {
                 </>
               ) : (
                 <Text color="blue.600" fontSize="2xl">
-                  Цена: {price} руб. / 100 гр.
+                  Цена: <br /> {price} руб. / 100 гр.
                 </Text>
               )}
               <Text>Рейтинг: {starsRating}</Text>
