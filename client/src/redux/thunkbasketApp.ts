@@ -7,9 +7,9 @@ const { VITE_API, VITE_BASE_URL }: ImportMeta["env"] = import.meta.env;
 interface BasketItem {
   userId: number;
   productId: number;
-  orderId:number;
+  orderId?:number;
   numberBasket: number;
-  status: number;
+  status: string;
   commentUser: string;
   totalBasketPrice: number;
   deliveryAddress: string;
@@ -48,7 +48,7 @@ export const AddProduct = createAsyncThunk(
 export const getbasket = createAsyncThunk(
   "basket/get",
   async ({userId}:BasketItem) => {
-    console.log(userId,"гоВНОООООООООООООООООООООООООООООООООООООО");
+    console.log(userId,"НОООООООООООООООООООООООООООООООООООООО");
     
     const response = await axiosInstance.get(
       `${VITE_BASE_URL}${VITE_API}/basket/get`,
