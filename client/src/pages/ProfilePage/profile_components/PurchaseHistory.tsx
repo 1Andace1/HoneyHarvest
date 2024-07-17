@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axiosInstance from '../../../axiosInstance';
 import { Box, Heading, Text, VStack, StackDivider } from '@chakra-ui/react';
 import dayjs from 'dayjs';
@@ -6,30 +6,36 @@ import 'dayjs/locale/ru';
 
 dayjs.locale('ru');
 
+
+interface Basket {
+  createdAt: string;
+  transactions: Transaction[];
+}
+
+interface Transaction {
+  currentPrice: number;
+}
+
 const { VITE_API, VITE_BASE_URL }: ImportMeta['env'] = import.meta.env;
 
 const PurchaseHistory = ({ userId }) => {
-  const [totalSpent, setTotalSpent] = useState(0);
-  const [baskets, setBaskets] = useState([]);
-  const [ordersCount, setordersCount] = useState(0);
-  const [localProductsPurchased, setlocalProductsPurchased] = useState(0);
-  // `${import.meta.env.VITE_API}/profile/purchase-history/${user.id}`
- 
+  const [totalSpent, setTotalSpent] = useState<number>(0);
+  const [baskets, setBaskets] = useState<Basket[]>([]);
+  const [ordersCount, setOrdersCount] = useState<number>(0); 
+  const [localProductsPurchased, setLocalProductsPurchased] = useState<number>(0); 
+
+
   useEffect(() => {
     const fetchPurchaseHistory = async () => {
       try {
         const response = await axiosInstance.get(
-        // `${import.meta.env.VITE_API}/profile/purchase-history/${user.id}`
-                  `${import.meta.env.VITE_API}/profile/purchase-history/${user.id}`
-      );
-      const { ordersCount, totalSpent, localProductsPurchased, } = response.data;
-      console.log('purchase-history===== response.data',response.data)
+          `${import.meta.env.VITE_API}/profile/purchase-history/${user.id}`
+        );
+        const { ordersCount, totalSpent, localProductsPurchased } =
+        response.data;
         setTotalSpent(totalSpent);
-        setordersCount(ordersCount)
-        setlocalProductsPurchased(localProductsPurchased)
-        console.log('purchase-history===== totalSpent',totalSpent)
-        console.log('purchase-history===== ordersCount',ordersCount)
-        console.log('purchase-history===== localProductsPurchased',localProductsPurchased)
+        setOrdersCount(ordersCount);
+        setLocalProductsPurchased(localProductsPurchased);
       } catch (error) {
         console.error('Ошибка при загрузке истории покупок:', error);
       }
@@ -69,8 +75,7 @@ const PurchaseHistory = ({ userId }) => {
               )}{' '}
               руб.
             </Text>
-            {/* Добавьте другие необходимые поля */}
-          </Box>
+                     </Box>
         ))}
       </VStack>
     </Box>
