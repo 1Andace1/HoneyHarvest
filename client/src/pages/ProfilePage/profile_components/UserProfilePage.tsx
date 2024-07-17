@@ -120,7 +120,7 @@ const UserProfilePage = ({ user, userTotalSpent }) => {
   };
 
   return (
-    <Box  p="1rem"  width="80%" height="80%" margin="0 auto" border="none">
+    <Box p="0" m="0" border="none">
       {user && <UserProfileCard user={user} onEdit={onOpen} />}
       {loyalty && <LoyaltyInfo userTotalSpent={userTotalSpent} />}
       {/* <OrdersPage user={user} /> */}
