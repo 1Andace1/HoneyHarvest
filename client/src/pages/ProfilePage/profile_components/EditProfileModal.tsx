@@ -1,6 +1,5 @@
 //  🟪 МОДАЛЬНОЕ ОКНО РЕДАКТИРОВАНИЯ ПРОФИЛЯ 
-
-import React from 'react';
+import React, { useRef } from 'react';
 import {
   Modal,
   ModalOverlay,
@@ -12,11 +11,20 @@ import {
   Button
 } from '@chakra-ui/react';
 
-const EditProfileModal = ({ isOpen, onClose, formData, handleChange, handleSubmit }) => (
-  <Modal isOpen={isOpen} onClose={onClose}>
+const EditProfileModal = ({ isOpen, onClose, formData, handleChange, handleSubmit }) => {
+  const fileInputRef = useRef(null);
+
+  const handleFileInputChange = (event) => {
+    const file = event.target.files[0];
+    // Do something with the selected file (e.g., save it to state)
+    handleChange(event); // Optional: propagate change to parent component
+  };
+
+  return (
+    <Modal isOpen={isOpen} onClose={onClose}>
     <ModalOverlay />
-    <ModalContent>
-      <ModalHeader>Редактировать профиль</ModalHeader>
+    <ModalContent style={{ backgroundColor: 'RGBA(255, 255, 255, 0.92)', color: '#4A5568' }}>
+      <ModalHeader style={{ fontSize: '1.2rem', fontWeight: 'bold', marginBottom: '10px' }}>Редактировать профиль</ModalHeader>
       <ModalCloseButton />
       <ModalBody>
         <form onSubmit={handleSubmit}>
@@ -26,6 +34,7 @@ const EditProfileModal = ({ isOpen, onClose, formData, handleChange, handleSubmi
             onChange={handleChange}
             placeholder="Имя пользователя"
             mb={3}
+            style={{ backgroundColor: '#ffffff', color: '#3f3e3e', borderColor: '#ccc' }}
           />
           <Input
             name="email"
@@ -33,6 +42,7 @@ const EditProfileModal = ({ isOpen, onClose, formData, handleChange, handleSubmi
             onChange={handleChange}
             placeholder="Эл.почта"
             mb={3}
+            style={{ backgroundColor: '#ffffff', color: '#3f3e3e', borderColor: '#ccc' }}
           />
           <Input
             type="password"
@@ -41,6 +51,7 @@ const EditProfileModal = ({ isOpen, onClose, formData, handleChange, handleSubmi
             onChange={handleChange}
             placeholder="Пароль"
             mb={3}
+            style={{ backgroundColor:'#ffffff',  color: '#3f3e3e', borderColor: '#ccc' }}
           />
           <Input
             type="telephone"
@@ -49,6 +60,7 @@ const EditProfileModal = ({ isOpen, onClose, formData, handleChange, handleSubmi
             onChange={handleChange}
             placeholder="Номер телефона"
             mb={3}
+            style={{ backgroundColor: '#ffffff', color: '#3f3e3e', borderColor: '#ccc' }}
           />
           <Input
             type="userCity"
@@ -57,15 +69,24 @@ const EditProfileModal = ({ isOpen, onClose, formData, handleChange, handleSubmi
             onChange={handleChange}
             placeholder="Город"
             mb={3}
+            style={{ backgroundColor: '#ffffff', color: '#3f3e3e', borderColor: '#ccc' }}
           />
-          <Input
+          <label htmlFor="profilePhoto" style={{ display: 'block', marginBottom: '10px' }}>
+            Нажмите, чтобы загрузить фото
+          </label>
+          <input
+            id="profilePhoto"
+            ref={fileInputRef}
             type="file"
             name="profilePhoto"
             accept="image/*"
-            onChange={handleChange}
-            mb={3}
+            onChange={handleFileInputChange}
+            style={{ display: 'none' }}
           />
-          <Button type="submit" colorScheme="blue">
+          {formData.profilePhoto && (
+            <p style={{ marginBottom: '10px' }}>Выбран файл: {formData.profilePhoto.name}</p>
+          )}
+          <Button type="submit" colorScheme="blue" style={{ backgroundColor: '#8bbd6c', color: '#ffffff', borderRadius: '4px', cursor: 'pointer' }}>
             Сохранить
           </Button>
         </form>
@@ -73,5 +94,6 @@ const EditProfileModal = ({ isOpen, onClose, formData, handleChange, handleSubmi
     </ModalContent>
   </Modal>
 );
+};
 
 export default EditProfileModal;

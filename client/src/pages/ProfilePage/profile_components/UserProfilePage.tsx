@@ -7,7 +7,7 @@ import LoyaltyInfo from './LoyaltyProgramComponent';
 import OrdersPage from './OrdersPageComponent';
 import { useDispatch } from 'react-redux';
 import { updateUser } from '../../../redux/slices/authSlice'; // Замените на правильный путь
-import styles from '../ProfilePage.module.css';
+
 
 const { VITE_API, VITE_BASE_URL }: ImportMeta['env'] = import.meta.env;
 
@@ -32,14 +32,6 @@ const UserProfilePage = ({ user, userTotalSpent }) => {
         const userData = await axiosInstance.get(
           `${import.meta.env.VITE_API}/profile/user/${user.id}`
         );
-        // setFormData({
-        //   username: userData.data.username,
-        //   email: userData.data.email,
-        //   password: '',
-        //   telephone: userData.data.telephone,
-        //   userCity: userData.data.userCity,
-        //   profilePhoto: '',
-        // });
         const initialData = {
           username: userData.data.username,
           email: userData.data.email,
@@ -128,7 +120,7 @@ const UserProfilePage = ({ user, userTotalSpent }) => {
   };
 
   return (
-    <Box p={6}  className={styles.boxСontainer}>
+    <Box  p="1rem"  width="80%" height="80%" margin="0 auto" border="none">
       {user && <UserProfileCard user={user} onEdit={onOpen} />}
       {loyalty && <LoyaltyInfo userTotalSpent={userTotalSpent} />}
       {/* <OrdersPage user={user} /> */}

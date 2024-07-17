@@ -26,11 +26,7 @@ const WeatherDay: React.FC<WeatherDayProps> = ({
 
   return (
     <div
-      className="weather-day"
-      style={{
-        boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
-        clipPath: 'circle(70% at center)',
-      }}
+      className="weather-day"  
       onClick={() => onClick(day)}
     >
       <img src={day.weatherIcon} alt="weather icon" />

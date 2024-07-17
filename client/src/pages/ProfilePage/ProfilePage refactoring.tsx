@@ -224,105 +224,122 @@ function ProfilePag_refactoring(): JSX.Element {
                       </Text> */
   }
   return (
-    <Container maxW="100%" pt={10} bg="#F0FFF4"   className={styles.bodyProfile}>
-      {/* ФЛЕКС ОДИН СТАРТА */}
-      <Flex maxW="1300px" flexWrap="wrap" gap={6} bg="#C6F6D5" >
-        {/* ФЛЕКС 2 СТАРТА */}
-        <Flex
-          maxW="100%"
-          alignItems="flex-start"
-          justifyContent="space-between"
-          bg="#F0FFF4"
-          
-        >
-          <Box
-            key={1}
-            p={4}
-            borderWidth={1}
-            borderRadius="md"
-            w="30%" // Пример ширины одной карточки (можете настроить по вашему желанию)
-            bg="#C6F6D5"
-            className={styles.boxСontainer}
-          >
-            <UserProfilePage
-              user={user}
-              onEdit={onOpen}
-              userTotalSpent={userTotalSpent}
-            />
-            {/* Содержимое первой карточки */}
+    <Container maxW="5300px" bg="#F0FFF4"   className={styles.boxСontainer2}>
+      <Flex maxW="5300px" direction="row" align="center" bg="#F0FFF4" className={styles.boxСontainer2}>
+        <Flex maxW="5300px" flexWrap="wrap"  bg="#F0FFF4" className={styles.boxСontainer2}>
+          {/* Левая колонка */}
+          <Box p={3} borderWidth={1} borderRadius="md" w="30%" bg="#F0FFF4" className={styles.boxСontainer2}>
+            <UserProfilePage user={user} onEdit={onOpen} />
           </Box>
+          <Box p={3} borderWidth={1} borderRadius="md" w="30%"bg="#F0FFF4" className={styles.boxСontainer2}>
+              <Achievements userId={user.id} />
+            </Box>
+            <Box p={3} borderWidth={1} borderRadius="md"w="40%" bg="#F0FFF4" className={styles.boxСontainer2}>
+              <MyCalendar />
+            </Box>
 
-          <Box
-            key={2}
-            p={4}
-            borderWidth={1}
-            borderRadius="md"
-            w="200%" // Пример ширины одной карточки (можете настроить по вашему желанию)
-            bg="#C6F6D5"
-            className={styles.boxСontainer}
+          {/* Средняя колонка */}
+
+
+
+
+
+          <Grid className={styles.boxСontainer2}
+            templateColumns="repeat(auto-fit, minmax(300px, 1fr))"
+                    w="100%"
           >
-            {/* Содержимое третьей карточки */}
-            <Achievements userId={user.id} />
-          </Box>
-        </Flex>
-
-        <Flex
-          w="100%"
-          alignItems="flex-start"
-          justifyContent="space-between"
-          bg="#F0FFF4"
-          className={styles.boxСontainer}
-        >
-          <Box
-            key={1}
-            p={4}
-            borderWidth={1}
-            borderRadius="md"
-            w="100%" // Пример ширины одной карточки (можете настроить по вашему желанию)
-            bg="#C6F6D5"
-            className={styles.boxСontainer}
-            flex-direction="column"
             
-          >
+            <Box p={4} borderWidth={1} borderRadius="md" bg="#F0FFF4" className={styles.boxСontainer2}>
             <WeatherForecast />
-            {/* Содержимое первой карточки */}
-          </Box>
-        </Flex>
 
-        {/* Левая колонка - UserProfilePage и MyCalendar */}
 
-        <Box flexBasis={{ base: '100%', md: '80%' }} >
-          <Flex direction={{ base: 'column', md: 'row' }} gap={6}></Flex>
-        </Box>
+            </Box>
+          </Grid>
 
-        <Box flexBasis="100%">
-          <MyCalendar />
-        </Box>
-        {/* Правая боковая колонка - WeatherForecast */}
-        <Box
-          flexBasis={{ base: '100%', md: '100%' }}
-          alignSelf={{ base: 'auto', md: 'flex-start' }}
-        ></Box>
 
-        {/* Правая колонка - Achievements, OrderHistory, OrderDetails, OrdersPageComponent */}
 
-        {selectedOrder && (
-          <Box flexBasis="100%"  className={styles.boxСontainer}>
-            <OrderDetails
-              selectedOrder={selectedOrder}
-              orderDetails={orderDetails}
+
+
+
+
+          <Grid
+            templateColumns="repeat(auto-fit, minmax(300px, 1fr))"
+                    w="100%" 
+          >
+            
+            <Box p={4} borderWidth={1} borderRadius="md" bg="#F0FFF4" className={styles.boxСontainer2}>
+            <OrdersPageComponent
+              user={user}
+              userId={user.id}
+              orders={ordersData}
+            />
+            </Box>
+          </Grid>
+          <Grid
+            templateColumns="repeat(auto-fit, minmax(300px, 1fr))"
+                    w="100%"
+          >
+            
+            <Box p={4} borderWidth={1} borderRadius="md" bg="#F0FFF4">
+              <Achievements userId={user.id} />
+            </Box>
+            <Box p={4} borderWidth={1} borderRadius="md" bg="#F0FFF4">
+              <MyCalendar />
+            </Box>
+            <Box p={4} borderWidth={1} borderRadius="md" bg="#F0FFF4">
+              <MyCalendar />
+            </Box>
+            <Box p={4} borderWidth={1} borderRadius="md" bg="#F0FFF4">
+              <MyCalendar />
+            </Box>
+            <Box p={4} borderWidth={1} borderRadius="md" bg="#F0FFF4">
+              <MyCalendar />
+            </Box>
+            <Box p={4} borderWidth={1} borderRadius="md" bg="#F0FFF4">
+              <MyCalendar />
+            </Box>
+            <Box p={4} borderWidth={1} borderRadius="md" bg="#F0FFF4">
+              <MyCalendar />
+            </Box>
+            <Box p={4} borderWidth={1} borderRadius="md" bg="#F0FFF4">
+              <WeatherForecast />
+            </Box>
+          </Grid>
+
+          {/* Правая колонка */}
+          <Box p={4} borderWidth={1} borderRadius="md" w="30%" bg="#F0FFF4">
+            <OrdersPageComponent
+              user={user}
+              userId={user.id}
+              orders={ordersData}
             />
           </Box>
-        )}
-        <Box flexBasis="100%">
-          <OrdersPageComponent
-            user={user}
-            userId={user.id}
-            orders={ordersData}
-          />
-        </Box>
+        </Flex>
       </Flex>
 
+
+
+      <Grid
+            templateColumns="repeat(auto-fit, minmax(1000px, 1fr))"
+                    w="50%"
+          >
+            
+            <Box p={4} borderWidth={1} borderRadius="md" bg="#F0FFF4">
+            <OrdersPageComponent
+              user={user}
+              userId={user.id}
+              orders={ordersData}
+            />
+            </Box>
+          </Grid>
+          {/* <Grid
+            templateColumns="repeat(auto-fit, minmax(3000px, 1fr))"
+                    w="50%"
+          > КУ КУ
+                        <Box p={4} borderWidth={1} borderRadius="md" bg="#F0FFF4">
+
+            </Box>
+          </Grid> */}
       {/* Модальное окно редактирования профиля */}
       <EditProfileModal
         isOpen={isOpen}
@@ -331,12 +348,135 @@ function ProfilePag_refactoring(): JSX.Element {
         handleChange={handleChange}
         handleSubmit={handleSubmit}
       />
-
-      <Box flexBasis={{ base: '100%', md: '100%' }}  className={styles.boxСontainer}>
-        <MyCalendar />
-      </Box>
     </Container>
   );
 }
+//     <Container maxW="100%" pt={10} bg="#F0FFF4" className={styles.bodyProfile}>
+//       <Flex maxW="1300px" flexWrap="wrap" gap={6} bg="#F0FFF4">
+//         <Flex
+//           maxW="100%"
+//           alignItems="flex-start"
+//           justifyContent="space-between"
+//           bg="#F0FFF4"
+//         >
+//           <Box
+//             key={1}
+//             p={4}
+//             borderWidth={1}
+//             borderRadius="md"
+//             w="30%"
+//             bg="#F0FFF4"
+//             className={styles.boxСontainer}
+//           >
+//             <UserProfilePage
+//               user={user}
+//               onEdit={onOpen}
+//               userTotalSpent={userTotalSpent}
+//             />
+
+//             {/* Содержимое первой карточки */}
+//           </Box>
+
+//           <Box
+//             key={2}
+//             p={4}
+//             borderWidth={1}
+//             borderRadius="md"
+//             className={styles.boxСontainer}
+//           >
+//             {/* Содержимое третьей карточки */}
+//             {/* <Achievements userId={user.id} /> */}
+//           </Box>
+//           <Box
+//             key={3}
+//             p={4}
+//             borderWidth={1}
+//             borderRadius="md"
+//             w="50%"
+//             className={styles.boxСontainer}
+//           >
+//             <Achievements userId={user.id} />
+//           </Box>
+//           <Box
+//             key={3}
+//             p={4}
+//             borderWidth={1}
+//             borderRadius="md"
+//             w="100%"
+//             className={styles.boxСontainer}
+//           >
+//             {/* Содержимое третьей карточки */}
+//             <MyCalendar />
+//             <Achievements userId={user.id} />
+//           </Box>
+//         </Flex>
+//         <Achievements userId={user.id} />
+//         <Flex
+//           w="100%"
+//           alignItems="flex-start"
+//           justifyContent="space-between"
+//           bg="#F0FFF4"
+//           className={styles.boxСontainer}
+//         >
+//           <Box
+//             key={1}
+//             p={4}
+//             borderWidth={1}
+//             borderRadius="md"
+//             w="100%" // Пример ширины одной карточки (можете настроить по вашему желанию)
+//             className={styles.boxСontainer}
+//             flex-direction="column"
+//           >
+//             <WeatherForecast />
+
+//             {/* Содержимое первой карточки */}
+//           </Box>
+//         </Flex>
+
+//         {/* Левая колонка - UserProfilePage и MyCalendar */}
+
+//         <Box flexBasis={{ base: '100%', md: '80%' }}>
+//           <Flex direction={{ base: 'column', md: 'row' }} gap={6}></Flex>
+//         </Box>
+
+//         <Box flexBasis="30%">
+//           <MyCalendar />
+//         </Box>
+//         {/* Правая боковая колонка - WeatherForecast */}
+//         <Box
+//           flexBasis={{ base: '100%', md: '100%' }}
+//           alignSelf={{ base: 'auto', md: 'flex-start' }}
+//         ></Box>
+
+//         {/* Правая колонка - Achievements, OrderHistory, OrderDetails, OrdersPageComponent */}
+
+//         {selectedOrder && (
+//           <Box flexBasis="100%" className={styles.boxСontainer}>
+//             <OrderDetails
+//               selectedOrder={selectedOrder}
+//               orderDetails={orderDetails}
+//             />
+//           </Box>
+//         )}
+//         <Box flexBasis="100%">
+//           <OrdersPageComponent
+//             user={user}
+//             userId={user.id}
+//             orders={ordersData}
+//           />
+//         </Box>
+//       </Flex>
+
+//       {/* Модальное окно редактирования профиля */}
+//       <EditProfileModal
+//         isOpen={isOpen}
+//         onClose={onClose}
+//         formData={formData}
+//         handleChange={handleChange}
+//         handleSubmit={handleSubmit}
+//       />
+//     </Container>
+//   );
+// }
 
 export default ProfilePag_refactoring;

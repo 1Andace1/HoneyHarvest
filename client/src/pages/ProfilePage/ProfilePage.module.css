@@ -1,13 +1,20 @@
 .bodyProfile {
-    background-color: #F0FFF4;
+  background-color: #F0FFF4;
+  min-height: 100vh; /* Устанавливаем минимальную высоту на 100% высоты экрана */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   }
+  
 
-.container {
-  max-width: 1300px; /* Установка максимальной ширины контейнера */
+.container {  max-width: 1300px; /* Установка максимальной ширины контейнера */
+  width: 100%; /* Контейнер занимает всю ширину */
   margin: 0 auto; /* Центрирование контейнера по горизонтали */
-  padding-top: 10px; /* Установка отступа сверху */
+  padding: 20px; /* Установка отступов */
   background-color: #1b582b; /* Цвет фона контейнера */
-}
+  display: flex;
+  flex-wrap: wrap; /* Позволяет элементам переноситься на новую строку */
+  justify-content: center; /* Центрирование элементов по горизонтали */}
 
 
 .card {
@@ -26,4 +33,12 @@
 .boxСontainer {
   border: none; /* Удаление границы у всех box-контейнеров */
   margin-bottom: 0;
+  display: flex;
+   justify-content: center; /* Центрирование содержимого контейнера по горизонтали */
+  align-items: center; /* Центрирование содержимого контейнера по вертикали */
 }
+
+.boxСontainer2 {
+  border: none; /* Удаление границы у всех box-контейнеров */
+  margin-bottom: 0;
+ }

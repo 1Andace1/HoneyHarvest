@@ -8,8 +8,8 @@ import {
   Flex,
   GridItem,
   Grid,
-  Spacer,
 } from '@chakra-ui/react';
+
 import axiosInstance from '../../../axiosInstance';
 import LoyaltyProgram from './../LoyaltyProgram';
 import styles from '../ProfilePage.module.css';
@@ -49,53 +49,76 @@ const Achievements = ({ userId }) => {
   }, [userId]);
 
   return (
-    <Box bg="#C6F6D5" w='100%' h='100%' className={styles.boxСontainer}>
-      <Heading as="h3" size="lg" mb={12}>
+    <Box
+      bg="#C6F6D5"
+      w="100%"
+      h="100%"
+      borderRadius="20px"
+      p={6}
+    >
+      <Heading
+        as="h2"
+        size="lg"
+        mb={6}
+        fontSize="1.3rem"
+        style={{ fontFamily: "'Bona Nova SC', cursive", color: '#4A5568' }}
+      >
         Достижения и бейджи
       </Heading>
-      <Grid templateColumns="repeat(3, 1fr)" cursor="pointer" gap={4}>
+      <Grid templateRows="repeat(3, 1fr)" gap={4} ml={10}>
         {achievements.map((achievement) => (
-          <GridItem key={achievement.id}>
+          <GridItem key={achievement.id} display="flex" justifyContent="center">
             <Box
-              p={4}
-              borderWidth={1}
-              borderRadius="22%" // Делаем карточку круглой
-              w="70%"
-              h="70%"
+              // borderWidth={1}
+              p={2}
+              w="90%" // Установите меньшую ширину для сужения карточек
+              h="90%"
+              borderRadius="20px"
               bg={achievement.isCompleted ? '#9AE6B4' : '#48BB78'}
               opacity={achievement.isCompleted ? 1 : 0.5}
-              transition="all 0.5s ease-in-out"
+              transition="opacity 0.3s ease-in-out"
               transform="scale(1.1)"
-              boxShadow="0 0 10px rgba(0, 0, 0, 0.5)"
               style={{
-                boxShadow: '0 0 20px rgba(0, 0, 0, 0.5)',
+                boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)',
                 background:
-                  'linear-gradient(to right, hsl(60, 70%, 50%), hsl(100, 70%, 70%))',
+                  'linear-gradient(to right, hsl(60, 70%, 80%), hsl(100,300%, 90%))',
                 resize: 'both',
                 clipPath: 'circle(70% at center)',
                 cursor: 'pointer',
               }}
-              className={styles.boxСontainer}
+              _hover={{
+                opacity: 1,
+                transform: 'scale(1.2)',
+                boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)',
+              }}
+              cursor="pointer"
             >
-              <Flex alignItems="center" justifyContent="center" h="100%"  className={styles.boxСontainer}>
+              <Flex
+                alignItems="center"
+                justifyContent="center"
+                h="100%"
+                style={{ color: '#718096' }}
+              >
                 <Image
                   src={achievement.icon}
                   alt={achievement.name}
-                  boxSize="70px"
-                  mr={4}
+                  boxSize="50px"
+                  mr={2}
                 />
-                <VStack align="flex-start" w="100%" >
-                  <Text fontWeight="bold" fontSize="1.4rem" mb={2}>
+                <VStack align="flex-start" w="100%">
+                  <Text fontWeight="bold" fontSize="0.8rem" lineHeight="1">
                     {achievement.name}
                   </Text>
-                  <Text mb={2} fontSize="1.1rem">
+                  <Text mb={1} fontSize="0.7rem">
                     {achievement.isCompleted
                       ? achievement.descriptionDone
                       : achievement.description}
                   </Text>
-                  <Text mb={5}>
-                    {achievement.isCompleted ? '' : 'IN PROGRESS...'}
-                  </Text>
+                  {!achievement.isCompleted && (
+                    <Text fontSize="0.7rem" color="gray.500" lineHeight="0.1">
+                      IN PROGRESS...
+                    </Text>
+                  )}
                 </VStack>
               </Flex>
             </Box>
