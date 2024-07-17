@@ -128,22 +128,23 @@ const Basket: React.FC = () => {
     <div className="basket-container">
       <div className="basket">
         <div className="total-price">
-          Общая сумма: Р{inputs.totalBasketPrice}
+          Общая сумма: ₽{inputs.totalBasketPrice}
         </div>
         <ul className="scrollable-list">
           {baskets.map(basket => (
             <li key={basket.id}>
-<div className="one-card-container">
+<div className="one-card-container animate__animated animate__fadeInDown">
   <OneCard el={basket.product} />
 </div>
-              <div className="product-actions">
-                <Button onClick={() => handleRemoveProduct(basket.id)}>убрать</Button>
-              </div>
+<div className="product-actions animate__animated animate__fadeInDown">
+    <Button colorScheme="teal" onClick={() => handleRemoveProduct(basket.id)}>убрать</Button>
+</div>
             </li>
           ))}
         </ul>
       </div>
       <div className="delivery-form">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
         <h1>оформление заказа</h1>
         <form onSubmit={submitHandler}>
           <label>Адрес доставки:</label>
@@ -157,8 +158,17 @@ const Basket: React.FC = () => {
           </Select>
           <label>Дата доставки:</label>
           <Input type="date" name="estimatedDate" value={inputs.estimatedDate} onChange={changeHandler} />
-          <Button type="submit" className="submit-button">оформить</Button>
-          <div className="bee">
+          <Button type="submit" className="submit-button" colorScheme="teal">оформить</Button>
+          <div className="bee-background">
+  <div className="sun"></div>
+  <div className="cloud"></div>
+  <div className="cloud" style={{ left: '50%', top: '30%' }}></div>
+  <div className="grass"></div>
+  <div className="flower"></div>
+  <div className="flower" style={{ left: '20%' }}></div>
+  <div className="flower" style={{ left: '30%' }}></div>
+  <div className="hive"></div>
+  <div className="bee">
     <div className="wing"></div>
     <div className="eye"></div>
     <div className="stinger"></div>
@@ -167,6 +177,7 @@ const Basket: React.FC = () => {
     <div className="leg"></div>
     <div className="leg"></div>
   </div>
+</div>
         </form>
         
       </div>
