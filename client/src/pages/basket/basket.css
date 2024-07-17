@@ -1,5 +1,5 @@
 :root {
-    --chakra-colors-green-300: #ffdd6c; ;
+    --chakra-colors-green-300: #ceffdb;
 }
 
 .basket-container {
@@ -8,17 +8,31 @@
 }
 
 .basket {
-    width: 700px;
+    width: 900px;
     position: fixed;
-    left: 0;
-    top: 90px;
+    left: 20px;
+    top: 100px;
     bottom: 0;
-    background-color: #ffdd6c; 
+    background-color: #ceffdb;
     box-shadow: 2px 0 5px rgba(0,0,0,0.1);
     padding: 20px;
     display: flex;
     flex-direction: column;
-    border-radius: 10px; 
+    border-radius: 10px;
+}
+
+.left-space {
+    width: 800px;
+    position: fixed;
+    right: 0;
+    top: 100px;
+    bottom: 0;
+    background-color: #ceffdb;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
 }
 
 .order-all-button {
@@ -35,9 +49,9 @@
 .scrollable-list {
     overflow-y: auto;
     flex-grow: 10;
-    max-height: 1000px; 
-    border-radius: 10px; 
-    scrollbar-width: thin; 
+    max-height: 1000px;
+    border-radius: 10px;
+    scrollbar-width: thin;
     scrollbar-color: #888 #f1f1f1;
 }
 
@@ -50,7 +64,7 @@
 }
 
 .scrollable-list::-webkit-scrollbar-thumb {
-    background: #ffdd6c; /* Цвет ползунка скроллбара */
+    background: #ceffdb; /* Цвет ползунка скроллбара */
     border-radius: 10px; /* Скругление углов ползунка */
 }
 
@@ -63,17 +77,115 @@
 }
 
 .delivery-form {
-    width: 600px;
-    padding: 20px;
-    border-radius: 10px;
-    background-color: #ffdd6c; 
+    width: 900px;
+    position: fixed;
+    left: 1000px;
+    top: 100px;
+    bottom: 0;
+    background-color: #ceffdb;
     box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    padding: 20px;
     display: flex;
     flex-direction: column;
+    border-radius: 10px;
+}
+
+.delivery-form .bee {
+    width: 100px;
+    height: 60px;
+    background: linear-gradient(45deg, #f6e58d 30%, #ffbe76 70%);
+    border-radius: 50px 50px 45px 45px;
+    position: absolute;
+    top: 60%;
+    left: 50%; /* Опускаем пчелку ниже */
+    transform: translate(-50%, -50%);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    z-index: 10;
+}
+
+.delivery-form .bee::before,
+.delivery-form .bee::after {
+    content: '_____';
+    position: absolute;
+    width: 40px;
+    height: 15px;
+    background: black;
+    transform: rotate(90deg);
+}
+
+.delivery-form .bee::before {
+    top: 18px;
+    border-radius: 10px 10px 0 0;
+}
+
+.delivery-form .bee::after {
+    top: 30px;
+    border-radius: 0 0 10px 10px;
+}
+
+.delivery-form .bee .wing {
+    content: '';
+    width: 100px;
+    height: 20px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    animation: wingFlap 0.5s infinite alternate;
+}
+
+.delivery-form .bee .eye {
+    content: '';
+    width: 15px;
+    height: 15px;
+    background-color: black;
+    border-radius: 50%;
+    position: absolute;
+    top: 25px;
+    left: 25px;
+}
+
+.delivery-form .bee .stinger {
+    content: '';
+    width: 20px;
+    height: 10px;
+    background-color: black;
+    position: absolute;
+    top: 30px;
+    left: 15px;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+@keyframes wingFlap {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(10deg); }
+}
+
+.delivery-form .bee .leg {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    width: 2px;
+    height: 10px;
+    background: black;
+}
+
+.delivery-form .bee .leg:nth-child(odd) {
+    left: 30%;
+}
+
+.delivery-form .bee .leg:nth-child(even) {
+    right: 30%;
+}
+
+.delivery-form .bee {
+    animation: flyBee 2s infinite linear;
+}
+
+@keyframes flyBee {
+    0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+    50% { transform: translate(-50%, -48%) rotate(5deg); }
 }
 
 .delivery-form h2 {
@@ -92,37 +204,37 @@
 .delivery-form input, .delivery-form select {
     margin-bottom: 15px;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #000000; /* Черная рамка */
+    background-color: #ffee8d; /* Черный фон */
+    color: #000000; /* Белый текст */
     border-radius: 5px;
 }
+
 .product-actions {
     width: 100px;
     height: 100px;
     align-items: center;
-    margin-right: 100px; 
-  }
-  .scrollable-list li {
+    margin-right: 100px;
+}
+
+.scrollable-list li {
     display: flex;
     align-items: center;
-    justify-content: space-between; 
-  }
-  .one-card-container {
-    flex-grow: 1;
-  }
-  .one-card-container {
-    flex-grow: 1;
-    padding: 10px; 
-    max-width: 80%; 
-  }
-  
+    justify-content: space-between;
+}
 
-  .card-element {
-    font-size: 0.9em; 
-    padding: 5px; 
-  }
-  
+.one-card-container {
+    flex-grow: 1;
+    padding: 10px;
+    max-width: 80%;
+}
 
-  .card-image {
-    width: 100px; 
-    height: auto; 
-  }
+.card-element {
+    font-size: 0.9em;
+    padding: 5px;
+}
+
+.card-image {
+    width: 100px;
+    height: auto;
+}
