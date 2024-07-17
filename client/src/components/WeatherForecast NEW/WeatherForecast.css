@@ -1,105 +1,135 @@
-.weather-forecast-container {
+/* .weather-forecast-container {
   flex-direction: row;
-  height: 100%; /* Занимаем всю высоту экрана */
+  height: 100%; 
 width: 100%
-  }
+  } */
+/* Общий стиль для контейнера погоды */
+.weather-container {
+  background-color: #F0FFF4; /* Цвет фона */
+  padding: 20px; /* Внутренний отступ */
+  border-radius: 10px; /* Радиус закругления углов */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Тень */
+  transition: transform 0.3s ease-in-out; /* Переход для масштабирования */
+}
 
+.weather-container:hover {
+  transform: scale(1.02); /* Масштабирование при наведении */
+}
+
+/* Контейнер для прогноза погоды */
+.weather-forecast-container {
+  flex-direction: row; /* Расположение элементов в ряд */
+  height: 100%; /* Занимаем всю высоту экрана */
+  width: 100%; /* Занимаем всю ширину экрана */
+}
+
+/* Левая секция (ввод города и подробный прогноз) */
+.left-section {
+  background-color: #C6F6D5; /* Цвет фона */
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); Тень */
+
+  border-radius: 10px; /* Радиус закругления углов */
+}
+
+/* Правая секция (список дней с прогнозом) */
+.right-section {
+  display: flex; /* Flexbox для расположения элементов */
+  flex-wrap: wrap; /* Перенос строк */
+  justify-content: space-around; /* Распределение пространства вокруг элементов */
+  align-items: center; /* Выравнивание по вертикали */
+  background-color: #F0FFF4; /* Цвет фона */
+  padding: 2px; /* Внутренний отступ */
+  gap: 2px; /* Расстояние между карточками */
+}
+
+/* Стиль для отдельного дня прогноза */
 .weather-day {
-   /* Удалены width и clip-path для сохранения одинакового размера и расположения */
-   text-align: center;
-   padding: 10px;
-   border: 1px solid #ccc;
-   border-radius: 10px;
-   transition: transform 0.2s;
-   cursor: pointer;
-   position: relative;
-   background-color: #c6f6d5; /* Цвет фона */
-   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-   /* text-align: center; */
+  text-align: center; /* Выравнивание текста по центру */
+  padding: 10px; /* Внутренний отступ */
+  border: 1px solid #ccc; /* Граница */
+  border-radius: 20px; /* Радиус закругления углов */
+  transition: transform 0.2s; /* Переход для масштабирования */
+  cursor: pointer; /* Курсор указателя при наведении */
+  position: relative; /* Относительное позиционирование */
+  background-color: #c6f6d5; /* Цвет фона */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Тень */
+  flex: 1 1 calc(33.333% - 20px); /* Адаптивная ширина карточек с учетом отступов */
+  max-width: 200px; /* Максимальная ширина карточки */
+  min-width: 200px; /* Минимальная ширина карточки */
+  display: flex; /* Flexbox для содержимого карточки */
+  flex-direction: column; /* Вертикальное расположение элементов */
+  justify-content: center; /* Центрирование содержимого по вертикали */
 }
 
 .weather-day:hover {
-  transform: scale(1.05);
+  transform: scale(1.05); /* Масштабирование при наведении */
 }
 
 .weather-day img {
-  max-width: 100%;
-  height: auto;
+  max-width: 50%; /* Максимальная ширина 100% */
+  height: auto; /* Автоматическая высота */
 }
 
+/* Стиль для ввода города и кнопки */
 .city-input {
-  display: flex;
-  flex-direction: column;
-  
-  text-align: center;
-  padding: 10px;
-  border: 1px solid #ccc;
-  transition: transform 0.2s;
-  cursor: pointer;
-  position: relative;
+  display: flex; /* Flexbox для расположения элементов */
+  flex-direction: column; /* Вертикальное расположение элементов */
+  text-align: center; /* Выравнивание текста по центру */
+  padding: 10px; /* Внутренний отступ */
+  border: 1px solid #ccc; /* Граница */
+  transition: transform 0.2s; /* Переход для масштабирования */
+  cursor: pointer; /* Курсор указателя при наведении */
+  position: relative; /* Относительное позиционирование */
   background-color: #c6f6d5; /* Цвет фона */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Тень */
 }
 
-/* .city-input input[type='text'] {
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #784040;
-  border-radius: 4px;
-  margin-bottom: 10px;
-  margin-bottom: 10%;
-} */
-
+/* Стиль для кнопки обновления */
 .city-input button {
-  padding: 10px;
-  font-size: 16px;
-  background-color: #f9e08d;
-  color: #57574e;
-  border: none;
-  border-radius: 4px;
-  border: 2px solid #ffffff;
-  cursor: pointer;
+  padding: 0.95rem 2.3rem; /* Внутренний отступ */
+  font-size: 0.7rem; /* Размер шрифта */
+  background-color: rgb(139, 189, 108); /* Цвет фона */
+  color: #57574e; /* Цвет текста */
+  border: none; /* Убираем границу */
+  border-radius: 4px; /* Радиус закругления углов */
+  cursor: pointer; /* Курсор указателя при наведении */
+  transition: background-color 0.3s; /* Плавное изменение цвета фона */
+  width: auto; /* Ширина кнопки "по содержимому" */
+  
 }
+
 .city-input button:hover {
-  border: 2px solid #d5bc69; /* Цвет рамки при наведении */
+  border: 2px solid #d5bc69; /* Изменение цвета границы при наведении */
 }
 
+/* Стиль для текстового поля ввода города */
 .city-input input[type='text'] {
-  padding: 10px;
-  font-size: 10px;
-  border: 2px solid #a6dcaa; /* Красная граница */
-  border-radius: 4px;
-  margin-bottom: 10px;
+  padding: 10px; /* Внутренний отступ */
+  font-size: 10px; /* Размер шрифта */
+  border: 2px solid #a6dcaa; /* Цвет и толщина границы */
+  border-radius: 4px; /* Радиус закругления углов */
+  margin-bottom: 10px; /* Нижний отступ */
 }
-
-
 
 .city-input input[type='text']:focus {
   border-color: #dbdf89; /* Цвет границы при фокусе */
-  outline: none; /* Убирает стандартную обводку при фокусе */
+  outline: none; /* Убираем стандартный outline */
 }
 
-
-
+/* Стиль для подробного прогноза */
 .detailed-forecast h2 {
-  font-size: 20px;
-  font-weight: bold; /* Делает шрифт жирнее */
-  color: #333333; /* Устанавливает цвет текста */
+  font-size: 20px; /* Размер шрифта */
+  font-weight: bold; /* Жирный шрифт */
+  color: #333333; /* Цвет текста */
 }
 
 .detailed-forecast p {
-    font-size: 16px;
+  font-size: 16px; /* Размер шрифта */
 }
 
 .detailed-forecast img {
-  max-width: 100%;
-  height: auto;
+  float: left; /* Обтекание изображения слева */
+  margin: 0 0 10px 10px; /* Отступы вокруг изображения */
+  width: 100px; /* Ширина изображения */
+  height: auto; /* Автоматическая высота */
 }
-
-.detailed-forecast img {
-  float: left;
-  margin: 0 0 10px 10px;
-  width: 100px; /* можно задать подходящий размер */
-  height: auto;
-}
-

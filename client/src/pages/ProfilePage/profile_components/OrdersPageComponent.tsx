@@ -524,7 +524,7 @@ const OrdersPageComponent: React.FC<OrdersPageComponentProps> = ({
       
 
       {/* статист. по месяцам */}
-      <Box mt="4"  bg="#9AE6B4">
+      {/* <Box mt="4"  bg="#9AE6B4">
         <Heading mb="4" fontSize="2.2rem" >
           Статистика по месяцам
         </Heading>
@@ -553,7 +553,7 @@ const OrdersPageComponent: React.FC<OrdersPageComponentProps> = ({
             ))}
           </Tbody>
         </Table>
-      </Box>
+      </Box> */}
       <Spacer/>
       <br />
       <Divider/>

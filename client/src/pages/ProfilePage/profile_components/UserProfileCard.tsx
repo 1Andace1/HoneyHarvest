@@ -17,14 +17,19 @@ const UserProfileCard: React.FC<UserProfileCardProps> = ({ user, onEdit }) => {
   return (
     <Box
       bg="rgba(198, 246, 213, 0.8)"
-      // bg="linear-gradient(to right, #C6F6D5, #C6F6D5)"
       color="#f8f9fb"
       w="100%"
       h="100%"
+      p="0" m="0"
+      w={{ base: '50%', md: '80%', lg: '60%' }}
+      maxW="800px"
+      mx="auto"
+      my={5}
       boxShadow="md"
       textAlign="center"
       className={styles.boxСontainer}
-      p={10} // Уменьшаем padding для компактности
+      p={5} // Уменьшаем padding для компактности
+      flexDirection="column" // ! Устанавливаем вертикальное расположение элементов
       display="flex" // Добавляем flex для центрирования элементов по центру
       justifyContent="center" // Центрируем по горизонтали
       alignItems="center" // Центрируем по вертикали
@@ -46,10 +51,16 @@ const UserProfileCard: React.FC<UserProfileCardProps> = ({ user, onEdit }) => {
             : 'http://localhost:3000/no-photo.jpg'
         } // ^
         alt="Profile Photo"
-        boxSize="65%"
+        // boxSize="65%"
+        // boxSize={{ base: '50%', md: '40%', lg: '30%' }}
         borderRadius="full"
         mx="auto"
         style={{
+          width: '5vw', // 30% от ширины окна браузера
+          height: '5vw', // пропорционально ширине
+          borderRadius: '50%',
+          display: 'block',
+          margin: '0 auto',
           boxShadow: '0 0 50px rgba(0, 0, 0, 0.5)',
           background:
             'linear-gradient(to right, hsl(60, 70%, 50%), hsl(100, 70%, 70%))',
