@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useAppDispatch } from '../../redux/hooks';
 import {
   Input,
@@ -21,6 +21,8 @@ import styles from './ModalForm.module.css';
 
 export default function ModalFormCreate(): JSX.Element {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const fileInputRef = useRef(null);
+
 
   // const defaultInputs = { picture: "./productsPhoto/pattern.jpeg" };
   const defaultInputs = {} as IInputsProductsString;
@@ -186,14 +188,23 @@ try {
                     placeholder="доступное количество продукта"
                   />
                 </NumberInput>
-                <Input
+                {/* <Input
               onChange={changeHandler}
               borderColor="#3f3e3e"
               type="file"
               name="picture"
               accept="image/*"
               color="rgb(74, 85, 104)"
-            />
+            /> */}
+
+
+
+
+
+
+
+
+
                 {/* <Input
                   onChange={changeHandler}
                   src={`./productsPhoto/${convertedInputs.picture}`}
@@ -220,9 +231,31 @@ try {
                   placeholder="месторасположение"
                 />
               </div>
+          {picture && (
+            <p style={{ marginBottom: '10px' }}>Выбран файл: {picture.name}</p>
+          )}
+
+          <input
+            id="picture"
+            ref={fileInputRef}
+            type="file"
+            name="picture"
+            accept="image/*"
+            onChange={changeHandler}
+            style={{ display: 'none' }}
+          />
+
             </form>
           </ModalBody>
           <ModalFooter>
+
+
+          <Button>
+              <label htmlFor="picture" style={{ display: 'block', marginBottom: '10px' }}>
+            Нажмите, чтобы загрузить фото
+          </label>
+          </Button>
+
             {/* <div className={styles.btns}> */}
             <Button type="submit" colorScheme="green" onClick={submitHandler}>
               Создать
