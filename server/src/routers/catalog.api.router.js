@@ -38,10 +38,6 @@ router
     upload.single('picture'),
     verifyAccessToken,
     async (req, res) => {
-
-      console.log('Зашли в ручку создания продукта, --req.body------->', req.body);
-      console.log('-----------------------------------req.file------->', req.file);
-
       const {
         title,
         price,
