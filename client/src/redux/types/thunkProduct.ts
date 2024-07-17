@@ -1,10 +1,10 @@
 import { AsyncThunk, Dispatch } from "@reduxjs/toolkit";
-import { IComment, IInputsComment, IInputsProducts, IProducts } from "../../types/stateTypes";
+import { IComment, IInputsComment, IInputsProduct, IInputsProductStringWithoutPicture, IProduct } from "../../types/stateTypes";
 import { AxiosResponse } from "axios";
 
 type AsyncThunkConfig = {
   /** return type for `thunkApi.getState` */
-  state: IProducts;
+  state: IProduct;
   /** type for `thunkApi.dispatch` */
   dispatch?: Dispatch;
   /** type of the `extra` argument for the thunk middleware, which will be passed in as `thunkApi.extra` */
@@ -21,12 +21,11 @@ type AsyncThunkConfig = {
   rejectedMeta?: unknown;
 };
 
-//   export type NewProduct = AsyncThunk<IProducts, IInputsProducts, AsyncThunkConfig>
-export type GetProducts = AsyncThunk<IProducts[], void, AsyncThunkConfig>;
+export type GetProducts = AsyncThunk<IProduct[], void, AsyncThunkConfig>;
 
 export type NewProduct = AsyncThunk<
   AxiosResponse<number, number>,
-  IInputsProducts,
+  IInputsProduct,
   AsyncThunkConfig
 >;
 
@@ -34,7 +33,7 @@ export type DelProduct = AsyncThunk<number | void, number, AsyncThunkConfig>;
 
 export type UpdateProduct = AsyncThunk<
   AxiosResponse<number, number>,
-  IInputsProducts,
+  IInputsProductStringWithoutPicture,
   AsyncThunkConfig
 >;
 

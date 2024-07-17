@@ -1,6 +1,4 @@
-import React from 'react';
 import {
-
   RouterProvider,
   createBrowserRouter,
 } from 'react-router-dom';
@@ -14,7 +12,6 @@ import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
 import OneProductPage from './pages/OneProductPage/OneProductPage';
 import ProfilePag_refactoring from './pages/ProfilePage/ProfilePage refactoring';
 import Page404 from "./components/Page404/Page404"; // добавила: импорт компонента 404 страницы
-import { useAppSelector } from "./redux/hooks";
 import Basket from "./pages/basket/basket";
 
 import CatalogPage from './pages/CatalogPage/CatalogPage';
@@ -26,7 +23,6 @@ import { useDispatch } from "react-redux";
 import axiosInstance, { setAccessToken } from "./axiosInstance";
 import { setUser } from './redux/slices/authSlice'
 function App() {
-  const { user } = useAppSelector((state) => state.authSlice);
   const dispatch = useDispatch();
 
 
@@ -62,7 +58,7 @@ function App() {
           element:
             // user?.id !== 0 ? <ProfilePage user={user} /> : <Navigate to="/" />,
             // user?.id !== 0 ? <ProfilePag_refactoring user={user} /> : <Navigate to="/" />,
-           <ProfilePag_refactoring user={user}/>,
+           <ProfilePag_refactoring />,
         },
 
         {

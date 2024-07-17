@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import './basket.css';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { getbasket, AddProduct, deleteProduct } from '../../redux/thunkbasketApp';
@@ -8,6 +8,7 @@ import { Button, Input, Select } from '@chakra-ui/react';
 import Modal from 'react-modal';
 
 interface Product {
+  product:productType;
   id: number;
   userId: number;
   productId: number;
@@ -18,25 +19,40 @@ interface Product {
   deliveryAddress: string;
   estimatedDate: string; 
 }
+interface productType{
+  availableQuantity:number;
+category:string;
+createdAt:string;
+description: string;
+discountRatio: number;
+id: number;
+location:string;
+picture: string;
+price: number;
+sort: string;
+starsRating:number ;
+title: string;
+updatedAt:string ;
+yearOfHarvest: number;
 
+}
 interface IUser {
   id: number;
 }
 
 const Basket: React.FC = () => {
   const { user }: { user: IUser } = useAppSelector((state) => state.authSlice);
-  const defaultInputs: Omit<Product, 'productId'> = {
-    id: "",
+  const defaultInputs: Omit<Product, 'productId'|'product'> = {
+    id: 0,
     userId: user.id,
     numberBasket: 1,
-    orderId: 0,
     status: "standard",
     commentUser: "",
     totalBasketPrice: 0,
     deliveryAddress: "",
     estimatedDate: "",
   }
-  const [inputs, setInputs] = useState<Omit<Product, 'productId'>>(defaultInputs);
+  const [inputs, setInputs] = useState<Omit<Product, 'productId'|'product'>>(defaultInputs);
   const [baskets, setBaskets] = useState<Product[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -62,7 +78,8 @@ const Basket: React.FC = () => {
       });
   };
 
-  const navigate = useNavigate();
+
+  // const navigate = useNavigate();
   const basketData = useAppSelector((state) => state.basketSlice.basketApp);
   useEffect(() => {
     if (basketData) {
@@ -75,11 +92,11 @@ const Basket: React.FC = () => {
       userId: Number(user.id),
       productId: 0,
       numberBasket: 0,
-      status: 0,
+      status: "",
       commentUser: "",
       totalBasketPrice: 0,
       deliveryAddress: "",
-      estimatedDate: "",
+      estimatedDate: 0,
     }));
   }, [dispatch, user.id]);
 
@@ -94,20 +111,22 @@ const Basket: React.FC = () => {
     }));
   }, [baskets]);
 
-  const handleOrderAll = () => {
-    navigate(`/checkout?basket=${encodeURIComponent(JSON.stringify(baskets))}&address=${encodeURIComponent(inputs.deliveryAddress)}&Details=${encodeURIComponent(inputs.commentUser)}&type=${encodeURIComponent(inputs.status)}&date=${encodeURIComponent(inputs.estimatedDate)}`);
-    setBaskets([]);
-  };
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // const handleOrderAll = () => {
+  //   navigate(`/checkout?basket=${encodeURIComponent(JSON.stringify(baskets))}&address=${encodeURIComponent(inputs.deliveryAddress)}&Details=${encodeURIComponent(inputs.commentUser)}&type=${encodeURIComponent(inputs.status)}&date=${encodeURIComponent(inputs.estimatedDate)}`);
+  //   setBaskets([]);
+  // };
 
-  const handleQuantityChange = (id: number, change: number) => {
-    setBaskets(currentBaskets => currentBaskets.map(basket => {
-      if (basket.id === id) {
-        const newNumberBasket = basket.numberBasket + change;
-        return { ...basket, numberBasket: newNumberBasket > 0 ? newNumberBasket : 1 };
-      }
-      return basket;
-    }));
-  };
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // const handleQuantityChange = (id: number, change: number) => {
+  //   setBaskets(currentBaskets => currentBaskets.map(basket => {
+  //     if (basket.id === id) {
+  //       const newNumberBasket = basket.numberBasket + change;
+  //       return { ...basket, numberBasket: newNumberBasket > 0 ? newNumberBasket : 1 };
+  //     }
+  //     return basket;
+  //   }));
+  // };
 
   const handleRemoveProduct = (id: number) => {
     dispatch(deleteProduct(id))
@@ -120,30 +139,32 @@ const Basket: React.FC = () => {
       });
   };
 
-  const handleBuyOne = (product: Product) => {
-    navigate(`/checkout?product=${encodeURIComponent(JSON.stringify(product))}&address=${encodeURIComponent(inputs.deliveryAddress)}&Details=${encodeURIComponent(inputs.commentUser)}&type=${encodeURIComponent(inputs.status)}&date=${encodeURIComponent(inputs.estimatedDate)}`);
-  };
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // const handleBuyOne = (product: Product) => {
+  //   navigate(`/checkout?product=${encodeURIComponent(JSON.stringify(product))}&address=${encodeURIComponent(inputs.deliveryAddress)}&Details=${encodeURIComponent(inputs.commentUser)}&type=${encodeURIComponent(inputs.status)}&date=${encodeURIComponent(inputs.estimatedDate)}`);
+  // };
 
   return (
     <div className="basket-container">
       <div className="basket">
         <div className="total-price">
-          Общая сумма: Р{inputs.totalBasketPrice}
+          Общая сумма: ₽{inputs.totalBasketPrice}
         </div>
         <ul className="scrollable-list">
           {baskets.map(basket => (
             <li key={basket.id}>
-<div className="one-card-container">
-  <OneCard el={basket.product} />
-</div>
-              <div className="product-actions">
-                <Button onClick={() => handleRemoveProduct(basket.id)}>убрать</Button>
+              <div className="one-card-container animate__animated animate__fadeInDown">
+                <OneCard el={basket.product} />
+              </div>
+              <div className="product-actions animate__animated animate__fadeInDown">
+                <Button colorScheme="teal" onClick={() => handleRemoveProduct(basket.id)}>убрать</Button>
               </div>
             </li>
           ))}
         </ul>
       </div>
       <div className="delivery-form">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
         <h1>оформление заказа</h1>
         <form onSubmit={submitHandler}>
           <label>Адрес доставки:</label>
@@ -157,18 +178,27 @@ const Basket: React.FC = () => {
           </Select>
           <label>Дата доставки:</label>
           <Input type="date" name="estimatedDate" value={inputs.estimatedDate} onChange={changeHandler} />
-          <Button type="submit" className="submit-button">оформить</Button>
-          <div className="bee">
-    <div className="wing"></div>
-    <div className="eye"></div>
-    <div className="stinger"></div>
-    <div className="leg"></div>
-    <div className="leg"></div>
-    <div className="leg"></div>
-    <div className="leg"></div>
-  </div>
+          <Button type="submit" className="submit-button" colorScheme="teal">оформить</Button>
+          <div className="bee-background">
+            <div className="sun"></div>
+            <div className="cloud"></div>
+            <div className="cloud" style={{ left: '50%', top: '30%' }}></div>
+            <div className="grass"></div>
+            <div className="flower"></div>
+            <div className="flower" style={{ left: '20%' }}></div>
+            <div className="flower" style={{ left: '30%' }}></div>
+            <div className="hive"></div>
+            <div className="bee">
+              <div className="wing"></div>
+              <div className="eye"></div>
+              <div className="stinger"></div>
+              <div className="leg"></div>
+              <div className="leg"></div>
+              <div className="leg"></div>
+              <div className="leg"></div>
+            </div>
+          </div>
         </form>
-        
       </div>
       <Modal
         isOpen={modalIsOpen}

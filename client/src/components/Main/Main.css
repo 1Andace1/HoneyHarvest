@@ -86,7 +86,7 @@ background-color: #d9d6c8;
   background-size: cover; /* Это свойство масштабирует изображение, чтобы оно заполнило элемент, сохраняя пропорции */
   background-position: center; /* Это свойство центрирует изображение */
   background-repeat: no-repeat; /* Это свойство предотвращает повторение изображения */
-  height: auto;
+  height: 400px;
   border-radius: 15px;
 }
 
@@ -245,7 +245,7 @@ background-color: #d9d6c8;
     border-radius: 15px;
    height: 310px;
     width: 300px;
-    background-image: url(https://bogatyr.club/uploads/posts/2023-06/1687442744_bogatyr-club-p-pchela-na-belom-tsvetke-foni-vkontakte-1.jpg);
+    background-image: url(https://i.ytimg.com/vi/Ux-rMFpeXUw/maxresdefault.jpg);
     background-size: cover; 
     background-position: center; 
     background-repeat: no-repeat;
