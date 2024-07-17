@@ -15,11 +15,11 @@ import {
 import { UpdProduct } from "../../redux/thunkActionsCatalog";
 // import { AuthState, ProductState } from "../../redux/types/states";
 // import { ProductState } from "../../redux/types/states";
-import { IProducts } from "../../types/stateTypes";
+import { IInputsProductStringWithoutPicture, IProduct } from "../../types/stateTypes";
 
 import styles from "./ModalForm.module.css";
 
-export default function ModalFormUpdate({ el }: { el: IProducts}): JSX.Element {
+export default function ModalFormUpdate({ el }: { el: IProduct}): JSX.Element {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   // const { products } = useAppSelector(
@@ -33,7 +33,7 @@ export default function ModalFormUpdate({ el }: { el: IProducts}): JSX.Element {
   const discountNumberToString = String(el.discountRatio);
   const yearOfHarvestNumberToString = String(el.yearOfHarvest);
   const availableQuantityNumberToString = String(el.availableQuantity);
-  const initialInputs = {
+  const initialInputs: IInputsProductStringWithoutPicture = {
     id: el.id,
     title: el.title,
     priceString: priceNumberToString,
@@ -60,7 +60,7 @@ export default function ModalFormUpdate({ el }: { el: IProducts}): JSX.Element {
   // }, [products]);
 
 
-  const changeHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputs((prev: object) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
@@ -105,7 +105,6 @@ export default function ModalFormUpdate({ el }: { el: IProducts}): JSX.Element {
   };
 
 
-
   return (
     <>
       <Button
@@ -117,14 +116,12 @@ export default function ModalFormUpdate({ el }: { el: IProducts}): JSX.Element {
       >
         Редактировать
       </Button>
-
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Редактирование записи в каталоге</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <form className={styles.wrapper}>
               {/* <h3 className={styles.head}>Заполни поля:</h3> */}
               <div className={styles.inputs}>
                 <Input
@@ -201,16 +198,17 @@ export default function ModalFormUpdate({ el }: { el: IProducts}): JSX.Element {
               <div className={styles.btns}>
 
               </div>
-            </form>
           </ModalBody>
           <ModalFooter>
+          <form onClick={submitHandler} >
+
           <Button
                   type="submit"
                   colorScheme="green"
-                  onClick={submitHandler}
                 >
                   Изменить
                 </Button>
+                </form>
           </ModalFooter>
         </ModalContent>
       </Modal>

@@ -1,8 +1,14 @@
-.wrapper {
+.inputs {
+    /* margin-top: 30px; */
+    /* width: 400px; */
+    background-color: #f0fff4;
+  }
+
+/* .wrapper {
     margin-top: 30px;
     width: 400px;
     background-color: #f0fff4;
-  }
+  } */
   
   /* .container {
     background-color: #313133;

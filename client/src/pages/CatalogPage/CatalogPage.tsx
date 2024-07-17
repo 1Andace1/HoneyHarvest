@@ -1,10 +1,10 @@
 import { memo, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import OneCard from "../../components/OneCard/OneCard";
-import {  Heading,  Wrap, Button } from "@chakra-ui/react";
+import {  Heading,  Wrap } from "@chakra-ui/react";
 import { getProducts } from "../../redux/thunkActionsCatalog";
 import { AuthState, ProductState } from "../../redux/types/states";
-import { IProducts } from "../../types/stateTypes";
+import { IProduct } from "../../types/stateTypes";
 import FilterComponent from "./Filter";
 import ModalFormCreate from "../../components/ModalForm/ModalFormCreate";
 // import styles from "./Catalog.css";
@@ -20,7 +20,7 @@ export default memo(function CatalogPage(): JSX.Element {
   const { user } = useAppSelector(
     (state: { authSlice: AuthState }) => state.authSlice
   );
-  const [filteredProducts, setFilteredProducts] = useState<IProducts[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<IProduct[]>([]);
   const[openFilter, setOpenFilter] = useState(false);
 
   const handleOpenFilter = () => {
@@ -73,7 +73,7 @@ export default memo(function CatalogPage(): JSX.Element {
     ) : <></>}
       <Wrap spacing="30px">
         {filteredProducts.length ? (
-          filteredProducts.map((el: IProducts) => (
+          filteredProducts.map((el: IProduct) => (
             <OneCard el={el} key={el.id} />
           ))
         ) : (

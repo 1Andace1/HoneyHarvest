@@ -155,7 +155,7 @@ export default function OneCard({ el }: { el: IProducts }): JSX.Element {
                 <Button
                   onClick={() => oneProductPage()}
                   variant="outline"
-                  colorScheme="teal"
+                  colorScheme="green"
                 >
                   Подроб
                 </Button>
@@ -165,14 +165,14 @@ export default function OneCard({ el }: { el: IProducts }): JSX.Element {
                 <Button
                   onClick={() => basketHandler(el?.id)}
                   variant="solid"
-                  colorScheme="teal"
+                  colorScheme="green"
                 >
                   Добавить в корзину
                 </Button>
                 <Button
                   onClick={() => oneProductPage()}
                   variant="outline"
-                  colorScheme="teal"
+                  colorScheme="green"
                 >
                   Подробнее
                 </Button>
