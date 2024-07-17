@@ -74,7 +74,7 @@ export interface IInputsProductsString {
   description: string,
   yearOfHarvestString: string,
   availableQuantityString: string,
-  picture: string,
+  picture: string | File | null,
   location: string,
 }
 
