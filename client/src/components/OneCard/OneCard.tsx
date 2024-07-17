@@ -20,7 +20,7 @@ import { AuthState } from "../../redux/types/states";
 import ModalFormUpdate from "../ModalForm/ModalFormUpdate";
 import { useNavigate } from "react-router-dom";
 import { basketApp } from "../../redux/thunkbasketApp";
-
+import './OneCard.module.css'
 
 
 export default function OneCard({ el }: { el: IProducts }): JSX.Element {
@@ -83,13 +83,14 @@ export default function OneCard({ el }: { el: IProducts }): JSX.Element {
 
   return (
     <div>
-      <WrapItem>
+      <WrapItem className="kartochka">
         <Card maxW="sm" variant="filled"
               _hover={{
                 // Эффекты при наведении
                 transform: 'scale(1.01)', // Увеличение масштаба
                 boxShadow: 'lg', // Увеличиваем тень при наведении
               }}
+              height='850px'
         >
           <CardBody>
             <Image 
