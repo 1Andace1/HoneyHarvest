@@ -1,6 +1,7 @@
 import  { useState } from 'react';
 import './Main.css';
 import video from './vecteezy_single-bee-on-ground-grooming-wings-and-legs-before_23996078.mp4'
+import video1 from './vecteezy_man-s-hand-holds-a-honey-stick-that-is-dripping-onto-the_35173878.mp4'
 import png1 from './img/1666491194_51-mykaleidoscope-ru-p-paseka-v-derevne-pinterest-55.jpg'
 import png2 from './img/40794069dad5ca5d04d7a4a745f6cdd3.jpg'
 import png3 from './img/775161.jpg'
@@ -44,10 +45,11 @@ function Main(): JSX.Element {
       <div className='rewiew-video'>
       <p className='video'> <iframe  width="540" height="315" src="https://www.youtube.com/embed/U-6fhnTK5H0?si=72l1DQ52y2coX6Ph" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe></p>
       </div>
+      <video className='video-background' src={video1} autoPlay muted loop></video>
       <div className='rewiew-text'>
         
     
-
+      
     <p><h3 className='log1'>Разнообразие сортов меда:</h3> <p className='lilText'> От классического цветочного и липового до экзотического гречишного и лесного. У нас вы найдете мед, подходящий для любого вкуса и предпочтения.</p></p>
 
     <p><h3 className='log1'>Эко-продукция:</h3> <p className='lilText'>Мы гордимся тем, что предлагаем только натуральные и экологически чистые продукты. Наш мед не содержит добавок, красителей или консервантов.</p></p>
