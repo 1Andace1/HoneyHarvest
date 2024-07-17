@@ -244,17 +244,39 @@ try {
             onChange={changeHandler}
             style={{ display: 'none' }}
           />
-
             </form>
-          </ModalBody>
-          <ModalFooter>
 
+{picture ? (
+            <Button colorScheme='green' variant='outline'>
+            <label htmlFor="picture" style={{ display: 'block', marginBottom: '10px' }}>
+          Нажмите, чтобы изменить фото
+        </label>
+        </Button>          ) : (
 
-          <Button>
+            <Button colorScheme='green' variant='outline'>
               <label htmlFor="picture" style={{ display: 'block', marginBottom: '10px' }}>
             Нажмите, чтобы загрузить фото
           </label>
           </Button>
+
+          )}
+
+
+
+
+
+
+
+
+
+
+
+
+          </ModalBody>
+          <ModalFooter>
+
+
+
 
             {/* <div className={styles.btns}> */}
             <Button type="submit" colorScheme="green" onClick={submitHandler}>
