@@ -77,7 +77,6 @@ export default function ModalFormCreate(): JSX.Element {
         );
       } else {
         const convertedInputs = {} as IInputsProduct;
-
         convertedInputs.picture = picture;
         convertedInputs.title = inputs?.title;
         convertedInputs.price = Number(inputs?.priceString);
@@ -95,10 +94,6 @@ export default function ModalFormCreate(): JSX.Element {
         onClose();
         setInputs(() => defaultInputs);
         setPicture(() => null)
-
-
-
-
       }
     } catch (error) {
       console.log(error);

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   Input,
   Button,
@@ -18,15 +18,14 @@ import { UpdProduct } from "../../redux/thunkActionsCatalog";
 import { IInputsProductStringWithoutPicture, IProduct } from "../../types/stateTypes";
 
 import styles from "./ModalForm.module.css";
+import { ProductState } from "../../redux/types/states";
 
 export default function ModalFormUpdate({ el }: { el: IProduct}): JSX.Element {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+
   // const { products } = useAppSelector(
   //   (state: { productSlice: ProductState }) => state.productSlice
-  // );
-  // const { user } = useAppSelector(
-  //   (state: { authSlice: AuthState }) => state.authSlice
   // );
 
   const priceNumberToString = String(el.price);
@@ -100,7 +99,10 @@ export default function ModalFormUpdate({ el }: { el: IProduct}): JSX.Element {
     } else {
       await dispatch(UpdProduct(inputs));
       onClose();
-      setInputs(() => initialInputs);
+      await setInputs(() => initialInputs);
+
+
+
     }
   };
 
