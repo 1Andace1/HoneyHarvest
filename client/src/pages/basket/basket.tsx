@@ -89,7 +89,7 @@ const Basket: React.FC = () => {
       totalBasketPrice: baskets.reduce((total, product) => {
         const productPrice = product?.product?.price || 1;
         const productQuantity = product.numberBasket || 1;
-        return total + productQuantity * productPrice;
+        return total + productQuantity * productPrice / 10;
       }, 0)
     }));
   }, [baskets]);
@@ -158,7 +158,17 @@ const Basket: React.FC = () => {
           <label>Дата доставки:</label>
           <Input type="date" name="estimatedDate" value={inputs.estimatedDate} onChange={changeHandler} />
           <Button type="submit" className="submit-button">оформить</Button>
+          <div className="bee">
+    <div className="wing"></div>
+    <div className="eye"></div>
+    <div className="stinger"></div>
+    <div className="leg"></div>
+    <div className="leg"></div>
+    <div className="leg"></div>
+    <div className="leg"></div>
+  </div>
         </form>
+        
       </div>
       <Modal
         isOpen={modalIsOpen}
