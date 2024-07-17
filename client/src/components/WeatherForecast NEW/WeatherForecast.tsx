@@ -4,7 +4,7 @@ import Chart from 'chart.js/auto';
 import { WeatherData } from './types/weatherData';
 import WeatherDay from './WeatherDay';
 import './WeatherForecast.css';
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Button, Flex } from '@chakra-ui/react';
 import styles from '../../pages/ProfilePage/ProfilePage.module.css';
 
 const WeatherForecast: React.FC = (): JSX.Element => {
@@ -208,81 +208,127 @@ const WeatherForecast: React.FC = (): JSX.Element => {
   );
 
   return (
-    <Box bg="#F0FFF4" w="100%"  >
-      <div className="weather-forecast-container">
-        <Flex
-          w="100%"
-          alignItems="flex-start"
-          justifyContent="space-around"
-          bg="#F0FFF4"
+    <Box className="weather-container"> {/* ИЗМЕНЕН КЛАСС ДЛЯ ЕДИНОГО СТИЛЯ */}
+    <div className="weather-forecast-container">
+      <Flex
+        w="100%"
+        alignItems="flex-start"
+        justifyContent="space-around"
+      >
+        <Box
+          w="20%"
+          className="left-section" // ДОБАВЛЕН КЛАСС
         >
-          <Box
-            w="20%" // Пример ширины одной карточки (можете настроить по вашему желанию)
-            bg="#C6F6D5"
-            style={{
-              boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)',
-              width: '25%', // Ширина левой части (форма ввода города и выбранный день)
-            }}
-          >
-            <div className="city-input" style={{ fontSize: '0.7rem', marginBottom: '5px' }}>
-              <input
-                type="text"
-                placeholder="Введите название города"
-                value={city}
-                onChange={handleCityChange}
-                style={{ fontSize: '0.7rem', marginBottom: '10px' }}
-              />{selectedDay && (
-              <div className="detailed-forecast">
-                <h2 className="bold-text"   style={{ fontSize: '0.9rem', marginBottom: '5px' }}>
-                  Прогноз погоды на {selectedDay.date}
-                </h2>
-                <img src={selectedDay.weatherIcon} alt="weather icon" style={{ width: '50px', height: '50px' }}/>
-                <p className="bold-text" style={{ fontSize: '0.7rem', marginBottom: '5px' }}>{selectedDay.description}</p>
-                <p style={{ fontSize: '0.7rem', marginBottom: '5px' }}>Минимальная: {selectedDay.minTemp}°C</p>
-                <p style={{ fontSize: '0.7rem', marginBottom: '5px' }}>Максимальная : {selectedDay.maxTemp}°C</p>
-              </div>
-            )}
-              <button  style={{ fontSize: '0.7rem', marginBottom: '10px' }} onClick={handleCitySubmit}> Обновить</button>
-              {/* {weatherData.length > 0 &&
-              visibleWeatherData.map((day, index) => (
-                <WeatherDay key={day.date} day={day} onClick={handleDayClick} />
-              ))} */}
+          <div className="city-input">
+            {selectedDay && (
+            <div className="detailed-forecast">
+              <h2>Прогноз погоды на {selectedDay.date}</h2>
+              <img src={selectedDay.weatherIcon} alt="weather icon" />
+              <p>{selectedDay.description}</p>
+              <p>Минимальная: {selectedDay.minTemp}°C</p>
+              <p>Максимальная : {selectedDay.maxTemp}°C</p>
             </div>
-          </Box>
-          <Box
-            p={4}
-            borderWidth={1}
-            borderRadius="md"
-            bg="#F0FFF4"
-            w="75%" // Ширина правой части (карточки погоды)
-            className={styles.boxСontainer}
-            flexDirection="row"
-            display="flex"
-            flexWrap="wrap"
-            justifyContent="space-around"
-            style={{ fontSize: '0.7rem', marginBottom: '5px' }}
-          >
-            {/* Содержимое второй карточки */}
+          )}
 
-            {weatherData.length > 0 &&
-              visibleWeatherData.map((day, index) => (
-                <WeatherDay key={day.date} day={day} onClick={handleDayClick} />
-              ))}
-{/* 
-            <Box w="100%"  >
-              {Array.from({ length: daysToShow }, (_, index) => (
-                <WeatherDay
-                  key={index}
-                  day={visibleWeatherData[index]}
-                  onClick={handleDayClick}
-                />
-              ))}
-            </Box>  */}
-          </Box>
-        </Flex>
-      </div>
-    </Box>
-  );
+      <input type="text" placeholder="Введите город" />
+      <Button className="city-input"
+      >
+        Обновить
+      </Button>
+
+          </div>
+         
+        </Box>
+        <Box
+          w="75%"
+          className="right-section" // ДОБАВЛЕН КЛАСС
+        >
+          {weatherData.length > 0 &&
+            visibleWeatherData.map((day, index) => (
+              <WeatherDay key={day.date} day={day} onClick={handleDayClick} />
+            ))}
+        </Box>
+      </Flex>
+    </div>
+  </Box>
+);
 };
+
+//     <Box bg="#F0FFF4" w="100%"  >
+//       <div className="weather-forecast-container">
+//         <Flex
+//           w="100%"
+//           alignItems="flex-start"
+//           justifyContent="space-around"
+//           bg="#F0FFF4"
+//         >
+//           <Box
+//             w="20%" // Пример ширины одной карточки (можете настроить по вашему желанию)
+//             bg="#C6F6D5"
+//             style={{
+//               boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)',
+//               width: '25%', // Ширина левой части (форма ввода города и выбранный день)
+//             }}
+//           >
+//             <div className="city-input" style={{ fontSize: '0.7rem', marginBottom: '5px' }}>
+//               <input
+//                 type="text"
+//                 placeholder="Введите название города"
+//                 value={city}
+//                 onChange={handleCityChange}
+//                 style={{ fontSize: '0.7rem', marginBottom: '10px' }}
+//               />{selectedDay && (
+//               <div className="detailed-forecast">
+//                 <h2 className="bold-text"   style={{ fontSize: '0.9rem', marginBottom: '5px' }}>
+//                   Прогноз погоды на {selectedDay.date}
+//                 </h2>
+//                 <img src={selectedDay.weatherIcon} alt="weather icon" style={{ width: '50px', height: '50px' }}/>
+//                 <p className="bold-text" style={{ fontSize: '0.7rem', marginBottom: '5px' }}>{selectedDay.description}</p>
+//                 <p style={{ fontSize: '0.7rem', marginBottom: '5px' }}>Минимальная: {selectedDay.minTemp}°C</p>
+//                 <p style={{ fontSize: '0.7rem', marginBottom: '5px' }}>Максимальная : {selectedDay.maxTemp}°C</p>
+//               </div>
+//             )}
+//               <button  style={{ fontSize: '0.7rem', marginBottom: '10px' }} onClick={handleCitySubmit}> Обновить</button>
+//               {/* {weatherData.length > 0 &&
+//               visibleWeatherData.map((day, index) => (
+//                 <WeatherDay key={day.date} day={day} onClick={handleDayClick} />
+//               ))} */}
+//             </div>
+//           </Box>
+//           <Box
+//             p={4}
+//             borderWidth={1}
+//             borderRadius="md"
+//             bg="#F0FFF4"
+//             w="75%" // Ширина правой части (карточки погоды)
+//             className={styles.boxСontainer}
+//             flexDirection="row"
+//             display="flex"
+//             flexWrap="wrap"
+//             justifyContent="space-around"
+//             style={{ fontSize: '0.7rem', marginBottom: '5px' }}
+//           >
+//             {/* Содержимое второй карточки */}
+
+//             {weatherData.length > 0 &&
+//               visibleWeatherData.map((day, index) => (
+//                 <WeatherDay key={day.date} day={day} onClick={handleDayClick} />
+//               ))}
+// {/* 
+//             <Box w="100%"  >
+//               {Array.from({ length: daysToShow }, (_, index) => (
+//                 <WeatherDay
+//                   key={index}
+//                   day={visibleWeatherData[index]}
+//                   onClick={handleDayClick}
+//                 />
+//               ))}
+//             </Box>  */}
+//           </Box>
+//         </Flex>
+//       </div>
+//     </Box>
+//   );
+// };
 
 export default WeatherForecast;
