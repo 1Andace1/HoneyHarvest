@@ -1,92 +1,22 @@
 .weather-forecast-container {
-  /* display: flex; */
   flex-direction: row;
-  /* align-items: flex-start; */
-  /* justify-content: center; */
-  padding: 20px;
-}
-
-.weather-day-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 50%;
-  flex-direction: row;
-  flex-wrap: wrap; /* Разрешаем перенос элементов на новую строку */
-  /* justify-content: center; Выравниваем элементы по центру по горизонтали */
-}
-.left-section {
-  flex: 1;
-  max-width: 400px;
-  margin-right: 20px;
-}
-
-.city-input {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10%;
-}
-
-.city-input input[type="text"] {
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #784040;
-  border-radius: 4px;
-  margin-bottom: 10px;
-  margin-bottom: 10%;
-}
-
-.city-input button {
-  padding: 10px;
-  font-size: 16px;
-  background-color: #d7b548;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.detailed-forecast {
-  text-align: center;
-}
-
-.detailed-forecast h2 {
-  font-size: 20px;
-  margin-bottom: 10px;
-}
-
-.detailed-forecast p {
-  font-size: 16px;
-  margin-bottom: 5px;
-}
-
-.detailed-forecast img {
-  max-width: 100%;
-  height: auto;
-}
-
-.right-section {
-  flex: 2;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-
+  height: 100%; /* Занимаем всю высоту экрана */
+width: 100%
+  }
 
 .weather-day {
-  width: 28%;
-  text-align: center;
-  padding: 10px;
-  margin: 10px 10px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  transition: transform 0.2s;
-      cursor: pointer;
-  position: relative;
-  
+   /* Удалены width и clip-path для сохранения одинакового размера и расположения */
+   text-align: center;
+   padding: 10px;
+   border: 1px solid #ccc;
+   border-radius: 10px;
+   transition: transform 0.2s;
+   cursor: pointer;
+   position: relative;
+   background-color: #c6f6d5; /* Цвет фона */
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+   /* text-align: center; */
 }
-
 
 .weather-day:hover {
   transform: scale(1.05);
@@ -96,9 +26,74 @@
   max-width: 100%;
   height: auto;
 }
-.detailed-forecast {
-  position: relative;
+
+.city-input {
+  display: flex;
+  flex-direction: column;
+  
+  text-align: center;
   padding: 10px;
+  border: 1px solid #ccc;
+  transition: transform 0.2s;
+  cursor: pointer;
+  position: relative;
+  background-color: #c6f6d5; /* Цвет фона */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* .city-input input[type='text'] {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #784040;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  margin-bottom: 10%;
+} */
+
+.city-input button {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #f9e08d;
+  color: #57574e;
+  border: none;
+  border-radius: 4px;
+  border: 2px solid #ffffff;
+  cursor: pointer;
+}
+.city-input button:hover {
+  border: 2px solid #d5bc69; /* Цвет рамки при наведении */
+}
+
+.city-input input[type='text'] {
+  padding: 10px;
+  font-size: 10px;
+  border: 2px solid #a6dcaa; /* Красная граница */
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+
+
+.city-input input[type='text']:focus {
+  border-color: #dbdf89; /* Цвет границы при фокусе */
+  outline: none; /* Убирает стандартную обводку при фокусе */
+}
+
+
+
+.detailed-forecast h2 {
+  font-size: 20px;
+  font-weight: bold; /* Делает шрифт жирнее */
+  color: #333333; /* Устанавливает цвет текста */
+}
+
+.detailed-forecast p {
+    font-size: 16px;
+}
+
+.detailed-forecast img {
+  max-width: 100%;
+  height: auto;
 }
 
 .detailed-forecast img {
@@ -107,10 +102,4 @@
   width: 100px; /* можно задать подходящий размер */
   height: auto;
 }
-
-.bold-text {
-  font-weight: bold;
-}
-
-
 

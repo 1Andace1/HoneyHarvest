@@ -5,8 +5,8 @@ import {
   SliceCaseReducers,
   SliceSelectors,
 } from "@reduxjs/toolkit";
-import { AuthState, ProductState } from "./states";
-import { IInputsProducts, IProducts, IUser } from "../../types/stateTypes";
+import { AuthState, CommentState, ProductState } from "./states";
+import { IComment, IInputsComment, IInputsProducts, IProducts, IUser } from "../../types/stateTypes";
 
 export type UserAction = PayloadAction<
   IUser,
@@ -77,4 +77,43 @@ export type ProductSlice = Slice<
   string,
   string,
   SliceSelectors<ProductState>
+>;
+
+
+
+
+
+
+
+
+export type CommentAction = PayloadAction<
+IComment[],
+  string,
+  {
+    arg: void | IInputsProducts;
+    requestId: string;
+    requestStatus: "fulfilled";
+  },
+  never
+>;
+
+export type RejectedActionComment = PayloadAction<
+  unknown,
+  string,
+  {
+    arg: void | IInputsComment | number;
+    requestId: string;
+    requestStatus: "rejected";
+    aborted: boolean;
+    condition: boolean;
+  },
+  SerializedError
+>;
+
+export type CommentSlice = Slice<
+  CommentState,
+  SliceCaseReducers<CommentState>,
+  string,
+  string,
+  SliceSelectors<CommentState>
 >;

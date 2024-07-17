@@ -26,9 +26,32 @@ export const delProduct: DelProduct = createAsyncThunk(
 );
 
 export const AddProduct: NewProduct = createAsyncThunk("catalog/new", async (inputs: IInputsProducts) => {
+
+
+  // добавлено: использование FormData для отправки данных, включая файлы
+  const formData = new FormData();
+
+  console.log('в санку поступили inputs--------------->', inputs);
+
+  Object.keys(inputs).forEach((key) => {
+    formData.append(key, inputs[key]);
+  });
+
+  // ^ Вывод содержимого formData
+  console.log('🟪🟪🟪 FROM THUNK Contents of formData:');
+  for (let entry of formData.entries()) {
+    console.log(entry[0], entry[1]);
+  }
+
+
   const response: AxiosResponse<number, number> = await axiosInstance.post(
     `${VITE_BASE_URL}${VITE_API}/catalog/new`,
-    { inputs }
+     formData ,
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
   );
   return response
 });

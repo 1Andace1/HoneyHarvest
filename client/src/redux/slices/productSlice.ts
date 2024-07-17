@@ -20,7 +20,6 @@ import { IProducts, IProductsSlice } from "../../types/stateTypes";
 
 const initialState: ProductState = { products: [], loading: true, error: {} };
 
-
 const productSlice: ProductSlice = createSlice({
   name: "productSlice",
   initialState,
@@ -76,11 +75,12 @@ const productSlice: ProductSlice = createSlice({
     });
     builder.addCase(
       AddProduct.fulfilled,
-      (state: Draft<ProductState>, action: PayloadAction<IProductsSlice>): void => {
-console.log('В слайс приходит action.payload.data', action.payload.data);
-console.log('В слайс приходит action.payload', action.payload);
-console.log('В слайс приходит action', action);
-const { data } = action.payload
+      (
+        state: Draft<ProductState>,
+        action: PayloadAction<IProductsSlice>
+      ): void => {
+        console.log("В слайс приходит action.payload.data:", action.payload.data);
+        const { data } = action.payload;
         state.products.push(data);
         state.loading = false;
       }
@@ -100,13 +100,18 @@ const { data } = action.payload
     });
     builder.addCase(
       UpdProduct.fulfilled,
-      (state: Draft<ProductState>, action: PayloadAction<IProductsSlice>): void => {
-        const modifiedСard: IProducts = action.payload.data
+      (
+        state: Draft<ProductState>,
+        action: PayloadAction<IProductsSlice>
+      ): void => {
+        const modifiedСard: IProducts = action.payload.data;
         state.products = state.products.filter(
           (el: Draft<IProducts>): boolean => el.id !== modifiedСard.id
         );
-        state.products.push(modifiedСard)
-        state.products.sort((a: Draft<IProducts>, b: Draft<IProducts>) => a.id - b.id)
+        state.products.push(modifiedСard);
+        state.products.sort(
+          (a: Draft<IProducts>, b: Draft<IProducts>) => a.id - b.id
+        );
         state.loading = false;
       }
     );
@@ -118,9 +123,6 @@ const { data } = action.payload
         state.loading = false;
       }
     );
-
-
-    
   },
 });
 
