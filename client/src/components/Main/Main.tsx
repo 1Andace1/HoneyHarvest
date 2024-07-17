@@ -56,7 +56,7 @@ function Main(): JSX.Element {
   </div>
       </div>
       <section className="about-us">
-        <h2 className='onas'>Наши пасики </h2>
+        <h2 className='onas'>Наши пасеки </h2>
         {/* <a href="#apiary-selection" className="arrow-down"></a> */}
       </section>
 
