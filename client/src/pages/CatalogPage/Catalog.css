@@ -11,7 +11,7 @@
     box-shadow: 0 4px 8px rgba(1, 0, 1, 0.1);
     margin-top: 100px;
     z-index: 1000;
-    /* margin-right: 1440px; */
+
     
     color: rgb(255, 255, 255);
     border-color: black;
@@ -25,7 +25,7 @@
   .btnFilter {
     display: flex;
     align-content: center;
-    align-items: center; /* Выравнивание элементов по вертикали */
+    align-items: center;
     flex-direction: row;
     position: fixed;
     z-index: 1000;

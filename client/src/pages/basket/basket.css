@@ -238,3 +238,37 @@
     width: 100px;
     height: auto;
 }
+.sun {
+    position: absolute;
+    top: 45%;
+    left: 80%;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, #FFD700, #FFA500); /* Солнце */
+    border-radius: 50%;
+    z-index: 1;
+}
+.hive {
+    position: absolute;
+    top: 70%;
+    left: 10%;
+    width: 80px;
+    height: 100px;
+    background: #DAA520; /* Цвет улья */
+    border-radius: 50% 50% 0 0;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    z-index: 2;
+}
+
+.hive::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
+    background: #8B4513; /* Цвет входа в улей */
+    border-radius: 50%;
+}
+
