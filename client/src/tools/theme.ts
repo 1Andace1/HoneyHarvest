@@ -4,22 +4,43 @@ const theme = extendTheme({
   styles: {
     global: {
       body: {
-        // bg: '#1e1f23', // !!! ВОт этот серый цвет влиял на все все все
-        bg: '#c31212',
-        color: '#f8f9fb',   
+        bg: '#F0FFF4',
+        color: '#C6F6D5', 
+        margin: 0,
+        padding: 0,  
       },
+      h1: {
+        fontFamily: "'Bona Nova SC', cursive",
+        fontWeight: 'bold',
+      },
+      h2: {
+        fontFamily: "'Bona Nova SC', cursive",
+        fontWeight: 'bold',
+      },
+      h3: {
+        fontFamily: "'Bona Nova SC', cursive",
+        fontWeight: 'bold',
+      },
+      h4: {
+        fontFamily: "'Bona Nova SC', cursive",
+        fontWeight: 'bold',
+      },
+      h5: {
+        fontFamily: "'Bona Nova SC', cursive",
+        fontWeight: 'bold',
+      },
+      h6: {
+        fontFamily: "'Bona Nova SC', cursive",
+        fontWeight: 'bold',
+      },
+      
       a: {
         color: '#f8f9fb',
         _hover: {
           textDecoration: 'underline',
         },
       },
-      h1: {
-        color: '#f8f9fb',
-      },
-      h2: {
-        color: '#f8f9fb',
-      },
+
    
     },
   },
