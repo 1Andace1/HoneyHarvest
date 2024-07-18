@@ -2,7 +2,7 @@ import { useAppSelector } from '../../redux/hooks'; // ^ new добавила us
 import { useState, useEffect, ChangeEvent } from 'react';
 import { Container, Box, Grid, useDisclosure, Flex } from '@chakra-ui/react';
 import axiosInstance from '../../axiosInstance';
-import dayjs from 'dayjs'; //  для отрисовки красиво даты
+// import dayjs from 'dayjs'; //  для отрисовки красиво даты
 import 'dayjs/locale/ru'; // для отрисовки красиво даты Импорт русской локали для dayjs
 import { useDispatch } from 'react-redux'; // Импортируйте useDispatch, если используете Redux
 import { updateUser } from '../../redux/slices/authSlice'; // импорт action для обновления пользователя
@@ -10,14 +10,15 @@ import EditProfileModal from './profile_components/EditProfileModal';
 import WeatherForecast from '../../components/WeatherForecast NEW/WeatherForecast';
 import MyCalendar from '../../components/CalendarCard/CalendarCard';
 import Achievements from './profile_components/Achievements';
-import localizedFormat from 'dayjs/plugin/localizedFormat'; //   для отрисовки красиво даты
+// import localizedFormat from 'dayjs/plugin/localizedFormat'; //   для отрисовки красиво даты
 import UserProfilePage from './profile_components/UserProfilePage';
 import OrdersPageComponent from './profile_components/OrdersPageComponent'; // новое имя компонента, чтобы избежать конфликта с переменной
 // dayjs.extend(localizedFormat); //  для отрисовки красиво даты
 // dayjs.locale('ru'); //  для отрисовки красиво даты
 import styles from './ProfilePage.module.css';
 
-const { VITE_API, VITE_BASE_URL }: ImportMeta['env'] = import.meta.env;
+// const { VITE_API, VITE_BASE_URL }: ImportMeta['env'] = import.meta.env;
+const { VITE_API }: ImportMeta['env'] = import.meta.env;
 
 interface FormData {
   username: string;
@@ -28,13 +29,23 @@ interface FormData {
   profilePhoto: File | null;
 }
 
-interface ProfilePageProps {
-  // подумать
+interface User {
+  id: number;
+  username: string;
+  email: string;
+  telephone: string;
+  userCity: string;
 }
 
-function ProfilePag_refactoring(props: ProfilePageProps): JSX.Element {
-  const { user } = useAppSelector((state) => state.authSlice);
-  const dispatch = useDispatch();
+function ProfilePag_refactoring(): JSX.Element {
+  const { user } = useAppSelector((state) => ({
+    ...state.authSlice,
+    user: {
+      ...state.authSlice.user,
+      id: state.authSlice.user.id.toString() // Преобразование id в строку
+    }
+  }));
+   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState<FormData>({
     // состояние для режима редактирования профиля
@@ -106,17 +117,16 @@ function ProfilePag_refactoring(props: ProfilePageProps): JSX.Element {
     }
   }, [isEditing, user]);
 
- 
   // ~ обработчик изменения полей формы  профиля
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
-    if (e.target.name === 'profilePhoto'&& target.files) {
+    if (e.target.name === 'profilePhoto' && target.files) {
       // eсли меняется фото профиля, сохраняем файл в состояние
       setFormData({ ...formData, profilePhoto: target.files[0] || null });
     } else {
       // иначе обновление соответствующего поле состояния
       setFormData({ ...formData, [e.target.name]: e.target.value });
-    } 
+    }
   };
 
   // ~ обработчик отправки формы редактирования профиля
@@ -149,7 +159,7 @@ function ProfilePag_refactoring(props: ProfilePageProps): JSX.Element {
       // Обновляем состояние пользователя на клиенте (тк Сервер вмдит изменения, а клиент нет)
       const updatedUser = res.data.user;
       dispatch(updateUser(updatedUser)); // Замените на ваш метод обновления пользователя в redux или в другом state management
-     
+
       setIsEditing(false);
       onClose();
     } catch (error) {
@@ -182,7 +192,7 @@ function ProfilePag_refactoring(props: ProfilePageProps): JSX.Element {
             bg="#F0FFF4"
             className={styles.boxСontainer2}
           >
-            <UserProfilePage user={user} onEdit={onOpen} />
+            {user && <UserProfilePage user={{ ...user, id: user.id.toString() }} onEdit={onOpen} />}
           </Box>
           <Box
             p={3}
