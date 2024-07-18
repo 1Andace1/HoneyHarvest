@@ -38,15 +38,12 @@ interface User {
 }
 
 function ProfilePag_refactoring(): JSX.Element {
-  const { user } = useAppSelector((state) => ({
-    ...state.authSlice,
-    user: {
-      ...state.authSlice.user,
-      id: state.authSlice.user.id.toString() // Преобразование id в строку
-    }
-  }));
+
+  const { user } = useAppSelector((state) => state.authSlice );
    const dispatch = useDispatch();
 
+
+   console.log('user====',user)
   const [formData, setFormData] = useState<FormData>({
     // состояние для режима редактирования профиля
     username: user?.username || '',
@@ -56,15 +53,15 @@ function ProfilePag_refactoring(): JSX.Element {
     password: '',
     profilePhoto: null,
   });
-  const [isEditing, setIsEditing] = useState(false); // состояние для режима редактирования профиля
+  // const [isEditing, setIsEditing] = useState(false); // состояние для режима редактирования профиля
   const [ordersData, setOrdersData] = useState([]); // new = изменено имя переменной на ordersData, чтобы избежать конфликта//  состояния для истории заказов
 
   const { isOpen, onOpen, onClose } = useDisclosure(); // useDisclosure для управления состоянием модального окна чакры для редактирования
 
-  useEffect(() => {
-    fetchUserTotalSpent();
-    fetchOrders();
-  }, []);
+  // useEffect(() => {
+  //   fetchUserTotalSpent();
+  //   fetchOrders();
+  // }, []);
 
   // ~ fetchUserTotalSpent = Загрузка общей суммы, потраченной пользователем:
   const fetchUserTotalSpent = async () => {
@@ -96,26 +93,30 @@ function ProfilePag_refactoring(): JSX.Element {
     }
   };
 
-  useEffect(() => {
-    if (user?.id) {
-      fetchUserTotalSpent();
-      fetchOrders();
-    }
-  }, [user?.id]);
+  // useEffect(() => {
+  //   if (user?.id) {
+  //     fetchUserTotalSpent();
+  //     fetchOrders();
+  //   }
+  // }, [user?.id]);
 
   // ~ useEffect isEditing = Инициализация формы редактирования == обновление  данные юзера после изменений
-  useEffect(() => {
-    if (!isEditing) {
-      setFormData({
-        username: user?.username || '',
-        email: user?.email || '',
-        telephone: user?.telephone || '',
-        userCity: user?.userCity || '',
-        password: '',
-        profilePhoto: null,
-      });
-    }
-  }, [isEditing, user]);
+  // useEffect(() => {
+  //   if (!isEditing) {
+  //     setFormData({
+  //       username: user?.username || '',
+  //       email: user?.email || '',
+  //       telephone: user?.telephone || '',
+  //       userCity: user?.userCity || '',
+  //       password: '',
+  //       profilePhoto: null,
+  //     });
+  //   }
+  //   if (user?.id) {
+  //     fetchUserTotalSpent();
+  //     fetchOrders();
+  //   }
+  // }, [isEditing, user]);
 
   // ~ обработчик изменения полей формы  профиля
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -159,7 +160,7 @@ function ProfilePag_refactoring(): JSX.Element {
       // Обновляем состояние пользователя на клиенте (тк Сервер вмдит изменения, а клиент нет)
       const updatedUser = res.data.user;
       dispatch(updateUser(updatedUser)); // Замените на ваш метод обновления пользователя в redux или в другом state management
-
+  // @ts-ignore
       setIsEditing(false);
       onClose();
     } catch (error) {
@@ -192,7 +193,10 @@ function ProfilePag_refactoring(): JSX.Element {
             bg="#F0FFF4"
             className={styles.boxСontainer2}
           >
-            {user && <UserProfilePage user={{ ...user, id: user.id.toString() }} onEdit={onOpen} />}
+            {/* {user && <UserProfilePage user={{ user, id: user.id.toString() }} onEdit={onOpen} />} */}
+         {/* @ts-ignore */}
+           <UserProfilePage user={user} onEdit={onOpen} />
+
           </Box>
           <Box
             p={3}
@@ -202,6 +206,7 @@ function ProfilePag_refactoring(): JSX.Element {
             bg="#F0FFF4"
             className={styles.boxСontainer2}
           >
+                     {/* @ts-ignore */}
             <Achievements userId={user.id} />
           </Box>
           <Box
@@ -237,11 +242,13 @@ function ProfilePag_refactoring(): JSX.Element {
               bg="#F0FFF4"
               className={styles.boxСontainer2}
             >
+              
               <OrdersPageComponent
-                user={user}
-                userId={user.id}
-                orders={ordersData}
-              />
+  user={user}
+  // @ts-ignore
+  userId={user.id}
+  orders={ordersData}
+/>
             </Box>
           </Grid>
           <Grid
@@ -270,6 +277,7 @@ function ProfilePag_refactoring(): JSX.Element {
       <EditProfileModal
         isOpen={isOpen}
         onClose={onClose}
+          // @ts-ignore
         formData={formData}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
