@@ -124,23 +124,19 @@ const OrdersPageComponent: React.FC<OrdersPageComponentProps> = ({
   orders,
 }) => {
 console.log( 'orders', orders)
-  const [ordersState, setOrdersState] = useState<Order[]>([]);
+  // const [ordersState, setOrdersState] = useState<Order[]>([]);// !---
   // const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   // const [orderDetails, setOrderDetails] = useState([]);
   // const [monthlyStats, setMonthlyStats] = useState<MonthlyStats[]>([]);
   const [ordersFromBasket, setOrdersFromBasket] = useState<BasketItem[]>([]);
   const [order, setOrder] = useState<Order | null>(null);
 
-  useEffect(() => {
-    console.log('☣️ orders from OrdersPage', orders);
-  }, [orders]);
+  // useEffect(() => {
+  //   console.log('☣️ orders from OrdersPage', orders);
+  // }, [orders]);
 
 
   useEffect(() => {
-    // console.log(
-    //   '☣️☣️`${VITE_API}/basket/get` ',
-    //   `${VITE_BASE_URL}${VITE_API}/basket/get`
-    // );
     const fetchBasketData = async () => {
       const response = await axiosInstance.get(
         `${VITE_BASE_URL}${VITE_API}/basket/get`,
@@ -152,10 +148,6 @@ console.log( 'orders', orders)
     };
 
     fetchBasketData();
-    console.log(
-      '☣️☣️☣️fetchBasketData ===ordersFromBasket: ',
-      ordersFromBasket
-    );
   }, []);
 
 
@@ -198,7 +190,7 @@ console.log( 'orders', orders)
 
   useEffect(() => {
     if (orders && orders.length > 0) {
-      setOrdersState(orders);
+      // setOrdersState(orders); // !---
     }
   }, [orders]);
 

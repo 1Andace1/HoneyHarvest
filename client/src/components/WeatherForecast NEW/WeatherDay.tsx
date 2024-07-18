@@ -27,7 +27,7 @@ const WeatherDay: React.FC<WeatherDayProps & { onDayClick: (day: WeatherDayProps
   return (
     <div
       className="weather-day"  
-      onClick={() => onClick(day)}
+      onClick={() => onDayClick(day)} 
     >
       <img src={day.weatherIcon} alt="weather icon" />
       <h4 className="bold-text">{formattedDate}</h4>

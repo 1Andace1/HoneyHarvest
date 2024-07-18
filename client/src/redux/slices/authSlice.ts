@@ -1,6 +1,6 @@
 import { ActionReducerMapBuilder, Draft, createSlice, PayloadAction  } from "@reduxjs/toolkit"
 import { UserState } from './../../components/initState';
-import { ActionReducerMapBuilder, Draft, createSlice,PayloadAction  } from "@reduxjs/toolkit"
+// import { ActionReducerMapBuilder, Draft, createSlice,PayloadAction  } from "@reduxjs/toolkit"
 import { AuthState } from "../types/states"
 import { addUser, logoutUser } from '../thunkActions';
 import { AuthSlice, RejectedAction} from '../types/reducers';
@@ -17,7 +17,6 @@ const authSlice: AuthSlice = createSlice({
       state.user = action.payload;
       state.loading = false;
       state.error = {};
-      
     },
     updateUser(state: Draft<AuthState>, action: PayloadAction<IUser>) {
       state.user = { ...state.user, ...action.payload };
