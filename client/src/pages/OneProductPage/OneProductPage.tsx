@@ -9,7 +9,7 @@ import {
   Text,
   Image,
 } from "@chakra-ui/react";
-import { IProducts } from "../../types/stateTypes";
+import { IProduct } from "../../types/stateTypes";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { delProduct } from "../../redux/thunkActionsCatalog";
 import { IUser } from "../../types/stateTypes";
@@ -34,16 +34,9 @@ export default function OneProductPage(): JSX.Element {
   const { products } = useAppSelector(
     (state: { productSlice: ProductState }) => state.productSlice
   );
-  const currentProduct = products.find((prod: IProducts) => prod.id === id);
+  const currentProduct = products.find((prod: IProduct) => prod.id === id);
 
-  console.log(
-    "Загрузилась страница OneProductPage: /detail/",
-    id,
-    ",  ",
-    currentProduct?.title,
-    ", id №",
-    currentProduct?.id
-  );
+  // console.log("Загрузилась страница OneProductPage: /detail/", id, ",  ", currentProduct?.title, ", id №", currentProduct?.id);
 
   const title = currentProduct?.title
   const discountRatio = currentProduct?.discountRatio
@@ -86,12 +79,6 @@ export default function OneProductPage(): JSX.Element {
   }
 
   function deleteHandler(id: number): void {
-    console.log(
-      "На странице OneProductPage админ №",
-      user.id,
-      "удаляет продукт №",
-      id
-    );
     dispatch(delProduct(id));
     navigate("/catalog");
   }

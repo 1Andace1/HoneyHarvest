@@ -6,7 +6,7 @@ import {
   SliceSelectors,
 } from "@reduxjs/toolkit";
 import { AuthState, CommentState, ProductState } from "./states";
-import { IComment, IInputsComment, IInputsProducts, IProducts, IUser } from "../../types/stateTypes";
+import { IComment, IInputsComment, IInputsProduct, IProduct, IUser } from "../../types/stateTypes";
 
 export type UserAction = PayloadAction<
   IUser,
@@ -48,10 +48,10 @@ export type AuthSlice = Slice<
 >;
 
 export type ProductAction = PayloadAction<
-  IProducts[],
+  IProduct[],
   string,
   {
-    arg: void | IInputsProducts;
+    arg: void | IInputsProduct;
     requestId: string;
     requestStatus: "fulfilled";
   },
@@ -59,16 +59,7 @@ export type ProductAction = PayloadAction<
 >;
 
 export type RejectedActionProduct = PayloadAction<
-  unknown,
-  string,
-  {
-    arg: void | IInputsProducts | number;
-    requestId: string;
-    requestStatus: "rejected";
-    aborted: boolean;
-    condition: boolean;
-  },
-  SerializedError
+  unknown, string, never, SerializedError
 >;
 
 export type ProductSlice = Slice<
@@ -90,7 +81,7 @@ export type CommentAction = PayloadAction<
 IComment[],
   string,
   {
-    arg: void | IInputsProducts;
+    arg: void | IInputsComment;
     requestId: string;
     requestStatus: "fulfilled";
   },

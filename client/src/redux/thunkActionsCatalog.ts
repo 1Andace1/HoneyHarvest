@@ -9,6 +9,7 @@ const { VITE_API, VITE_BASE_URL }: ImportMeta["env"] = import.meta.env;
 
 export const getProducts: GetProducts = createAsyncThunk("catalog/all", async () => {
   const { data } = await axios.get(`${VITE_BASE_URL}${VITE_API}/catalog`);
+  console.log('data:', data);
   return data;
 });
 
@@ -53,7 +54,8 @@ export const AddProduct: NewProduct = createAsyncThunk("catalog/new", async (inp
       },
     }
   );
-  return response
+  console.log('в санку поступил response--------------->', response);
+  return response.data
 });
 
 export const UpdProduct: UpdateProduct = createAsyncThunk("catalog/put", async (inputs: IInputsProductStringWithoutPicture) => {

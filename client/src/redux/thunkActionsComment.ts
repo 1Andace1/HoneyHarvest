@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosResponse } from "axios";
 import axiosInstance from "../axiosInstance";
 import { IInputsComment } from "../types/stateTypes";
-import { DelComment, getComments, NewComment, UpdateComment } from "./types/thunkProduct";
+import { DelComment, getComments, NewComment, UpdateComment } from "./types/thunkComment";
 
 const { VITE_API, VITE_BASE_URL }: ImportMeta["env"] = import.meta.env;
 

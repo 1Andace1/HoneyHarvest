@@ -16,7 +16,8 @@ import {
   RejectedActionProduct,
 } from "../types/reducers";
 import { ProductState } from "../types/states";
-import { IProducts, IProductsSlice } from "../../types/stateTypes";
+import { IInputsProduct, IInputsProductStringWithoutPicture, IProduct, IProductsSlice } from "../../types/stateTypes";
+import { AxiosResponse } from "axios";
 
 const initialState: ProductState = { products: [], loading: true, error: {} };
 
@@ -77,11 +78,16 @@ const productSlice: ProductSlice = createSlice({
       AddProduct.fulfilled,
       (
         state: Draft<ProductState>,
-        action: PayloadAction<IProductsSlice>
+        // action: PayloadAction<IProductsSlice>
+        action: PayloadAction<IProduct>
       ): void => {
-        console.log("В слайс приходит action.payload.data:", action.payload.data);
-        const { data } = action.payload;
-        state.products.push(data);
+        // console.log("В слайс приходит action.payload.data:", action.payload.data);
+        // const { data } = action.payload;
+        // state.products.push(data);
+        // state.loading = false;
+        console.log("В слайс приходит action.payload:", action.payload);
+        // const { data } = action.payload;
+        state.products.push(action.payload);
         state.loading = false;
       }
     );
@@ -102,15 +108,19 @@ const productSlice: ProductSlice = createSlice({
       UpdProduct.fulfilled,
       (
         state: Draft<ProductState>,
-        action: PayloadAction<IProductsSlice>
+        action: PayloadAction<AxiosResponse<number, number>, string, {
+          arg: IInputsProductStringWithoutPicture;
+          requestId: string;
+          requestStatus: "fulfilled";
+      }, never>
       ): void => {
-        const modifiedСard: IProducts = action.payload.data;
+        const modifiedСard: IProduct = action.payload.data;
         state.products = state.products.filter(
-          (el: Draft<IProducts>): boolean => el.id !== modifiedСard.id
+          (el: Draft<IProduct>): boolean => el.id !== modifiedСard.id
         );
         state.products.push(modifiedСard);
         state.products.sort(
-          (a: Draft<IProducts>, b: Draft<IProducts>) => a.id - b.id
+          (a: Draft<IProduct>, b: Draft<IProduct>) => a.id - b.id
         );
         state.loading = false;
       }

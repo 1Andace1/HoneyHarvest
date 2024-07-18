@@ -1,11 +1,10 @@
 import { AsyncThunk, Dispatch } from "@reduxjs/toolkit";
-import { IInputsProduct, IInputsProductStringWithoutPicture, IProduct } from "../../types/stateTypes";
+import { IComment, IInputsComment } from "../../types/stateTypes";
 import { AxiosResponse } from "axios";
 
 type AsyncThunkConfig = {
   /** return type for `thunkApi.getState` */
-  // state: ProductState;
-  state: IProduct[];
+  state: IComment[];
   /** type for `thunkApi.dispatch` */
   dispatch?: Dispatch;
   /** type of the `extra` argument for the thunk middleware, which will be passed in as `thunkApi.extra` */
@@ -15,38 +14,26 @@ type AsyncThunkConfig = {
   /** return type of the `serializeError` option callback */
   serializedErrorType?: unknown;
   /** type to be returned from the `getPendingMeta` option callback & merged into `pendingAction.meta` */
-  pendingMeta: {
-    requestId: string
-    requestStatus: "pending"
-  }
+  pendingMeta?: unknown;
   /** type to be passed into the second argument of `fulfillWithValue` to finally be merged into `fulfilledAction.meta` */
-  fulfilledMeta: {
-    requestId: string
-    requestStatus: "fulfilled"
-  }
+  fulfilledMeta?: unknown;
   /** type to be passed into the second argument of `rejectWithValue` to finally be merged into `rejectedAction.meta` */
-  rejectedMeta: {
-    requestId: string
-    rejectedWithValue: false
-    requestStatus: "rejected"
-    aborted: false
-    condition: false
-  }
+  rejectedMeta?: unknown;
 };
 
-// export type GetProducts = AsyncThunk<ProductState, void, AsyncThunkConfig>;
-export type GetProducts = AsyncThunk<IProduct[], void, AsyncThunkConfig>;
 
-export type NewProduct = AsyncThunk<
+export type getComments = AsyncThunk<IComment[], void, AsyncThunkConfig>;
+
+export type NewComment = AsyncThunk<
   AxiosResponse<number, number>,
-  IInputsProduct,
+  IInputsComment,
   AsyncThunkConfig
 >;
 
-export type DelProduct = AsyncThunk<number | void, number, AsyncThunkConfig>;
+export type DelComment = AsyncThunk<number | void, number, AsyncThunkConfig>;
 
-export type UpdateProduct = AsyncThunk<
+export type UpdateComment = AsyncThunk<
   AxiosResponse<number, number>,
-  IInputsProductStringWithoutPicture,
+  IInputsComment,
   AsyncThunkConfig
 >;
