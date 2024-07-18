@@ -35,11 +35,6 @@ export const addUser: NewUser = createAsyncThunk(
       console.log(entry[0], entry[1]);
     }
 
-    // ! добавлено:  это выше есть'
-    // if (inputs.profilePhoto) {
-    //   formData.append('profilePhoto', inputs.profilePhoto);
-    // }
-
     try {
       const res: AxiosResponse = await axiosInstance.post(
         `${VITE_BASE_URL}${VITE_API}/auth/${type}`,

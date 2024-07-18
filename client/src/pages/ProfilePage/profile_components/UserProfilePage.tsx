@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 import { updateUser } from '../../../redux/slices/authSlice';
 
 interface User {
-  id: string;
+  id: number;
   username: string;
   email: string;
   telephone: string;
@@ -31,7 +31,7 @@ interface UserProfilePageProps {
 }
 const { VITE_API }: ImportMeta['env'] = import.meta.env;
 
-const UserProfilePage: React.FC<UserProfilePageProps> = ({ user }) => {
+const UserProfilePage: React.FC<UserProfilePageProps> = ({ user }:UserProfilePageProps ) => {
   const dispatch = useDispatch();
   // const [loyalty, setLoyalty] = useState<any>(null);
   const [formData, setFormData] = useState<FormData>({
