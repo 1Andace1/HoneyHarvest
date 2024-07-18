@@ -108,6 +108,7 @@ const productSlice: ProductSlice = createSlice({
           requestStatus: "fulfilled";
       }, never>
       ): void => {
+        // @ts-ignore
         const modifiedСard: IProduct = action.payload.data;
         state.products = state.products.filter(
           (el: Draft<IProduct>): boolean => el.id !== modifiedСard.id

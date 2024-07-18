@@ -4,18 +4,17 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   AuthState,
   CommentState,
-  ProductState,
 } from "../../redux/types/states";
 import { getAllComments } from "../../redux/thunkActionsComment";
 import { Heading, VStack } from "@chakra-ui/react";
-import { IComment, IProducts } from "../../types/stateTypes";
+import { IComment, IProduct } from "../../types/stateTypes";
 import OneComment from "./OneComment";
 import ModalFormCreateComment from "../ModalForm/ModalFormCreateComment";
 
 export default memo(function CommentsList({
   currentProduct,
 }: {
-  currentProduct: IProducts;
+  currentProduct: IProduct;
 }): JSX.Element {
   const dispatch = useAppDispatch();
 
@@ -30,7 +29,7 @@ export default memo(function CommentsList({
     dispatch(getAllComments());
   }, []);
 
-  // const [verifiedComments, setVerifiedComments] = useState<IProducts[]>([]);
+  // const [verifiedComments, setVerifiedComments] = useState<IProduct[]>([]);
   // useEffect(() => {
   //   const filtredComments = comments.filter(
   //     (comment) => comment.isVerified === true
@@ -58,6 +57,7 @@ export default memo(function CommentsList({
                 currentProduct.id === comment.productId
             )
             .map((el: IComment) => (
+              // @ts-ignore
               <OneComment el={el} key={el.id} currentProduct={currentProduct} />
             ))
         ) : (
