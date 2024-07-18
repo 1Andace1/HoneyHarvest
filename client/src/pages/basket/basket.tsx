@@ -42,7 +42,7 @@ interface IUser {
 
 const Basket: React.FC = () => {
   const { user }: { user: IUser } = useAppSelector((state) => state.authSlice);
-  const defaultInputs: Omit<Product, 'productId'|'product'> = {
+  const defaultInputs = {
     id: 0,
     userId: user.id,
     numberBasket: 1,
@@ -52,7 +52,7 @@ const Basket: React.FC = () => {
     deliveryAddress: "",
     estimatedDate: "",
   }
-  const [inputs, setInputs] = useState<Omit<Product, 'productId'|'product'>>(defaultInputs);
+  const [inputs, setInputs] = useState(defaultInputs);
   const [baskets, setBaskets] = useState<Product[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -66,7 +66,7 @@ const Basket: React.FC = () => {
       console.error('Необходимо заполнить все поля формы.');
       return;
     }
-    dispatch(AddProduct(inputs as Product))
+    dispatch(AddProduct(inputs))
       .unwrap()
       .then(() => {
         setInputs(prev => ({ ...prev, commentUser: '', deliveryAddress: '', estimatedDate: '' }));
@@ -157,7 +157,7 @@ const Basket: React.FC = () => {
                 <OneCard el={basket.product} />
               </div>
               <div className="product-actions animate__animated animate__fadeInDown">
-                <Button colorScheme="teal" onClick={() => handleRemoveProduct(basket.id)}>убрать</Button>
+                <Button colorScheme="green" onClick={() => handleRemoveProduct(basket.id)}>убрать</Button>
               </div>
             </li>
           ))}
@@ -178,7 +178,7 @@ const Basket: React.FC = () => {
           </Select>
           <label>Дата доставки:</label>
           <Input type="date" name="estimatedDate" value={inputs.estimatedDate} onChange={changeHandler} />
-          <Button type="submit" className="submit-button" colorScheme="teal">оформить</Button>
+          <Button type="submit" className="submit-button" colorScheme="green">оформить</Button>
           <div className="bee-background">
             <div className="sun"></div>
             <div className="cloud"></div>

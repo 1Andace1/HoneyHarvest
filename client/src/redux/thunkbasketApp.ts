@@ -1,5 +1,6 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { AsyncThunk, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../axiosInstance";
+import { AsyncThunkConfig } from "./types/thunk";
 
 
 const { VITE_API, VITE_BASE_URL }: ImportMeta["env"] = import.meta.env;
@@ -16,7 +17,7 @@ interface BasketItem {
   estimatedDate:number;
 }
 
-export const basketApp = createAsyncThunk(
+export const basketApp: AsyncThunk<unknown, BasketItem, AsyncThunkConfig> = createAsyncThunk(
   "basket/App",
   async ({ userId, productId}: BasketItem) => {
     console.log(userId, productId,'ЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩ');
@@ -25,6 +26,8 @@ export const basketApp = createAsyncThunk(
       `${VITE_BASE_URL}${VITE_API}/basket/catalog`,
       { userId, productId}
     );
+    console.log(response.data,'----------респонс дата------');
+    
     if (response.status === 200) {
       return response.data; // Предполагается, что сервер возвращает данные корзины
     }
