@@ -82,7 +82,8 @@ const Basket: React.FC = () => {
 
 
   // const navigate = useNavigate();
-  const basketData = useAppSelector((state) => state.basketSlice.basketApp);
+   //@ts-ignore
+  const basketData: Product[] = useAppSelector((state) => state.basketSlice.basketApp);
   useEffect(() => {
     if (basketData) {
       setBaskets(basketData);
