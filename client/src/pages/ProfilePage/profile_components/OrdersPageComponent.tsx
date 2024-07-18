@@ -30,6 +30,7 @@ interface Order {
   createdAt: string;
   status?: string;
   picture: string;
+  numberBasket: string;
   totalOrderPrice: number;
   products: Array<{
     productId: number;
@@ -130,6 +131,7 @@ const OrdersPageComponent: React.FC<OrdersPageComponentProps> = ({
   orders,
   userId,
 }) => {
+console.log( 'orders', orders)
   const [ordersState, setOrdersState] = useState<Order[]>([]);
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [orderDetails, setOrderDetails] = useState([]);
@@ -182,6 +184,7 @@ const OrdersPageComponent: React.FC<OrdersPageComponentProps> = ({
         estimatedDate: formatDateTime(firstItem.estimatedDate),
         picture: firstItem.product.picture,
         totalOrderPrice: firstItem.totalBasketPrice,
+        numberBasket: firstItem.numberBasket,
         products: ordersFromBasket.map((item) => ({
           productId: item.productId,
           numberBasket: item.numberBasket,
@@ -312,191 +315,9 @@ const OrdersPageComponent: React.FC<OrdersPageComponentProps> = ({
 
   return (
     <Box p={6}>
-      <Text fontSize="2.8rem" fontWeight="bold" mb={6}>
+      <Text fontSize="2.5rem" fontWeight="bold">
         Мои заказы
       </Text>
-      <Flex w="100%" flexWrap="wrap" gap={6} bg="#C6F6D5">
-        {/* ФЛЕКС 2 СТАРТА */}
-        <Flex
-          w="100%"
-          alignItems="flex-start"
-          justifyContent="space-between"
-          bg="#F0FFF4"
-        >
-          <Box
-            key={1}
-            p={4}
-            borderWidth={1}
-            borderRadius="md"
-            w="30%"  
-            bg="#C6F6D5"
-          >            {/* Содержимое первой карточки */}
-            <Box>
-              {selectedOrder && (
-                <Box mt={6}>
-                  <Box>
-                    <Flex
-                      direction="row"
-                      justifyContent="space-between"
-                      alignItems="flex-start"
-                    >
-                      <Box>
-                        <Text fontSize="xl" fontWeight="bold">
-                          Карточки товаров:
-                        </Text>
-                        {selectedOrder.products.map((product, index) => (
-                          <Box
-                            key={index}
-                            borderWidth="1px"
-                            borderRadius="lg"
-                            p={4}
-                            mb={4}
-                            display="flex"
-                            alignItems="center"
-                            flexDirection="row"
-                          >
-{/*                
-                            <Image
-                              src={product.picture}
-                              alt={product.title}
-                              boxSize="3cm"
-                              objectFit="cover"
-                              marginRight="10px"
-                            /> */}
-                            <Box>
-                              <Text fontSize="md" mb={2} fontWeight="bold">
-                                Цена: {product.price} руб.
-                              </Text>
-                              <Flex fontSize="md" mb={2} alignItems="center">
-                                <Image
-                                  src="/icons/star_rating.png"
-                                  alt={product.title}
-                                  boxSize="1cm"
-                                  objectFit="cover"
-                                  marginRight="10px"
-                                />
-                                <Text>Рейтинг: {product.starsRating}</Text>
-                              </Flex>
-                            </Box>
-                            <Box flex="1">
-                              <Text fontSize="lg" fontWeight="bold" mb={2}>
-                                {product.title}
-                              </Text>
-                              <Text fontSize="md" mb={2}>
-                                {product.description}
-                              </Text>
-                            </Box>
-                          </Box>
-                        ))}
-                      </Box>
-                    </Flex>
-                  </Box>
-                </Box>
-              )}
-            </Box>
-          </Box>
-          <Box
-            key={2}
-            p={4}
-            borderWidth={1}
-            borderRadius="md"
-            w="30%" 
-            bg="#C6F6D5"
-            h="100%" // ! Устанавливает высоту на 100% от родительского элемента
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-          >
-            {/* Содержимое второй карточки */}
-          </Box>
-          <Box
-            key={2}
-            p={4}
-            borderWidth={1}
-            borderRadius="md"
-            w="200%" 
-            bg="#C6F6D5"
-          >
-            {/* Содержимое третьей карточки */}
-          </Box>
-        </Flex>
-      </Flex>
-
-      <Box>
-        {selectedOrder && (
-          <Box mt={6}>
-            <Box>
-              <Flex
-                direction="row"
-                justifyContent="space-between"
-                alignItems="flex-start"
-              >
-                <OrderDetails
-                  selectedOrder={selectedOrder}
-                  orderDetails={orderDetails}
-                />
-                <Box>
-                  <Text fontSize="xl" fontWeight="bold">
-                    Карточки товаров:
-                  </Text>
-                  {selectedOrder.products.map((product, index) => (
-                    <Box
-                      key={index}
-                      borderWidth="1px"
-                      borderRadius="lg"
-                      p={4}
-                      mb={4}
-                      display="flex"
-                      alignItems="center"
-                      flexDirection="row"
-                    >
-                      <Image
-                        src={`./productsPhoto/product.picture`}
-                        alt={product.title}
-                        boxSize="3cm"
-                        objectFit="cover"
-                        marginRight="10px"
-                      />
-                      <Image
-                        src={`./productsPhoto/${product.picture}`}
-                        alt={product.title}
-                        boxSize="3cm"
-                        objectFit="cover"
-                        marginRight="10px"
-                      />
-                      <Box>
-                        <Text fontSize="md" mb={2} fontWeight="bold">
-                          Цена: {product.price} руб.
-                        </Text>
-                        <Flex fontSize="md" mb={2} alignItems="center">
-                          <Image
-                            src="/icons/star_rating.png"
-                            alt={product.title}
-                            boxSize="1cm"
-                            objectFit="cover"
-                            marginRight="10px"
-                          />
-                          <Text>Рейтинг: {product.starsRating}</Text>
-                        </Flex>
-                      </Box>
-                      <Box flex="1">
-                        <Text fontSize="lg" fontWeight="bold" mb={2}>
-                          {product.title}
-                        </Text>
-                        <Text fontSize="md" mb={2}>
-                          {product.description}
-                        </Text>
-                      </Box>
-                    </Box>
-                  ))}
-                </Box>
-              </Flex>
-            </Box>
-          </Box>
-        )}
-      </Box>
-      <Divider mt={6} />
-
       {/* статист. по месяцам */}
       {/* <Box mt="4"  bg="#9AE6B4">
         <Heading mb="4" fontSize="2.2rem" >
@@ -528,17 +349,14 @@ const OrdersPageComponent: React.FC<OrdersPageComponentProps> = ({
           </Tbody>
         </Table>
       </Box> */}
-      <Spacer />
-      <br />
-      <Divider />
       <div>
-        <br />
-        <Heading fontSize="2.2rem" h="70px" bg="#9AE6B4">
-          Информация о заказе:
-        </Heading>
-        <br />
+
         {order ? (
+          
           <Box p={4} borderWidth="1px" borderRadius="lg" mb={4}>
+                    <Heading fontSize="2rem" h="70px" bg="#9AE6B4">
+          Информация о заказе № {order.numberBasket}
+              </Heading>
             {/* Общая информация о заказе в виде таблицы */}
             <Table variant="simple" mb={4}>
               <Tbody>
@@ -633,10 +451,10 @@ const OrdersPageComponent: React.FC<OrdersPageComponentProps> = ({
                       <Text fontSize="lg" fontWeight="bold">
                         {/* Цена0: {product.totalBasketPrice} руб. */}
                         Стоимость: <br />
-                        {product.price * product.numberBasket/ 10} руб.
+                        {(product.price * product.numberBasket) / 10} руб.
                       </Text>
                       <Text fontSize="md" color="gray.500">
-                        Кол-во: {product.numberBasket*100}г.
+                        Кол-во: {product.numberBasket * 100}г.
                       </Text>
                       <Text fontSize="md" color="gray.500">
                         Цена за 1 кг: {product.price} руб.

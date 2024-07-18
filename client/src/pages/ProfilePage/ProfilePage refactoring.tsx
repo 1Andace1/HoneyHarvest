@@ -241,7 +241,7 @@ function ProfilePag_refactoring(props: ProfilePageProps): JSX.Element {
         </Flex>
       </Flex>
       <Grid templateColumns="repeat(auto-fit, minmax(1000px, 1fr))" w="50%">
-        <Box
+        {/* <Box
           p={4}
           borderWidth={1}
           borderRadius="md"
@@ -254,7 +254,7 @@ function ProfilePag_refactoring(props: ProfilePageProps): JSX.Element {
             userId={user.id}
             orders={ordersData}
           />
-        </Box>
+        </Box> */}
       </Grid>
 
       <EditProfileModal
