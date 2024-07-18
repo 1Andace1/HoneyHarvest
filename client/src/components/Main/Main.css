@@ -73,6 +73,12 @@ background-color: #d9d6c8;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   margin-bottom: 10px;
+  background-image: url( https://www.fonstola.ru/images/201112/fonstola.ru_64256.jpg);
+  /* background-color: rgba(39, 103, 73, 0.2); */
+  background-size: cover; /* Это свойство масштабирует изображение, чтобы оно заполнило элемент, сохраняя пропорции */
+  background-position: center; /* Это свойство центрирует изображение */
+  background-repeat: no-repeat; /* Это свойство предотвращает повторение изображения */
+   
   
   
 }
