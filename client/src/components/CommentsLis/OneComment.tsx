@@ -24,21 +24,14 @@ export default function OneComment({ el }: { el: IComment }): JSX.Element {
   // };
 
   const {
-    id,
-    productId,
-    // text,
-    isVerified,
     likesQuantity,
     createdAt,
-    updatedAt,
   } = el as IComment;
-
 
   const commentCreationDate: Date = new Date(createdAt);
   const creationYear: number = commentCreationDate.getFullYear();
   const creationMonth: number = commentCreationDate.getMonth();
   const creationDay: number = commentCreationDate.getDate();
-
 
   const username = `${el?.User?.username}:`;
   const text = `${creationDay}.${creationMonth}.${creationYear} ${el?.User?.username}: ${el?.text}`;

@@ -11,7 +11,7 @@ import {
   WrapItem,
   Tag,
 } from "@chakra-ui/react";
-import { IProducts } from "../../types/stateTypes";
+import { IProduct } from "../../types/stateTypes";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { delProduct } from "../../redux/thunkActionsCatalog";
 import { IUser } from "../../types/stateTypes";
@@ -23,7 +23,7 @@ import { basketApp } from "../../redux/thunkbasketApp";
 import './OneCard.module.css'
 
 
-export default function OneCard({ el }: { el: IProducts }): JSX.Element {
+export default function OneCard({ el }: { el: IProduct }): JSX.Element {
   const navigate = useNavigate();
   const oneProductPage = () => {
     navigate(`/detail/${el.id}`);
@@ -64,8 +64,8 @@ export default function OneCard({ el }: { el: IProducts }): JSX.Element {
   // const { basket } = useAppSelector((state) => state.basketSlice);
 
   function basketHandler(id: number): void {
-    // console.log(id, user.id, "+++++++++++++++++++++++++++++++++++++----");
-    dispatch(basketApp({ productId: Number(id), userId: Number(user.id) }));
+// @ts-ignore
+dispatch(basketApp({ productId: Number(id), userId: Number(user.id) }));
   }
 
   // interface BasketAppPayload {

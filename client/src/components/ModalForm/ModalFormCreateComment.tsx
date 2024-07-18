@@ -12,13 +12,13 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
-import { IInputsComment, IUser } from "../../types/stateTypes";
+import { IInputsComment, IProduct, IUser } from "../../types/stateTypes";
 
 import styles from "./ModalForm.module.css";
 import { AddComment } from "../../redux/thunkActionsComment";
 import { AuthState } from "../../redux/types/states";
 
-export default function ModalFormCreateComment({currentProduct}: {currentProduct: IProducts}): JSX.Element {
+export default function ModalFormCreateComment({currentProduct}: {currentProduct: IProduct}): JSX.Element {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   // const defaultInputs = { picture: "./productsPhoto/pattern.jpeg" };
@@ -29,8 +29,8 @@ export default function ModalFormCreateComment({currentProduct}: {currentProduct
     (state: { authSlice: AuthState }) => state.authSlice
   );
 
-  const changeHandler = (e: React.FormEvent<HTMLFormElement>) => {
-    setInputs((prev: object) => ({ ...prev, [e.target.name]: e.target.value }));
+  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputs((prev: IInputsComment) => ({ ...prev, [e.target.name]: e.target.value }));
     // console.log("[e.target.name]: e.target.value", e.target.name, e.target.value);
   };
 
@@ -65,7 +65,7 @@ export default function ModalFormCreateComment({currentProduct}: {currentProduct
     <>
       <Button
         onClick={onOpen}
-        isLoading={user?.id === true}
+        isLoading={Boolean(user?.id) === true}
         spinner={<p>создание комментария</p>}
         variant="solid"
         colorScheme="green"
@@ -78,7 +78,6 @@ export default function ModalFormCreateComment({currentProduct}: {currentProduct
           <ModalHeader>Новая запись в каталог</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <form className={styles.wrapper}>
               {/* <h3 className={styles.head}>Заполни поля:</h3> */}
               <div className={styles.inputs}>
                 <Input
@@ -89,12 +88,13 @@ export default function ModalFormCreateComment({currentProduct}: {currentProduct
                   placeholder="Напишите свой комментарий продукта"
                 />
               </div>
-            </form>
           </ModalBody>
           <ModalFooter>
-            <Button type="submit" colorScheme="green" onClick={submitHandler}>
+            <form onClick={submitHandler} >
+            <Button type="submit" colorScheme="green" >
               Создать
             </Button>
+            </form>
           </ModalFooter>
         </ModalContent>
       </Modal>
