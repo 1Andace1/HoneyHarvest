@@ -286,14 +286,22 @@ console.log( 'orders', orders)
 
   return (
     <Box p={6}>
-      <Text fontSize="2.5rem" fontWeight="bold">
+      <Text fontSize="2.5rem" fontWeight="bold" style={{
+                boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)',
+                background:
+                  'linear-gradient(to right, hsl(60, 70%, 80%), hsl(100,300%, 90%))',
+
+
+              }}>
         Мои заказы
       </Text>
       <div>
         {order ? (
           
-          <Box p={4} borderWidth="1px" borderRadius="lg" mb={4}>
-                    <Heading fontSize="2rem" h="70px" bg="#9AE6B4">
+          <Box p={4} borderWidth="1px" borderRadius="lg" mb={4} >
+                    <Heading fontSize="2rem" h="70px"   style={{
+               fontFamily: 'Bona Nova SC, cursive',
+                      }}>
           Заказ № {order.numberBasket}
               </Heading>
             {/* Общая информация о заказе в виде таблицы */}
