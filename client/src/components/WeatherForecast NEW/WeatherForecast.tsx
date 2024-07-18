@@ -5,14 +5,14 @@ import { WeatherData } from './types/weatherData';
 import WeatherDay from './WeatherDay';
 import './WeatherForecast.css';
 import { Box, Button, Flex } from '@chakra-ui/react';
-import styles from '../../pages/ProfilePage/ProfilePage.module.css';
+
 
 const WeatherForecast: React.FC = (): JSX.Element => {
   const defaultCity = 'Moscow';
   const [selectedDay, setSelectedDay] = useState<WeatherData | null>(null);
   const [city, setCity] = useState<string>(defaultCity);
-  const [startIndex, setStartIndex] = useState<number>(0);
-  const [daysToShow, setDaysToShow] = useState<number>(7);
+  const [startIndex] = useState<number>(0);
+  const [daysToShow] = useState<number>(7);
   const [weatherData, setWeatherData] = useState<WeatherData[]>([]);
   const chartRef = useRef<HTMLCanvasElement>(null);
   const chartInstance = useRef<Chart | null>(null);
@@ -98,6 +98,7 @@ const WeatherForecast: React.FC = (): JSX.Element => {
           maxTemp: item.main.temp_max,
           description: item.weather[0].description,
           weatherIcon: `https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`,
+          city: 'заглушка'
         };
       } else {
         groupedByDate[date].minTemp = Math.min(
@@ -178,29 +179,29 @@ const WeatherForecast: React.FC = (): JSX.Element => {
     setSelectedDay(day);
   };
 
-  const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCity(event.target.value);
-  };
+  // const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setCity(event.target.value);
+  // };
 
-  const handleCitySubmit = () => {
-    fetchWeatherDataFromAPI(city);
-    setStartIndex(0);
-    console.log(`Прогноз погоды для ${city}`);
-  };
+  // const handleCitySubmit = () => {
+  //   fetchWeatherDataFromAPI(city);
+  //   setStartIndex(0);
+  //   console.log(`Прогноз погоды для ${city}`);
+  // };
 
-  const handleNextDays = () => {
-    setStartIndex((prevIndex) => prevIndex + daysToShow);
-  };
+  // const handleNextDays = () => {
+  //   setStartIndex((prevIndex) => prevIndex + daysToShow);
+  // };
 
-  const handlePreviousDays = () => {
-    setStartIndex((prevIndex) => Math.max(prevIndex - daysToShow, 0));
-  };
+  // const handlePreviousDays = () => {
+  //   setStartIndex((prevIndex) => Math.max(prevIndex - daysToShow, 0));
+  // };
 
-  const handleSelectDays = (numberOfDays: number) => {
-    setDaysToShow(numberOfDays);
-    setStartIndex(0);
-    console.log(`Прогноз погоды на ${numberOfDays} дней`);
-  };
+  // const handleSelectDays = (numberOfDays: number) => {
+  //   setDaysToShow(numberOfDays);
+  //   setStartIndex(0);
+  //   console.log(`Прогноз погоды на ${numberOfDays} дней`);
+  // };
 
   const visibleWeatherData = weatherData.slice(
     startIndex,

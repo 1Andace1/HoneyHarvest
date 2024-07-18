@@ -20,6 +20,7 @@ export interface WeatherData {
       maxTemp: number;
       description: string;
       weatherIcon: string;
+      city: string; 
     };
     onClick: () => void;
   }
