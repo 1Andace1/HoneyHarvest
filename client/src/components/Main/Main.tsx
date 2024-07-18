@@ -32,13 +32,13 @@ function Main(): JSX.Element {
      
        
       <div className='navigation'>
-      <div id='box1' className='navigation-box'> <h3 className='log'>Экологически чистый продукт <img className='helpimg' src='https://cdn-icons-png.flaticon.com/512/5904/5904807.png'></img> </h3>
+      <div id='box1' className='navigation-box'> <h3 className='log'>   Экологически чистый продукт <img className='helpimg' src='https://cdn-icons-png.flaticon.com/512/5904/5904807.png'></img> </h3>
         Наш мед собирается с незагрязненных природных территорий, обеспечивая вас натуральным и здоровым продуктом без примесей и химикатов.
         
           </div>
-     <div id='box2' className='navigation-box'> <h3 className='log2'>Высокое качество и вкус <img className='helpimg' src='https://cdn-icons-png.flaticon.com/512/4794/4794500.png'></img> </h3>Мы тщательно отбираем и проверяем каждую партию меда, чтобы гарантировать его превосходный вкус и полезные свойства.
+     <div id='box2' className='navigation-box'> <h3 className='log2'>  Высокое качество и вкус <img className='helpimg' src='https://cdn-icons-png.flaticon.com/512/4794/4794500.png'></img> </h3>Мы тщательно отбираем и проверяем каждую партию меда, чтобы гарантировать его превосходный вкус и полезные свойства.
           </div>
-      <div id='box3' className='navigation-box'> <h3 className='log'>Поддержка местного хозяйства <img className='helpimg' src='https://cdn-icons-png.flaticon.com/512/5493/5493038.png'></img> </h3>Покупая наш мед, вы не только получаете уникальный продукт, но и поддерживаете мелких производителей и сохранение традиционных методов пчеловодства.
+      <div id='box3' className='navigation-box'> <h3 className='log'>  Поддержка местного хозяйства <img className='helpimg' src='https://cdn-icons-png.flaticon.com/512/5493/5493038.png'></img> </h3>Покупая наш мед, вы не только получаете уникальный продукт, <br /> но и поддерживаете мелких производителей и сохранение традиционных методов пчеловодства.
           </div>
       </div>
       <div className='rewiew'>
@@ -48,11 +48,9 @@ function Main(): JSX.Element {
       <video className='video-background' src={video1} autoPlay muted loop></video>
       <div className='rewiew-text'>
         
-    
-      
     <p><h3 className='log1'>Разнообразие сортов меда:</h3> <p className='lilText'> От классического цветочного и липового до экзотического гречишного и лесного. У нас вы найдете мед, подходящий для любого вкуса и предпочтения.</p></p>
 
-    <p><h3 className='log1'>Эко-продукция:</h3> <p className='lilText'>Мы гордимся тем, что предлагаем только натуральные и экологически чистые продукты. Наш мед не содержит добавок, красителей или консервантов.</p></p>
+    <p><h3 className='log1'>Эко-продукция:</h3> <p className='lilText'>Мы гордимся тем, что предлагаем только натуральные и экологически чистые продукты. <br />Наш мед не содержит добавок, красителей или консервантов.</p></p>
 
     <p><h3 className='log1'>Профессиональные консультации:</h3><p className='lilText'> Наши опытные консультанты помогут вам выбрать лучший мед для ваших нужд, будь то для повседневного употребления, лечебных целей или кулинарных экспериментов.</p></p>
   </div>
