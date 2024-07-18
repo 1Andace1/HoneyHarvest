@@ -66,7 +66,7 @@ export default memo(function CatalogPage(): JSX.Element {
       ) : (
         <></>
       )}
-      <Wrap spacing="30px">
+      <Wrap justify="center" spacing="30px">
         {filteredProducts.length ? (
           filteredProducts.map((el: IProduct) => (
             <OneCard el={el} key={el.id} />
