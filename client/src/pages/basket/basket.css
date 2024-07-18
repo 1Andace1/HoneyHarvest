@@ -4,14 +4,14 @@
 
 .basket-container {
     display: flex;
-    height: 100vh;
+    height: 70vh;
 }
 
 .basket {
-    width: 900px;
+    width: 500px;
     position: fixed;
-    left: 20px;
     top: 100px;
+    margin-left: 300px;
     bottom: 0;
     background-color: #ceffdb;
     box-shadow: 2px 0 5px rgba(0,0,0,0.1);
@@ -79,7 +79,7 @@
 .delivery-form {
     width: 900px;
     position: fixed;
-    left: 1000px;
+    left: 860px;
     top: 100px;
     bottom: 0;
     background-color: #ceffdb;
