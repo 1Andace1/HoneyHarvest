@@ -147,6 +147,7 @@ const Basket: React.FC = () => {
   // const handleBuyOne = (product: Product) => {
   //   navigate(`/checkout?product=${encodeURIComponent(JSON.stringify(product))}&address=${encodeURIComponent(inputs.deliveryAddress)}&Details=${encodeURIComponent(inputs.commentUser)}&type=${encodeURIComponent(inputs.status)}&date=${encodeURIComponent(inputs.estimatedDate)}`);
   // };
+  
 
   return (
     <div className="basket-container">
@@ -158,11 +159,11 @@ const Basket: React.FC = () => {
           {baskets.map(basket => (
             <li key={basket.id}>
               <div className="one-card-container animate__animated animate__fadeInDown">
-                <OneCard el={basket.product} />
+                <OneCard type="basket" el={basket.product} handleRemoveProduct={handleRemoveProduct} basketId={basket.id} />
               </div>
-              <div className="product-actions animate__animated animate__fadeInDown">
+              {/* <div className="product-actions animate__animated animate__fadeInDown">
                 <Button colorScheme="green" onClick={() => handleRemoveProduct(basket.id)}>убрать</Button>
-              </div>
+              </div> */}
             </li>
           ))}
         </ul>
