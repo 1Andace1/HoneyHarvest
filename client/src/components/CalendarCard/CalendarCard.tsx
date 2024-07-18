@@ -1,6 +1,5 @@
 // ! Установить npm install @fullcalendar/react @fullcalendar/daygrid @fullcalendar/timegrid
 
-import React from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";

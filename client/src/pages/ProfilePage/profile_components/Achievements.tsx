@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import {
   Box,
   Heading,
@@ -12,12 +12,24 @@ import {
 
 import axiosInstance from '../../../axiosInstance';
 import LoyaltyProgram from './../LoyaltyProgram';
-import styles from '../ProfilePage.module.css';
+// import styles from '../ProfilePage.module.css';
 
+interface Achievement {
+  id: string;
+  name: string;
+  icon: string;
+  description: string;
+  descriptionDone: string;
+  isCompleted: boolean;
+}
+
+interface AchievementsProps {
+  userId: string;
+}
 const loyaltyProgram = new LoyaltyProgram();
 
-const Achievements = ({ userId }) => {
-  const [achievements, setAchievements] = useState([]);
+const Achievements: React.FC<AchievementsProps> = ({ userId }) => {
+  const [achievements, setAchievements] = useState<Achievement[]>([]);
 
   useEffect(() => {
     const fetchAchievements = async () => {
@@ -27,7 +39,6 @@ const Achievements = ({ userId }) => {
           `${import.meta.env.VITE_API}/profile/achievements/${userId}`
         );
         const userActions = response.data;
-        // console.log('____Achievements response.data:', response.data);
         loyaltyProgram.updateAchievementStatus(userActions);
 
         const updatedAchievements = loyaltyProgram
