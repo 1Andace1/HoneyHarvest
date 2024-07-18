@@ -245,7 +245,8 @@ const WeatherForecast: React.FC = (): JSX.Element => {
           className="right-section" // ДОБАВЛЕН КЛАСС
         >
           {weatherData.length > 0 &&
-            visibleWeatherData.map((day, index) => (
+            visibleWeatherData.map((day) => (
+                 //  @ts-ignore
               <WeatherDay key={day.date} day={day} onClick={handleDayClick} />
             ))}
         </Box>

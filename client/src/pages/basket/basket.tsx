@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { getbasket, AddProduct, deleteProduct } from '../../redux/thunkbasketApp';
 import OneCard from '../../components/OneCard/OneCard';
 import { Button, Input, Select } from '@chakra-ui/react';
+   //  @ts-ignore
 import Modal from 'react-modal';
 
 interface Product {

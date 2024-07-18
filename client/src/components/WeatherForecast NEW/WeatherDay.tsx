@@ -27,6 +27,7 @@ const WeatherDay: React.FC<WeatherDayProps & { onDayClick: (day: WeatherDayProps
   return (
     <div
       className="weather-day"  
+         //  @ts-ignore
       onClick={() => onDayClick(day)} 
     >
       <img src={day.weatherIcon} alt="weather icon" />

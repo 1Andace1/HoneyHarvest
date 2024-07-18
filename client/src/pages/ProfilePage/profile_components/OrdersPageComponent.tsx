@@ -188,26 +188,20 @@ console.log( 'orders', orders)
   }, [ordersFromBasket]);
 
 
-  useEffect(() => {
-    if (orders && orders.length > 0) {
-      // setOrdersState(orders); // !---
-    }
-  }, [orders]);
-
-  useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const result = await axiosInstance.get<Order[]>(
-          `${VITE_BASE_URL}${VITE_API}/profile/orders/${user.id}`
-        );
-        // console.log(' 💎💎💎💎💎 result.data from fetchOrders', result.data);
-        setOrdersState(result.data);
-      } catch (error) {
-        console.error('Ошибка при получении заказов:', error);
-      }
-    };
-    fetchOrders();
-  }, [user.id]);
+  // useEffect(() => {
+  //   const fetchOrders = async () => {
+  //     try {
+  //       const result = await axiosInstance.get<Order[]>(
+  //         `${VITE_BASE_URL}${VITE_API}/profile/orders/${user.id}`
+  //       );
+  //       // console.log(' 💎💎💎💎💎 result.data from fetchOrders', result.data);
+  //       setOrdersState(result.data);
+  //     } catch (error) {
+  //       console.error('Ошибка при получении заказов:', error);
+  //     }
+  //   };
+  //   fetchOrders();
+  // }, [user.id]);
 
   // console.log(' 💎 ordersStates', ordersState);
 

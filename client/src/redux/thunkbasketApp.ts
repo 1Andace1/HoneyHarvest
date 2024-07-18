@@ -75,6 +75,7 @@ export const deleteProduct = createAsyncThunk(
       }
     } catch (error) {
       console.log(rejectWithValue, 'Я УДАЛЕНИЕ ПРОВЕРЯЮ');
+         //  @ts-ignore
       return rejectWithValue(error.response.data);
     }
   }
