@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { getbasket, AddProduct, deleteProduct } from '../../redux/thunkbasketApp';
 import OneCard from '../../components/OneCard/OneCard';
 import { Button, Input, Select } from '@chakra-ui/react';
+   //  @ts-ignore
 import Modal from 'react-modal';
 
 interface Product {
@@ -34,6 +35,7 @@ starsRating:number ;
 title: string;
 updatedAt:string ;
 yearOfHarvest: number;
+productId:number;
 
 }
 interface IUser {
@@ -66,6 +68,7 @@ const Basket: React.FC = () => {
       console.error('Необходимо заполнить все поля формы.');
       return;
     }
+    //@ts-ignore
     dispatch(AddProduct(inputs))
       .unwrap()
       .then(() => {
@@ -80,7 +83,8 @@ const Basket: React.FC = () => {
 
 
   // const navigate = useNavigate();
-  const basketData = useAppSelector((state) => state.basketSlice.basketApp);
+   //@ts-ignore
+  const basketData: Product[] = useAppSelector((state) => state.basketSlice.basketApp);
   useEffect(() => {
     if (basketData) {
       setBaskets(basketData);

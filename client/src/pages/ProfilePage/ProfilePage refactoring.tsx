@@ -1,5 +1,5 @@
 import { useAppSelector } from '../../redux/hooks'; // ^ new добавила useAppDispatch
-import { useState, useEffect, ChangeEvent } from 'react';
+import { useState, ChangeEvent } from 'react';
 import { Container, Box, Grid, useDisclosure, Flex } from '@chakra-ui/react';
 import axiosInstance from '../../axiosInstance';
 // import dayjs from 'dayjs'; //  для отрисовки красиво даты
@@ -18,7 +18,7 @@ import OrdersPageComponent from './profile_components/OrdersPageComponent'; // �
 import styles from './ProfilePage.module.css';
 
 // const { VITE_API, VITE_BASE_URL }: ImportMeta['env'] = import.meta.env;
-const { VITE_API }: ImportMeta['env'] = import.meta.env;
+// const { VITE_API }: ImportMeta['env'] = import.meta.env;
 
 interface FormData {
   username: string;
@@ -29,13 +29,13 @@ interface FormData {
   profilePhoto: File | null;
 }
 
-interface User {
-  id: number;
-  username: string;
-  email: string;
-  telephone: string;
-  userCity: string;
-}
+// interface User {
+//   id: number;
+//   username: string;
+//   email: string;
+//   telephone: string;
+//   userCity: string;
+// }
 
 function ProfilePag_refactoring(): JSX.Element {
 
@@ -54,7 +54,7 @@ function ProfilePag_refactoring(): JSX.Element {
     profilePhoto: null,
   });
   // const [isEditing, setIsEditing] = useState(false); // состояние для режима редактирования профиля
-  const [ordersData, setOrdersData] = useState([]); // new = изменено имя переменной на ordersData, чтобы избежать конфликта//  состояния для истории заказов
+  // const [ordersData, setOrdersData] = useState([]); // new = изменено имя переменной на ordersData, чтобы избежать конфликта//  состояния для истории заказов
 
   const { isOpen, onOpen, onClose } = useDisclosure(); // useDisclosure для управления состоянием модального окна чакры для редактирования
 
@@ -64,34 +64,34 @@ function ProfilePag_refactoring(): JSX.Element {
   // }, []);
 
   // ~ fetchUserTotalSpent = Загрузка общей суммы, потраченной пользователем:
-  const fetchUserTotalSpent = async () => {
-    if (!user) return;
-    try {
-      const response = await axiosInstance.get(
-        `${VITE_API}/profile/purchase-history/${user.id}`
-      );
-      const { baskets } = response.data;
-      setOrdersData(baskets); // сохраняем корзины пользователя для отображения истории покупок
-    } catch (error) {
-      console.error(
-        'Ошибка при получении суммы потраченной пользователем:',
-        error
-      );
-    }
-  };
+  // const fetchUserTotalSpent = async () => {
+  //   if (!user) return;
+  //   try {
+  //     const response = await axiosInstance.get(
+  //       `${VITE_API}/profile/purchase-history/${user.id}`
+  //     );
+  //     const { baskets } = response.data;
+  //     setOrdersData(baskets); // сохраняем корзины пользователя для отображения истории покупок
+  //   } catch (error) {
+  //     console.error(
+  //       'Ошибка при получении суммы потраченной пользователем:',
+  //       error
+  //     );
+  //   }
+  // };
 
   // ~  useEffect fetchOrders = Загрузка истории заказов пользователя
-  const fetchOrders = async () => {
-    try {
-      // получаем заказы пользователя с сервера
-      const response = await axiosInstance.get(
-        `${import.meta.env.VITE_API}/profile/orders/${user.id}`
-      );
-      setOrdersData(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const fetchOrders = async () => {
+  //   try {
+  //     // получаем заказы пользователя с сервера
+  //     const response = await axiosInstance.get(
+  //       `${import.meta.env.VITE_API}/profile/orders/${user.id}`
+  //     );
+  //     setOrdersData(response.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   // useEffect(() => {
   //   if (user?.id) {
@@ -247,7 +247,7 @@ function ProfilePag_refactoring(): JSX.Element {
   user={user}
   // @ts-ignore
   userId={user.id}
-  orders={ordersData}
+  // orders={ordersData}
 />
             </Box>
           </Grid>

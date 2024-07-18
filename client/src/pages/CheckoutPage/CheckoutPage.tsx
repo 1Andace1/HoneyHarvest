@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './CheckoutPage.css';
-import axiosInstance from '../../axiosInstance';
 
 interface BasketItem {
   id: number;
@@ -28,11 +27,11 @@ interface Product {
   category: string;
 }
 
-const { VITE_API, VITE_BASE_URL }: ImportMeta['env'] = import.meta.env;
+// const { VITE_API, VITE_BASE_URL }: ImportMeta['env'] = import.meta.env;
 
 const CheckoutPage: React.FC = () => {
   const location = useLocation();
-  const history = useHistory();
+  // const history = useHistory();
   const searchParams = new URLSearchParams(location.search);
   const basketString = searchParams.get('basket');
   // const productString = searchParams.get('product');
@@ -42,7 +41,7 @@ const CheckoutPage: React.FC = () => {
   const Details = searchParams.get('Details') || '';
   const deliveryType = searchParams.get('type') || '';
   const deliveryDate = searchParams.get('date') || '';
-  const [error, setError] = useState<string>('');
+  // const [error, setError] = useState<string>('');
   // console.log('🌸CheckoutPage=== basket', basket)
   // console.log('🌸CheckoutPage=== basket[0]', basket[0])
   // console.log('🌸CheckoutPage=== basket[0].product', basket[0].product)
@@ -50,7 +49,7 @@ const CheckoutPage: React.FC = () => {
   // console.log('🌸CheckoutPage=== productString', productString);
   // console.log('🌸CheckoutPage=== basketString', basketString);
 
-  const [basket, setBasket] = useState<Product[]>([]);
+  const [basket, setBasket] = useState<BasketItem[]>([]);
   // const [product, setProduct] = useState<Product | null>(null);
 
   console.log('🌸CheckoutPage=== basket', basket);
@@ -62,6 +61,7 @@ const CheckoutPage: React.FC = () => {
         const parsedBasket: Product[] = JSON.parse(
           decodeURIComponent(basketString)
         );
+        // @ts-ignore
         setBasket(parsedBasket);
       } catch (error) {
         console.error('Error parsing basket:', error);
@@ -86,22 +86,22 @@ const CheckoutPage: React.FC = () => {
     }, 0);
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    try {
-      const response = await axiosInstance.post(
-        `${import.meta.env.VITE_API}/orders`,
-        {
-          userId: user.id, // Подставьте реального пользователя, например, из Redux или состояния
-          deliveryAddress,
-          // Другие данные о заказе, которые нужно отправить
-        }
-      );
-      history.push(`${import.meta.env.VITE_API}/orders/${response.data.id}`);
-    } catch (error) {
-      setError('Ошибка при создании заказа');
-    }
-  };
+  // const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
+  //   try {
+  //     const response = await axiosInstance.post(
+  //       `${import.meta.env.VITE_API}/orders`,
+  //       {
+  //         userId: user.id, // Подставьте реального пользователя, например, из Redux или состояния
+  //         deliveryAddress,
+  //         // Другие данные о заказе, которые нужно отправить
+  //       }
+  //     );
+  //     history.push(`${import.meta.env.VITE_API}/orders/${response.data.id}`);
+  //   } catch (error) {
+  //     setError('Ошибка при создании заказа');
+  //   }
+  // };
 
   return (
     <div className="checkout-container">
