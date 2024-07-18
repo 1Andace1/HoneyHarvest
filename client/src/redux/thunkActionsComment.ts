@@ -39,6 +39,7 @@ export const AddComment: NewComment = createAsyncThunk("comment/new", async (inp
     `${VITE_BASE_URL}${VITE_API}/comment/new`,
     { inputs }
   );
+  // @ts-ignore
   return response
 });
 

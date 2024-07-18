@@ -22,17 +22,7 @@ export interface IUser {
     updatedAt: string
 }
 
-// export interface IBook {
-//     id: number,
-//     title: string,
-//     author: string,
-//     pages: number,
-//     createdAt: string,
-//     updatedAt: string
-// }
-
 export interface IType {
-    // inputs: IInputs
     type: string;
     inputs: {
       email: string;
@@ -41,7 +31,6 @@ export interface IType {
     };
   }
 
-// export type IBooks = IBook[]
 export interface Message {
   authorId: number;
   content: string;
@@ -49,7 +38,6 @@ export interface Message {
   id: number;
   updatedAt: string;
 }
-
 
 export interface IInputsProduct {
   title: string,

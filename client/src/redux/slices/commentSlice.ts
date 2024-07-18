@@ -9,7 +9,7 @@ import {
     RejectedActionComment,
   } from "../types/reducers";
   import { CommentState } from "../types/states";
-  import { IComment, ICommentSlice } from "../../types/stateTypes";
+  import { IComment } from "../../types/stateTypes";
 import { getAllComments, delComment, AddComment, UpdComment } from "../thunkActionsComment";
   
   const initialState: CommentState = { comments: [], loading: true, error: {} };
@@ -69,9 +69,11 @@ import { getAllComments, delComment, AddComment, UpdComment } from "../thunkActi
       builder.addCase(
         AddComment.fulfilled,
         (state: Draft<CommentState>, action): void => {
+          // @ts-ignore
   console.log('В слайс приходит action.payload.data', action.payload.data);
   console.log('В слайс приходит action.payload', action.payload);
   console.log('В слайс приходит action', action);
+  // @ts-ignore
   const { data } = action.payload
           state.comments.push(data);
           state.loading = false;
@@ -93,6 +95,7 @@ import { getAllComments, delComment, AddComment, UpdComment } from "../thunkActi
       builder.addCase(
         UpdComment.fulfilled,
         (state: Draft<CommentState>, action): void => {
+          // @ts-ignore
           const modifiedСard: IComment = action.payload.data
           state.comments = state.comments.filter(
             (el: Draft<IComment>): boolean => el.id !== modifiedСard.id

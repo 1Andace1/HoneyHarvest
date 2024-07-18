@@ -59,7 +59,7 @@ export default function ModalFormUpdate({ el }: { el: IProduct}): JSX.Element {
 
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputs((prev: object) => ({ ...prev, [e.target.name]: e.target.value }));
+    setInputs((prev: IInputsProductStringWithoutPicture) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const dispatch = useAppDispatch();
