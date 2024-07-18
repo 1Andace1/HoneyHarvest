@@ -7,6 +7,7 @@ import {
   Highlight,
   ButtonGroup,
   Container,
+  Box,
 } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { IComment } from "../../types/stateTypes";
@@ -48,9 +49,8 @@ export default function OneComment({ el }: { el: IComment }): JSX.Element {
 
   return (
     <div>
-      <Container size="lg" variant="bold">
-        <Card className="commentCard" maxW="lg" variant="filled" align="center">
-          <CardBody>
+      <Container maxW='container.sm' size="lg" variant="bold">
+        <Box borderWidth='1px' borderRadius='lg' overflow='hidden' bg={"whiteAlpha"}>
             {/* <Heading size="md">
                   {title}
                 </Heading> */}
@@ -63,9 +63,7 @@ export default function OneComment({ el }: { el: IComment }): JSX.Element {
               </Highlight>
             </Text>
             <Text>Количество лайков: {likesQuantity}</Text>
-          </CardBody>
           {/* <Divider /> */}
-          <CardFooter>
             <ButtonGroup spacing="2">
               {el.userId === user.id ? (
                 <IconButton
@@ -128,8 +126,7 @@ export default function OneComment({ el }: { el: IComment }): JSX.Element {
                   </Button>
                 </ButtonGroup>
               )} */}
-          </CardFooter>
-        </Card>
+              </Box>
       </Container>
     </div>
   );
