@@ -67,12 +67,12 @@ export default memo(function CatalogPage(): JSX.Element {
       <Wrap justify="center" spacing="30px">
         {filteredProducts.length ? (
           filteredProducts.map((el: IProduct) => (
-            <OneCard el={el} key={el.id} />
+            <OneCard type="catalog" el={el} key={el.id} />
           ))
         ) : (
           <>
             <Heading as="h2" size="2xl">
-              Каталог пуст или загружается
+              Каталог загружается
             </Heading>
             {/* <Spinner
           thickness='4px'
