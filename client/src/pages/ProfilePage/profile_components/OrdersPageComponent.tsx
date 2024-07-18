@@ -5,7 +5,6 @@ import React, { useState, useEffect } from 'react';
 import {
   Box,
   Text,
-  Divider,
   Table,
   Tbody,
   Tr,
@@ -16,8 +15,7 @@ import {
   Spacer,
 } from '@chakra-ui/react';
 import axiosInstance from '../../../axiosInstance';
-import OrderDetails from './OrderDetails';
-import OrderHistory from './OrderHistory';
+
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
 dayjs.locale('ru');
@@ -30,7 +28,7 @@ interface Order {
   createdAt: string;
   status?: string;
   picture: string;
-  numberBasket: string;
+  numberBasket: number;
   totalOrderPrice: number;
   products: Array<{
     productId: number;
@@ -68,7 +66,6 @@ interface User {
 interface OrdersPageComponentProps {
   user: User;
   orders: Order[];
-  userId: number;
 }
 
 interface BasketItem {
@@ -88,13 +85,9 @@ interface BasketItem {
   product: Product; // Добавляем связь с продуктом
 }
 
-interface MonthlyStats {
-  name: string;
-  orders: number;
-  totalBasketPrice: number;
-}
 
-const formatDateTime = (datetime) => {
+
+const formatDateTime = (datetime: string): string => {
   return dayjs(datetime).format('D MMMM (dddd) в HH:mm');
 };
 
@@ -129,13 +122,12 @@ const ProductRating: React.FC<{ product: any }> = ({ product }) => {
 const OrdersPageComponent: React.FC<OrdersPageComponentProps> = ({
   user,
   orders,
-  userId,
 }) => {
 console.log( 'orders', orders)
   const [ordersState, setOrdersState] = useState<Order[]>([]);
-  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
-  const [orderDetails, setOrderDetails] = useState([]);
-  const [monthlyStats, setMonthlyStats] = useState<MonthlyStats[]>([]);
+  // const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  // const [orderDetails, setOrderDetails] = useState([]);
+  // const [monthlyStats, setMonthlyStats] = useState<MonthlyStats[]>([]);
   const [ordersFromBasket, setOrdersFromBasket] = useState<BasketItem[]>([]);
   const [order, setOrder] = useState<Order | null>(null);
 
@@ -143,13 +135,12 @@ console.log( 'orders', orders)
     console.log('☣️ orders from OrdersPage', orders);
   }, [orders]);
 
-  // ^ NEW ДОБАВЛЯЮ БАСКЕТ
+
   useEffect(() => {
-    // Пример получения данных из корзины
-    console.log(
-      '☣️☣️`${VITE_API}/basket/get` ',
-      `${VITE_BASE_URL}${VITE_API}/basket/get`
-    );
+    // console.log(
+    //   '☣️☣️`${VITE_API}/basket/get` ',
+    //   `${VITE_BASE_URL}${VITE_API}/basket/get`
+    // );
     const fetchBasketData = async () => {
       const response = await axiosInstance.get(
         `${VITE_BASE_URL}${VITE_API}/basket/get`,
@@ -167,7 +158,7 @@ console.log( 'orders', orders)
     );
   }, []);
 
-  // ^ NEW ЗАКАЗ ИЗ БАСКЕТОВ
+
   useEffect(() => {
     if (ordersFromBasket.length > 0) {
       // Преобразуем данные корзины в один заказ
@@ -176,7 +167,6 @@ console.log( 'orders', orders)
       console.log('☣️☣️☣️☣️firstItem.product: ', ordersFromBasket[0].product);
       const orderData: Order = {
         UserId: firstItem.UserId,
-        // {formatDateTime(firstItem.createdAt)}
         commentUser: firstItem.commentUser,
         createdAt: formatDateTime(firstItem.createdAt),
         status: firstItem.status,
@@ -200,20 +190,15 @@ console.log( 'orders', orders)
           picture: item.product.picture,
         })),
       };
-      console.log(
-        '☣️☣️☣️orderData.deliveryAddress ',
-        orderData.deliveryAddress
-      );
-      console.log('☣️☣️☣️☣️orderData ', orderData);
+
       setOrder(orderData);
     }
   }, [ordersFromBasket]);
 
+
   useEffect(() => {
     if (orders && orders.length > 0) {
       setOrdersState(orders);
-      // const statsData = calculateStats(orders);
-      // setStats(statsData);
     }
   }, [orders]);
 
@@ -234,128 +219,96 @@ console.log( 'orders', orders)
 
   // console.log(' 💎 ordersStates', ordersState);
 
-  const fetchOrderDetails = async (orderId: number) => {
-    console.log('🟢 orderId', orderId);
-    const result = await axiosInstance.get(
-      `${VITE_BASE_URL}${VITE_API}/profile/order-details/${orderId}`
-    );
-    // console.log('💎💎💎 resultfrom fetchOrderDetails', result.data);
-    setOrderDetails(result.data);
-    setSelectedOrder(result.data);
-  };
+  // const fetchOrderDetails = async (orderId: number) => {
+  //   console.log('🟢 orderId', orderId);
+  //   const result = await axiosInstance.get(
+  //     `${VITE_BASE_URL}${VITE_API}/profile/order-details/${orderId}`
+  //   );
+  //   // console.log('💎💎💎 resultfrom fetchOrderDetails', result.data);
+  //   setOrderDetails(result.data);
+  //   setSelectedOrder(result.data);
+  // };
 
-  const calculateStats = (orders: Order[], user: User): MonthlyStats[] => {
-    const userOrders = orders.filter((order) => {
-      return order.UserId === user.id;
-    });
-    console.log('💎 userOrders=', userOrders);
+  // const calculateStats = (orders: Order[], user: User): MonthlyStats[] => {
+  //   const userOrders = orders.filter((order) => {
+  //     return order.UserId === user.id;
+  //   });
+  //   console.log('💎 userOrders=', userOrders);
 
-    const monthlyStats: MonthlyStats[] = [];
-    let totalBasketPrice = 0;
-    // проходимся по отфильтрованным заказам и собираем статистику
-    userOrders.forEach((order) => {
-      const month = new Date(order.createdAt).getMonth(); // Получаем номер месяца (0 - январь, 11 - декабрь)
-      const monthName = getMonthName(month); // Получаем полное название месяца
-      // ищем уже существующую запись в monthlyStats для текущего месяца
-      const existingMonth = monthlyStats.find(
-        (stat) => stat.name === monthName
-      );
+  //   const monthlyStats: MonthlyStats[] = [];
+  //   let totalBasketPrice = 0;
+  //   // проходимся по отфильтрованным заказам и собираем статистику
+  //   userOrders.forEach((order) => {
+  //     const month = new Date(order.createdAt).getMonth(); // Получаем номер месяца (0 - январь, 11 - декабрь)
+  //     const monthName = getMonthName(month); // Получаем полное название месяца
+  //     // ищем уже существующую запись в monthlyStats для текущего месяца
+  //     const existingMonth = monthlyStats.find(
+  //       (stat) => stat.name === monthName
+  //     );
 
-      if (existingMonth) {
-        existingMonth.orders++;
-        existingMonth.totalBasketPrice += order.products
-          ? order.products.reduce(
-              (sum, product) => sum + product.totalBasketPrice,
-              0
-            )
-          : 0;
-      } else {
-        monthlyStats.push({
-          name: monthName,
-          orders: 1, // Начинаем с 1 заказа
-          totalBasketPrice: order.products
-            ? order.products.reduce(
-                (sum, product) => sum + product.totalBasketPrice,
-                0
-              )
-            : 0,
-        });
-      }
-    });
+  //     if (existingMonth) {
+  //       existingMonth.orders++;
+  //       existingMonth.totalBasketPrice += order.products
+  //         ? order.products.reduce(
+  //             (sum, product) => sum + product.totalBasketPrice,
+  //             0
+  //           )
+  //         : 0;
+  //     } else {
+  //       monthlyStats.push({
+  //         name: monthName,
+  //         orders: 1, // Начинаем с 1 заказа
+  //         totalBasketPrice: order.products
+  //           ? order.products.reduce(
+  //               (sum, product) => sum + product.totalBasketPrice,
+  //               0
+  //             )
+  //           : 0,
+  //       });
+  //     }
+  //   });
 
-    return monthlyStats;
-  };
+  //   return monthlyStats;
+  // };
 
   // вычисляем статистику по месяцам для текущего пользователя
-  useEffect(() => {
-    if (ordersState.length > 0 && user) {
-      const stats = calculateStats(ordersState, user);
-      setMonthlyStats(stats);
-    }
-  }, [ordersState, user]);
+  // useEffect(() => {
+  //   if (ordersState.length > 0 && user) {
+  //     const stats = calculateStats(ordersState, user);
+  //     setMonthlyStats(stats);
+  //   }
+  // }, [ordersState, user]);
 
   // получение названия месяца по его номеру
-  const getMonthName = (month: number): string => {
-    const months = [
-      'Январь',
-      'Февраль',
-      'Март',
-      'Апрель',
-      'Май',
-      'Июнь',
-      'Июль',
-      'Август',
-      'Сентябрь',
-      'Октябрь',
-      'Ноябрь',
-      'Декабрь',
-    ];
-    return months[month];
-  };
+  // const getMonthName = (month: number): string => {
+  //   const months = [
+  //     'Январь',
+  //     'Февраль',
+  //     'Март',
+  //     'Апрель',
+  //     'Май',
+  //     'Июнь',
+  //     'Июль',
+  //     'Август',
+  //     'Сентябрь',
+  //     'Октябрь',
+  //     'Ноябрь',
+  //     'Декабрь',
+  //   ];
+  //   return months[month];
+  // };
 
   return (
     <Box p={6}>
       <Text fontSize="2.5rem" fontWeight="bold">
         Мои заказы
       </Text>
-      {/* статист. по месяцам */}
-      {/* <Box mt="4"  bg="#9AE6B4">
-        <Heading mb="4" fontSize="2.2rem" >
-          Статистика по месяцам
-        </Heading>
-        <Table variant="striped"  sx={{
-    'th, td': { // Стилизация строк
-      borderColor: '#68D391',
-    },
-    'tr:nth-of-type(odd)': { // Полосатая стилизация для нечетных строк
-      backgroundColor: '#C6F6D5',
-    }
-  }}>
-          <Thead>
-            <Tr>
-              <Th>Месяц</Th>
-              <Th>Заказов</Th>
-              <Th>Потрачено</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {monthlyStats.map((stat) => (
-              <Tr key={stat.name}>
-                <Td>{stat.name}</Td>
-                <Td>{stat.orders}</Td>
-                <Td>{stat.totalBasketPrice} руб.</Td>
-              </Tr>
-            ))}
-          </Tbody>
-        </Table>
-      </Box> */}
       <div>
-
         {order ? (
           
           <Box p={4} borderWidth="1px" borderRadius="lg" mb={4}>
                     <Heading fontSize="2rem" h="70px" bg="#9AE6B4">
-          Информация о заказе № {order.numberBasket}
+          Заказ № {order.numberBasket}
               </Heading>
             {/* Общая информация о заказе в виде таблицы */}
             <Table variant="simple" mb={4}>

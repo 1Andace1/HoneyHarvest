@@ -1,20 +1,40 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Button, useDisclosure } from '@chakra-ui/react';
+import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
+import { Box, useDisclosure } from '@chakra-ui/react';
 import axiosInstance from '../../../axiosInstance';
 import UserProfileCard from './UserProfileCard';
 import EditProfileModal from './EditProfileModal';
-import LoyaltyInfo from './LoyaltyProgramComponent';
-import OrdersPage from './OrdersPageComponent';
+// import LoyaltyInfo from './LoyaltyProgramComponent';
+// import OrdersPage from './OrdersPageComponent';
 import { useDispatch } from 'react-redux';
-import { updateUser } from '../../../redux/slices/authSlice'; // Замените на правильный путь
+import { updateUser } from '../../../redux/slices/authSlice';
 
+interface User {
+  id: string;
+  username: string;
+  email: string;
+  telephone: string;
+  userCity: string;
+}
 
-const { VITE_API, VITE_BASE_URL }: ImportMeta['env'] = import.meta.env;
+interface FormData {
+  username: string;
+  email: string;
+  password: string;
+  telephone: string;
+  userCity: string;
+  profilePhoto: File | string;
+}
 
-const UserProfilePage = ({ user, userTotalSpent }) => {
+interface UserProfilePageProps {
+  user: User;
+  userTotalSpent?: number;
+}
+const { VITE_API }: ImportMeta['env'] = import.meta.env;
+
+const UserProfilePage: React.FC<UserProfilePageProps> = ({ user }) => {
   const dispatch = useDispatch();
-  const [loyalty, setLoyalty] = useState(null);
-  const [formData, setFormData] = useState({
+  // const [loyalty, setLoyalty] = useState<any>(null);
+  const [formData, setFormData] = useState<FormData>({
     username: '',
     email: '',
     password: '',
@@ -23,14 +43,21 @@ const UserProfilePage = ({ user, userTotalSpent }) => {
     profilePhoto: '',
   });
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [error, setError] = useState(null);
-  const [initialFormData, setInitialFormData] = useState({}); // ^ new чтобы хранить начальные данные формы
+  // const [error, setError] = useState<Error | null>(null);
+  const [initialFormData, setInitialFormData] = useState<FormData>({
+    username: '',
+    email: '',
+    password: '',
+    telephone: '',
+    userCity: '',
+    profilePhoto: '',
+  });
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const userData = await axiosInstance.get(
-          `${import.meta.env.VITE_API}/profile/user/${user.id}`
+          `${VITE_API}/profile/user/${user.id}`
         );
         const initialData = {
           username: userData.data.username,
@@ -47,40 +74,43 @@ const UserProfilePage = ({ user, userTotalSpent }) => {
       }
     };
 
-    const fetchLoyaltyData = async () => {
-      try {
-        const loyaltyData = await axiosInstance.get(
-          `${import.meta.env.VITE_API}/profile/loyalty`
-        );
-        setLoyalty(loyaltyData.data);
-      } catch (error) {
-        console.error('Ошибка при получении данных лояльности', error);
-      }
-    };
+    // const fetchLoyaltyData = async () => {
+    //   try {
+    //     const loyaltyData = await axiosInstance.get(
+    //       `${import.meta.env.VITE_API}/profile/loyalty`
+    //     );
+    //     setLoyalty(loyaltyData.data);
+    //   } catch (error) {
+    //     console.error('Ошибка при получении данных лояльности', error);
+    //   }
+    // };
 
     fetchUserData();
-    fetchLoyaltyData();
-  }, []);
 
-  const handleChange = (e) => {
+  }, [user.id]);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value, files } = e.target;
     if (name === 'profilePhoto') {
-      setFormData({ ...formData, [name]: files[0] });
+      setFormData({ ...formData, [name]: files[0]});
     } else {
       setFormData({ ...formData, [name]: value });
     }
   };
 
   // ~ обработчик отправки формы редактирования профиля
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       // создание объекта updatedFields для хранения измененных полей
-      const updatedFields = {};
+      const updatedFields: Partial<FormData> = {};
 
       for (const key in formData) {
-        if (formData[key] !== initialFormData[key] && formData[key] !== '') {
-          updatedFields[key] = formData[key];
+        if (
+          formData[key as keyof FormData] !== initialFormData[key as keyof FormData] &&
+          formData[key as keyof FormData] !== ''
+        ) {
+          updatedFields[key as keyof FormData] = formData[key as keyof FormData];
         }
       }
 
@@ -91,12 +121,12 @@ const UserProfilePage = ({ user, userTotalSpent }) => {
 
       const formDataObj = new FormData();
       for (const key in updatedFields) {
-        formDataObj.append(key, updatedFields[key]);
+        formDataObj.append(key, updatedFields[key as keyof FormData] as string | Blob);
       }
 
       // проверка содержимого formDataObj
       for (const pair of formDataObj.entries()) {
-        console.log(pair[0] + ': ' + pair[1]);
+        console.log(pair[0] + ': ' + (pair[1] instanceof Blob ? 'Blob' : pair[1]));
       }
       // отправка PUT запрос на сервер для обновления профиля
       const res = await axiosInstance.put(
@@ -112,17 +142,16 @@ const UserProfilePage = ({ user, userTotalSpent }) => {
       // Обновляем состояние пользователя на клиенте (тк Сервер вмдит изменения, а клиент нет)
       const updatedUser = res.data.user;
       dispatch(updateUser(updatedUser)); // Замените на ваш метод обновления пользователя в redux или в другом state management
-;      onClose();
-    } catch (error) {
-      setError(error);
+      onClose();
+    } catch (error: any) {
+      // setError(error);
       console.error('Ошибка при обновлении данных пользователя', error);
     }
   };
-
   return (
     <Box p="0" m="0" border="none">
       {user && <UserProfileCard user={user} onEdit={onOpen} />}
-      {loyalty && <LoyaltyInfo userTotalSpent={userTotalSpent} />}
+      {/* {loyalty && <LoyaltyInfo userTotalSpent={userTotalSpent} />} */}
       {/* <OrdersPage user={user} /> */}
       <EditProfileModal
         isOpen={isOpen}

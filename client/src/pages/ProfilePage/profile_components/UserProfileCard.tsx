@@ -8,6 +8,7 @@ type UserProfileCardProps = {
     email: string;
     photo?: string;
   };
+  onEdit?: () => void; // добавляем опциональное свойство onEdit
 };
 
 {
@@ -20,8 +21,8 @@ const UserProfileCard: React.FC<UserProfileCardProps> = ({ user, onEdit }) => {
       color="#f8f9fb"
       w="100%"
       h="100%"
-      p="0" m="0"
-      w={{ base: '50%', md: '80%', lg: '60%' }}
+      // p="0" m="0"
+      // w={{ base: '50%', md: '80%', lg: '60%' }}
       maxW="800px"
       mx="auto"
       my={5}
@@ -89,7 +90,7 @@ const UserProfileCard: React.FC<UserProfileCardProps> = ({ user, onEdit }) => {
         fontSize="0.7rem" // Увеличиваем размер шрифта кнопки
         width="auto" // Устанавливаем ширину кнопки "по содержимому"
         padding="0.95rem 2.3rem" // Увеличиваем padding для увеличения размера кнопки
-        onClick={onEdit} // ^ new Onclck изменила и добавила onEdit
+        onClick={onEdit ? onEdit : undefined}
       >
         Редактировать
       </Button>
