@@ -16,12 +16,10 @@ module.exports = {
             'Вкуснейший липовый мёд собран в экологически чистой горной местности, вдали от промышленных производств, городов и шоссейных дорог',
           yearOfHarvest: 2023,
           availableQuantity: 100,
-          // picture: './productsPhoto/107.jpeg', // !!! МАША ЭТО ПОХОЖЕ НАДО ИМЕНИТЬ!?! точка в адресе была лишняя вначале
-          // Ответ Влада: без точки в адресе не грузится фотография на странице одного товара (на которой комментарии пользователей)
           picture: '107.jpeg',
           location: 'Башкирия',
           starsRating: 4,
-          createdAt: Sequelize.fn("NOW"),
+          createdAt: Sequelize.fn('NOW'),
         },
         {
           title: 'Бортевый липовый мёд',
@@ -36,7 +34,7 @@ module.exports = {
           picture: '102.jpeg',
           location: 'Башкирия',
           starsRating: 5,
-          createdAt: Sequelize.fn("NOW"),
+          createdAt: Sequelize.fn('NOW'),
         },
         {
           title: 'Цветочный мёд',
@@ -44,7 +42,8 @@ module.exports = {
           discountRatio: 0.8,
           category: 'мёд',
           sort: 'цветочный',
-          description: 'Собран среди разнотравья на альпийских лугах Горного Алтая на высоте более 2500 метров над уровнем моря',
+          description:
+            'Собран среди разнотравья на альпийских лугах Горного Алтая на высоте более 2500 метров над уровнем моря',
           yearOfHarvest: 2023,
           availableQuantity: 100,
           picture: '103.jpeg',
@@ -58,7 +57,8 @@ module.exports = {
           discountRatio: 0.8,
           category: 'мёд',
           sort: 'таволговый',
-          description: '__________описание_____________',
+          description:
+            'Этот мед подходит для вегетарианцев и тех, кто соблюдает пост. Продукт готов к употреблению и не требует дополнительного приготовления',
           yearOfHarvest: 2023,
           availableQuantity: 100,
           picture: '104.jpeg',
@@ -72,7 +72,8 @@ module.exports = {
           discountRatio: 0.8,
           category: 'мёд',
           sort: 'липовый',
-          description: '___________описание____________',
+          description:
+            'Вкусовые свойства: Изысканный и сложный букет сочетание липы, ванили и спелого абрикоса, оттенки апельсина, чайной розы с легким мятным послевкусием.',
           yearOfHarvest: 2022,
           availableQuantity: 4,
           picture: '151.jpeg',
@@ -86,7 +87,8 @@ module.exports = {
           discountRatio: 1,
           category: 'мёд',
           sort: 'акациевый',
-          description: 'Целительный акациевый мёд согреет Вас зимой и оздоровит',
+          description:
+            'Целительный акациевый мёд согреет Вас зимой и оздоровит',
           yearOfHarvest: 2023,
           availableQuantity: 60,
           picture: '105.jpeg',
@@ -95,12 +97,13 @@ module.exports = {
           createdAt: '2023-07-14 00:15:23.802 +0500',
         },
         {
-          title: 'Цветочный мёд',
+          title: 'Цветочный лесной мёд',
           price: 900,
           discountRatio: 0.6,
           category: 'мёд',
           sort: 'цветочный',
-          description: '__________описание_____________',
+          description:
+            'Это продукт высочайшего качества, полученный из цветочного нектара диких лесных растений. Неповторимый аромат и нежный вкус',
           yearOfHarvest: 2022,
           availableQuantity: 4,
           picture: '106.jpeg',
@@ -114,7 +117,8 @@ module.exports = {
           discountRatio: 0.8,
           category: 'мёд',
           sort: 'кипрейный',
-          description: '___________описание____________',
+          description:
+            'это натуральный продукт для тех, кто следит за своим питанием. Производится из нектара цветов кипрея узколистного. Нежный аромат и сладкий вкус',
           yearOfHarvest: 2022,
           availableQuantity: 4,
           picture: '101.jpeg',
@@ -128,7 +132,8 @@ module.exports = {
           discountRatio: 0.8,
           category: 'мёд',
           sort: 'донниковый',
-          description: '___________описание____________',
+          description:
+            'Донниковый мед собран с зарослей известного лекарственного растения Донника. Донник цветёт очень долго, практически все лето и ранней осенью, и являются отличным источником сбора нектара',
           yearOfHarvest: 2022,
           availableQuantity: 4,
           picture: '108.jpeg',
@@ -142,7 +147,8 @@ module.exports = {
           discountRatio: 0.9,
           category: 'перга',
           sort: 'гранулированная',
-          description: 'Перга - это пыльца, утрамбованная и залитая медом в ячейках сот пчёлами. Таким образом, пыльца проходит молочнокислое брожение, и получается перга',
+          description:
+            'Перга - это пыльца, утрамбованная и залитая медом в ячейках сот пчёлами. Таким образом, пыльца проходит молочнокислое брожение, и получается перга',
           yearOfHarvest: 2023,
           availableQuantity: 10,
           picture: '401.jpeg',
@@ -156,7 +162,8 @@ module.exports = {
           discountRatio: 0.8,
           category: 'мёд',
           sort: 'подсолнечный',
-          description: '___________описание____________',
+          description:
+            'Без добавок, без сахара и содержащий всю необходимую для организма витамины и микроэлементы. Это комплексное средство для укрепления иммунитета и профилактики болезней.',
           yearOfHarvest: 2022,
           availableQuantity: 40,
           picture: '114.jpeg',
@@ -170,7 +177,8 @@ module.exports = {
           discountRatio: 0.9,
           category: 'прополис',
           sort: 'прополис',
-          description: '__________описание_____________',
+          description:
+            'Прополис оказывает противовирусный и противогрибковый эффект, подавляет рост патогенных микроорганизмов, заживляет раны, противовоспалительное действие',
           yearOfHarvest: 2023,
           availableQuantity: 50,
           picture: '301.jpeg',
@@ -184,10 +192,7 @@ module.exports = {
           discountRatio: 1,
           category: 'воск',
           sort: 'пчелиный',
-          description:
-            `Чистый и высококачественный воск-капанец без посторонных примесей. 
-            Получен путём сухой вытопки с использованием солнечных воскотопок. 
-            Пригоден для производства натуральной косметики и свечей`,
+          description: `Чистый и высококачественный воск-капанец без посторонных примесей. Получен путём сухой вытопки с использованием солнечных воскотопок. Пригоден для производства натуральной косметики и свечей`,
           yearOfHarvest: 2023,
           availableQuantity: 50,
           picture: '203.jpeg',
@@ -201,7 +206,8 @@ module.exports = {
           discountRatio: 1,
           category: 'мёд',
           sort: 'кипрейный',
-          description: '___________описание____________',
+          description:
+            'тот мёд имеет приятный аромат и нежный вкус, который невозможно забыть. Он подходит для добавления в чай, выпечку, для употребления в чистом виде',
           yearOfHarvest: 2023,
           availableQuantity: 4,
           picture: '109.jpeg',
@@ -215,7 +221,8 @@ module.exports = {
           discountRatio: 0.9,
           category: 'мёд',
           sort: 'гречишный',
-          description: '___________описание____________',
+          description:
+            'Гречишный мед, высокосортный и полезный продукт, самый известный из темных видов меда. Пчелы собирают его из цветков гречихи обыкновенной',
           yearOfHarvest: 2022,
           availableQuantity: 4,
           picture: '110.jpeg',
@@ -229,7 +236,8 @@ module.exports = {
           discountRatio: 0.7,
           category: 'мёд',
           sort: 'донниковый',
-          description: '___________описание____________',
+          description:
+            'Мед  100% натуральный. Собран пчелами с цветов растущих на полях и лугах без использования химикатов. Мед богат микроэлементами',
           yearOfHarvest: 2023,
           availableQuantity: 4,
           picture: '111.jpeg',
@@ -271,7 +279,8 @@ module.exports = {
           discountRatio: 0.8,
           category: 'мёд',
           sort: 'гречишный',
-          description: '___________описание____________',
+          description:
+            'Гречишный мед, высокосортный и полезный продукт. Пчелы собирают его из цветков гречихи обыкновенной, пыльца, котороя очень богата белками',
           yearOfHarvest: 2022,
           availableQuantity: 5,
           picture: '115.jpeg',
@@ -280,12 +289,13 @@ module.exports = {
           createdAt: '2023-07-14 00:15:23.802 +0500',
         },
         {
-          title: 'Кипрейный мёд',
+          title: 'Каштановый мёд',
           price: 800,
           discountRatio: 0.8,
           category: 'мёд',
           sort: 'кипрейный',
-          description: '___________описание____________',
+          description:
+            'Мёд с цветов каштана – это элитный сорт мёда. Он обязательно должен обладать благородной горечью и тёмно-коричневым цветом, это при условии, если удалось покачать чистый каштан',
           yearOfHarvest: 2022,
           availableQuantity: 4,
           picture: '116.jpeg',
@@ -299,11 +309,12 @@ module.exports = {
           discountRatio: 0.9,
           category: 'мёд',
           sort: 'подсолнечный',
-          description: '___________описание____________',
+          description:
+            'Собираем мед преимущественно в Алтайском крае. Здесь чистый воздух, бескрайние просторы и огромное разнообразие медоносных цветов',
           yearOfHarvest: 2023,
           availableQuantity: 4,
           picture: '112.jpeg',
-          location: 'Башкирия',
+          location: 'Алтай',
           starsRating: 4,
           createdAt: '2023-07-14 00:15:23.802 +0500',
         },
@@ -313,7 +324,8 @@ module.exports = {
           discountRatio: 0.8,
           category: 'мёд',
           sort: 'кипрейный',
-          description: '___________описание____________',
+          description:
+            'Кипрейный мёд- уникальный мед, который называют «снежным», поскольку, кристаллизуясь, он светлеет и становится похожим на снег',
           yearOfHarvest: 2023,
           availableQuantity: 16,
           picture: '152.jpeg',
@@ -327,7 +339,8 @@ module.exports = {
           discountRatio: 0.8,
           category: 'мёд',
           sort: 'липовый',
-          description: '___________описание____________',
+          description:
+            'вкуснейшее лакомство, с приятным ароматом и превосходным нежным вкусом. Кладезь витаминов и ценных микроэлементов',
           yearOfHarvest: 2023,
           availableQuantity: 68,
           picture: '118.jpeg',
@@ -336,12 +349,27 @@ module.exports = {
           createdAt: '2023-07-14 00:15:23.802 +0500',
         },
         {
+          title: 'Воск',
+          price: 3200,
+          discountRatio: 1,
+          category: 'воск',
+          sort: 'пчелиный',
+          description: `100% натуральный, без каких-либо примесей и отдушек, не подвергался химической чистке, собран на пасеке не использующей антибиотики`,
+          yearOfHarvest: 2023,
+          availableQuantity: 50,
+          picture: '203.jpeg',
+          location: 'Алтай',
+          starsRating: 4,
+          createdAt: '2023-09-14 00:15:23.802 +0500',
+        },
+        {
           title: 'Цветочный горный мёд',
           price: 800,
           discountRatio: 0.8,
           category: 'мёд',
           sort: 'цветочный',
-          description: '___________описание____________',
+          description:
+            'это натуральный мёд с личной семейной пасеки, не подвергнутый каким-либо обработкам, из Алтайского края - самого чистого региона нашей страны',
           yearOfHarvest: 2022,
           availableQuantity: 4,
           picture: '119.jpeg',
@@ -355,7 +383,8 @@ module.exports = {
           discountRatio: 0.8,
           category: 'мёд',
           sort: 'акациевый',
-          description: '___________описание____________',
+          description:
+            'это натуральный продукт, который является идеальным выбором для тех, кто заботится о своем здоровье и правильном питании',
           yearOfHarvest: 2022,
           availableQuantity: 4,
           picture: '120.jpeg',
@@ -369,7 +398,8 @@ module.exports = {
           discountRatio: 0.8,
           category: 'мёд',
           sort: 'липовый',
-          description: '___________описание____________',
+          description:
+            'вкуснейшее лакомство, с приятным ароматом и превосходным нежным вкусом. Кладезь витаминов и ценных микроэлементов',
           yearOfHarvest: 2022,
           availableQuantity: 4,
           picture: '121.jpeg',
@@ -383,7 +413,8 @@ module.exports = {
           discountRatio: 0.8,
           category: 'мёд',
           sort: 'цветочный',
-          description: '___________описание____________',
+          description:
+            'Натуральный мёд с семейной пасеки, не подвергнутый обработкам. Медоносная база: донник, иван-чай, клевер, люцерна, фацелия, одуванчик, малина, мята и др.',
           yearOfHarvest: 2022,
           availableQuantity: 4,
           picture: '122.jpeg',
@@ -397,7 +428,8 @@ module.exports = {
           discountRatio: 0.8,
           category: 'мёд',
           sort: 'кипрейный',
-          description: '___________описание____________',
+          description:
+            'Кипрейный мёд или иванчай ценится знатоками и любителями этого продукта за его полезные свойства, уникальный состав и способность помогать в лечении многих болезней',
           yearOfHarvest: 2022,
           availableQuantity: 4,
           picture: '123.jpeg',
@@ -411,7 +443,8 @@ module.exports = {
           discountRatio: 0.8,
           category: 'мёд',
           sort: 'гречишный',
-          description: '___________описание____________',
+          description:
+            'Мёд гречихи считается одним из самых целебных медов. Он имеет более высокие концентрации макроэлементов, микроэлементов и антиоксидантных соединений',
           yearOfHarvest: 2022,
           availableQuantity: 4,
           picture: '124.jpeg',
