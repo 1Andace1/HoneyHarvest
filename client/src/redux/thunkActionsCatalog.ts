@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosResponse } from "axios";
 import axiosInstance from "../axiosInstance";
-import { IInputsProduct, IInputsProductStringWithoutPicture } from "../types/stateTypes";
+import { IInputsProduct, IInputsProductStringWithoutPicture, IProduct } from "../types/stateTypes";
 import { DelProduct, GetProducts, NewProduct, UpdateProduct } from "./types/thunkProduct";
 // import { useNavigate } from "react-router-dom";
 
@@ -26,7 +26,7 @@ export const delProduct: DelProduct = createAsyncThunk(
   }
 );
 
-export const AddProduct: NewProduct = createAsyncThunk("catalog/new", async (inputs: IInputsProduct) => {
+export const AddProduct: NewProduct = createAsyncThunk("catalog/new", async (inputs: IInputsProduct): Promise<IProduct> => {
 
 
   // добавлено: использование FormData для отправки данных, включая файлы
@@ -44,7 +44,6 @@ export const AddProduct: NewProduct = createAsyncThunk("catalog/new", async (inp
     console.log(entry[0], entry[1]);
   }
 
-
   const response: AxiosResponse<number, number> = await axiosInstance.post(
     `${VITE_BASE_URL}${VITE_API}/catalog/new`,
      formData ,
@@ -54,7 +53,7 @@ export const AddProduct: NewProduct = createAsyncThunk("catalog/new", async (inp
       },
     }
   );
-  console.log('в санку поступил response--------------->', response);
+  // console.log('!!!!!!в санку поступил response.data--------------->', response.data);
   return response.data
 });
 

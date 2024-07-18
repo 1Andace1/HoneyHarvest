@@ -1,13 +1,14 @@
-import { AsyncThunk, Dispatch } from "@reduxjs/toolkit";
+import { AsyncThunk } from "@reduxjs/toolkit";
 import { IInputsProduct, IInputsProductStringWithoutPicture, IProduct } from "../../types/stateTypes";
 import { AxiosResponse } from "axios";
+import { AppDispatch, RootState } from "../store";
 
 type AsyncThunkConfig = {
   /** return type for `thunkApi.getState` */
   // state: ProductState;
-  state: IProduct[];
+  state: RootState;
   /** type for `thunkApi.dispatch` */
-  dispatch?: Dispatch;
+  dispatch: AppDispatch;
   /** type of the `extra` argument for the thunk middleware, which will be passed in as `thunkApi.extra` */
   extra?: unknown;
   /** type to be passed into `rejectWithValue`'s first argument that will end up on `rejectedAction.payload` */
@@ -37,11 +38,7 @@ type AsyncThunkConfig = {
 // export type GetProducts = AsyncThunk<ProductState, void, AsyncThunkConfig>;
 export type GetProducts = AsyncThunk<IProduct[], void, AsyncThunkConfig>;
 
-export type NewProduct = AsyncThunk<
-  AxiosResponse<number, number>,
-  IInputsProduct,
-  AsyncThunkConfig
->;
+export type NewProduct = AsyncThunk<IProduct, IInputsProduct, AsyncThunkConfig>
 
 export type DelProduct = AsyncThunk<number | void, number, AsyncThunkConfig>;
 

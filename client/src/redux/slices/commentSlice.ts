@@ -68,7 +68,7 @@ import { getAllComments, delComment, AddComment, UpdComment } from "../thunkActi
       });
       builder.addCase(
         AddComment.fulfilled,
-        (state: Draft<CommentState>, action: PayloadAction<ICommentSlice>): void => {
+        (state: Draft<CommentState>, action): void => {
   console.log('В слайс приходит action.payload.data', action.payload.data);
   console.log('В слайс приходит action.payload', action.payload);
   console.log('В слайс приходит action', action);
@@ -92,7 +92,7 @@ import { getAllComments, delComment, AddComment, UpdComment } from "../thunkActi
       });
       builder.addCase(
         UpdComment.fulfilled,
-        (state: Draft<CommentState>, action: PayloadAction<ICommentSlice>): void => {
+        (state: Draft<CommentState>, action): void => {
           const modifiedСard: IComment = action.payload.data
           state.comments = state.comments.filter(
             (el: Draft<IComment>): boolean => el.id !== modifiedСard.id

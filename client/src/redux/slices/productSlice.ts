@@ -16,7 +16,7 @@ import {
   RejectedActionProduct,
 } from "../types/reducers";
 import { ProductState } from "../types/states";
-import { IInputsProduct, IInputsProductStringWithoutPicture, IProduct, IProductsSlice } from "../../types/stateTypes";
+import { IInputsProductStringWithoutPicture, IProduct } from "../../types/stateTypes";
 import { AxiosResponse } from "axios";
 
 const initialState: ProductState = { products: [], loading: true, error: {} };
@@ -33,7 +33,6 @@ const productSlice: ProductSlice = createSlice({
     builder.addCase(
       getProducts.fulfilled,
       (state: Draft<ProductState>, action: ProductAction): void => {
-        //@ts-ignore
         state.products = action.payload;
         state.loading = false;
       }
@@ -79,14 +78,9 @@ const productSlice: ProductSlice = createSlice({
       (
         state: Draft<ProductState>,
         // action: PayloadAction<IProductsSlice>
-        action: PayloadAction<IProduct>
+        action
       ): void => {
-        // console.log("В слайс приходит action.payload.data:", action.payload.data);
-        // const { data } = action.payload;
-        // state.products.push(data);
-        // state.loading = false;
         console.log("В слайс приходит action.payload:", action.payload);
-        // const { data } = action.payload;
         state.products.push(action.payload);
         state.loading = false;
       }

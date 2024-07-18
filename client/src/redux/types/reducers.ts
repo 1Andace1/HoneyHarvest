@@ -71,12 +71,6 @@ export type ProductSlice = Slice<
 >;
 
 
-
-
-
-
-
-
 export type CommentAction = PayloadAction<
 IComment[],
   string,
@@ -89,16 +83,7 @@ IComment[],
 >;
 
 export type RejectedActionComment = PayloadAction<
-  unknown,
-  string,
-  {
-    arg: void | IInputsComment | number;
-    requestId: string;
-    requestStatus: "rejected";
-    aborted: boolean;
-    condition: boolean;
-  },
-  SerializedError
+unknown, string, never, SerializedError
 >;
 
 export type CommentSlice = Slice<

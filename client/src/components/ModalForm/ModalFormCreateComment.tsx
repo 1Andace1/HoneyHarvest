@@ -12,7 +12,7 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
-import { IInputsComment, IProducts, IUser } from "../../types/stateTypes";
+import { IInputsComment, IUser } from "../../types/stateTypes";
 
 import styles from "./ModalForm.module.css";
 import { AddComment } from "../../redux/thunkActionsComment";
