@@ -23,7 +23,7 @@ import { basketApp } from "../../redux/thunkbasketApp";
 import './OneCard.module.css'
 
 
-export default function OneCard({ el }: { el: IProduct }): JSX.Element {
+export default function OneCard({ el, type, handleRemoveProduct, basketId }: { el: IProduct, type: string, handleRemoveProduct: (id: number) => void }): JSX.Element {
   const navigate = useNavigate();
   const oneProductPage = () => {
     navigate(`/detail/${el.id}`);
@@ -76,6 +76,7 @@ dispatch(basketApp({ productId: Number(id), userId: Number(user.id) }));
   //   type: 'BASKET_APP',
   //   payload,
   // });
+  
 
   function deleteHandler(id: number | string): void {
     dispatch(delProduct(Number(id)));
@@ -106,7 +107,7 @@ dispatch(basketApp({ productId: Number(id), userId: Number(user.id) }));
               <Heading size="md">
                 {title}
                 {productIsNew ? (
-                  // здась располагается метка нового продукта:
+                  // здесь располагается метка нового продукта:
                 <Tag
                   ml="1"
                   fontSize="sm"
@@ -143,6 +144,11 @@ dispatch(basketApp({ productId: Number(id), userId: Number(user.id) }));
           </CardBody>
           {/* <Divider /> */}
           <CardFooter>
+
+
+
+            {type === "catalog" && (
+              <>
             {user?.isAdmin ? (
               <ButtonGroup spacing="2">
                 <Button
@@ -178,7 +184,24 @@ dispatch(basketApp({ productId: Number(id), userId: Number(user.id) }));
                   Подробнее
                 </Button>
               </ButtonGroup>
+            )}              
+              </>
             )}
+
+
+
+
+{type === "basket" && (
+
+
+<div className="product-actions animate__animated animate__fadeInDown">
+                <Button colorScheme="green" onClick={() => handleRemoveProduct(basketId)}>убрать</Button>
+              </div>
+            )}
+
+
+
+
           </CardFooter>
         </Card>
       </WrapItem>
