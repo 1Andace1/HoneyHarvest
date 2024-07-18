@@ -106,7 +106,7 @@ function Main(): JSX.Element {
             <div className="social-icons">
               <a href="https://facebook.com"><img className='society' src='https://cdn-icons-png.flaticon.com/512/2111/2111646.png'></img></a>
               <a href="https://twitter.com"><img className='society' src='https://cdn-icons-png.flaticon.com/512/3670/3670055.png'></img></a>
-              <a href="https://instagram.com"><img className='society' src='https://cdn-icons-png.flaticon.com/512/1384/1384063.png'></img></a>
+              <a href="https://instagram.com"><img className='society' src='https://cdn-icons-png.flaticon.com/512/2504/2504930.png'></img></a>
             </div>
           </div>
         </div>
