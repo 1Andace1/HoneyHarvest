@@ -4,14 +4,14 @@
 
 .basket-container {
     display: flex;
-    height: 100vh;
+    height: 70vh;
 }
 
 .basket {
-    width: 900px;
+    width: 510px;
     position: fixed;
-    left: 20px;
     top: 100px;
+    margin-left: 300px;
     bottom: 0;
     background-color: #ceffdb;
     box-shadow: 2px 0 5px rgba(0,0,0,0.1);
@@ -41,8 +41,8 @@
 }
 
 .total-price {
-    font-size: 1.5em;
-    margin-bottom: 100px;
+    font-size: 3em;
+    margin-bottom: 10px;
     text-align: center;
 }
 
@@ -79,7 +79,7 @@
 .delivery-form {
     width: 900px;
     position: fixed;
-    left: 1000px;
+    left: 860px;
     top: 100px;
     bottom: 0;
     background-color: #ceffdb;
@@ -240,7 +240,7 @@
 }
 .sun {
     position: absolute;
-    top: 45%;
+    top: 55%;
     left: 80%;
     width: 100px;
     height: 100px;
@@ -250,7 +250,7 @@
 }
 .hive {
     position: absolute;
-    top: 70%;
+    top: 55%;
     left: 10%;
     width: 80px;
     height: 100px;

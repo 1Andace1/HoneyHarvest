@@ -1,7 +1,7 @@
 import { memo, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import OneCard from "../../components/OneCard/OneCard";
-import { Heading, Wrap } from "@chakra-ui/react";
+import { Button, Heading, Wrap } from "@chakra-ui/react";
 import { getProducts } from "../../redux/thunkActionsCatalog";
 import { AuthState, ProductState } from "../../redux/types/states";
 import { IProduct } from "../../types/stateTypes";
@@ -56,11 +56,9 @@ export default memo(function CatalogPage(): JSX.Element {
   return (
     <>
       {user?.isAdmin ? <ModalFormCreate /> : false}
-      <button className="btnFilter" onClick={handleOpenFilter}>
-        <div>-</div>
-        <div>-</div>
-        <div>-</div>
-      </button>
+      <Button   colorScheme="green"display= "flex" text-align="center" flex-direction= "row" position="fixed" className="btnFilter" onClick={handleOpenFilter}>
+        <h2>фильтр</h2>
+      </Button>
       {openFilter ? (
         <FilterComponent onFilterChange={handleFilterChange} />
       ) : (
