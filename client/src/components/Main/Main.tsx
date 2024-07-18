@@ -43,7 +43,7 @@ function Main(): JSX.Element {
       </div>
       <div className='rewiew'>
       <div className='rewiew-video'>
-      <p className='video'> <iframe  width="540" height="315" src="https://www.youtube.com/embed/U-6fhnTK5H0?si=72l1DQ52y2coX6Ph" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe></p>
+      <p className='video2'> <iframe  width="540" height="315" src="https://www.youtube.com/embed/U-6fhnTK5H0?si=72l1DQ52y2coX6Ph" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe></p>
       </div>
       <video className='video-background' src={video1} autoPlay muted loop></video>
       <div className='rewiew-text'>
