@@ -31,7 +31,9 @@ interface UserProfilePageProps {
 }
 const { VITE_API }: ImportMeta['env'] = import.meta.env;
 
-const UserProfilePage: React.FC<UserProfilePageProps> = ({ user }:UserProfilePageProps ) => {
+const UserProfilePage: React.FC<UserProfilePageProps> = ({
+  user,
+}: UserProfilePageProps) => {
   const dispatch = useDispatch();
   // const [loyalty, setLoyalty] = useState<any>(null);
   const [formData, setFormData] = useState<FormData>({
@@ -86,13 +88,13 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({ user }:UserProfilePag
     // };
 
     fetchUserData();
-
   }, [user.id]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value, files } = e.target;
     if (name === 'profilePhoto') {
-      setFormData({ ...formData, [name]: files[0]});
+         //  @ts-ignore
+      setFormData({ ...formData, [name]: files[0] });
     } else {
       setFormData({ ...formData, [name]: value });
     }
@@ -107,10 +109,16 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({ user }:UserProfilePag
 
       for (const key in formData) {
         if (
-          formData[key as keyof FormData] !== initialFormData[key as keyof FormData] &&
+          formData[key as keyof FormData] !==
+            initialFormData[key as keyof FormData] &&
           formData[key as keyof FormData] !== ''
         ) {
-          updatedFields[key as keyof FormData] = formData[key as keyof FormData];
+          {
+
+          }
+             //  @ts-ignore
+          updatedFields[key as keyof FormData] =
+            formData[key as keyof FormData];
         }
       }
 
@@ -121,12 +129,17 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({ user }:UserProfilePag
 
       const formDataObj = new FormData();
       for (const key in updatedFields) {
-        formDataObj.append(key, updatedFields[key as keyof FormData] as string | Blob);
+        formDataObj.append(
+          key,
+          updatedFields[key as keyof FormData] as string | Blob
+        );
       }
 
       // проверка содержимого formDataObj
       for (const pair of formDataObj.entries()) {
-        console.log(pair[0] + ': ' + (pair[1] instanceof Blob ? 'Blob' : pair[1]));
+        console.log(
+          pair[0] + ': ' + (pair[1] instanceof Blob ? 'Blob' : pair[1])
+        );
       }
       // отправка PUT запрос на сервер для обновления профиля
       const res = await axiosInstance.put(
@@ -156,6 +169,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({ user }:UserProfilePag
       <EditProfileModal
         isOpen={isOpen}
         onClose={onClose}
+        //  @ts-ignore
         formData={formData}
         handleChange={handleChange}
         handleSubmit={handleSubmit}

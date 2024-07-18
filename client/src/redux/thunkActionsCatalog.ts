@@ -35,6 +35,7 @@ export const AddProduct: NewProduct = createAsyncThunk("catalog/new", async (inp
   console.log('в санку поступили inputs--------------->', inputs);
 
   Object.keys(inputs).forEach((key) => {
+       //  @ts-ignore
     formData.append(key, inputs[key]);
   });
 
@@ -54,6 +55,7 @@ export const AddProduct: NewProduct = createAsyncThunk("catalog/new", async (inp
     }
   );
   // console.log('!!!!!!в санку поступил response.data--------------->', response.data);
+     //  @ts-ignore
   return response.data
 });
 
