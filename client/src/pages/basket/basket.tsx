@@ -34,6 +34,7 @@ starsRating:number ;
 title: string;
 updatedAt:string ;
 yearOfHarvest: number;
+productId:number;
 
 }
 interface IUser {
@@ -66,6 +67,7 @@ const Basket: React.FC = () => {
       console.error('Необходимо заполнить все поля формы.');
       return;
     }
+    //@ts-ignore
     dispatch(AddProduct(inputs))
       .unwrap()
       .then(() => {

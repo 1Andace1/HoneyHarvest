@@ -3,8 +3,9 @@ import axios from 'axios';
 import { AddProduct, deleteProduct, getbasket } from '../thunkbasketApp';
 
 // Создаем асинхронные thunk для загрузки и добавления данных в корзину
-export const basketApp = createAsyncThunk('basket/basketApp', async (product) => {
-  const response = await axios.post('/api/basket', product);
+
+export const basketApp = createAsyncThunk<Product>('basket/basketApp', async (product) => {
+  const response = await axios.post<Product>('/api/basket', product);
   return response.data;
 });
 
@@ -12,12 +13,24 @@ export const basketApp = createAsyncThunk('basket/basketApp', async (product) =>
 //   const response = await axios.get('/api/basket');
 //   return response.data;
 // });
-
-const initialState = {
+interface Product {
+  // Define the properties of your product here
+  // For example:
+  id: number;
+  name: string;
+  price: number;
+  // ...
+}
+const initialState: {
+  basketApp: Product[];
+  loading: boolean;
+  error: string | null | undefined;
+} = {
   basketApp: [],
   loading: false,
   error: null,
 };
+
 
 const basketSlice = createSlice({
   name: 'basketSlice',
@@ -74,7 +87,7 @@ const basketSlice = createSlice({
     state.loading = true;
   });
   builder.addCase(deleteProduct.fulfilled, (state, action) => {
-    state.basketApp = state.basketApp.filter((product) => product.id !== action.payload);
+    state.basketApp = state.basketApp.filter((product: Product) => product.id !== action.payload);
     state.loading = false;
   });
   builder.addCase(deleteProduct.rejected, (state, action) => {
