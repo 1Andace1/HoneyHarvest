@@ -5,9 +5,9 @@ import './WeatherForecast.css';
 import { WeatherDayProps } from './types/weatherData';
 // import styles from '../../pages/ProfilePage/ProfilePage.module.css';
 
-const WeatherDay: React.FC<WeatherDayProps> = ({
+const WeatherDay: React.FC<WeatherDayProps & { onDayClick: (day: WeatherDayProps) => void }> = ({
   day,
-  onClick,
+  onDayClick,
 }): JSX.Element => {
   if (!day || !day.date) {
     console.error('Invalid date value:', day ? day.date : 'day is undefined');

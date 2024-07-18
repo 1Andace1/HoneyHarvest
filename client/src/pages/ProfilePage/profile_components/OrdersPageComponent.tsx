@@ -5,7 +5,6 @@ import React, { useState, useEffect } from 'react';
 import {
   Box,
   Text,
-  Divider,
   Table,
   Tbody,
   Tr,
@@ -16,8 +15,7 @@ import {
   Spacer,
 } from '@chakra-ui/react';
 import axiosInstance from '../../../axiosInstance';
-import OrderDetails from './OrderDetails';
-import OrderHistory from './OrderHistory';
+
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
 dayjs.locale('ru');
@@ -30,6 +28,7 @@ interface Order {
   createdAt: string;
   status?: string;
   picture: string;
+  numberBasket: number;
   totalOrderPrice: number;
   products: Array<{
     productId: number;
@@ -67,7 +66,6 @@ interface User {
 interface OrdersPageComponentProps {
   user: User;
   orders: Order[];
-  userId: number;
 }
 
 interface BasketItem {
@@ -87,13 +85,9 @@ interface BasketItem {
   product: Product; // Добавляем связь с продуктом
 }
 
-interface MonthlyStats {
-  name: string;
-  orders: number;
-  totalBasketPrice: number;
-}
 
-const formatDateTime = (datetime) => {
+
+const formatDateTime = (datetime: string): string => {
   return dayjs(datetime).format('D MMMM (dddd) в HH:mm');
 };
 
@@ -128,12 +122,12 @@ const ProductRating: React.FC<{ product: any }> = ({ product }) => {
 const OrdersPageComponent: React.FC<OrdersPageComponentProps> = ({
   user,
   orders,
-  userId,
 }) => {
+console.log( 'orders', orders)
   const [ordersState, setOrdersState] = useState<Order[]>([]);
-  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
-  const [orderDetails, setOrderDetails] = useState([]);
-  const [monthlyStats, setMonthlyStats] = useState<MonthlyStats[]>([]);
+  // const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  // const [orderDetails, setOrderDetails] = useState([]);
+  // const [monthlyStats, setMonthlyStats] = useState<MonthlyStats[]>([]);
   const [ordersFromBasket, setOrdersFromBasket] = useState<BasketItem[]>([]);
   const [order, setOrder] = useState<Order | null>(null);
 
@@ -141,13 +135,12 @@ const OrdersPageComponent: React.FC<OrdersPageComponentProps> = ({
     console.log('☣️ orders from OrdersPage', orders);
   }, [orders]);
 
-  // ^ NEW ДОБАВЛЯЮ БАСКЕТ
+
   useEffect(() => {
-    // Пример получения данных из корзины
-    console.log(
-      '☣️☣️`${VITE_API}/basket/get` ',
-      `${VITE_BASE_URL}${VITE_API}/basket/get`
-    );
+    // console.log(
+    //   '☣️☣️`${VITE_API}/basket/get` ',
+    //   `${VITE_BASE_URL}${VITE_API}/basket/get`
+    // );
     const fetchBasketData = async () => {
       const response = await axiosInstance.get(
         `${VITE_BASE_URL}${VITE_API}/basket/get`,
@@ -165,7 +158,7 @@ const OrdersPageComponent: React.FC<OrdersPageComponentProps> = ({
     );
   }, []);
 
-  // ^ NEW ЗАКАЗ ИЗ БАСКЕТОВ
+
   useEffect(() => {
     if (ordersFromBasket.length > 0) {
       // Преобразуем данные корзины в один заказ
@@ -174,7 +167,6 @@ const OrdersPageComponent: React.FC<OrdersPageComponentProps> = ({
       console.log('☣️☣️☣️☣️firstItem.product: ', ordersFromBasket[0].product);
       const orderData: Order = {
         UserId: firstItem.UserId,
-        // {formatDateTime(firstItem.createdAt)}
         commentUser: firstItem.commentUser,
         createdAt: formatDateTime(firstItem.createdAt),
         status: firstItem.status,
@@ -182,6 +174,7 @@ const OrdersPageComponent: React.FC<OrdersPageComponentProps> = ({
         estimatedDate: formatDateTime(firstItem.estimatedDate),
         picture: firstItem.product.picture,
         totalOrderPrice: firstItem.totalBasketPrice,
+        numberBasket: firstItem.numberBasket,
         products: ordersFromBasket.map((item) => ({
           productId: item.productId,
           numberBasket: item.numberBasket,
@@ -197,20 +190,15 @@ const OrdersPageComponent: React.FC<OrdersPageComponentProps> = ({
           picture: item.product.picture,
         })),
       };
-      console.log(
-        '☣️☣️☣️orderData.deliveryAddress ',
-        orderData.deliveryAddress
-      );
-      console.log('☣️☣️☣️☣️orderData ', orderData);
+
       setOrder(orderData);
     }
   }, [ordersFromBasket]);
 
+
   useEffect(() => {
     if (orders && orders.length > 0) {
       setOrdersState(orders);
-      // const statsData = calculateStats(orders);
-      // setStats(statsData);
     }
   }, [orders]);
 
@@ -231,314 +219,97 @@ const OrdersPageComponent: React.FC<OrdersPageComponentProps> = ({
 
   // console.log(' 💎 ordersStates', ordersState);
 
-  const fetchOrderDetails = async (orderId: number) => {
-    console.log('🟢 orderId', orderId);
-    const result = await axiosInstance.get(
-      `${VITE_BASE_URL}${VITE_API}/profile/order-details/${orderId}`
-    );
-    // console.log('💎💎💎 resultfrom fetchOrderDetails', result.data);
-    setOrderDetails(result.data);
-    setSelectedOrder(result.data);
-  };
+  // const fetchOrderDetails = async (orderId: number) => {
+  //   console.log('🟢 orderId', orderId);
+  //   const result = await axiosInstance.get(
+  //     `${VITE_BASE_URL}${VITE_API}/profile/order-details/${orderId}`
+  //   );
+  //   // console.log('💎💎💎 resultfrom fetchOrderDetails', result.data);
+  //   setOrderDetails(result.data);
+  //   setSelectedOrder(result.data);
+  // };
 
-  const calculateStats = (orders: Order[], user: User): MonthlyStats[] => {
-    const userOrders = orders.filter((order) => {
-      return order.UserId === user.id;
-    });
-    console.log('💎 userOrders=', userOrders);
+  // const calculateStats = (orders: Order[], user: User): MonthlyStats[] => {
+  //   const userOrders = orders.filter((order) => {
+  //     return order.UserId === user.id;
+  //   });
+  //   console.log('💎 userOrders=', userOrders);
 
-    const monthlyStats: MonthlyStats[] = [];
-    let totalBasketPrice = 0;
-    // проходимся по отфильтрованным заказам и собираем статистику
-    userOrders.forEach((order) => {
-      const month = new Date(order.createdAt).getMonth(); // Получаем номер месяца (0 - январь, 11 - декабрь)
-      const monthName = getMonthName(month); // Получаем полное название месяца
-      // ищем уже существующую запись в monthlyStats для текущего месяца
-      const existingMonth = monthlyStats.find(
-        (stat) => stat.name === monthName
-      );
+  //   const monthlyStats: MonthlyStats[] = [];
+  //   let totalBasketPrice = 0;
+  //   // проходимся по отфильтрованным заказам и собираем статистику
+  //   userOrders.forEach((order) => {
+  //     const month = new Date(order.createdAt).getMonth(); // Получаем номер месяца (0 - январь, 11 - декабрь)
+  //     const monthName = getMonthName(month); // Получаем полное название месяца
+  //     // ищем уже существующую запись в monthlyStats для текущего месяца
+  //     const existingMonth = monthlyStats.find(
+  //       (stat) => stat.name === monthName
+  //     );
 
-      if (existingMonth) {
-        existingMonth.orders++;
-        existingMonth.totalBasketPrice += order.products
-          ? order.products.reduce(
-              (sum, product) => sum + product.totalBasketPrice,
-              0
-            )
-          : 0;
-      } else {
-        monthlyStats.push({
-          name: monthName,
-          orders: 1, // Начинаем с 1 заказа
-          totalBasketPrice: order.products
-            ? order.products.reduce(
-                (sum, product) => sum + product.totalBasketPrice,
-                0
-              )
-            : 0,
-        });
-      }
-    });
+  //     if (existingMonth) {
+  //       existingMonth.orders++;
+  //       existingMonth.totalBasketPrice += order.products
+  //         ? order.products.reduce(
+  //             (sum, product) => sum + product.totalBasketPrice,
+  //             0
+  //           )
+  //         : 0;
+  //     } else {
+  //       monthlyStats.push({
+  //         name: monthName,
+  //         orders: 1, // Начинаем с 1 заказа
+  //         totalBasketPrice: order.products
+  //           ? order.products.reduce(
+  //               (sum, product) => sum + product.totalBasketPrice,
+  //               0
+  //             )
+  //           : 0,
+  //       });
+  //     }
+  //   });
 
-    return monthlyStats;
-  };
+  //   return monthlyStats;
+  // };
 
   // вычисляем статистику по месяцам для текущего пользователя
-  useEffect(() => {
-    if (ordersState.length > 0 && user) {
-      const stats = calculateStats(ordersState, user);
-      setMonthlyStats(stats);
-    }
-  }, [ordersState, user]);
+  // useEffect(() => {
+  //   if (ordersState.length > 0 && user) {
+  //     const stats = calculateStats(ordersState, user);
+  //     setMonthlyStats(stats);
+  //   }
+  // }, [ordersState, user]);
 
   // получение названия месяца по его номеру
-  const getMonthName = (month: number): string => {
-    const months = [
-      'Январь',
-      'Февраль',
-      'Март',
-      'Апрель',
-      'Май',
-      'Июнь',
-      'Июль',
-      'Август',
-      'Сентябрь',
-      'Октябрь',
-      'Ноябрь',
-      'Декабрь',
-    ];
-    return months[month];
-  };
+  // const getMonthName = (month: number): string => {
+  //   const months = [
+  //     'Январь',
+  //     'Февраль',
+  //     'Март',
+  //     'Апрель',
+  //     'Май',
+  //     'Июнь',
+  //     'Июль',
+  //     'Август',
+  //     'Сентябрь',
+  //     'Октябрь',
+  //     'Ноябрь',
+  //     'Декабрь',
+  //   ];
+  //   return months[month];
+  // };
 
   return (
     <Box p={6}>
-      <Text fontSize="2.8rem" fontWeight="bold" mb={6}>
+      <Text fontSize="2.5rem" fontWeight="bold">
         Мои заказы
       </Text>
-      <Flex w="100%" flexWrap="wrap" gap={6} bg="#C6F6D5">
-        {/* ФЛЕКС 2 СТАРТА */}
-        <Flex
-          w="100%"
-          alignItems="flex-start"
-          justifyContent="space-between"
-          bg="#F0FFF4"
-        >
-          <Box
-            key={1}
-            p={4}
-            borderWidth={1}
-            borderRadius="md"
-            w="30%"  
-            bg="#C6F6D5"
-          >            {/* Содержимое первой карточки */}
-            <Box>
-              {selectedOrder && (
-                <Box mt={6}>
-                  <Box>
-                    <Flex
-                      direction="row"
-                      justifyContent="space-between"
-                      alignItems="flex-start"
-                    >
-                      <Box>
-                        <Text fontSize="xl" fontWeight="bold">
-                          Карточки товаров:
-                        </Text>
-                        {selectedOrder.products.map((product, index) => (
-                          <Box
-                            key={index}
-                            borderWidth="1px"
-                            borderRadius="lg"
-                            p={4}
-                            mb={4}
-                            display="flex"
-                            alignItems="center"
-                            flexDirection="row"
-                          >
-{/*                
-                            <Image
-                              src={product.picture}
-                              alt={product.title}
-                              boxSize="3cm"
-                              objectFit="cover"
-                              marginRight="10px"
-                            /> */}
-                            <Box>
-                              <Text fontSize="md" mb={2} fontWeight="bold">
-                                Цена: {product.price} руб.
-                              </Text>
-                              <Flex fontSize="md" mb={2} alignItems="center">
-                                <Image
-                                  src="/icons/star_rating.png"
-                                  alt={product.title}
-                                  boxSize="1cm"
-                                  objectFit="cover"
-                                  marginRight="10px"
-                                />
-                                <Text>Рейтинг: {product.starsRating}</Text>
-                              </Flex>
-                            </Box>
-                            <Box flex="1">
-                              <Text fontSize="lg" fontWeight="bold" mb={2}>
-                                {product.title}
-                              </Text>
-                              <Text fontSize="md" mb={2}>
-                                {product.description}
-                              </Text>
-                            </Box>
-                          </Box>
-                        ))}
-                      </Box>
-                    </Flex>
-                  </Box>
-                </Box>
-              )}
-            </Box>
-          </Box>
-          <Box
-            key={2}
-            p={4}
-            borderWidth={1}
-            borderRadius="md"
-            w="30%" 
-            bg="#C6F6D5"
-            h="100%" // ! Устанавливает высоту на 100% от родительского элемента
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-          >
-            {/* Содержимое второй карточки */}
-          </Box>
-          <Box
-            key={2}
-            p={4}
-            borderWidth={1}
-            borderRadius="md"
-            w="200%" 
-            bg="#C6F6D5"
-          >
-            {/* Содержимое третьей карточки */}
-          </Box>
-        </Flex>
-      </Flex>
-
-      <Box>
-        {selectedOrder && (
-          <Box mt={6}>
-            <Box>
-              <Flex
-                direction="row"
-                justifyContent="space-between"
-                alignItems="flex-start"
-              >
-                <OrderDetails
-                  selectedOrder={selectedOrder}
-                  orderDetails={orderDetails}
-                />
-                <Box>
-                  <Text fontSize="xl" fontWeight="bold">
-                    Карточки товаров:
-                  </Text>
-                  {selectedOrder.products.map((product, index) => (
-                    <Box
-                      key={index}
-                      borderWidth="1px"
-                      borderRadius="lg"
-                      p={4}
-                      mb={4}
-                      display="flex"
-                      alignItems="center"
-                      flexDirection="row"
-                    >
-                      <Image
-                        src={`./productsPhoto/product.picture`}
-                        alt={product.title}
-                        boxSize="3cm"
-                        objectFit="cover"
-                        marginRight="10px"
-                      />
-                      <Image
-                        src={`./productsPhoto/${product.picture}`}
-                        alt={product.title}
-                        boxSize="3cm"
-                        objectFit="cover"
-                        marginRight="10px"
-                      />
-                      <Box>
-                        <Text fontSize="md" mb={2} fontWeight="bold">
-                          Цена: {product.price} руб.
-                        </Text>
-                        <Flex fontSize="md" mb={2} alignItems="center">
-                          <Image
-                            src="/icons/star_rating.png"
-                            alt={product.title}
-                            boxSize="1cm"
-                            objectFit="cover"
-                            marginRight="10px"
-                          />
-                          <Text>Рейтинг: {product.starsRating}</Text>
-                        </Flex>
-                      </Box>
-                      <Box flex="1">
-                        <Text fontSize="lg" fontWeight="bold" mb={2}>
-                          {product.title}
-                        </Text>
-                        <Text fontSize="md" mb={2}>
-                          {product.description}
-                        </Text>
-                      </Box>
-                    </Box>
-                  ))}
-                </Box>
-              </Flex>
-            </Box>
-          </Box>
-        )}
-      </Box>
-      <Divider mt={6} />
-
-      {/* статист. по месяцам */}
-      {/* <Box mt="4"  bg="#9AE6B4">
-        <Heading mb="4" fontSize="2.2rem" >
-          Статистика по месяцам
-        </Heading>
-        <Table variant="striped"  sx={{
-    'th, td': { // Стилизация строк
-      borderColor: '#68D391',
-    },
-    'tr:nth-of-type(odd)': { // Полосатая стилизация для нечетных строк
-      backgroundColor: '#C6F6D5',
-    }
-  }}>
-          <Thead>
-            <Tr>
-              <Th>Месяц</Th>
-              <Th>Заказов</Th>
-              <Th>Потрачено</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {monthlyStats.map((stat) => (
-              <Tr key={stat.name}>
-                <Td>{stat.name}</Td>
-                <Td>{stat.orders}</Td>
-                <Td>{stat.totalBasketPrice} руб.</Td>
-              </Tr>
-            ))}
-          </Tbody>
-        </Table>
-      </Box> */}
-      <Spacer />
-      <br />
-      <Divider />
       <div>
-        <br />
-        <Heading fontSize="2.2rem" h="70px" bg="#9AE6B4">
-          Информация о заказе:
-        </Heading>
-        <br />
         {order ? (
+          
           <Box p={4} borderWidth="1px" borderRadius="lg" mb={4}>
+                    <Heading fontSize="2rem" h="70px" bg="#9AE6B4">
+          Заказ № {order.numberBasket}
+              </Heading>
             {/* Общая информация о заказе в виде таблицы */}
             <Table variant="simple" mb={4}>
               <Tbody>
@@ -633,10 +404,10 @@ const OrdersPageComponent: React.FC<OrdersPageComponentProps> = ({
                       <Text fontSize="lg" fontWeight="bold">
                         {/* Цена0: {product.totalBasketPrice} руб. */}
                         Стоимость: <br />
-                        {product.price * product.numberBasket/ 10} руб.
+                        {(product.price * product.numberBasket) / 10} руб.
                       </Text>
                       <Text fontSize="md" color="gray.500">
-                        Кол-во: {product.numberBasket*100}г.
+                        Кол-во: {product.numberBasket * 100}г.
                       </Text>
                       <Text fontSize="md" color="gray.500">
                         Цена за 1 кг: {product.price} руб.

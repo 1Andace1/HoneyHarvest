@@ -4,9 +4,7 @@ import {
   Input,
   Button,
   useDisclosure,
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
+
 } from '@chakra-ui/react';
 import { AuthFormProps } from '../../types/propsTypes';
 import { IInputs } from '../../types/stateTypes';
@@ -15,15 +13,18 @@ import { useNavigate } from 'react-router-dom';
 import { addUser } from '../../redux/thunkActions';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import ErrorModal from './ErrorModal';
-
+interface ApiError {
+  message: string;
+}
 export default function AuthForm({
+  
   title,
   type = 'signin',
 }: AuthFormProps): JSX.Element {
   const dispatch = useAppDispatch();
   const [inputs, setInputs] = useState<IInputs>(InputsState);
   const { user } = useAppSelector((state) => state.authSlice);
-  const [error, setError] = useState<string>('');
+  const [error, setError] = useState<ApiError | string | null | any>(null);
   const [profilePhoto, setProfilePhoto] = useState<File | null>(null); // либо null, либо объектом типа File (втсроен в JS) = берем из <input type="file">.
   const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
@@ -44,8 +45,10 @@ export default function AuthForm({
   };
 
   const showErrorModal = (errorText: string): void => {
+    if (error && error.message) {
     setError(errorText);
     onOpen();
+    }
   };
 
   const closeErrorModal = (): void => {
@@ -70,8 +73,8 @@ export default function AuthForm({
       await dispatch(addUser({ type, inputs: dataToSend })).unwrap();
       navigate('/');
     } catch (error) {
-        if (error && error.message) {
-        showErrorModal(error.message);
+      if ((error as ApiError).message) {
+        showErrorModal((error as ApiError).message);
       } else {
         showErrorModal(
           'Авторизация не завершена. Пожалуйста, проверьте свои учетные данные'
