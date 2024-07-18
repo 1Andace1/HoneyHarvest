@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { useAppDispatch } from "../../redux/hooks";
 import {
   Input,
   Button,
@@ -18,7 +18,6 @@ import { UpdProduct } from "../../redux/thunkActionsCatalog";
 import { IInputsProductStringWithoutPicture, IProduct } from "../../types/stateTypes";
 
 import styles from "./ModalForm.module.css";
-import { ProductState } from "../../redux/types/states";
 
 export default function ModalFormUpdate({ el }: { el: IProduct}): JSX.Element {
   const { isOpen, onOpen, onClose } = useDisclosure();

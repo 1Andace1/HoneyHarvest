@@ -1,11 +1,10 @@
 import { AsyncThunk } from "@reduxjs/toolkit";
-import { IInputsProduct, IInputsProductStringWithoutPicture, IProduct } from "../../types/stateTypes";
+import { IComment, IInputsComment } from "../../types/stateTypes";
 import { AxiosResponse } from "axios";
 import { AppDispatch, RootState } from "../store";
 
 type AsyncThunkConfig = {
   /** return type for `thunkApi.getState` */
-  // state: ProductState;
   state: RootState;
   /** type for `thunkApi.dispatch` */
   dispatch: AppDispatch;
@@ -35,15 +34,21 @@ type AsyncThunkConfig = {
   }
 };
 
-// export type GetProducts = AsyncThunk<ProductState, void, AsyncThunkConfig>;
-export type GetProducts = AsyncThunk<IProduct[], void, AsyncThunkConfig>;
 
-export type NewProduct = AsyncThunk<IProduct, IInputsProduct, AsyncThunkConfig>
+export type getComments = AsyncThunk<IComment[], void, AsyncThunkConfig>;
 
-export type DelProduct = AsyncThunk<number | void, number, AsyncThunkConfig>;
+// export type NewComment = AsyncThunk<
+//   AxiosResponse<number, number>,
+//   IInputsComment,
+//   AsyncThunkConfig
+// >;
+export type NewComment = AsyncThunk<IComment, IInputsComment, AsyncThunkConfig>
 
-export type UpdateProduct = AsyncThunk<
-  AxiosResponse<number, number>,
-  IInputsProductStringWithoutPicture,
-  AsyncThunkConfig
->;
+export type DelComment = AsyncThunk<number | void, number, AsyncThunkConfig>;
+
+// export type UpdateComment = AsyncThunk<
+//   AxiosResponse<number, number>,
+//   IInputsComment,
+//   AsyncThunkConfig
+// >;
+export type UpdateComment = AsyncThunk<AxiosResponse<number, number>, IInputsComment, AsyncThunkConfig>

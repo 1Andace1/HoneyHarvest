@@ -1,7 +1,7 @@
 import { memo, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import OneCard from "../../components/OneCard/OneCard";
-import {  Heading, Wrap } from "@chakra-ui/react";
+import { Heading, Wrap } from "@chakra-ui/react";
 import { getProducts } from "../../redux/thunkActionsCatalog";
 import { AuthState, ProductState } from "../../redux/types/states";
 import { IProduct } from "../../types/stateTypes";
@@ -9,9 +9,7 @@ import FilterComponent from "./Filter";
 import ModalFormCreate from "../../components/ModalForm/ModalFormCreate";
 // import styles from "./Catalog.css";
 
-
 export default memo(function CatalogPage(): JSX.Element {
-
   const dispatch = useAppDispatch();
 
   const { products } = useAppSelector(
@@ -21,7 +19,7 @@ export default memo(function CatalogPage(): JSX.Element {
     (state: { authSlice: AuthState }) => state.authSlice
   );
   const [filteredProducts, setFilteredProducts] = useState<IProduct[]>([]);
-  const[openFilter, setOpenFilter] = useState(false);
+  const [openFilter, setOpenFilter] = useState(false);
 
   const handleOpenFilter = () => {
     setOpenFilter(!openFilter);
@@ -55,22 +53,19 @@ export default memo(function CatalogPage(): JSX.Element {
     setFilteredProducts(filtered);
   };
 
-
   return (
     <>
-      {user?.isAdmin ? (
-                <ModalFormCreate />
-      ) : (
-        false
-      )}
-      <button className='btnFilter' onClick={handleOpenFilter}  >
-  <div>-</div>
-  <div>-</div>
-  <div>-</div>
-</button>
+      {user?.isAdmin ? <ModalFormCreate /> : false}
+      <button className="btnFilter" onClick={handleOpenFilter}>
+        <div>-</div>
+        <div>-</div>
+        <div>-</div>
+      </button>
       {openFilter ? (
-      <FilterComponent onFilterChange={handleFilterChange} />
-    ) : <></>}
+        <FilterComponent onFilterChange={handleFilterChange} />
+      ) : (
+        <></>
+      )}
       <Wrap spacing="30px">
         {filteredProducts.length ? (
           filteredProducts.map((el: IProduct) => (
@@ -78,17 +73,17 @@ export default memo(function CatalogPage(): JSX.Element {
           ))
         ) : (
           <>
-          <Heading as="h2" size="2xl">
-            Каталог пуст или загружается
-          </Heading>
-          {/* <Spinner
+            <Heading as="h2" size="2xl">
+              Каталог пуст или загружается
+            </Heading>
+            {/* <Spinner
           thickness='4px'
           speed='0.65s'
           emptyColor='gray.200'
           color='blue.500'
           size='xl'
         /> */}
-        </>
+          </>
         )}
       </Wrap>
     </>
