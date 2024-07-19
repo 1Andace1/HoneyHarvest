@@ -90,7 +90,7 @@ background-color: #d9d6c8;
 }
 
 .apiary-details {
-  
+  filter: brightness(1.5);
   padding: 20px;
   text-align: center;
   background-image: url(https://img.goodfon.ru/original/1920x1080/b/c1/stakan-voda-vetochka.jpg);
@@ -220,13 +220,13 @@ background-color: #d9d6c8;
     border-left: 0px;
     border-right: 0px;
    border-bottom: 5px solid #285121;
-   background-color: #e4ffb1;
+   background-color: #c7f179;
    
    
   }
   .theme:hover{
-    background-color: rgb(222, 197, 108);
-    color:white;
+    background-color: rgb(216, 192, 106);
+    color:rgb(1, 1, 1);
     border-top: 0px;
     border-left: 0px;
     border-right: 0px;
