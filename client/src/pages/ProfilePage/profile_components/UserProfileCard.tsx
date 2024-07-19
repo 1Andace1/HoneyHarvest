@@ -42,6 +42,11 @@ const UserProfileCard: React.FC<UserProfileCardProps> = ({ user, onEdit }) => {
         boxShadow: 'lg', 
       }}
     >
+            <Text fontSize="1.4rem" fontWeight="bold" color="RGBA(0, 0, 0, 0.80)">
+        Профиль
+      </Text>
+      <br />
+      <br />
       <Image
         // src={user.photo ? `http://localhost:3000/${user.photo}` : 'http://localhost:3000/no-photo.jpg'}
         // ^ new добавktybt случайный параметр к URL изображения t=${new Date().getTime()}? tckb dlehu ghj,jktvf bp-0pf ['ibhjdyfbz]
@@ -69,16 +74,17 @@ const UserProfileCard: React.FC<UserProfileCardProps> = ({ user, onEdit }) => {
         }}
       />
 
-      <Text fontSize="0.9rem" fontWeight="bold" color="gray.500" mt={5}>
+      <Text fontSize="1.1rem" fontWeight="bold" color="gray.500" mt={5}>
         Имя: {user.username}
       </Text>
-      <Text fontSize="0.9rem" color="gray.500">
+      <Text fontSize="1.1rem" color="gray.500">
         Email: {user.email}
       </Text>
 
       <Button
         size="sm" // Уменьшаем размер кнопки до small (sm)
         bg="rgb(139, 189, 108)"
+        
         color="#ffffff" // Цвет текста
         _hover={{ bg: '#8bbd6c'}}
         _active={{ bg: '#89ac76' }}
@@ -87,7 +93,7 @@ const UserProfileCard: React.FC<UserProfileCardProps> = ({ user, onEdit }) => {
           boxShadow: '#89ac76',
           outline: 'none',
         }}
-        fontSize="0.7rem" // Увеличиваем размер шрифта кнопки
+        fontSize="0.8rem" // Увеличиваем размер шрифта кнопки
         width="auto" // Устанавливаем ширину кнопки "по содержимому"
         padding="0.95rem 2.3rem" // Увеличиваем padding для увеличения размера кнопки
         onClick={onEdit ? onEdit : undefined}

@@ -70,7 +70,7 @@ const Achievements: React.FC<AchievementsProps> = ({ userId }) => {
         as="h2"
         size="lg"
         mb={6}
-        fontSize="1.3rem"
+        fontSize="1.5rem"
         style={{ fontFamily: "'Bona Nova SC', cursive", color: '#4A5568' }}
       >
         Достижения и бейджи
@@ -115,7 +115,7 @@ const Achievements: React.FC<AchievementsProps> = ({ userId }) => {
                   mr={2}
                 />
                 <VStack align="flex-start" w="100%">
-                  <Text fontWeight="bold" fontSize="0.8rem" lineHeight="1">
+                  <Text fontWeight="bold" fontSize="0.9rem" lineHeight="1">
                     {achievement.name}
                   </Text>
                   <Text mb={1} fontSize="0.7rem">
@@ -124,8 +124,8 @@ const Achievements: React.FC<AchievementsProps> = ({ userId }) => {
                       : achievement.description}
                   </Text>
                   {!achievement.isCompleted && (
-                    <Text fontSize="0.7rem" color="gray.500" lineHeight="0.1">
-                      IN PROGRESS...
+                    <Text fontSize="0.8rem" color="gray.500" lineHeight="0.1">
+                     in progress
                     </Text>
                   )}
                 </VStack>

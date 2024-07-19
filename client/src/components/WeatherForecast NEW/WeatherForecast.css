@@ -5,7 +5,7 @@ width: 100%
   } */
 /* Общий стиль для контейнера погоды */
 .weather-container {
-  background-color: #F0FFF4; /* Цвет фона */
+  background-color: #f0fff4; /* Цвет фона */
   padding: 20px; /* Внутренний отступ */
   border-radius: 10px; /* Радиус закругления углов */
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Тень */
@@ -21,13 +21,14 @@ width: 100%
   flex-direction: row; /* Расположение элементов в ряд */
   height: 100%; /* Занимаем всю высоту экрана */
   width: 100%; /* Занимаем всю ширину экрана */
+  font-size: 0.9rem;
 }
 
 /* Левая секция (ввод города и подробный прогноз) */
 .left-section {
-  background-color: #C6F6D5; /* Цвет фона */
+  background-color: #c6f6d5; /* Цвет фона */
   /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); Тень */
-
+font-size: 0.9rem;
   border-radius: 10px; /* Радиус закругления углов */
 }
 
@@ -37,7 +38,7 @@ width: 100%
   flex-wrap: wrap; /* Перенос строк */
   justify-content: space-around; /* Распределение пространства вокруг элементов */
   align-items: center; /* Выравнивание по вертикали */
-  background-color: #F0FFF4; /* Цвет фона */
+  background-color: #f0fff4; /* Цвет фона */
   padding: 2px; /* Внутренний отступ */
   gap: 2px; /* Расстояние между карточками */
 }
@@ -82,20 +83,20 @@ width: 100%
   position: relative; /* Относительное позиционирование */
   background-color: #c6f6d5; /* Цвет фона */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Тень */
+  font-size: 1rem;
 }
 
 /* Стиль для кнопки обновления */
 .city-input button {
   padding: 0.95rem 2.3rem; /* Внутренний отступ */
-  font-size: 0.7rem; /* Размер шрифта */
+  font-size: 0.9rem; /* Размер шрифта */
   background-color: rgb(139, 189, 108); /* Цвет фона */
-  color: #57574e; /* Цвет текста */
+  color: #ffffff; /* Цвет текста */
   border: none; /* Убираем границу */
   border-radius: 4px; /* Радиус закругления углов */
   cursor: pointer; /* Курсор указателя при наведении */
   transition: background-color 0.3s; /* Плавное изменение цвета фона */
   width: auto; /* Ширина кнопки "по содержимому" */
-  
 }
 
 .city-input button:hover {
@@ -118,7 +119,7 @@ width: 100%
 
 /* Стиль для подробного прогноза */
 .detailed-forecast h2 {
-  font-size: 20px; /* Размер шрифта */
+  font-size: 1.1rem; /* Размер шрифта */
   font-weight: bold; /* Жирный шрифт */
   color: #333333; /* Цвет текста */
 }

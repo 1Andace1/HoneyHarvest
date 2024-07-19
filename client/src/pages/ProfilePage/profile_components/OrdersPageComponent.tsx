@@ -301,7 +301,7 @@ const OrdersPageComponent: React.FC<OrdersPageComponentProps> = ({
               <Box
                 key={index}
                 p={4}
-                borderWidth="1px"
+                              borderWidth="1px"
                 borderRadius="lg"
                 bg="gray.50"
                 shadow="md"
@@ -324,23 +324,23 @@ const OrdersPageComponent: React.FC<OrdersPageComponentProps> = ({
                     mb={isWideScreen ? 0 : 4}
                   />
                   <Box flex="1">
-                    <Heading fontSize="xl" color="teal.800">
+                    <Heading   fontSize="1.3rem" color="teal.800">
                       {product.title}
                     </Heading>
-                    <Text mt={2} color="gray.600">
+                    <Text mt={2}   fontSize="1rem" color="gray.600">
                       {product.description}
                     </Text>
-                    <Text mt={2} fontSize="sm" color="gray.500">
+                    <Text mt={2}   fontSize="0.9rem" color="gray.500">
                       Вес:{' '}
                       {product.numberBasket * 100 >= 1000
                         ? `${(product.numberBasket * 100) / 1000} кг`
                         : `${product.numberBasket * 100} г`}
                     </Text>
-                    <Text mt={2} fontSize="sm" color="gray.500">
+                    <Text mt={2} fontSize="0.9rem" color="gray.500">
                       Цена за 1 кг: {product.price * product.discountRatio} руб.
                     </Text>
                     <Flex mt={4} align="center">
-                      <Text fontSize="lg" fontWeight="bold" color="teal.700">
+                      <Text fontSize="1.1rem" fontWeight="bold" color="teal.700">
                         Итого: {(product.price / 10) * product.numberBasket}{' '}
                         руб.
                       </Text>
