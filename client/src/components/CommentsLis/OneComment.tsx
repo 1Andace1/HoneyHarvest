@@ -34,7 +34,6 @@ export default function OneComment({ el }: { el: IComment }): JSX.Element {
 
   const username = `${el?.User?.username}:`;
   const text = `${creationDay}.${creationMonth}.${creationYear} ${el?.User?.username}: ${el?.text}`;
-  //   console.log("el.User.username------->", el.User.username);
 
   const dispatch = useAppDispatch();
   const { user }: { user: IUser } = useAppSelector(

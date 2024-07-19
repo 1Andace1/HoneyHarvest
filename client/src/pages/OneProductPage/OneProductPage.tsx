@@ -8,6 +8,7 @@ import {
   Stack,
   Text,
   Image,
+  Box,
 } from "@chakra-ui/react";
 import { IProduct } from "../../types/stateTypes";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -49,7 +50,7 @@ export default function OneProductPage(): JSX.Element {
   const availableQuantity = currentProduct?.availableQuantity;
   const picture = currentProduct?.picture;
   const location = currentProduct?.location;
-  const starsRating = currentProduct?.starsRating;
+  const starsRating = currentProduct?.starsRating || 0;
   const createdAt = currentProduct?.createdAt;
   const updatedAt = currentProduct?.updatedAt;
 
@@ -73,6 +74,33 @@ export default function OneProductPage(): JSX.Element {
   const productUpdateYear: number = productUpdateDate.getFullYear();
   const productUpdateMonth: number = productUpdateDate.getMonth() + 1;
   const productUpdateDay: number = productUpdateDate.getDate();
+
+
+// Компонент для отображения рейтинга продукта
+const ProductRating: React.FC = () => {
+  const renderStars = () => {
+    const stars = [];
+    for (let i = 0; i < starsRating; i++) {
+      stars.push(
+        <Image
+          key={i}
+          src="/icons/star_rating.png"
+          alt={`Star ${i + 1}`}
+          boxSize="20px"
+          objectFit="cover"
+          marginRight="2px" // Расстояние между звездами
+        />
+      );
+    }
+    return stars;
+  };
+  return (
+    <Box display="flex" justifyContent={"center"}>
+      {renderStars()}
+    </Box>
+  );
+}
+
 
   function basketHandler(id: number): void {
     console.log(
@@ -153,7 +181,11 @@ export default function OneProductPage(): JSX.Element {
                 Цена: {price} руб. / 100 гр.
               </Text>
             )}
-            <Text fontSize="2xl">Рейтинг: {starsRating}</Text>
+            {/* <Text fontSize="2xl">Рейтинг: {starsRating}</Text> */}
+            <ProductRating />
+
+
+
             {user?.isAdmin ? (
               <>
                 <Text>
