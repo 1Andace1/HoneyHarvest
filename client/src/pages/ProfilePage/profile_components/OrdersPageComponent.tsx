@@ -18,6 +18,9 @@ import axiosInstance from '../../../axiosInstance';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
 dayjs.locale('ru');
+import BeeAnimation from './BeeAnimation';
+import ProductChart from './ProductChart';
+import QuoteDisplay from './QuoteDisplay'; //
 
 interface Order {
   UserId: number;
@@ -87,7 +90,7 @@ interface BasketItem {
 }
 
 const formatDateTime = (datetime: string): string => {
-  return dayjs(datetime).format('D MMMM (dddd) в HH:mm');
+  return dayjs(datetime).format('D MMMM (dddd)');
 };
 
 // Измените, если вы используете TypeScript с Vite
@@ -144,20 +147,24 @@ const OrdersPageComponent: React.FC<OrdersPageComponentProps> = ({
     fetchBasketData();
   }, [user.id]);
 
+  const groupProducts = (products) => {
+    return products.reduce((acc, product) => {
+      const existingProduct = acc.find((p) => p.title === product.title);
+      if (existingProduct) {
+        existingProduct.numberBasket += product.numberBasket;
+        existingProduct.totalBasketPrice += product.totalBasketPrice;
+      } else {
+        acc.push({ ...product });
+      }
+      return acc;
+    }, []);
+  };
+
   useEffect(() => {
     if (ordersFromBasket.length > 0) {
       const firstItem = ordersFromBasket[0];
-      const orderData: Order = {
-        UserId: firstItem.UserId,
-        commentUser: firstItem.commentUser,
-        createdAt: formatDateTime(firstItem.createdAt),
-        status: firstItem.status,
-        deliveryAddress: firstItem.deliveryAddress,
-        estimatedDate: formatDateTime(firstItem.estimatedDate),
-        picture: firstItem.product.picture,
-        totalOrderPrice: firstItem.totalBasketPrice,
-        numberBasket: firstItem.numberBasket,
-        products: ordersFromBasket.map((item) => ({
+      const groupedProducts = groupProducts(
+        ordersFromBasket.map((item) => ({
           productId: item.productId,
           numberBasket: item.numberBasket,
           totalBasketPrice: item.totalBasketPrice,
@@ -171,7 +178,20 @@ const OrdersPageComponent: React.FC<OrdersPageComponentProps> = ({
           starsRating: item.product.starsRating,
           picture: item.product.picture,
           discountRatio: item.product.discountRatio,
-        })),
+        }))
+      );
+
+      const orderData: Order = {
+        UserId: firstItem.UserId,
+        commentUser: firstItem.commentUser,
+        createdAt: formatDateTime(firstItem.createdAt),
+        status: firstItem.status,
+        deliveryAddress: firstItem.deliveryAddress,
+        estimatedDate: formatDateTime(firstItem.estimatedDate),
+        picture: firstItem.product.picture,
+        totalOrderPrice: firstItem.totalBasketPrice,
+        numberBasket: firstItem.numberBasket,
+        products: groupedProducts,
       };
 
       setOrder(orderData);
@@ -182,8 +202,18 @@ const OrdersPageComponent: React.FC<OrdersPageComponentProps> = ({
 
   return (
     <Box p={6}>
-      <Text fontSize="2.5rem" fontWeight="bold" mb={6} textAlign="center" color="teal.600">
+      <Text
+        fontSize="2.5rem"
+        fontWeight="bold"
+        mb={6}
+        textAlign="center"
+        color="teal.600"
+      >
         Мои заказы
+        {/* <Box position="relative">
+          {' '}
+          <BeeAnimation />
+        </Box> */}
       </Text>
       {order ? (
         <Box
@@ -198,14 +228,17 @@ const OrdersPageComponent: React.FC<OrdersPageComponentProps> = ({
           overflow="hidden"
         >
           <Heading
-            fontSize="1.5rem"
+            fontSize="2rem"
             mb={4}
             textAlign="center"
             color="teal.700"
+            style={{ fontFamily: 'Bona Nova SC, cursive' }}
           >
             Заказ № {order.numberBasket}
           </Heading>
-          <Table variant="unstyled" mb={4}>
+          <Grid templateColumns="2fr 2fr" gap={6}  paddingLeft="40px"  paddingRight="40px"   paddingTop="20px"  justifyContent="center" >
+        <Box >
+          <Table variant="unstyled" mb={10} maxW="600px">
             <Tbody>
               <Tr>
                 <Td fontWeight="bold" fontSize="1.2rem" color="teal.600">
@@ -231,12 +264,12 @@ const OrdersPageComponent: React.FC<OrdersPageComponentProps> = ({
                 </Td>
                 <Td fontSize="1.2rem">{order.commentUser}</Td>
               </Tr>
-              <Tr>
+              {/* <Tr>
                 <Td fontWeight="bold" fontSize="1.2rem" color="teal.600">
                   Создано:
                 </Td>
                 <Td fontSize="1.2rem">{order.createdAt}</Td>
-              </Tr>
+              </Tr> */}
               <Tr>
                 <Td fontWeight="bold" fontSize="1.2rem" color="teal.600">
                   Итого:
@@ -245,8 +278,17 @@ const OrdersPageComponent: React.FC<OrdersPageComponentProps> = ({
               </Tr>
             </Tbody>
           </Table>
+        </Box>
+        <Box
+          p={4}
+           borderRadius="md"
+             maxHeight="70%"
+          >
+          <QuoteDisplay />
+        </Box>
+      </Grid>
 
-          <Text fontSize="lg" fontWeight="bold" mb={4} color="teal.700">
+          <Text  fontSize="1.6rem" fontWeight="bold" mb={4} color="teal.700">
             Продукты:
           </Text>
 
@@ -289,24 +331,25 @@ const OrdersPageComponent: React.FC<OrdersPageComponentProps> = ({
                       {product.description}
                     </Text>
                     <Text mt={2} fontSize="sm" color="gray.500">
-                    Вес: {product.numberBasket * 100}г.
+                      Вес:{' '}
+                      {product.numberBasket * 100 >= 1000
+                        ? `${(product.numberBasket * 100) / 1000} кг`
+                        : `${product.numberBasket * 100} г`}
                     </Text>
-                    {/* <Text mt={2} fontSize="sm" color="gray.500">
-                    Cкидка: {product.discountRatio*10}%
-                    </Text> */}
                     <Text mt={2} fontSize="sm" color="gray.500">
-                      Цена за 100 г: {(product.price  / 10 *product.discountRatio).toFixed(2)} руб.
+                      Цена за 1 кг: {product.price * product.discountRatio} руб.
                     </Text>
                     <Flex mt={4} align="center">
                       <Text fontSize="lg" fontWeight="bold" color="teal.700">
-                      {(product.price  / 10 *product.discountRatio )} руб.
+                        Итого: {(product.price / 10) * product.numberBasket}{' '}
+                        руб.
                       </Text>
                       <Spacer />
                       <ProductRating product={product} />
                     </Flex>
                   </Box>
                 </Flex>
-                <Text fontSize="sm" color="gray.500"> 
+                <Text fontSize="sm" color="gray.500">
                   {product.location}
                 </Text>
                 {/* <Text fontSize="sm" color="gray.500">

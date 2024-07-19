@@ -91,7 +91,7 @@ export default memo(function CatalogPage(): JSX.Element {
       ) : (
         <></>
       )}
-      <Wrap justify="center" spacing="30px">
+      <Wrap justify="center" spacing="30px" >
         {filteredProducts.length ? (
           filteredProducts.map((el: IProduct) => (
                //  @ts-ignore
