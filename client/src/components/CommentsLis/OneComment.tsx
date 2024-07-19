@@ -1,13 +1,11 @@
 import {
-  Card,
-  CardBody,
-  CardFooter,
   Text,
   IconButton,
   Highlight,
   ButtonGroup,
   Container,
   Box,
+  Flex,
 } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { IComment } from "../../types/stateTypes";
@@ -50,7 +48,14 @@ export default function OneComment({ el }: { el: IComment }): JSX.Element {
   return (
     <div>
       <Container maxW='container.sm' size="lg" variant="bold">
-        <Box borderWidth='1px' borderRadius='lg' overflow='hidden' bg={"whiteAlpha"}>
+      <Flex
+          maxW="5300px"
+          flexWrap="wrap"
+          bg="#F0FFF4"
+          w='100%'
+          // className={styles.boxСontainer2}
+        >
+        <Box w='100%' borderWidth='1px' borderRadius='lg' overflow='hidden' bg={"whiteAlpha"}>
             {/* <Heading size="md">
                   {title}
                 </Heading> */}
@@ -127,6 +132,7 @@ export default function OneComment({ el }: { el: IComment }): JSX.Element {
                 </ButtonGroup>
               )} */}
               </Box>
+              </Flex>
       </Container>
     </div>
   );
