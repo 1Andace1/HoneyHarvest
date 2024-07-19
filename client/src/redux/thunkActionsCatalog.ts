@@ -28,7 +28,6 @@ export const delProduct: DelProduct = createAsyncThunk(
 
 export const AddProduct: NewProduct = createAsyncThunk("catalog/new", async (inputs: IInputsProduct): Promise<IProduct> => {
 
-
   // добавлено: использование FormData для отправки данных, включая файлы
   const formData = new FormData();
 
@@ -58,6 +57,7 @@ export const AddProduct: NewProduct = createAsyncThunk("catalog/new", async (inp
      //  @ts-ignore
   return response.data
 });
+
 
 export const UpdProduct: UpdateProduct = createAsyncThunk("catalog/put", async (inputs: IInputsProductStringWithoutPicture) => {
   const response: AxiosResponse<number, number> = await axiosInstance.put(
