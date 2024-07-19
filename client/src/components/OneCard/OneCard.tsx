@@ -20,10 +20,18 @@ import { AuthState } from "../../redux/types/states";
 import ModalFormUpdate from "../ModalForm/ModalFormUpdate";
 import { useNavigate } from "react-router-dom";
 import { basketApp } from "../../redux/thunkbasketApp";
-import './OneCard.module.css'
+import "./OneCard.module.css";
 
-
-export default function OneCard({ el }: { el: IProduct }): JSX.Element {
+export default function OneCard({
+  el,
+  type,
+  handleRemoveProduct,
+  basketId,
+}: {
+  el: IProduct;
+  type: string;
+  handleRemoveProduct: (id: number) => void;
+}): JSX.Element {
   const navigate = useNavigate();
   const oneProductPage = () => {
     navigate(`/detail/${el.id}`);
@@ -53,9 +61,10 @@ export default function OneCard({ el }: { el: IProduct }): JSX.Element {
   const productCreationMonth: number = productCreationDate.getMonth();
   const productCreationDay: number = productCreationDate.getDate();
 
-  const productIsNew: boolean = todayYear === productCreationYear && todayMonth === productCreationMonth && todayDate === productCreationDay
-
-
+  const productIsNew: boolean =
+    todayYear === productCreationYear &&
+    todayMonth === productCreationMonth &&
+    todayDate === productCreationDay;
 
   const dispatch = useAppDispatch();
   const { user }: { user: IUser } = useAppSelector(
@@ -64,15 +73,15 @@ export default function OneCard({ el }: { el: IProduct }): JSX.Element {
   // const { basket } = useAppSelector((state) => state.basketSlice);
 
   function basketHandler(id: number): void {
-// @ts-ignore
-dispatch(basketApp({ productId: Number(id), userId: Number(user.id) }));
+    // @ts-ignore
+    dispatch(basketApp({ productId: Number(id), userId: Number(user.id) }));
   }
 
   // interface BasketAppPayload {
   //   productId: number;
   //   userId: number;
   // }
-    // const basketApp = (payload: BasketAppPayload) => ({
+  // const basketApp = (payload: BasketAppPayload) => ({
   //   type: 'BASKET_APP',
   //   payload,
   // });
@@ -84,37 +93,40 @@ dispatch(basketApp({ productId: Number(id), userId: Number(user.id) }));
   return (
     <div>
       <WrapItem className="kartochka">
-        <Card maxW="sm" variant="filled"
-              _hover={{
-                // Эффекты при наведении
-                transform: 'scale(1.01)', // Увеличение масштаба
-                boxShadow: 'lg', // Увеличиваем тень при наведении
-              }}
-              height='850px'
+        <Card
+          maxW="sm"
+          variant="filled"
+          _hover={{
+            // Эффекты при наведении
+            transform: "scale(1.01)", // Увеличение масштаба
+            boxShadow: "lg", // Увеличиваем тень при наведении
+          }}
+          height="850px"
         >
           <CardBody>
-            <Image 
-            // src={picture} 
-            alt="honey" borderRadius="lg" 
-            src={
-              picture
-                ? `http://localhost:3000/productsPhoto/${picture}?t=${new Date().getTime()}`
-                : `http://localhost:3000/productsPhoto/pattern.jpeg?t=${new Date().getTime()}`
-            }
+            <Image
+              // src={picture}
+              alt="honey"
+              borderRadius="lg"
+              src={
+                picture
+                  ? `http://localhost:3000/productsPhoto/${picture}?t=${new Date().getTime()}`
+                  : `http://localhost:3000/productsPhoto/pattern.jpeg?t=${new Date().getTime()}`
+              }
             />
             <Stack mt="6" spacing="3">
               <Heading size="md">
                 {title}
                 {productIsNew ? (
-                  // здась располагается метка нового продукта:
-                <Tag
-                  ml="1"
-                  fontSize="sm"
-                  borderRadius="full"
-                  colorScheme="green"
-                >
-                  НОВЫЙ
-                </Tag>
+                  // здесь располагается метка нового продукта:
+                  <Tag
+                    ml="1"
+                    fontSize="sm"
+                    borderRadius="full"
+                    colorScheme="green"
+                  >
+                    НОВЫЙ
+                  </Tag>
                 ) : (
                   false
                 )}
@@ -142,42 +154,56 @@ dispatch(basketApp({ productId: Number(id), userId: Number(user.id) }));
             </Stack>
           </CardBody>
           {/* <Divider /> */}
-          <CardFooter>
-            {user?.isAdmin ? (
-              <ButtonGroup spacing="2">
-                <Button
-                  onClick={() => deleteHandler(el.id)}
-                  variant="solid"
-                  colorScheme="red"
-                >
-                  Удалить
-                </Button>
-                <ModalFormUpdate el={el} key={el.id} />
-                <Button
-                  onClick={() => oneProductPage()}
-                  variant="outline"
-                  colorScheme="green"
-                >
-                  Подроб
-                </Button>
-              </ButtonGroup>
-            ) : (
-              <ButtonGroup spacing="2">
-                <Button
-                  onClick={() => basketHandler(el?.id)}
-                  variant="solid"
-                  colorScheme="green"
-                >
-                  Добавить в корзину
-                </Button>
-                <Button
-                  onClick={() => oneProductPage()}
-                  variant="outline"
-                  colorScheme="green"
-                >
-                  Подробнее
-                </Button>
-              </ButtonGroup>
+          <CardFooter justify="space-around">
+            {type === "catalog" && (
+              <>
+                {user?.isAdmin ? (
+                  <ButtonGroup spacing="2">
+                    <Button
+                      onClick={() => deleteHandler(el.id)}
+                      variant="solid"
+                      colorScheme="red"
+                    >
+                      Удалить
+                    </Button>
+                    <ModalFormUpdate el={el} key={el.id} />
+                    <Button
+                      onClick={() => oneProductPage()}
+                      variant="outline"
+                      colorScheme="green"
+                    >
+                      Подроб
+                    </Button>
+                  </ButtonGroup>
+                ) : (
+                  <ButtonGroup spacing="2">
+                    <Button
+                      onClick={() => basketHandler(el?.id)}
+                      variant="solid"
+                      colorScheme="green"
+                    >
+                      Добавить в корзину
+                    </Button>
+                    <Button
+                      onClick={() => oneProductPage()}
+                      variant="outline"
+                      colorScheme="green"
+                    >
+                      Подробнее
+                    </Button>
+                  </ButtonGroup>
+                )}
+              </>
+            )}
+
+            {type === "basket" && (
+              <Button
+                colorScheme="yellow"
+                // variant="outline"
+                onClick={() => handleRemoveProduct(basketId)}
+              >
+                убрать
+              </Button>
             )}
           </CardFooter>
         </Card>

@@ -1,6 +1,4 @@
 .main-container {
-  
- 
   margin: 0 auto;
 }
 
@@ -20,6 +18,13 @@
   height: 500px;
   object-fit: cover;
 }
+
+
+.video2{
+    filter: sepia(30%) hue-rotate(20deg); 
+  border-radius: 20px; /* Закругляет углы видео */
+}
+
 
 .header-text {
   position: absolute;
@@ -67,8 +72,8 @@ background-color: #d9d6c8;
   margin-top: 20px;
   display: flex;
   justify-content: space-around;
-  padding: 20px;
-  background: linear-gradient(to bottom, #006400, #90EE90);
+  padding: 23px;
+  background: linear-gradient(to bottom, #cce8cc, #829e82);
   font-size: 17px;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
@@ -130,7 +135,7 @@ background-color: #d9d6c8;
   flex-wrap: wrap;
   max-width: 1200px;
   margin: 0 auto;
-  margin-right: 250px;
+  margin-right: 400px;
 }
 
 
@@ -186,7 +191,7 @@ background-color: #d9d6c8;
   }
   
   .navigation-box {
-    border-bottom:5px solid rgb(46, 158, 63);
+    border-bottom:5px solid rgb(172, 192, 151);
     flex: 1;
     margin: 0 10px;
     padding: 10px;

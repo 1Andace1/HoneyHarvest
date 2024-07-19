@@ -1,5 +1,4 @@
-//  🟪 МОДАЛЬНОЕ ОКНО РЕДАКТИРОВАНИЯ ПРОФИЛЯ
-import { useRef, ChangeEvent } from 'react';
+import React, { useRef, ChangeEvent, FocusEvent, useState } from 'react';
 import {
   Modal,
   ModalOverlay,
@@ -14,33 +13,61 @@ import {
 type EditProfileModalProps = {
   isOpen: boolean;
   onClose: () => void;
-            // @ts-ignore 
   formData: {
     username: string;
     email: string;
     password: string;
     telephone: string;
     userCity: string;
-    profilePhoto?: File;
+    profilePhoto?: File | string;
   };
   handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
 };
+
 const EditProfileModal: React.FC<EditProfileModalProps> = ({
   isOpen,
   onClose,
-//  @ts-ignore
-  formData ,
+  formData,
   handleChange,
   handleSubmit,
-}:  EditProfileModalProps   ) => {
+}: EditProfileModalProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [currentFormData, setCurrentFormData] = useState({ ...formData });
+  const [initialFormData, setInitialFormData] = useState({ ...formData });
+  const [focusedField, setFocusedField] = useState<string | null>(null);
+
+  const handleFocus = (event: FocusEvent<HTMLInputElement>) => {
+    const { name } = event.target;
+    if (!focusedField) {
+      setFocusedField(name);
+    }
+  };
+
+  const handleBlur = (event: FocusEvent<HTMLInputElement>) => {
+    const { name } = event.target;
+    if (
+      focusedField === name &&
+      !currentFormData[name as keyof typeof currentFormData]
+    ) {
+      setCurrentFormData({
+        ...currentFormData,
+        [name]: initialFormData[name as keyof typeof initialFormData],
+      });
+    }
+    setFocusedField(null);
+  };
 
   const handleFileInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
     if (file) {
-      handleChange(event); // Optional: propagate change to parent component
+      handleChange(event);
     }
+  };
+
+  const handleChangeInternal = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setCurrentFormData({ ...currentFormData, [name]: value });
   };
 
   return (
@@ -66,8 +93,10 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
           <form onSubmit={handleSubmit}>
             <Input
               name="username"
-              value={formData.username}
-              onChange={handleChange}
+              value={currentFormData.username}
+              onChange={handleChangeInternal}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
               placeholder="Имя пользователя"
               mb={3}
               style={{
@@ -78,8 +107,10 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
             />
             <Input
               name="email"
-              value={formData.email}
-              onChange={handleChange}
+              value={currentFormData.email}
+              onChange={handleChangeInternal}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
               placeholder="Эл.почта"
               mb={3}
               style={{
@@ -91,8 +122,10 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
             <Input
               type="password"
               name="password"
-              value={formData.password}
-              onChange={handleChange}
+              value={currentFormData.password}
+              onChange={handleChangeInternal}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
               placeholder="Пароль"
               mb={3}
               style={{
@@ -104,8 +137,10 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
             <Input
               type="telephone"
               name="telephone"
-              value={formData.telephone}
-              onChange={handleChange}
+              value={currentFormData.telephone}
+              onChange={handleChangeInternal}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
               placeholder="Номер телефона"
               mb={3}
               style={{
@@ -117,8 +152,10 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
             <Input
               type="userCity"
               name="userCity"
-              value={formData.userCity}
-              onChange={handleChange}
+              value={currentFormData.userCity}
+              onChange={handleChangeInternal}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
               placeholder="Город"
               mb={3}
               style={{
@@ -142,9 +179,12 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
               onChange={handleFileInputChange}
               style={{ display: 'none' }}
             />
-            {formData.profilePhoto && (
+            {currentFormData.profilePhoto && (
               <p style={{ marginBottom: '10px' }}>
-                Выбран файл: {formData.profilePhoto.name}
+                Выбран файл:{' '}
+                {currentFormData.profilePhoto instanceof File
+                  ? currentFormData.profilePhoto.name
+                  : 'Файл загружен'}
               </p>
             )}
             <Button

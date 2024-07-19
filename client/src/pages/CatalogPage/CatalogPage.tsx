@@ -1,7 +1,7 @@
 import { memo, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import OneCard from "../../components/OneCard/OneCard";
-import { Heading, Wrap } from "@chakra-ui/react";
+import { Button, Heading, Wrap } from "@chakra-ui/react";
 import { getProducts } from "../../redux/thunkActionsCatalog";
 import { AuthState, ProductState } from "../../redux/types/states";
 import { IProduct } from "../../types/stateTypes";
@@ -56,25 +56,23 @@ export default memo(function CatalogPage(): JSX.Element {
   return (
     <>
       {user?.isAdmin ? <ModalFormCreate /> : false}
-      <button className="btnFilter" onClick={handleOpenFilter}>
-        <div>-</div>
-        <div>-</div>
-        <div>-</div>
-      </button>
+      <Button   colorScheme="green"display= "flex" text-align="center" flex-direction= "row" position="fixed" className="btnFilter" onClick={handleOpenFilter}>
+        <h2>фильтр</h2>
+      </Button>
       {openFilter ? (
         <FilterComponent onFilterChange={handleFilterChange} />
       ) : (
         <></>
       )}
-      <Wrap spacing="30px">
+      <Wrap justify="center" spacing="30px">
         {filteredProducts.length ? (
           filteredProducts.map((el: IProduct) => (
-            <OneCard el={el} key={el.id} />
+            <OneCard type="catalog" el={el} key={el.id} />
           ))
         ) : (
           <>
             <Heading as="h2" size="2xl">
-              Каталог пуст или загружается
+              Каталог загружается
             </Heading>
             {/* <Spinner
           thickness='4px'

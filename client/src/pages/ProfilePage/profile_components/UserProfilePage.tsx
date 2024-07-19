@@ -34,8 +34,8 @@ const { VITE_API }: ImportMeta['env'] = import.meta.env;
 const UserProfilePage: React.FC<UserProfilePageProps> = ({
   user,
 }: UserProfilePageProps) => {
+
   const dispatch = useDispatch();
-  // const [loyalty, setLoyalty] = useState<any>(null);
   const [formData, setFormData] = useState<FormData>({
     username: '',
     email: '',
@@ -107,21 +107,19 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({
       // создание объекта updatedFields для хранения измененных полей
       const updatedFields: Partial<FormData> = {};
 
+       // проверка измененные поля и добавляем их в updatedFields
       for (const key in formData) {
         if (
           formData[key as keyof FormData] !==
             initialFormData[key as keyof FormData] &&
           formData[key as keyof FormData] !== ''
-        ) {
-          {
-
-          }
-             //  @ts-ignore
+        ) 
+                      //  @ts-ignore
           updatedFields[key as keyof FormData] =
             formData[key as keyof FormData];
-        }
+        
       }
-
+     // Если нет изменений, выходим из функции
       if (Object.keys(updatedFields).length === 0) {
         console.log('No changes detected, form not submitted.');
         return;
