@@ -14,7 +14,7 @@ import {
 type EditProfileModalProps = {
   isOpen: boolean;
   onClose: () => void;
-  // @ts-ignore
+            // @ts-ignore 
   formData: {
     username: string;
     email: string;
@@ -29,11 +29,11 @@ type EditProfileModalProps = {
 const EditProfileModal: React.FC<EditProfileModalProps> = ({
   isOpen,
   onClose,
-  //  @ts-ignore
-  formData,
+//  @ts-ignore
+  formData ,
   handleChange,
   handleSubmit,
-}: EditProfileModalProps) => {
+}:  EditProfileModalProps   ) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileInputChange = (event: ChangeEvent<HTMLInputElement>) => {
