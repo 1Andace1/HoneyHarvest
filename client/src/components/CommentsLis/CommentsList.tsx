@@ -43,12 +43,21 @@ export default memo(function CommentsList({
         // divider={<StackDivider borderColor='gray.200' />}
         spacing={4}
         align="stretch"
+        w='100%'
+        bg="#F0FFF4"
       >
-        {user?.id ? (
+        {user?.id && !(user?.isAdmin) ? (
           <ModalFormCreateComment currentProduct={currentProduct} />
         ) : (
           false
         )}
+
+        {comments.length ? (
+          <Heading mb={4} size='xl'>Комментарии покупателей:</Heading>        ) : (
+          false
+        )}
+
+
         {comments.length ? (
           comments
             .filter(

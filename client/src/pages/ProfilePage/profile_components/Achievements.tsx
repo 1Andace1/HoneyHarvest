@@ -12,7 +12,6 @@ import {
 
 import axiosInstance from '../../../axiosInstance';
 import LoyaltyProgram from './../LoyaltyProgram';
-// import styles from '../ProfilePage.module.css';
 
 interface Achievement {
   id: string;
@@ -80,7 +79,6 @@ const Achievements: React.FC<AchievementsProps> = ({ userId }) => {
         {achievements.map((achievement) => (
           <GridItem key={achievement.id} display="flex" justifyContent="center">
             <Box
-              // borderWidth={1}
               p={2}
               w="90%" // Установите меньшую ширину для сужения карточек
               h="90%"
@@ -92,7 +90,7 @@ const Achievements: React.FC<AchievementsProps> = ({ userId }) => {
               style={{
                 boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)',
                 background:
-                  'linear-gradient(to right, hsl(60, 70%, 80%), hsl(100,300%, 90%))',
+                  'linear-gradient(to right, hsl(60, 70%, 70%), hsl(100,95%, 87%))',
                 resize: 'both',
                 clipPath: 'circle(70% at center)',
                 cursor: 'pointer',

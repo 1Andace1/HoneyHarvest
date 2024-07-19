@@ -1,13 +1,11 @@
 import {
-  Card,
-  CardBody,
-  CardFooter,
   Text,
   IconButton,
   Highlight,
   ButtonGroup,
   Container,
   Box,
+  Flex,
 } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { IComment } from "../../types/stateTypes";
@@ -17,6 +15,9 @@ import { AuthState } from "../../redux/types/states";
 import { delComment } from "../../redux/thunkActionsComment";
 import EditIcon from "../../ui/icons/EditIcon";
 import "./OneComment.css";
+import axiosInstance from "../../axiosInstance";
+import { AxiosResponse } from "axios";
+import { useState } from "react";
 
 export default function OneComment({ el }: { el: IComment }): JSX.Element {
   // const navigate = useNavigate();
@@ -36,7 +37,6 @@ export default function OneComment({ el }: { el: IComment }): JSX.Element {
 
   const username = `${el?.User?.username}:`;
   const text = `${creationDay}.${creationMonth}.${creationYear} ${el?.User?.username}: ${el?.text}`;
-  //   console.log("el.User.username------->", el.User.username);
 
   const dispatch = useAppDispatch();
   const { user }: { user: IUser } = useAppSelector(
@@ -47,10 +47,32 @@ export default function OneComment({ el }: { el: IComment }): JSX.Element {
     dispatch(delComment(id));
   }
 
+  const { VITE_API, VITE_BASE_URL }: ImportMeta["env"] = import.meta.env;
+  const [likeCount, setLikeCount] = useState<number>(likesQuantity);
+  async function addLike(): Promise<void> {
+    console.log('VITE_BASE_URL----->', VITE_BASE_URL);
+    console.log('VITE_API----->', VITE_API);
+    try {
+      const userId = user.id
+      const { data }: AxiosResponse = await axiosInstance.put(`${VITE_BASE_URL}${VITE_API}/comment/putlike/${el.id}`, userId)
+      console.log("data like:", data)
+      setLikeCount((pre: number): number => pre + 1)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <div>
       <Container maxW='container.sm' size="lg" variant="bold">
-        <Box borderWidth='1px' borderRadius='lg' overflow='hidden' bg={"whiteAlpha"}>
+      <Flex
+          maxW="5300px"
+          flexWrap="wrap"
+          bg="#F0FFF4"
+          w='100%'
+          // className={styles.boxСontainer2}
+        >
+        <Box w='100%' borderWidth='1px' borderRadius='lg' overflow='hidden' bg={"whiteAlpha"}>
             {/* <Heading size="md">
                   {title}
                 </Heading> */}
@@ -62,7 +84,12 @@ export default function OneComment({ el }: { el: IComment }): JSX.Element {
                 {text}
               </Highlight>
             </Text>
-            <Text>Количество лайков: {likesQuantity}</Text>
+            {/* <Text>Количество лайков: {likesQuantity}</Text> */}
+            <button 
+            onClick={addLike}
+            >
+          {likeCount ? `❤️️ ${likeCount}` :  '💛 0'}
+        </button>
           {/* <Divider /> */}
             <ButtonGroup spacing="2">
               {el.userId === user.id ? (
@@ -127,6 +154,7 @@ export default function OneComment({ el }: { el: IComment }): JSX.Element {
                 </ButtonGroup>
               )} */}
               </Box>
+              </Flex>
       </Container>
     </div>
   );

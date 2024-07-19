@@ -15,10 +15,14 @@ import {
 import { IInputsComment, IProduct, IUser } from "../../types/stateTypes";
 
 import styles from "./ModalForm.module.css";
-import { AddComment } from "../../redux/thunkActionsComment";
+import { AddComment, getAllComments } from "../../redux/thunkActionsComment";
 import { AuthState } from "../../redux/types/states";
 
-export default function ModalFormCreateComment({currentProduct}: {currentProduct: IProduct}): JSX.Element {
+export default function ModalFormCreateComment({
+  currentProduct,
+}: {
+  currentProduct: IProduct;
+}): JSX.Element {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   // const defaultInputs = { picture: "./productsPhoto/pattern.jpeg" };
@@ -30,7 +34,10 @@ export default function ModalFormCreateComment({currentProduct}: {currentProduct
   );
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputs((prev: IInputsComment) => ({ ...prev, [e.target.name]: e.target.value }));
+    setInputs((prev: IInputsComment) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
     // console.log("[e.target.name]: e.target.value", e.target.name, e.target.value);
   };
 
@@ -41,23 +48,22 @@ export default function ModalFormCreateComment({currentProduct}: {currentProduct
   ): Promise<void> => {
     console.log("Зашли в submitHandler, inputs = ", inputs);
     e.preventDefault();
-    if (
-      !(
-        inputs?.text
-      )
-    ) {
+    if (!inputs?.text) {
       console.log("Ошибка!!! Введи текст комментария");
     } else {
       const convertedInputs = {} as IInputsComment;
-      convertedInputs.text = inputs?.text
+      convertedInputs.text = inputs?.text;
       convertedInputs.productId = currentProduct?.id;
-      convertedInputs.userId = user.id
+      convertedInputs.userId = user.id;
 
       console.log("Зашли в submitHandler,  convertedInputs =", convertedInputs);
 
       await dispatch(AddComment(convertedInputs));
       onClose();
       setInputs(() => defaultInputs);
+      // без нижерасположенной строки новый комментарий мгновенно отображался 
+      // на странице продукта, но с автором undefined (до перезагрузки страницы):
+      await dispatch(getAllComments()); 
     }
   };
 
@@ -65,12 +71,12 @@ export default function ModalFormCreateComment({currentProduct}: {currentProduct
     <>
       <Button
         onClick={onOpen}
-        isLoading={Boolean(user?.id) === true}
+        // isLoading={Boolean(user?.id) === true}
         spinner={<p>создание комментария</p>}
         variant="solid"
         colorScheme="green"
       >
-        Добавить комментарий
+        Добавь свой комментарий
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -78,22 +84,22 @@ export default function ModalFormCreateComment({currentProduct}: {currentProduct
           <ModalHeader>Новая запись в каталог</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-              {/* <h3 className={styles.head}>Заполни поля:</h3> */}
-              <div className={styles.inputs}>
-                <Input
-                  onChange={changeHandler}
-                  borderColor="#3f3e3e"
-                  name="text"
-                  value={inputs?.text}
-                  placeholder="Напишите свой комментарий продукта"
-                />
-              </div>
+            {/* <h3 className={styles.head}>Заполни поля:</h3> */}
+            <div className={styles.inputs}>
+              <Input
+                onChange={changeHandler}
+                borderColor="#3f3e3e"
+                name="text"
+                value={inputs?.text}
+                placeholder="Напишите свой комментарий продукта"
+              />
+            </div>
           </ModalBody>
           <ModalFooter>
-            <form onClick={submitHandler} >
-            <Button type="submit" colorScheme="green" >
-              Создать
-            </Button>
+            <form onClick={submitHandler}>
+              <Button type="submit" colorScheme="green">
+                Создать
+              </Button>
             </form>
           </ModalFooter>
         </ModalContent>

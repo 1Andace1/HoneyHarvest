@@ -22,13 +22,13 @@ router.put('/users/:id', upload.single('profilePhoto'), async (req, res) => {
   const { username, email, password, telephone, userCity } = req.body;
   const profilePhoto = req.file; // доступ к загруженному файлу
 
-  // console.log('PROFILE =============req.body', req.body);
-  // console.log('PROFILE =============username', username);
-  // console.log('PROFILE =============email', email);
-  // console.log('PROFILE =============password', password);
-  // console.log('PROFILE =============profilePhoto', profilePhoto);
-  // console.log('PROFILE =============telephone', telephone);
-  // console.log('PROFILE =============userCity', userCity);
+  console.log('PROFILE =============req.body', req.body);
+  console.log('PROFILE =============username', username);
+  console.log('PROFILE =============email', email);
+  console.log('PROFILE =============password', password);
+  console.log('PROFILE =============profilePhoto', profilePhoto);
+  console.log('PROFILE =============telephone', telephone);
+  console.log('PROFILE =============userCity', userCity);
 
   if (!(username && email)) {
     return res

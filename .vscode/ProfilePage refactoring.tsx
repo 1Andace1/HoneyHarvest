@@ -189,7 +189,7 @@ function ProfilePag_refactoring(): JSX.Element {
             p={3}
             borderWidth={1}
             borderRadius="md"
-            w="20%"
+            w="30%"
             bg="#F0FFF4"
             className={styles.boxСontainer2}
           >
@@ -202,7 +202,7 @@ function ProfilePag_refactoring(): JSX.Element {
             p={3}
             borderWidth={1}
             borderRadius="md"
-            w="40%"
+            w="30%"
             bg="#F0FFF4"
             className={styles.boxСontainer2}
           >

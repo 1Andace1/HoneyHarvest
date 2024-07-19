@@ -18,29 +18,28 @@ const UserProfileCard: React.FC<UserProfileCardProps> = ({ user, onEdit }) => {
   return (
     <Box
       bg="rgba(198, 246, 213, 0.8)"
-      color="#f8f9fb"
-      w="100%"
-      h="100%"
-      // p="0" m="0"
+      w="100%" // Ширина 100% от родительского элемента
+      h="100%" // Высота 100% от родительского элемента
+      p="30px" // Внутренние отступы со всех сторон (измените по необходимости)
+      m="30px" // Внешние отступы со всех сторон (измените по необходимости)
       // w={{ base: '50%', md: '80%', lg: '60%' }}
-      maxW="800px"
-      mx="auto"
-      my={5}
+      maxW="100%" // Максимальная ширина 100% от родительского элемента
+      maxH="100%" // Максимальная высота 100% от родительского элемента
+      mx="auto" // Автоматические отступы по горизонтали для центрирования
+      my="20px" // Отступы по вертикали
       boxShadow="md"
       textAlign="center"
       className={styles.boxСontainer}
-      p={5} // Уменьшаем padding для компактности
       flexDirection="column" // ! Устанавливаем вертикальное расположение элементов
-      display="flex" // Добавляем flex для центрирования элементов по центру
-      justifyContent="center" // Центрируем по горизонтали
-      alignItems="center" // Центрируем по вертикали
-      flexWrap="wrap" //чтобы элементы переносились на новую строку при необходимости
-      transition="all  ease" // Плавная анимация перехода
-      borderRadius="18px" // Округляем углы блока
+      display="flex" 
+      justifyContent="center"
+      alignItems="center"
+      flexWrap="wrap"
+      transition="all 0.3s ease" // Добавляем время для плавных переходов
+      borderRadius="18px" 
       _hover={{
-        // Эффекты при наведении
-        transform: 'scale(1.02)', // Увеличение масштаба
-        boxShadow: 'lg', // Увеличиваем тень при наведении
+         transform: 'scale(1.02)', 
+        boxShadow: 'lg', 
       }}
     >
       <Image
@@ -80,11 +79,12 @@ const UserProfileCard: React.FC<UserProfileCardProps> = ({ user, onEdit }) => {
       <Button
         size="sm" // Уменьшаем размер кнопки до small (sm)
         bg="rgb(139, 189, 108)"
-        _hover={{ bg: 'rgb(172, 208, 149)' }}
-        _active={{ bg: '#48BB78' }}
+        color="#ffffff" // Цвет текста
+        _hover={{ bg: '#8bbd6c'}}
+        _active={{ bg: '#89ac76' }}
         _focus={{
-          borderColor: 'rgb(139, 189, 108)',
-          boxShadow: '0 0 0 3px rgb(139, 189, 108)',
+          borderColor: '#89ac76',
+          boxShadow: '#89ac76',
           outline: 'none',
         }}
         fontSize="0.7rem" // Увеличиваем размер шрифта кнопки

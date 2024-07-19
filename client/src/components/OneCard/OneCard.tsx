@@ -10,6 +10,7 @@ import {
   Image,
   WrapItem,
   Tag,
+  Box,
 } from "@chakra-ui/react";
 import { IProduct } from "../../types/stateTypes";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -31,6 +32,7 @@ export default function OneCard({
   el: IProduct;
   type: string;
   handleRemoveProduct: (id: number) => void;
+  basketId: number;
 }): JSX.Element {
   const navigate = useNavigate();
   const oneProductPage = () => {
@@ -71,6 +73,33 @@ export default function OneCard({
     (state: { authSlice: AuthState }) => state.authSlice
   );
   // const { basket } = useAppSelector((state) => state.basketSlice);
+
+
+// Компонент для отображения рейтинга продукта
+const ProductRating: React.FC = () => {
+  const renderStars = () => {
+    const stars = [];
+    for (let i = 0; i < starsRating; i++) {
+      stars.push(
+        <Image
+          key={i}
+          src="/icons/star_rating.png"
+          alt={`Star ${i + 1}`}
+          boxSize="20px"
+          objectFit="cover"
+          marginRight="2px" // Расстояние между звездами
+        />
+      );
+    }
+    return stars;
+  };
+  return (
+    <Box display="flex" justifyContent={"center"}>
+      {renderStars()}
+    </Box>
+  );
+}
+
 
   function basketHandler(id: number): void {
     // @ts-ignore
@@ -150,7 +179,13 @@ export default function OneCard({
                   Цена: <br /> {price} руб. / 100 гр.
                 </Text>
               )}
-              <Text>Рейтинг: {starsRating}</Text>
+              {/* <Text>Рейтинг: {starsRating}</Text> */}
+              <ProductRating />
+
+
+
+
+
             </Stack>
           </CardBody>
           {/* <Divider /> */}

@@ -6,12 +6,12 @@ const { response } = require('express');
 
 router
   .get('/all', async (req, res) => {
-        try {
+    try {
       const entries = await Comment.findAll({
         include: {
           model: User,
-          attributes: [ 'username']
-        }
+          attributes: ['username'],
+        },
       });
       const allComments = entries.map((el) => el.get({ plain: true }));
       res.json(allComments);
@@ -37,11 +37,11 @@ router
     try {
       const comment = await Comment.findByPk(id);
       // проверка пользователя на наличие у него статуса админа или на авторство ранее созданного комментария:
-      if ( res.locals.user.isAdmin || res.locals.user.id === comment.userId ) {  
-      comment.destroy();
-      res.sendStatus(200);
+      if (res.locals.user.isAdmin || res.locals.user.id === comment.userId) {
+        comment.destroy();
+        res.sendStatus(200);
       } else {
-      res.sendStatus(403);
+        res.sendStatus(403);
       }
     } catch (error) {
       console.log(error);
@@ -54,7 +54,9 @@ router
     // console.log('typeof productId', typeof productId, productId);
     // console.log('typeof text', typeof text, text);
     try {
-      console.log('++-----Зашли в TRY в ручке NEW в comment.api.router.js--------++');
+      console.log(
+        '++-----Зашли в TRY в ручке NEW в comment.api.router.js--------++'
+      );
       const entry = await Comment.create({ userId, productId, text });
       const response = entry.get({ plain: true });
       res.json(response);
@@ -63,29 +65,32 @@ router
       res.sendStatus(400);
     }
   })
-  .put('/put', verifyAccessToken, async (req, res) => {  
+  .put('/put', verifyAccessToken, async (req, res) => {
     const { id, userId, productId, text } = req.body;
     // console.log('typeof id', typeof id, id);
     // console.log('typeof userId', typeof userId, userId);
     // console.log('typeof productId', typeof productId, productId);
     // console.log('typeof text', typeof text, text);
     try {
-      console.log('++-----Зашли в TRY в ручке PUT в comment.api.router.js--------++');
+      console.log(
+        '++-----Зашли в TRY в ручке PUT в comment.api.router.js--------++'
+      );
       const comment = await Comment.findByPk(id);
       // проверка юзера на авторство ранее созданного комментария:
       if (res.locals.user.id === comment.userId) {
-      await comment.update({ userId, productId, text });
-      const response = comment.get({ plain: true });
-      res.send(response);
+        await comment.update({ userId, productId, text });
+        const response = comment.get({ plain: true });
+        res.send(response);
       } else {
-      res.sendStatus(403);
+        res.sendStatus(403);
       }
     } catch (error) {
       console.error(error);
       res.sendStatus(400);
     }
   })
-  .put('/putisverified', verifyAccessToken, async (req, res) => {  // сделать мидлварку на проверку прав админа
+  .put('/putisverified', verifyAccessToken, async (req, res) => {
+    // сделать мидлварку на проверку прав админа
     const { id, isVerified } = req.body;
     // console.log('typeof id', typeof id, id);
     // console.log('typeof isVerified', typeof isVerified, isVerified);
@@ -95,6 +100,39 @@ router
       const updatedEntry = await Product.findByPk(id);
       const response = updatedEntry.get({ plain: true });
       res.send(response);
+    } catch (error) {
+      console.error(error);
+      res.sendStatus(400);
+    }
+  })
+
+  .put('/putlike/:id', verifyAccessToken, async (req, res) => {
+    console.log('Мы зашли в ручку редактирования лайков');
+    const { id } = req.params;
+    const { userId } = req.body;
+    const commentId = id;
+    try {
+      // const likeEntry = await Like.findOne({
+      //   where: {
+      //     commentId,
+      //     userId
+      //   }
+      // });
+
+// console.log('likeEntry', likeEntry);
+
+
+
+      const entry = await Comment.findByPk(id);
+      const newLikeCount = entry.likesQuantity + 1;
+      // console.log('entry------->', entry);
+      // console.log('newLikeCount------->', newLikeCount);
+      await entry.update({
+        likesQuantity: newLikeCount,
+      });
+      // console.log('Новая запись', entry);
+      const response = { newLikeCount };
+      res.sendStatus(200);
     } catch (error) {
       console.error(error);
       res.sendStatus(400);
