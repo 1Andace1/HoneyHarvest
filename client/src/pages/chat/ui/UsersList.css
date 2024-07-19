@@ -1,0 +1,67 @@
+.user-item {
+    display: flex;
+    align-items: center;
+  }
+  
+  .username {
+    margin-left: 5px; 
+  }
+  .p-2 {
+    display: flex;
+    align-items: center; 
+    
+  }
+  
+  .p-2 .DotOnlineIcon {
+    margin-right: 10px; 
+  }
+  
+.report-button {
+  top:350px;
+ 
+  left:25px;
+  
+}
+.users-list-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(179, 179, 204);
+  border-radius: 10px;
+  color: rgb(0, 0, 0);
+  padding: 20px;
+  z-index: 1000; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+}
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный фон */
+  z-index: 999; /* Фон должен быть ниже модального окна */
+}
+.btnClose{
+width: 105px;
+padding-right: 2px;
+padding-left: 2px;
+}
+.primary{
+  margin-left: 10px;
+  padding-left:20px;
+  padding:10px;
+}
+.reportDescription{
+  padding-left: 20px;
+}
+.input{
+  margin-left: 10px;
+}

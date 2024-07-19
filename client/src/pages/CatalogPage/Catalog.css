@@ -1,0 +1,66 @@
+.filter-component  {
+    z-index: 1000;
+    position: fixed;
+    top: 60px;
+    left: 0px;
+    width: 250px;
+    background-color: rgba(59, 52, 19, 0.5);
+    padding: 20px;
+    border: 1px solid #000000;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(1, 0, 1, 0.1);
+    margin-top: 100px;
+    z-index: 1000;
+
+    
+    color: rgb(255, 255, 255);
+    border-color: black;
+  }
+  .choise{
+    background-color: rgb(141, 111, 70);
+  }
+  .variant{
+    background-color: blue;
+  }
+  /* .btnFilter {
+    display: flex;
+    text-align: right;
+    flex-direction: row;
+    position: fixed;
+    z-index: 10;
+    height: 50px;
+    width: 200px;
+    right: 900px;
+    top:75px;
+     border-radius: 200px;
+  } */
+
+  .btnFilter {
+    display: flex;
+    align-items: center; /* Выравнивание по вертикали внутри кнопки */
+    justify-content: center; /* Центрирование содержимого по горизонтали */
+    position: fixed;
+    z-index: 10;
+    height: 50px;
+    width: 200px;
+    right: 20px; /* Фиксация кнопки справа */
+    top: 75px;
+    border: 2px solid black; /* Черная рамка */
+    border-radius: 200px;
+    color: white; /* Белый цвет текста */
+    background-color: green; /* Цвет фона кнопки */
+    text-align: center;
+  }
+
+
+
+{/*       <Button
+              type="submit"
+              style={{
+                backgroundColor: '#8bbd6c',
+                borderRadius: '8px',
+                borderWidth: '1.5px',
+                color: '#ffffff',
+                cursor: 'pointer',
+              }}
+            > */}

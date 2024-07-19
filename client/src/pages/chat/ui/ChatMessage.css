@@ -1,0 +1,111 @@
+.chat-message {
+    display: flex;
+    margin-bottom: 10px;
+  }
+  
+  .current-user {
+    justify-content: flex-end;
+  }
+  
+  .other-user {
+    justify-content: flex-start;
+  }
+  
+  .message-content {
+    max-width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #f1f1f1;
+  }
+  
+  .current-user .message-content {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .message-username {
+    font-weight: bold;
+    margin-bottom: 5px;
+    border-bottom: 1px solid blue;
+  }
+  
+  .message-text { 
+      word-wrap: break-word; 
+      white-space: pre-wrap; 
+      margin-right: 20px;
+      text-align: left;
+      width: 180px;
+     
+      color: rgb(255, 255, 255);
+      background-color: #92686f;
+      padding-left: 10px;
+      padding-bottom: 3px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+      
+  }
+  .you{
+    display: flex;
+    justify-content: start;
+    margin-right: 15px;
+    padding-right: 70px;
+    background-color: rgb(141, 211, 131);
+    border-radius: 30px;
+    color: #ffffff;
+    width: 240px;
+    height: 80px;
+    justify-content: flex-start;
+    align-items: center;
+    border-top: 2px solid rgb(13, 105, 33);
+    border-bottom-left-radius: 0px;
+  }
+  .other{
+   
+      display: flex;
+      justify-content: start;
+      
+      
+      background-color: rgb(222, 217, 111);
+      border-radius: 30px;
+      color: #f1f1f1;
+     width: 240px;
+     height: 80px;
+     justify-content: flex-start;
+     align-items: center;
+     border-top: 2px solid rgb(235, 138, 28);
+     border-bottom-right-radius: 0px;
+    }
+    .youName{
+      border-bottom: 1px solid rgb(164, 65, 119);
+      border-left: 1px solid rgb(164, 65, 119);
+      border-radius: 10px;
+      background-color: #d8c7c7;
+      color:rgb(164, 65, 119);
+      padding-right: 5px;
+      width: 125px;
+      
+    }
+    .otherName{
+      
+      border-bottom: 1px solid rgb(164, 65, 119);
+      border-left: 1px solid rgb(164, 65, 119);
+      border-radius: 10px;
+      background-color: #d8c7c7;
+      color:rgb(164, 65, 119);
+      text-align: right;
+      width: 125px;
+      margin-left: 54px;
+      padding-right: 5px;
+    }
+    
+  
+    .you .youName, .other .otherName {
+      align-self: flex-start;
+      
+    }
+    .card-body{
+      margin-left: 30px;
+    }
+   
+    

@@ -3,12 +3,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   width: 40vw;
-
-  padding: 20px;
-  border: 1px solid #3f3e3e;
+  padding: 30px;
+  border: 1px solid #bedf9d;
   border-radius: 10px;
+  
 }
 
 .head {
@@ -17,7 +16,6 @@
 
 .inputs {
   width: 100%;
-
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -25,9 +23,71 @@
 }
 
 .inputs input {
-  margin-bottom: 20px
+  margin-bottom: 23px;
+  border: 1px solid #c6e88b; /* Применяем цвет рамки поля ввода */
+  padding: 10px; /* Добавляем отступ вокруг текста в поле ввода */
+  /* border-radius: 5px; Закругляем углы рамки */  
+  transition: border-color 0.3s ease, transform 0.3s ease;
+  .inputs input:hover {
+    transform: translateY(50px); /* Поднимаем поле ввода при наведении */
+  }
 }
 
 .btns {
   margin-top: 20px;
+}
+.inputs input:focus {
+  border-color: #86ae5f; /* Цвет рамки при фокусе */
+  outline: none; /* Убираем стандартную обводку */
+}
+
+.btns button {
+  /* Другие стили */
+  background-color: #8bbd6c; /* Цвет фона кнопки */
+  color: white; /* Цвет текста */
+  padding: 10px 20px; /* Поля внутри кнопки */
+  border: none; /* Убираем границу */
+  border-radius: 5px; /* Закругляем углы */
+  cursor: pointer; /* Указатель при наведении */
+  transition: background-color 0.3s ease; /* Плавное изменение цвета фона */
+}
+
+.btns button:hover {
+  background-color: #91d067; /* Изменяем цвет фона кнопки при наведении */
+}
+
+.inputs input.valid {
+  border-color: #8ecb68; /* Зеленая рамка для правильно заполненных полей */
+}
+
+.inputs input.invalid {
+  border-color: #ff6347; /* Красная рамка для неправильно заполненных полей */
+}
+
+
+input[type="file"] {
+  color: #a48383; /* Цвет текста в кнопке выбора файла */
+  background-color: #ffffff; /* Цвет фона кнопки выбора файла */
+  border: 1px solid #c6e88b;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  border-color: #8ecb68;
+}
+
+input[type="file"]:hover {
+  background-color: #ffffff; /* Цвет фона кнопки при наведении */
+}
+
+.fileInput {
+  color: #ffffff; /* Цвет текста в кнопке выбора файла */
+  background-color: #d4bcbc; /* Цвет фона кнопки выбора файла */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.fileInput:hover {
+  background-color: #ffffff; /* Цвет фона кнопки при наведении */
 }

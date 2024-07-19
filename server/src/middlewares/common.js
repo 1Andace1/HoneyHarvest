@@ -17,14 +17,14 @@ function removeHeader(req, res, next) {
     }
   }
 
-  function checkBody(req, res, next) {
-    const {education, skills, experience, isPublic } = req.body
-    if (education || skills || experience || isPublic) {
-      next()
-    } else {
-      res.status(409).send('Нет необходимых данных для изменений')
-    }
-  }
+  // function checkBody(req, res, next) {
+  //   const {education, skills, experience, isPublic } = req.body
+  //   if (education || skills || experience || isPublic) {
+  //     next()
+  //   } else {
+  //     res.status(409).send('Нет необходимых данных для изменений')
+  //   }
+  // }
 
 
-  module.exports = { removeHeader, checkId, checkBody }
+  module.exports = { removeHeader, checkId }

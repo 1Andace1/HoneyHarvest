@@ -16,7 +16,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       discountRatio: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.FLOAT,
       },
       category: {
         type: Sequelize.STRING,
@@ -33,11 +33,16 @@ module.exports = {
       availableQuantity: {
         type: Sequelize.INTEGER,
       },
-      pictures: {
+      picture: {
+        defaultValue: "./productsPhoto/pattern.jpeg",
         type: Sequelize.STRING,
       },
       location: {
         type: Sequelize.STRING,
+      },
+      starsRating: {
+        defaultValue: 0,
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,
