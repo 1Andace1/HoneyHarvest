@@ -31,6 +31,7 @@ export default function OneCard({
   el: IProduct;
   type: string;
   handleRemoveProduct: (id: number) => void;
+  basketId: number;
 }): JSX.Element {
   const navigate = useNavigate();
   const oneProductPage = () => {

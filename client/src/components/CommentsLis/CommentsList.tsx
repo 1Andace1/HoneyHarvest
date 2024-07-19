@@ -6,7 +6,7 @@ import {
   CommentState,
 } from "../../redux/types/states";
 import { getAllComments } from "../../redux/thunkActionsComment";
-import { Heading, VStack } from "@chakra-ui/react";
+import { Flex, Heading, VStack } from "@chakra-ui/react";
 import { IComment, IProduct } from "../../types/stateTypes";
 import OneComment from "./OneComment";
 import ModalFormCreateComment from "../ModalForm/ModalFormCreateComment";
@@ -43,12 +43,15 @@ export default memo(function CommentsList({
         // divider={<StackDivider borderColor='gray.200' />}
         spacing={4}
         align="stretch"
+        w='100%'
+        bg="#F0FFF4"
       >
         {user?.id ? (
           <ModalFormCreateComment currentProduct={currentProduct} />
         ) : (
           false
         )}
+
         {comments.length ? (
           comments
             .filter(

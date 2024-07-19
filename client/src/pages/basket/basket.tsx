@@ -159,6 +159,7 @@ const Basket: React.FC = () => {
           {baskets.map(basket => (
             <li key={basket.id}>
               <div className="one-card-container animate__animated animate__fadeInDown">
+                
                 <OneCard type="basket" el={basket.product} handleRemoveProduct={handleRemoveProduct} basketId={basket.id} />
               </div>
               {/* <div className="product-actions animate__animated animate__fadeInDown">
