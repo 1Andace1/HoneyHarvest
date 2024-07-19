@@ -73,7 +73,7 @@ background-color: #d9d6c8;
   display: flex;
   justify-content: space-around;
   padding: 23px;
-  background: linear-gradient(to bottom, #cce8cc, #829e82);
+  /* background: linear-gradient(to bottom, #cce8cc, #829e82); */
   font-size: 17px;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
