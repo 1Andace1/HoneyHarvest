@@ -15,6 +15,9 @@ import { AuthState } from "../../redux/types/states";
 import { delComment } from "../../redux/thunkActionsComment";
 import EditIcon from "../../ui/icons/EditIcon";
 import "./OneComment.css";
+import axiosInstance from "../../axiosInstance";
+import { AxiosResponse } from "axios";
+import { useState } from "react";
 
 export default function OneComment({ el }: { el: IComment }): JSX.Element {
   // const navigate = useNavigate();
@@ -44,6 +47,21 @@ export default function OneComment({ el }: { el: IComment }): JSX.Element {
     dispatch(delComment(id));
   }
 
+  const { VITE_API, VITE_BASE_URL }: ImportMeta["env"] = import.meta.env;
+  const [likeCount, setLikeCount] = useState<number>(likesQuantity);
+  async function addLike(): Promise<void> {
+    console.log('VITE_BASE_URL----->', VITE_BASE_URL);
+    console.log('VITE_API----->', VITE_API);
+    try {
+      const userId = user.id
+      const { data }: AxiosResponse = await axiosInstance.put(`${VITE_BASE_URL}${VITE_API}/comment/putlike/${el.id}`, userId)
+      console.log("data like:", data)
+      setLikeCount((pre: number): number => pre + 1)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <div>
       <Container maxW='container.sm' size="lg" variant="bold">
@@ -66,7 +84,12 @@ export default function OneComment({ el }: { el: IComment }): JSX.Element {
                 {text}
               </Highlight>
             </Text>
-            <Text>Количество лайков: {likesQuantity}</Text>
+            {/* <Text>Количество лайков: {likesQuantity}</Text> */}
+            <button 
+            onClick={addLike}
+            >
+          {likeCount ? `❤️️ ${likeCount}` :  '💛 0'}
+        </button>
           {/* <Divider /> */}
             <ButtonGroup spacing="2">
               {el.userId === user.id ? (

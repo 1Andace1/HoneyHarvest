@@ -19,7 +19,7 @@ module.exports = {
           productId: 1,
           text: 'Еле удержался от того, чтобы не съесть сразу полбанки',
           isVerified: true,
-          likesQuantity: 5,
+          likesQuantity: 75,
           createdAt: Sequelize.fn('NOW'),
         },
         {
@@ -27,7 +27,7 @@ module.exports = {
           productId: 1,
           text: 'Самое то - утром выпить чаю с этим мёдом, чтобы зарядиться энергией для работы со студентами',
           isVerified: true,
-          likesQuantity: 4,
+          likesQuantity: 64,
           createdAt: Sequelize.fn('NOW'),
         },
         {
@@ -35,7 +35,7 @@ module.exports = {
           productId: 1,
           text: 'Очень вкусно!! Единственный недостаток - тяжело остановиться и всё не съесть за раз',
           isVerified: true,
-          likesQuantity: 6,
+          likesQuantity: 56,
           createdAt: Sequelize.fn('NOW'),
         },
         {
@@ -43,7 +43,7 @@ module.exports = {
           productId: 2,
           text: 'Пока не пробовала, но судя по отзывам, хороший продукт. Упаковка замечательная, в подарок тоже хорошо. Своё впечатление добавлю позднее',
           isVerified: true,
-          likesQuantity: 0,
+          likesQuantity: 48,
           createdAt: Sequelize.fn('NOW'),
         },
         {
