@@ -105,7 +105,7 @@ const WeatherForecast: React.FC = (): JSX.Element => {
           maxTemp: item.main.temp_max,
           description: item.weather[0].description,
           weatherIcon: `https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`,
-          city: 'Москва'
+          city: 'Москва',
         };
       } else {
         groupedByDate[date].minTemp = Math.min(
@@ -204,11 +204,7 @@ const WeatherForecast: React.FC = (): JSX.Element => {
   return (
     <Box className="weather-container">
       <div className="weather-forecast-container">
-        <Flex
-          w="100%"
-          alignItems="flex-start"
-          justifyContent="space-around"
-        >
+        <Flex w="100%" alignItems="flex-start" justifyContent="space-around">
           <Box w="20%" className="left-section">
             <div className="city-input">
               {selectedDay && (
@@ -226,13 +222,32 @@ const WeatherForecast: React.FC = (): JSX.Element => {
                 value={city}
                 onChange={handleCityChange}
               />
-              <Button onClick={handleCitySubmit}>Обновить</Button>
+              <Button 
+               bg="rgb(139, 189, 108)"
+                      _hover={{ bg: '#8bbd6c'}}
+               _active={{ bg: '#89ac76' }}
+               _focus={{
+                 borderColor: '#89ac76',
+                 boxShadow: '#89ac76',
+                 outline: 'none',
+               }}
+               fontSize="0.8rem" // Увеличиваем размер шрифта кнопки
+               width="auto" // Устанавливаем ширину кнопки "по содержимому"
+               padding="0.95rem 2.3rem" // Увеличиваем padding для увеличения размера кнопки
+              
+              onClick={handleCitySubmit}>
+                Обновить
+              </Button>
             </div>
           </Box>
           <Box w="75%" className="right-section">
             {weatherData.length > 0 &&
               visibleWeatherData.map((day) => (
-                <WeatherDay key={day.date} day={day} onDayClick={handleDayClick} />
+                <WeatherDay
+                  key={day.date}
+                  day={day}
+                  onDayClick={handleDayClick}
+                />
               ))}
           </Box>
         </Flex>
