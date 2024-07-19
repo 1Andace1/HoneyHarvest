@@ -83,6 +83,7 @@ background-color: #d9d6c8;
   background-size: cover; /* Это свойство масштабирует изображение, чтобы оно заполнило элемент, сохраняя пропорции */
   background-position: center; /* Это свойство центрирует изображение */
   background-repeat: no-repeat; /* Это свойство предотвращает повторение изображения */
+  filter: brightness(1.5);
    
   
   
