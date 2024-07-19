@@ -21,7 +21,7 @@ interface LevelInfo {
     };
 
     private achievements: Achievement[] = [
-      { id: '1', name: 'Медовый гурман', description: 'Совершить 2 заказа с медом разных сортов', descriptionDone: 'Ура, поздравляем! Вы купили уже 2 меда разных сортов', isCompleted: false, icon: `http://localhost:3000/icons/honey_1.png` },
+      { id: '1', name: 'Медовый любитель', description: 'Успешно зарегистрироваться на сайте', descriptionDone: 'Ура, поздравляем! Вы успешно зарегистрировались', isCompleted: false, icon: `http://localhost:3000/icons/honey_1.png` },
       { id: '2', name: 'Медовый критик', description: 'Написать 5 отзывов о товарах', descriptionDone: 'Ура, поздравляем! Вы написали 5 отзывов о товарах', isCompleted: false, icon: 'http://localhost:3000/icons/honey_2.png' },
       { id: '3', name: 'Медовый эксперт', description: 'Купить товар из каждой категории более 1 раза', descriptionDone: 'Ура, поздравляем! Вы попробовали абсолютно все и теперь Гуру всех категорий!', isCompleted: false, icon: 'http://localhost:3000/icons/honey_3.png' },
       // ? подумать мне еще какие достижения внести
@@ -50,7 +50,7 @@ interface LevelInfo {
       this.achievements.forEach(achievement => {
         switch (achievement.id) {
           case '1':
-            achievement.isCompleted = userActions.ordersCount >= 2;
+            achievement.isCompleted = userActions.ordersCount >= 0;
             break;
           case '2':
             achievement.isCompleted = userActions.reviewsCount >= 5;

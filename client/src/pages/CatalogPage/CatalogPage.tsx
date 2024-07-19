@@ -1,12 +1,12 @@
-import { memo, useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import OneCard from "../../components/OneCard/OneCard";
-import { Button, Heading, Wrap } from "@chakra-ui/react";
-import { getProducts } from "../../redux/thunkActionsCatalog";
-import { AuthState, ProductState } from "../../redux/types/states";
-import { IProduct } from "../../types/stateTypes";
-import FilterComponent from "./Filter";
-import ModalFormCreate from "../../components/ModalForm/ModalFormCreate";
+import { memo, useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import OneCard from '../../components/OneCard/OneCard';
+import { Button, Heading, Wrap } from '@chakra-ui/react';
+import { getProducts } from '../../redux/thunkActionsCatalog';
+import { AuthState, ProductState } from '../../redux/types/states';
+import { IProduct } from '../../types/stateTypes';
+import FilterComponent from './Filter';
+import ModalFormCreate from '../../components/ModalForm/ModalFormCreate';
 // import styles from "./Catalog.css";
 
 export default memo(function CatalogPage(): JSX.Element {
@@ -38,7 +38,7 @@ export default memo(function CatalogPage(): JSX.Element {
     starsRating: number;
     maxPrice: number;
   }) => {
-    console.log("++++++++++:", filter);
+    console.log('++++++++++:', filter);
     const { category, sort, location, starsRating, maxPrice } = filter;
     const filtered = products.filter((product: IProduct) => {
       return (
@@ -56,8 +56,35 @@ export default memo(function CatalogPage(): JSX.Element {
   return (
     <>
       {user?.isAdmin ? <ModalFormCreate /> : false}
-      <Button   colorScheme="green"display= "flex" text-align="center" flex-direction= "row" position="fixed" className="btnFilter" onClick={handleOpenFilter}>
-        <h2>фильтр</h2>
+      <Button
+  className="btnFilter"
+  variant="solid"
+  display="flex"
+  justifyContent="center" 
+  position="fixed"
+  left="10px" 
+  top="75px" 
+  onClick={handleOpenFilter}
+  style={{
+    color: "white", 
+    backgroundImage: "linear-gradient(to right,#CBD5E0, #EDF2F7)", 
+    borderColor: "#CBD5E0", 
+    borderWidth: "1.5px", 
+    borderStyle: "solid", 
+    borderRadius: "8px", 
+    height: "40px", 
+    width: "120px", 
+    zIndex: 10, 
+    textAlign: "center", 
+  }}
+  _hover={{
+    borderColor: "#CBD5E0"
+  }}
+  _active={{
+    borderColor: "#CBD5E0" 
+  }}
+>
+<h2 style={{ margin: 0 }}>фильтр</h2>
       </Button>
       {openFilter ? (
         <FilterComponent onFilterChange={handleFilterChange} />
